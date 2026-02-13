@@ -1,0 +1,29 @@
+{{- $docsSection := site.GetPage "/docs" -}}
+{{- $currentPage := . -}}
+
+<aside class="docs-sidebar">
+  <nav class="docs-nav">
+    <ul class="docs-nav__list">
+      {{- range $docsSection.Sections }}
+        {{- $isSectionActive := or (eq $currentPage.RelPermalink .RelPermalink) (hasPrefix $currentPage.RelPermalink .RelPermalink) }}
+        <li class="docs-nav__item{{ if $isSectionActive }} active{{ end }}">
+          <a href="{{ .RelPermalink }}" class="docs-nav__link docs-nav__link--section">
+            {{ .Title }}
+          </a>
+          {{- if $isSectionActive }}
+          <ul class="docs-nav__sublist">
+            {{- range .RegularPages }}
+              {{- $isPageActive := eq $currentPage.RelPermalink .RelPermalink }}
+              <li class="docs-nav__subitem">
+                <a href="{{ .RelPermalink }}" class="docs-nav__link{{ if $isPageActive }} active{{ end }}">
+                  {{ .Title }}
+                </a>
+              </li>
+            {{- end }}
+          </ul>
+          {{- end }}
+        </li>
+      {{- end }}
+    </ul>
+  </nav>
+</aside>

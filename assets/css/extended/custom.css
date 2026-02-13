@@ -1,0 +1,499 @@
+/* ============================================================================
+   MagicAF Documentation — Custom Styles
+   Stripe-inspired design system on top of PaperMod
+   ============================================================================ */
+
+/* --- Typography --------------------------------------------------------------- */
+
+:root {
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  --accent: #6366f1;
+  --accent-light: #818cf8;
+  --accent-subtle: #eef2ff;
+  --surface-elevated: #ffffff;
+  --border-subtle: #e5e7eb;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --text-tertiary: #9ca3af;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+}
+
+/* Support both .dark class and PaperMod's [data-theme="dark"] */
+.dark,
+[data-theme="dark"] {
+  --accent: #818cf8;
+  --accent-light: #a5b4fc;
+  --accent-subtle: rgba(99, 102, 241, 0.12);
+  --surface-elevated: #1e1e2e;
+  --border-subtle: #374151;
+  --text-primary: #f9fafb;
+  --text-secondary: #9ca3af;
+  --text-tertiary: #6b7280;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
+body {
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.011em;
+}
+
+/* --- Layout & Containers ----------------------------------------------------- */
+
+.main {
+  max-width: 820px;
+}
+
+.post-content {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text-primary);
+}
+
+.post-content p {
+  margin-bottom: 1.25em;
+}
+
+/* --- Headings ---------------------------------------------------------------- */
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 2.5em;
+  margin-bottom: 0.75em;
+  scroll-margin-top: 80px;
+}
+
+.post-content h1 { font-size: 2em; }
+.post-content h2 {
+  font-size: 1.5em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.post-content h3 { font-size: 1.25em; }
+.post-content h4 { font-size: 1.1em; color: var(--text-secondary); }
+
+/* --- Page title -------------------------------------------------------------- */
+
+.post-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin-bottom: 0.25em;
+}
+
+.post-description {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-top: 0;
+}
+
+/* --- Code blocks ------------------------------------------------------------- */
+
+.post-content code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+}
+
+.post-content :not(pre) > code {
+  background: var(--accent-subtle);
+  color: var(--accent);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.dark .post-content :not(pre) > code {
+  background: var(--accent-subtle);
+  color: var(--accent-light);
+}
+
+.post-content pre {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-sm);
+  padding: 1.25em;
+  margin: 1.5em 0;
+  overflow-x: auto;
+  font-size: 0.875em;
+  line-height: 1.65;
+}
+
+.post-content pre code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+/* Copy button polish */
+.copy-code {
+  border-radius: 6px !important;
+  font-size: 12px !important;
+  padding: 4px 10px !important;
+  background: var(--accent) !important;
+  color: white !important;
+  border: none !important;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.highlight:hover .copy-code {
+  opacity: 1;
+}
+
+/* --- Tables ------------------------------------------------------------------ */
+
+.post-content table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 1.5em 0;
+  font-size: 0.925em;
+  box-shadow: var(--shadow-sm);
+}
+
+.post-content th {
+  background: var(--accent-subtle);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75em 1em;
+  border-bottom: 2px solid var(--border-subtle);
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+}
+
+.post-content td {
+  padding: 0.75em 1em;
+  border-bottom: 1px solid var(--border-subtle);
+  vertical-align: top;
+}
+
+.post-content tr:last-child td {
+  border-bottom: none;
+}
+
+.post-content tbody tr:hover {
+  background: var(--accent-subtle);
+}
+
+/* --- Blockquotes / Callouts -------------------------------------------------- */
+
+.post-content blockquote {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-subtle);
+  padding: 1em 1.25em;
+  margin: 1.5em 0;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  color: var(--text-primary);
+}
+
+.post-content blockquote p {
+  margin: 0;
+}
+
+.post-content blockquote strong:first-child {
+  color: var(--accent);
+}
+
+/* --- Links ------------------------------------------------------------------- */
+
+.post-content a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease;
+}
+
+.post-content a:hover {
+  border-bottom-color: var(--accent);
+}
+
+/* --- Lists ------------------------------------------------------------------- */
+
+.post-content ul,
+.post-content ol {
+  padding-left: 1.5em;
+  margin-bottom: 1.25em;
+}
+
+.post-content li {
+  margin-bottom: 0.4em;
+  line-height: 1.7;
+}
+
+.post-content li > code {
+  font-size: 0.85em;
+}
+
+/* --- Horizontal rules -------------------------------------------------------- */
+
+.post-content hr {
+  border: none;
+  height: 1px;
+  background: var(--border-subtle);
+  margin: 2.5em 0;
+}
+
+/* --- Table of Contents ------------------------------------------------------- */
+
+.toc {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1em 1.25em;
+  margin-bottom: 2em;
+  background: var(--accent-subtle);
+}
+
+.toc .inner {
+  margin: 0;
+}
+
+.toc details summary {
+  font-weight: 700;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.toc ul {
+  padding-left: 1.25em;
+  margin-top: 0.75em;
+}
+
+.toc li {
+  margin-bottom: 0.3em;
+}
+
+.toc a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9em;
+  transition: color 0.15s ease;
+}
+
+.toc a:hover {
+  color: var(--accent);
+}
+
+/* --- Breadcrumbs ------------------------------------------------------------- */
+
+.breadcrumbs {
+  font-size: 0.85em;
+  color: var(--text-tertiary);
+  margin-bottom: 0.5em;
+}
+
+.breadcrumbs a {
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+  color: var(--accent);
+}
+
+/* --- Navigation -------------------------------------------------------------- */
+
+nav.nav {
+  box-shadow: var(--shadow-sm);
+}
+
+#menu a {
+  font-weight: 500;
+  font-size: 0.925em;
+  letter-spacing: -0.01em;
+}
+
+/* --- Home page hero ---------------------------------------------------------- */
+
+.first-entry {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 2.5em;
+}
+
+.first-entry .entry-header h2 {
+  font-size: 1.75em;
+  font-weight: 800;
+}
+
+/* --- Post list / section pages ----------------------------------------------- */
+
+.post-entry {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  margin-bottom: 0.75em;
+  padding: 1.25em;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.post-entry:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+.entry-header h2 {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+/* --- Step indicators / numbered guides --------------------------------------- */
+
+.post-content .steps {
+  counter-reset: step-counter;
+  list-style: none;
+  padding-left: 0;
+}
+
+.post-content .steps > li {
+  counter-increment: step-counter;
+  position: relative;
+  padding-left: 3em;
+  margin-bottom: 2em;
+}
+
+.post-content .steps > li::before {
+  content: counter(step-counter);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2em;
+  height: 2em;
+  background: var(--accent);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9em;
+}
+
+/* --- Responsive -------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+  .post-title {
+    font-size: 1.75rem;
+  }
+
+  .post-content {
+    font-size: 15px;
+  }
+
+  .post-content pre {
+    border-radius: var(--radius);
+    font-size: 0.8em;
+  }
+
+  .first-entry {
+    padding: 1.5em;
+  }
+}
+
+/* --- Utility classes --------------------------------------------------------- */
+
+.badge {
+  display: inline-block;
+  padding: 0.2em 0.6em;
+  font-size: 0.75em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-radius: 4px;
+  background: var(--accent);
+  color: white;
+}
+
+.badge--outline {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+.badge--rust {
+  background: #dea584;
+  color: #1a1a1a;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1em;
+  margin: 1.5em 0;
+}
+
+.card-grid .card {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  padding: 1.25em;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card-grid .card:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+.card-grid .card h3 {
+  margin-top: 0;
+  font-size: 1.05em;
+}
+
+.card-grid .card p {
+  font-size: 0.9em;
+  color: var(--text-secondary);
+  margin-bottom: 0;
+}
+
+/* --- Method signatures (API reference) --------------------------------------- */
+
+.method-sig {
+  background: var(--accent-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  padding: 0.75em 1em;
+  margin: 1em 0 0.5em;
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  overflow-x: auto;
+  font-weight: 500;
+}
+
+.method-sig .keyword {
+  color: var(--accent);
+}
+
+/* --- Print ------------------------------------------------------------------- */
+
+@media print {
+  nav.nav,
+  .toc,
+  .copy-code,
+  footer {
+    display: none !important;
+  }
+
+  .post-content {
+    font-size: 12pt;
+  }
+}

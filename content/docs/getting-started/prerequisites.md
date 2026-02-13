@@ -1,0 +1,89 @@
+---
+title: "Prerequisites - Defense-Grade, HIPAA-Compliant AI Toolkit"
+description: "System requirements and local services needed to run MagicAF — the defense-grade, HIPAA-compliant, airgapped AI toolkit for secure environments."
+weight: 1
+keywords: "defense-grade ai prerequisites, hipaa-compliant ai prerequisites, airgapped ai prerequisites, secure llm prerequisites, secure ai toolkit prerequisites"
+---
+
+MagicAF requires three local services and a Rust toolchain. All services communicate over HTTP — **no cloud accounts, no vendor SDKs, no external dependencies**. Perfect for **airgapped, SIPR/NIPR, secret, classified, and HIPAA-regulated environments** where data must never leave the network boundary.
+
+## Rust Toolchain
+
+MagicAF requires **Rust 1.75+** (2024 edition). Install via [rustup](https://rustup.rs/):
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+Verify your installation:
+
+```bash
+rustc --version   # 1.75.0 or later
+cargo --version
+```
+
+## Local Services
+
+MagicAF connects to three local HTTP services. You can use any compatible software.
+
+| Service | Default Port | Purpose | Recommended Software |
+|---------|-------------|---------|---------------------|
+| **Embedding server** | `8080` | Produce dense vector embeddings | llama.cpp (`--embedding`), text-embeddings-inference, vLLM |
+| **Vector database** | `6333` | Store and search embeddings | Qdrant |
+| **LLM server** | `8000` | Chat completion / text generation | vLLM, llama.cpp, TGI, Ollama |
+
+### Quick Setup with Docker
+
+The fastest way to get all services running:
+
+**1. Qdrant** — Vector database
+
+```bash
+docker run -d --name qdrant \
+  -p 6333:6333 -p 6334:6334 \
+  qdrant/qdrant:latest
+```
+
+**2. Embedding Server** — llama.cpp with an embedding model
+
+```bash
+# Download a quantized embedding model
+wget https://huggingface.co/second-state/BGE-large-EN-v1.5-GGUF/resolve/main/bge-large-en-v1.5-Q4_K_M.gguf
+
+# Start the embedding server
+./llama-server \
+  -m bge-large-en-v1.5-Q4_K_M.gguf \
+  --embedding \
+  --port 8080
+```
+
+**3. LLM Server** — vLLM with an instruction-tuned model
+
+```bash
+python -m vllm.entrypoints.openai.api_server \
+  --model mistralai/Mistral-7B-Instruct-v0.2 \
+  --port 8000
+```
+
+> **Tip:** Any server that exposes an OpenAI-compatible `/v1/chat/completions` endpoint will work — Ollama, LocalAI, text-generation-inference, or a custom FastAPI server.
+
+## Verify Services
+
+Check that all services are responding:
+
+```bash
+# Qdrant
+curl http://localhost:6333/healthz
+
+# Embedding server
+curl http://localhost:8080/health
+
+# LLM server
+curl http://localhost:8000/v1/models
+```
+
+All three should return successful HTTP responses.
+
+---
+
+**Next:** [Installation →](/docs/getting-started/installation/)

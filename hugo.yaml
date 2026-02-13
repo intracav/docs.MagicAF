@@ -4,10 +4,15 @@ title: "MagicAF"
 theme: "PaperMod"
 
 enableRobotsTXT: true
+enableGitInfo: true
 buildDrafts: false
 buildFuture: false
 buildExpired: false
 enableEmoji: true
+
+# SEO Configuration
+canonifyURLs: true
+relativeURLs: false
 
 minify:
   disableXML: true
