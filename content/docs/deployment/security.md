@@ -3,6 +3,12 @@ title: "Security"
 description: "Defense-grade security architecture, HIPAA compliance, and hardening guidance for secure AI deployments. Complete security checklist for classified, healthcare, and regulated environments."
 weight: 6
 keywords: [security, defense-grade, HIPAA-compliant, secure AI, classified security, healthcare security, compliance, hardening, secure deployment]
+tags: [deployment, security, hardening, logging, compliance, hipaa]
+categories: [deployment]
+difficulty: intermediate
+prerequisites: [/docs/deployment/docker/]
+estimated_reading_time: "6 min"
+last_reviewed: "2026-02-12"
 ---
 
 MagicAF is designed with security as a first principle. All services run locally, no data leaves the network boundary, and the framework makes no assumptions about data sensitivity. Learn more about MagicAF's [defense-grade architecture and compliance features](/about/).
@@ -93,3 +99,46 @@ Air-gapped deployments inherently prevent:
 - Unauthorized model or dependency updates
 
 See [Air-Gapped Setup](/docs/deployment/air-gapped/) for deployment instructions.
+
+---
+
+## Security FAQ for Compliance Officers
+
+### Does MagicAF ever phone home?
+
+No. MagicAF makes zero outbound network connections. All service endpoints are explicitly configured by the deployer (embedding server, vector store, LLM server), and they default to `localhost`. There is no telemetry, no update checking, no license validation, and no analytics. The framework is distributed as source code — you can verify this by auditing the codebase.
+
+### Where are API keys stored?
+
+API keys are passed as `Option<String>` fields in configuration structs (`EmbeddingConfig`, `VectorStoreConfig`, `LlmConfig`). They are:
+- **Never serialized to logs** — the `tracing` instrumentation excludes credential fields
+- **Never persisted to disk** by the framework — storage is the deployer's responsibility
+- **Transmitted only in HTTP `Authorization` headers** to the configured service endpoints
+
+For production, load API keys from environment variables or a secrets manager — never hardcode them in source files.
+
+### What data is written to logs?
+
+At the default `info` level, MagicAF logs:
+- Operation names and durations (e.g., "vector search completed in 3ms")
+- Collection names and result counts
+- Error messages and error codes
+- Token usage statistics (if reported by the LLM)
+
+MagicAF does **not** log at `info` level:
+- Query text or user input
+- Document content or payloads
+- Embedding vectors
+- LLM prompts or responses
+
+At `debug` and `trace` levels, additional operational data is logged. **Never use `debug` or `trace` in production** for classified or HIPAA environments.
+
+### Is MagicAF HIPAA-compliant?
+
+MagicAF is a framework, not a service — HIPAA compliance depends on your deployment. MagicAF supports HIPAA-compliant deployments by:
+- Running entirely on-premises with no cloud dependencies
+- Never inspecting, classifying, or persisting PHI within the framework
+- Providing structured logging that can be configured to exclude sensitive data
+- Supporting air-gapped deployment where no data can leave the network
+
+Your deployment must also address access controls, encryption at rest, audit logging, and BAA requirements — these are infrastructure-level concerns outside the framework's scope.

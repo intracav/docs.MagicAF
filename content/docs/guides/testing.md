@@ -2,6 +2,12 @@
 title: "Testing"
 description: "Unit test your adapters and workflows using mock services."
 weight: 3
+tags: [testing, mocks, unit-tests, integration-tests]
+categories: [guide]
+difficulty: intermediate
+prerequisites: [/docs/guides/building-adapters/]
+estimated_reading_time: "8 min"
+last_reviewed: "2026-02-12"
 ---
 
 MagicAF's trait-based design makes testing straightforward. You can test each adapter in isolation and test complete workflows using mock services — no live infrastructure required.

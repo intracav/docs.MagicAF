@@ -2,9 +2,26 @@
 title: "Traits & Interfaces"
 description: "The trait system that makes every MagicAF component swappable."
 weight: 3
+tags: [traits, interfaces, extensibility, generics, async]
+categories: [concept]
+difficulty: intermediate
+prerequisites:
+  - /docs/core-concepts/architecture/
+estimated_reading_time: "10 min"
+last_reviewed: "2026-02-12"
 ---
 
 MagicAF's extensibility comes from its trait-based design. Every major component is accessed through an async trait, and every trait can be implemented by your application.
+
+## Why Traits Instead of Concrete Types?
+
+MagicAF uses Rust traits (interfaces) rather than concrete types for three engineering reasons:
+
+**Compile-time dispatch, zero runtime overhead.** `RAGWorkflow` is generic over all trait parameters. The Rust compiler resolves every method call at compile time through monomorphization — there are no virtual function tables, no dynamic dispatch, no boxing. Your production binary runs as fast as if every component were hardcoded.
+
+**Testability with mocks.** Every trait can be implemented by a mock struct. This means you can unit-test your adapters without running Qdrant, without loading an LLM, and without an embedding server. The test suite runs in milliseconds, not minutes.
+
+**Swap implementations without changing callers.** The `RAGWorkflow` builder accepts any type that implements the required traits. Switching from `QdrantVectorStore` to `InMemoryVectorStore` changes one line in the builder call — no other code needs to be modified.
 
 ## Infrastructure Traits
 

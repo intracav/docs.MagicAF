@@ -3,6 +3,12 @@ title: "Air-Gapped Setup"
 description: "Deploy MagicAF in fully disconnected, classified, and defense-grade environments. Complete guide for SIPR/NIPR, HIPAA-compliant, and air-gapped AI deployments with zero internet dependencies."
 weight: 2
 keywords: [air-gapped, airgapped, classified deployment, SIPR, NIPR, defense-grade, HIPAA-compliant, offline AI, disconnected AI, secure deployment]
+tags: [deployment, air-gapped, offline, cargo-vendor, classified]
+categories: [deployment]
+difficulty: advanced
+prerequisites: [/docs/deployment/docker/]
+estimated_reading_time: "7 min"
+last_reviewed: "2026-02-12"
 ---
 
 MagicAF is designed for air-gapped environments from the ground up. Every service runs locally, and all dependencies can be vendored for offline use. For more information about MagicAF's security architecture and compliance features, see the [About page](/about/).
@@ -110,3 +116,35 @@ let store = InMemoryVectorStore::load(Path::new("store.json"))?;
 ```
 
 This eliminates the Qdrant dependency entirely. See [Edge & Mobile](/docs/deployment/edge-mobile/) for details.
+
+---
+
+## FAQ
+
+### How do I update models on an air-gapped network?
+
+Follow the same transfer process: download the new model weights on the connected machine, compute checksums, transfer via approved media, verify checksums, and swap the model directory. Restart the embedding or LLM server to load the new weights. No application code changes are needed — model names are configured via environment variables or config files.
+
+### What if `cargo vendor` misses a dependency?
+
+This typically happens when `Cargo.lock` is out of date. On the connected machine, run `cargo update` followed by `cargo vendor` to ensure all resolved dependencies are captured. Verify with `cargo build --release --offline` before transferring. If a build-time dependency (proc-macro, build script) triggers a network fetch, check for `build-dependencies` in your dependency tree with `cargo tree -e build`.
+
+### Can I use Podman instead of Docker?
+
+Yes. Podman is a drop-in replacement for Docker in this context. Replace `docker save` with `podman save`, `docker load` with `podman load`, and `docker compose` with `podman-compose`. All other steps remain the same. Podman's rootless mode is an additional security benefit for classified environments.
+
+### How do I verify model integrity after transfer?
+
+Generate SHA-256 checksums for all model files before transfer:
+
+```bash
+find ./models -type f -exec sha256sum {} \; > MODEL_MANIFEST.sha256
+```
+
+After transfer, verify on the air-gapped host:
+
+```bash
+sha256sum -c MODEL_MANIFEST.sha256
+```
+
+For classified environments, your organization may require additional integrity verification procedures (e.g., dual-person integrity checks).

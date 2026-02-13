@@ -2,9 +2,25 @@
 title: "Prerequisites"
 description: "System requirements and local services needed to run MagicAF."
 weight: 1
+tags: [setup, rust, docker, infrastructure]
+categories: [guide]
+difficulty: beginner
+prerequisites: []
+estimated_reading_time: "5 min"
+last_reviewed: "2026-02-12"
 ---
 
 MagicAF requires three local services and a Rust toolchain. All services communicate over HTTP — no cloud accounts, no vendor SDKs.
+
+{{< callout type="info" title="Hardware Expectations" >}}
+| Tier | CPU | RAM | GPU | Use Case |
+|------|-----|-----|-----|----------|
+| **Minimum** | 4 cores | 8 GB | None | CPU-only with small models (Phi-2, BGE-small) |
+| **Recommended** | 8 cores | 16 GB | 8+ GB VRAM | Mistral-7B (Q4) + BGE-large — good development experience |
+| **Production** | 16+ cores | 64+ GB | 24+ GB VRAM | Full FP16 models, concurrent users, large document collections |
+
+For detailed model-to-hardware mapping, see [Choosing Models](/docs/decision-guides/choosing-models/).
+{{< /callout >}}
 
 ## Rust Toolchain
 

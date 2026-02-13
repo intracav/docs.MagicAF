@@ -2,6 +2,13 @@
 title: "Installation"
 description: "Add MagicAF to your Rust project and configure the environment."
 weight: 2
+tags: [setup, cargo, dependencies, configuration]
+categories: [guide]
+difficulty: beginner
+prerequisites:
+  - /docs/getting-started/prerequisites/
+estimated_reading_time: "4 min"
+last_reviewed: "2026-02-12"
 ---
 
 ## Add Dependencies

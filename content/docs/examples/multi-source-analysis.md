@@ -2,7 +2,17 @@
 title: "Multi-Source Analysis"
 description: "Cross-reference multiple sources with fully custom adapters and complex structured output."
 weight: 3
+tags: [example, analysis, advanced, custom-adapters, generation-config]
+categories: [example]
+difficulty: advanced
+prerequisites: [/docs/examples/document-qa/]
+estimated_reading_time: "10 min"
+last_reviewed: "2026-02-12"
 ---
+
+Imagine you are an analyst at a research lab. Reports arrive from three different sources — field observations, technical assessments, and open-source monitoring. Each has a different format, classification level, and reliability. Your job is to cross-reference them and produce a structured summary: key findings, confidence assessment, information gaps, and recommended next steps.
+
+This is exactly the kind of task RAG excels at — the LLM reasons over retrieved evidence rather than generating from memory. But raw default adapters are not enough: you need domain-specific evidence formatting, a carefully structured prompt, and a parser that can handle complex nested output.
 
 This example demonstrates a multi-source analysis pipeline with custom implementations of all three adapter traits and a complex output schema.
 

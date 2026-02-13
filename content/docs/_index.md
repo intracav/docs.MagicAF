@@ -26,8 +26,20 @@ Understand the architecture, layered design, and trait-based extensibility model
 </div>
 <div class="card">
 
+### [Tutorials →](/docs/tutorials/)
+Guided, narrative walkthroughs that teach MagicAF concepts through hands-on projects.
+
+</div>
+<div class="card">
+
 ### [Guides →](/docs/guides/)
-Step-by-step tutorials for building custom adapters, structured output parsing, and more.
+Step-by-step how-to references for building custom adapters, structured output parsing, and more.
+
+</div>
+<div class="card">
+
+### [Decision Guides →](/docs/decision-guides/)
+Trade-off analysis for choosing models, adapter patterns, and deployment strategies.
 
 </div>
 <div class="card">
@@ -46,6 +58,12 @@ Docker Compose, air-gapped setup, edge/mobile deployment, observability, and sca
 
 ### [Examples →](/docs/examples/)
 Working code for minimal RAG, document Q&A, and multi-source analysis pipelines.
+
+</div>
+<div class="card">
+
+### [NLP Tools →](/docs/nlp-tools/)
+Production-grade NLP pipelines: NER, sentiment analysis, translation, QA, and more. All run in-process with no external services.
 
 </div>
 </div>
@@ -71,3 +89,4 @@ Working code for minimal RAG, document Q&A, and multi-source analysis pipelines.
 | `magicaf-core` | Traits, DTOs, config, error types, RAG engine, adapter interfaces, in-memory vector store |
 | `magicaf-qdrant` | Qdrant vector store implementation (REST API) |
 | `magicaf-local-llm` | OpenAI-compatible local LLM client |
+| `magicaf-nlp` | Production-grade NLP pipelines (NER, sentiment, translation, QA, etc.) — all run in-process |

@@ -2,6 +2,12 @@
 title: "RAGWorkflow"
 description: "API reference for the RAG pipeline engine — builder, execution, and result types."
 weight: 4
+tags: [api, rag, workflow, builder, pipeline]
+categories: [reference]
+difficulty: intermediate
+prerequisites: [/docs/core-concepts/rag-pipeline/]
+estimated_reading_time: "8 min"
+last_reviewed: "2026-02-12"
 ---
 
 ## Overview

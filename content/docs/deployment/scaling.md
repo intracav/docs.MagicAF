@@ -2,6 +2,12 @@
 title: "Scaling"
 description: "Horizontal scaling strategies for each MagicAF component."
 weight: 5
+tags: [deployment, scaling, horizontal, load-balancing, qdrant-cluster]
+categories: [deployment]
+difficulty: advanced
+prerequisites: [/docs/deployment/docker/]
+estimated_reading_time: "5 min"
+last_reviewed: "2026-02-12"
 ---
 
 MagicAF applications are stateless by design. Every component can be scaled independently.

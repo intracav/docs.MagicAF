@@ -2,9 +2,17 @@
 title: "Minimal RAG"
 description: "The simplest possible MagicAF RAG pipeline — default adapters, zero customization."
 weight: 1
+tags: [example, rag, beginner, defaults]
+categories: [example]
+difficulty: beginner
+prerequisites: [/docs/getting-started/quickstart/]
+estimated_reading_time: "6 min"
+last_reviewed: "2026-02-12"
 ---
 
-This example demonstrates the bare minimum needed to build a working RAG pipeline. It uses all default adapters and returns raw text output.
+You have just finished setting up MagicAF and want to see it work. You have a handful of documents — maybe internal wikis, technical specs, or research notes — and you want to ask questions and get answers grounded in those documents. You do not need fancy formatting or structured output yet; you just want to see the end-to-end flow.
+
+This example shows the bare minimum needed to build a working RAG pipeline. It uses all default adapters and returns raw text output — the fastest path from "installed" to "working."
 
 **Difficulty:** ★☆☆ Beginner
 **Custom adapters:** None

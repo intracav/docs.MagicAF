@@ -2,6 +2,12 @@
 title: "Configuration"
 description: "All configuration structs, their fields, defaults, and serialization options."
 weight: 6
+tags: [api, configuration, environment-variables, json, toml]
+categories: [reference]
+difficulty: beginner
+prerequisites: [/docs/getting-started/installation/]
+estimated_reading_time: "7 min"
+last_reviewed: "2026-02-12"
 ---
 
 All configuration structs derive `Serialize` and `Deserialize`, so they can be loaded from JSON, TOML, YAML files, or environment variables.

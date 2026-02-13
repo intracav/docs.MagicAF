@@ -3,6 +3,13 @@ title: "Quickstart"
 description: "Build a complete, secure RAG pipeline in under 50 lines of Rust. Get started with defense-grade AI toolkit for air-gapped, HIPAA-compliant deployments."
 weight: 3
 keywords: [quickstart, secure RAG, air-gapped RAG, HIPAA-compliant AI, defense-grade AI, secure pipeline]
+tags: [rag, pipeline, quickstart, embeddings, vector-search]
+categories: [guide]
+difficulty: beginner
+prerequisites:
+  - /docs/getting-started/installation/
+estimated_reading_time: "8 min"
+last_reviewed: "2026-02-12"
 ---
 
 This guide walks you through building a full Retrieval-Augmented Generation pipeline: embed documents, store them in a vector database, and answer questions using an LLM.

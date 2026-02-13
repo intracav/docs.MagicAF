@@ -2,6 +2,14 @@
 title: "Building Custom Adapters"
 description: "Implement domain-specific logic by creating custom EvidenceFormatter, PromptBuilder, and ResultParser traits."
 weight: 1
+tags: [adapters, traits, evidence-formatter, prompt-builder, result-parser]
+categories: [guide]
+difficulty: intermediate
+prerequisites:
+  - /docs/core-concepts/traits-and-interfaces/
+  - /docs/getting-started/quickstart/
+estimated_reading_time: "12 min"
+last_reviewed: "2026-02-12"
 ---
 
 Adapters are how your domain logic plugs into the MagicAF RAG pipeline. You implement three traits — each one controls a different stage of the pipeline — without modifying any framework code.

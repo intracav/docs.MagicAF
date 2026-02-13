@@ -2,6 +2,12 @@
 title: "EmbeddingService"
 description: "API reference for the EmbeddingService trait and LocalEmbeddingService."
 weight: 1
+tags: [api, embeddings, trait, local-embedding-service]
+categories: [reference]
+difficulty: intermediate
+prerequisites: [/docs/core-concepts/traits-and-interfaces/]
+estimated_reading_time: "8 min"
+last_reviewed: "2026-02-12"
 ---
 
 ## Trait Definition

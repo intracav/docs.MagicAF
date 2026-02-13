@@ -2,6 +2,12 @@
 title: "Error Handling"
 description: "MagicError variants, numeric error codes, helper constructors, and the Result alias."
 weight: 7
+tags: [api, errors, error-codes, ffi, result-type]
+categories: [reference]
+difficulty: intermediate
+prerequisites: [/docs/core-concepts/architecture/]
+estimated_reading_time: "6 min"
+last_reviewed: "2026-02-12"
 ---
 
 All MagicAF operations return `Result<T, MagicError>`. The error type is designed for both Rust-native `?` propagation and FFI-friendly numeric codes.

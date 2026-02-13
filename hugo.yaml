@@ -10,6 +10,10 @@ buildFuture: false
 buildExpired: false
 enableEmoji: true
 
+taxonomies:
+  tag: tags
+  category: categories
+
 # Sitemap configuration for SEO
 sitemap:
   changefreq: "monthly"
@@ -35,7 +39,7 @@ params:
 
   defaultTheme: auto
   disableThemeToggle: false
-  ShowReadingTime: false
+  ShowReadingTime: true
   ShowShareButtons: false
   ShowPostNavLinks: true
   ShowBreadCrumbs: true
@@ -109,6 +113,10 @@ menu:
       name: Documentation
       url: /docs/
       weight: 10
+    - identifier: menu-tutorials
+      name: Tutorials
+      url: /docs/tutorials/
+      weight: 12
     - identifier: api
       name: API Reference
       url: /docs/api-reference/

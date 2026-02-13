@@ -3,6 +3,13 @@ title: "RAG Pipeline"
 description: "How the six-step Retrieval-Augmented Generation pipeline works in secure, air-gapped environments. Defense-grade RAG for HIPAA-compliant and classified deployments."
 weight: 2
 keywords: [RAG pipeline, secure RAG, air-gapped RAG, defense-grade RAG, HIPAA-compliant RAG, retrieval-augmented generation]
+tags: [rag, pipeline, orchestration, workflow]
+categories: [concept]
+difficulty: intermediate
+prerequisites:
+  - /docs/core-concepts/architecture/
+estimated_reading_time: "8 min"
+last_reviewed: "2026-02-12"
 ---
 
 The `RAGWorkflow` engine executes a deterministic six-step pipeline every time you call `.run()`. Each step is handled by a pluggable component.

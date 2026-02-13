@@ -1,0 +1,6 @@
+{{- $level := .Get 0 | default "beginner" -}}
+{{- $colors := dict "beginner" "green" "intermediate" "orange" "advanced" "red" -}}
+{{- $labels := dict "beginner" "Beginner" "intermediate" "Intermediate" "advanced" "Advanced" -}}
+{{- $color := index $colors $level -}}
+{{- $label := index $labels $level -}}
+<span class="badge badge--{{ $color }}">{{ $label }}</span>

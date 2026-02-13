@@ -3,6 +3,13 @@ title: "Architecture"
 description: "MagicAF's secure, three-layer architecture for defense-grade AI systems. Designed for air-gapped, HIPAA-compliant deployments with complete separation of concerns."
 weight: 1
 keywords: [architecture, secure architecture, defense-grade architecture, air-gapped architecture, HIPAA-compliant architecture]
+tags: [architecture, layers, traits, separation-of-concerns]
+categories: [concept]
+difficulty: intermediate
+prerequisites:
+  - /docs/getting-started/quickstart/
+estimated_reading_time: "7 min"
+last_reviewed: "2026-02-12"
 ---
 
 MagicAF follows a strict three-layer architecture. Each layer has a single responsibility, and layers communicate only through well-defined trait boundaries.
@@ -30,6 +37,21 @@ MagicAF follows a strict three-layer architecture. Each layer has a single respo
 │   EmbeddingService · VectorStore · LlmService     │
 └───────────────────────────────────────────────────┘
 ```
+
+## Why This Architecture?
+
+MagicAF separates concerns into three layers for a specific reason: **in regulated environments, you need to swap components without changing business logic**.
+
+Consider a defense lab that certifies their RAG pipeline for use on a classified network. Six months later, they need to replace Qdrant with Milvus because of a new infrastructure mandate. With MagicAF's architecture, they implement the `VectorStore` trait for Milvus and change one line in the builder — the adapters, orchestration logic, and all tests remain untouched.
+
+The same principle applies to healthcare: a hospital might start with vLLM on a GPU server, then move to Ollama on CPU-only hardware when deploying to a satellite clinic. The `LlmService` implementation changes; the prompt engineering, evidence formatting, and result parsing stay identical.
+
+This is not theoretical flexibility. It is a concrete engineering requirement in environments where:
+
+- **Certification is expensive** — changing business logic triggers re-certification, but swapping infrastructure does not
+- **Vendor lock-in is unacceptable** — government contracts often prohibit dependency on a single vendor
+- **Hardware varies across sites** — the same codebase deploys to GPU servers, CPU workstations, and edge devices
+- **Testing must be comprehensive** — mock implementations slot into the same trait boundaries, enabling full pipeline testing without live services
 
 ## Layer 1 — Infrastructure
 

@@ -2,6 +2,12 @@
 title: "LlmService"
 description: "API reference for the LlmService trait, OpenAI-compatible DTOs, and LocalLlmService."
 weight: 3
+tags: [api, llm, chat-completion, openai-compatible]
+categories: [reference]
+difficulty: intermediate
+prerequisites: [/docs/core-concepts/traits-and-interfaces/]
+estimated_reading_time: "10 min"
+last_reviewed: "2026-02-12"
 ---
 
 ## Trait Definition
