@@ -400,6 +400,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ## Next Steps
 
-- **Quick Start:** Get running in minutes with the [Quick Start Guide](/docs/nlp-tools/quickstart/)
-- **Pipelines:** Explore all available [Pipelines](/docs/nlp-tools/pipelines/)
-- **Configuration:** Learn about [Setup & Configuration](/docs/nlp-tools/setup/)
+- **Quick Start:** Get running in minutes with the [Quick Start Guide](/docs/api-reference/nlp/quickstart/)
+- **Pipelines:** Explore all available [Pipelines](/docs/api-reference/nlp/pipelines/)
+- **Configuration:** Learn about [Setup & Configuration](/docs/api-reference/nlp/setup/)

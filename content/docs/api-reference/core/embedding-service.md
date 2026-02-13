@@ -94,7 +94,7 @@ impl LocalEmbeddingService {
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `config` | `EmbeddingConfig` | Service configuration (see [Configuration](/docs/api-reference/configuration/)) |
+| `config` | `EmbeddingConfig` | Service configuration (see [Configuration](/docs/api-reference/core/configuration/)) |
 
 ### Compatible Servers
 

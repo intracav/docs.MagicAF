@@ -12,13 +12,36 @@
           </a>
           {{- if $isSectionActive }}
           <ul class="docs-nav__sublist">
-            {{- range .RegularPages }}
-              {{- $isPageActive := eq $currentPage.RelPermalink .RelPermalink }}
-              <li class="docs-nav__subitem">
-                <a href="{{ .RelPermalink }}" class="docs-nav__link{{ if $isPageActive }} active{{ end }}">
-                  {{ .Title }}
-                </a>
-              </li>
+            {{- if .Sections }}
+              {{- range .Sections }}
+                {{- $isSubSectionActive := or (eq $currentPage.RelPermalink .RelPermalink) (hasPrefix $currentPage.RelPermalink .RelPermalink) }}
+                <li class="docs-nav__subitem docs-nav__subitem--section{{ if $isSubSectionActive }} active{{ end }}">
+                  <a href="{{ .RelPermalink }}" class="docs-nav__link docs-nav__link--subsection{{ if $isSubSectionActive }} active{{ end }}">
+                    {{ .Title }}
+                  </a>
+                  {{- if $isSubSectionActive }}
+                  <ul class="docs-nav__sublist docs-nav__sublist--nested">
+                    {{- range .RegularPages }}
+                      {{- $isPageActive := eq $currentPage.RelPermalink .RelPermalink }}
+                      <li class="docs-nav__subitem">
+                        <a href="{{ .RelPermalink }}" class="docs-nav__link{{ if $isPageActive }} active{{ end }}">
+                          {{ .Title }}
+                        </a>
+                      </li>
+                    {{- end }}
+                  </ul>
+                  {{- end }}
+                </li>
+              {{- end }}
+            {{- else }}
+              {{- range .RegularPages }}
+                {{- $isPageActive := eq $currentPage.RelPermalink .RelPermalink }}
+                <li class="docs-nav__subitem">
+                  <a href="{{ .RelPermalink }}" class="docs-nav__link{{ if $isPageActive }} active{{ end }}">
+                    {{ .Title }}
+                  </a>
+                </li>
+              {{- end }}
             {{- end }}
           </ul>
           {{- end }}

@@ -45,7 +45,7 @@ Trade-off analysis for choosing models, adapter patterns, and deployment strateg
 <div class="card">
 
 ### [API Reference →](/docs/api-reference/)
-Complete reference for every trait, struct, configuration option, and error type.
+Complete reference for core services and NLP pipelines — every trait, struct, configuration option, and error type.
 
 </div>
 <div class="card">
@@ -58,12 +58,6 @@ Docker Compose, air-gapped setup, edge/mobile deployment, observability, and sca
 
 ### [Examples →](/docs/examples/)
 Working code for minimal RAG, document Q&A, and multi-source analysis pipelines.
-
-</div>
-<div class="card">
-
-### [NLP Tools →](/docs/nlp-tools/)
-Production-grade NLP pipelines: NER, sentiment analysis, translation, QA, and more. All run in-process with no external services.
 
 </div>
 </div>

@@ -130,9 +130,9 @@ On first run, the default model will be downloaded from HuggingFace Hub and cach
 
 ## Next Steps
 
-- **Explore Pipelines:** See [Pipelines](/docs/nlp-tools/pipelines/) for all available NLP tasks.
-- **Configure Models:** Learn about [Configuration](/docs/nlp-tools/setup/) for custom models and air-gapped deployments.
-- **See Examples:** Check out [Use Cases & Examples](/docs/nlp-tools/use-cases/) for real-world use cases.
+- **Explore Pipelines:** See [Pipelines](/docs/api-reference/nlp/pipelines/) for all available NLP tasks.
+- **Configure Models:** Learn about [Configuration](/docs/api-reference/nlp/setup/) for custom models and air-gapped deployments.
+- **See Examples:** Check out [Use Cases & Examples](/docs/api-reference/nlp/use-cases/) for real-world use cases.
 
 ---
 
@@ -150,7 +150,7 @@ ls $LIBTORCH/lib/libtorch.dylib  # macOS
 
 ### "Model download failed"
 
-Check your internet connection. For air-gapped deployments, see [Air-Gapped Setup](/docs/nlp-tools/setup/#air-gapped-deployment).
+Check your internet connection. For air-gapped deployments, see [Air-Gapped Setup](/docs/api-reference/nlp/setup/#air-gapped-deployment).
 
 ### "Out of memory"
 

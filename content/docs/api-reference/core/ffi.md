@@ -5,7 +5,7 @@ weight: 8
 tags: [api, ffi, c-bindings, python, swift, java]
 categories: [reference]
 difficulty: advanced
-prerequisites: [/docs/api-reference/errors/]
+prerequisites: [/docs/api-reference/core/errors/]
 estimated_reading_time: "5 min"
 last_reviewed: "2026-02-12"
 ---

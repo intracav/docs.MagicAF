@@ -1,7 +1,7 @@
 ---
-title: "NLP Tools"
+title: "NLP Pipelines"
 description: "Production-grade NLP pipelines that run entirely in-process — no external API servers required. Extract entities, analyze sentiment, translate text, answer questions, and more."
-weight: 3
+weight: 2
 keywords: [NLP, natural language processing, in-process inference, transformer models, NER, sentiment analysis, question answering, translation, summarization]
 ---
 
@@ -13,23 +13,23 @@ MagicAF NLP provides **production-grade NLP pipelines** that run entirely in-pro
 
 | Pipeline | Module | Default Model | Task |
 |----------|--------|---------------|------|
-| **Question Answering** | [`qa`](/docs/nlp-tools/question-answering/) | DistilBERT / SQuAD | Extract answer spans from context |
-| **Translation** | [`translation`](/docs/nlp-tools/translation/) | Marian / M2M100 | Translate between 100+ languages |
-| **Summarization** | [`summarization`](/docs/nlp-tools/summarization/) | BART-large-CNN | Abstractive text summarization |
-| **Dialogue** | [`dialogue`](/docs/nlp-tools/dialogue/) | DialoGPT | Multi-turn conversation |
-| **Text Generation** | [`generation`](/docs/nlp-tools/text-generation/) | GPT-2 | Auto-regressive language generation |
-| **Zero-Shot Classification** | [`zero_shot`](/docs/nlp-tools/zero-shot-classification/) | BART-MNLI | Classify into arbitrary labels |
-| **Sentiment Analysis** | [`sentiment`](/docs/nlp-tools/sentiment-analysis/) | DistilBERT / SST-2 | Positive/negative prediction |
-| **Named Entity Recognition** | [`ner`](/docs/nlp-tools/named-entity-recognition/) | BERT / CoNLL-03 | Extract persons, locations, orgs |
-| **Keyword Extraction** | [`keywords`](/docs/nlp-tools/keyword-extraction/) | Sentence embeddings | Key terms from documents |
-| **POS Tagging** | [`pos`](/docs/nlp-tools/pos-tagging/) | BERT / Penn Treebank | Grammatical category tagging |
-| **Masked Language Model** | [`masked_lm`](/docs/nlp-tools/masked-language-model/) | BERT base | Fill-in-the-blank prediction |
+| **Question Answering** | [`qa`](/docs/api-reference/nlp/question-answering/) | DistilBERT / SQuAD | Extract answer spans from context |
+| **Translation** | [`translation`](/docs/api-reference/nlp/translation/) | Marian / M2M100 | Translate between 100+ languages |
+| **Summarization** | [`summarization`](/docs/api-reference/nlp/summarization/) | BART-large-CNN | Abstractive text summarization |
+| **Dialogue** | [`dialogue`](/docs/api-reference/nlp/dialogue/) | DialoGPT | Multi-turn conversation |
+| **Text Generation** | [`generation`](/docs/api-reference/nlp/text-generation/) | GPT-2 | Auto-regressive language generation |
+| **Zero-Shot Classification** | [`zero_shot`](/docs/api-reference/nlp/zero-shot-classification/) | BART-MNLI | Classify into arbitrary labels |
+| **Sentiment Analysis** | [`sentiment`](/docs/api-reference/nlp/sentiment-analysis/) | DistilBERT / SST-2 | Positive/negative prediction |
+| **Named Entity Recognition** | [`ner`](/docs/api-reference/nlp/named-entity-recognition/) | BERT / CoNLL-03 | Extract persons, locations, orgs |
+| **Keyword Extraction** | [`keywords`](/docs/api-reference/nlp/keyword-extraction/) | Sentence embeddings | Key terms from documents |
+| **POS Tagging** | [`pos`](/docs/api-reference/nlp/pos-tagging/) | BERT / Penn Treebank | Grammatical category tagging |
+| **Masked Language Model** | [`masked_lm`](/docs/api-reference/nlp/masked-language-model/) | BERT base | Fill-in-the-blank prediction |
 
 ---
 
 ## How NLP Pipelines Differ from Core Services
 
-MagicAF Core provides [`LlmService`](/docs/api-reference/llm-service/) and [`EmbeddingService`](/docs/api-reference/embedding-service/), which are **HTTP clients** that talk to external inference servers (vLLM, llama.cpp, etc.).
+MagicAF Core provides [`LlmService`](/docs/api-reference/core/llm-service/) and [`EmbeddingService`](/docs/api-reference/core/embedding-service/), which are **HTTP clients** that talk to external inference servers (vLLM, llama.cpp, etc.).
 
 The NLP pipelines in `magicaf-nlp` are fundamentally different:
 
@@ -122,7 +122,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 ```
 
-See the [Quick Start Guide](/docs/nlp-tools/quickstart/) for detailed setup instructions.
+See the [Quick Start Guide](/docs/api-reference/nlp/quickstart/) for detailed setup instructions.
 
 ---
 
@@ -133,13 +133,13 @@ This crate requires **one** of (only when the `models` feature is enabled):
 - **libtorch** (default with `models`) — install via `pip install torch` or download from [PyTorch](https://pytorch.org), then set `LIBTORCH=/path/to/libtorch`.
 - **ONNX Runtime** (feature `onnx`) — lighter, more portable. Enable with `features = ["onnx"]` in your `Cargo.toml`.
 
-See [Setup & Configuration](/docs/nlp-tools/setup/) for detailed installation instructions.
+See [Setup & Configuration](/docs/api-reference/nlp/setup/) for detailed installation instructions.
 
 ---
 
 ## Air-Gapped Deployment
 
-All pipelines support loading models from local files via [`ModelSource::Local`](/docs/nlp-tools/configuration/#model-source). Pre-download model files on an internet-connected machine, transfer them to the target, and point the config at the directory:
+All pipelines support loading models from local files via [`ModelSource::Local`](/docs/api-reference/nlp/configuration/#model-source). Pre-download model files on an internet-connected machine, transfer them to the target, and point the config at the directory:
 
 ```rust
 use magicaf_nlp::config::{ModelSource, Device};
@@ -157,25 +157,25 @@ See [Air-Gapped Deployment](/docs/deployment/air-gapped/) for complete instructi
 <div class="card-grid">
 <div class="card">
 
-### [Quick Start →](/docs/nlp-tools/quickstart/)
+### [Quick Start →](/docs/api-reference/nlp/quickstart/)
 Get up and running with your first NLP pipeline in minutes.
 
 </div>
 <div class="card">
 
-### [Setup & Configuration →](/docs/nlp-tools/setup/)
+### [Setup & Configuration →](/docs/api-reference/nlp/setup/)
 Install native dependencies, configure models, and set up for air-gapped deployments.
 
 </div>
 <div class="card">
 
-### [Pipelines →](/docs/nlp-tools/pipelines/)
+### [Pipelines →](/docs/api-reference/nlp/pipelines/)
 Complete reference for all available NLP pipelines.
 
 </div>
 <div class="card">
 
-### [Use Cases & Examples →](/docs/nlp-tools/use-cases/)
+### [Use Cases & Examples →](/docs/api-reference/nlp/use-cases/)
 Working code examples for common NLP tasks.
 
 </div>

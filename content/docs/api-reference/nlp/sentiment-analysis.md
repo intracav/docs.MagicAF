@@ -271,7 +271,7 @@ let results = pipeline.predict(&["The meeting is at 3pm."]).await?;
 // May return Positive or Negative with a low score (~0.5–0.6)
 ```
 
-Use the confidence score to identify uncertain predictions. For a neutral class, consider [Zero-Shot Classification](/docs/nlp-tools/zero-shot-classification/) with labels like `["positive", "negative", "neutral"]`.
+Use the confidence score to identify uncertain predictions. For a neutral class, consider [Zero-Shot Classification](/docs/api-reference/nlp/zero-shot-classification/) with labels like `["positive", "negative", "neutral"]`.
 
 ### Sarcasm and Irony
 
@@ -292,6 +292,6 @@ The SST-2 model is trained on movie reviews. For domain-specific text (medical, 
 
 ## Next Steps
 
-- **See Examples:** Check out [Use Cases & Examples](/docs/nlp-tools/use-cases/) for sentiment dashboards
-- **Explore Other Pipelines:** See [Pipelines](/docs/nlp-tools/pipelines/) for all available NLP tasks
-- **Configuration:** Learn about [Setup & Configuration](/docs/nlp-tools/setup/)
+- **See Examples:** Check out [Use Cases & Examples](/docs/api-reference/nlp/use-cases/) for sentiment dashboards
+- **Explore Other Pipelines:** See [Pipelines](/docs/api-reference/nlp/pipelines/) for all available NLP tasks
+- **Configuration:** Learn about [Setup & Configuration](/docs/api-reference/nlp/setup/)

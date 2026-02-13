@@ -58,7 +58,7 @@ export LLM_MODEL="mistral-7b"
 # export LLM_API_KEY=""     # Optional
 ```
 
-> **Tip:** You can also hardcode configuration values directly in code or load them from JSON/TOML files. See [Configuration](/docs/api-reference/configuration/) for details.
+> **Tip:** You can also hardcode configuration values directly in code or load them from JSON/TOML files. See [Configuration](/docs/api-reference/core/configuration/) for details.
 
 ## Verify Installation
 

@@ -307,6 +307,6 @@ When using multiple `[MASK]` tokens, each prediction is made independently. The 
 
 ## Next Steps
 
-- **See Examples:** Check out [Use Cases & Examples](/docs/nlp-tools/use-cases/) for practical masked LM workflows
-- **Explore Other Pipelines:** See [Pipelines](/docs/nlp-tools/pipelines/) for all available NLP tasks
-- **Configuration:** Learn about [Setup & Configuration](/docs/nlp-tools/setup/)
+- **See Examples:** Check out [Use Cases & Examples](/docs/api-reference/nlp/use-cases/) for practical masked LM workflows
+- **Explore Other Pipelines:** See [Pipelines](/docs/api-reference/nlp/pipelines/) for all available NLP tasks
+- **Configuration:** Learn about [Setup & Configuration](/docs/api-reference/nlp/setup/)

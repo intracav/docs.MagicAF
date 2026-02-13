@@ -319,6 +319,6 @@ The default model is trained on English Penn Treebank. For other languages, load
 
 ## Next Steps
 
-- **See Examples:** Check out [Use Cases & Examples](/docs/nlp-tools/use-cases/) for linguistic analysis pipelines
-- **Explore Other Pipelines:** See [Pipelines](/docs/nlp-tools/pipelines/) for all available NLP tasks
-- **Configuration:** Learn about [Setup & Configuration](/docs/nlp-tools/setup/)
+- **See Examples:** Check out [Use Cases & Examples](/docs/api-reference/nlp/use-cases/) for linguistic analysis pipelines
+- **Explore Other Pipelines:** See [Pipelines](/docs/api-reference/nlp/pipelines/) for all available NLP tasks
+- **Configuration:** Learn about [Setup & Configuration](/docs/api-reference/nlp/setup/)

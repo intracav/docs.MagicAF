@@ -321,5 +321,5 @@ ONNX models use `.onnx` extension, not `.ot`. Ensure your model directory contai
 
 ## Next Steps
 
-- **Explore Pipelines:** See [Pipelines](/docs/nlp-tools/pipelines/) for all available NLP tasks.
-- **View Examples:** Check out [Use Cases & Examples](/docs/nlp-tools/use-cases/) for real-world configurations.
+- **Explore Pipelines:** See [Pipelines](/docs/api-reference/nlp/pipelines/) for all available NLP tasks.
+- **View Examples:** Check out [Use Cases & Examples](/docs/api-reference/nlp/use-cases/) for real-world configurations.

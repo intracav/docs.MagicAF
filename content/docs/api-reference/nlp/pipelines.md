@@ -47,7 +47,7 @@ println!("Answer: {} (score: {:.4})", answers[0][0].answer, answers[0][0].score)
 - **`Answer`**: `{ answer: String, score: f64, start: usize, end: usize }`
 - **`predict(inputs, top_k, max_answer_len)`**: Returns `Vec<Vec<Answer>>`
 
-See [Question Answering →](/docs/nlp-tools/question-answering/) for complete documentation.
+See [Question Answering →](/docs/api-reference/nlp/question-answering/) for complete documentation.
 
 ---
 
@@ -88,7 +88,7 @@ for entity in &entities[0] {
 - **`Entity`**: `{ word: String, score: f64, label: String, start: usize, end: usize }`
 - **`predict(texts)`**: Returns `Vec<Vec<Entity>>`
 
-See [Named Entity Recognition →](/docs/nlp-tools/named-entity-recognition/) for complete documentation.
+See [Named Entity Recognition →](/docs/api-reference/nlp/named-entity-recognition/) for complete documentation.
 
 ---
 
@@ -123,7 +123,7 @@ for r in &results {
 - **`SentimentResult`**: `{ polarity: SentimentPolarity, score: f64 }`
 - **`predict(texts)`**: Returns `Vec<SentimentResult>`
 
-See [Sentiment Analysis →](/docs/nlp-tools/sentiment-analysis/) for complete documentation.
+See [Sentiment Analysis →](/docs/api-reference/nlp/sentiment-analysis/) for complete documentation.
 
 ---
 
@@ -161,7 +161,7 @@ for r in &results[0] {
 - **`ClassificationResult`**: `{ label: String, score: f64 }`
 - **`classify(texts, labels, hypothesis_template, max_length)`**: Returns `Vec<Vec<ClassificationResult>>`
 
-See [Zero-Shot Classification →](/docs/nlp-tools/zero-shot-classification/) for complete documentation.
+See [Zero-Shot Classification →](/docs/api-reference/nlp/zero-shot-classification/) for complete documentation.
 
 ---
 
@@ -204,7 +204,7 @@ English, French, German, Spanish, Portuguese, Italian, Dutch, Russian, Chinese, 
 - **`TranslationOutput`**: `{ text: String }`
 - **`translate(texts, source_language, target_language)`**: Returns `Vec<TranslationOutput>`
 
-See [Translation →](/docs/nlp-tools/translation/) for complete documentation.
+See [Translation →](/docs/api-reference/nlp/translation/) for complete documentation.
 
 ---
 
@@ -237,7 +237,7 @@ for s in &summaries {
 - **`summarize(texts)`**: Returns `Vec<Summary>`
 - **Config options**: `min_length`, `max_length`, `num_beams`, `length_penalty`
 
-See [Summarization →](/docs/nlp-tools/summarization/) for complete documentation.
+See [Summarization →](/docs/api-reference/nlp/summarization/) for complete documentation.
 
 ---
 
@@ -281,7 +281,7 @@ println!("Bot: {joke}");
 - **`generate_response(conversation_id)`**: Returns `String`
 - **`get_history(conversation_id)`**: Returns `Vec<ConversationTurn>`
 
-See [Dialogue →](/docs/nlp-tools/dialogue/) for complete documentation.
+See [Dialogue →](/docs/api-reference/nlp/dialogue/) for complete documentation.
 
 ---
 
@@ -318,7 +318,7 @@ for text in texts {
 - **`generate(prompts)`**: Returns `Vec<String>`
 - **Config options**: `max_length`, `temperature`, `top_k`, `top_p`, `num_beams`, `repetition_penalty`, `num_return_sequences`
 
-See [Text Generation →](/docs/nlp-tools/text-generation/) for complete documentation.
+See [Text Generation →](/docs/api-reference/nlp/text-generation/) for complete documentation.
 
 ---
 
@@ -354,7 +354,7 @@ for kw in &results[0] {
 - **`extract(documents)`**: Returns `Vec<Vec<Keyword>>`
 - **Config options**: `top_n`, `diversity`, `max_ngram_size`
 
-See [Keyword Extraction →](/docs/nlp-tools/keyword-extraction/) for complete documentation.
+See [Keyword Extraction →](/docs/api-reference/nlp/keyword-extraction/) for complete documentation.
 
 ---
 
@@ -393,7 +393,7 @@ for tag in &results[0] {
 - **`PosTag`**: `{ word: String, score: f64, label: String }`
 - **`predict(texts)`**: Returns `Vec<Vec<PosTag>>`
 
-See [POS Tagging →](/docs/nlp-tools/pos-tagging/) for complete documentation.
+See [POS Tagging →](/docs/api-reference/nlp/pos-tagging/) for complete documentation.
 
 ---
 
@@ -435,7 +435,7 @@ for (i, sentence_results) in results.iter().enumerate() {
 - **`MaskedToken`**: `{ text: String, id: i64, score: f64 }`
 - **`predict(texts)`**: Returns `Vec<Vec<MaskedToken>>`
 
-See [Masked Language Model →](/docs/nlp-tools/masked-language-model/) for complete documentation.
+See [Masked Language Model →](/docs/api-reference/nlp/masked-language-model/) for complete documentation.
 
 ---
 
@@ -459,6 +459,6 @@ See [Masked Language Model →](/docs/nlp-tools/masked-language-model/) for comp
 
 ## Next Steps
 
-- **Quick Start:** Get running in minutes with the [Quick Start Guide](/docs/nlp-tools/quickstart/)
-- **Configuration:** Learn about [Setup & Configuration](/docs/nlp-tools/setup/)
-- **Examples:** See [Use Cases & Examples](/docs/nlp-tools/use-cases/) for real-world use cases
+- **Quick Start:** Get running in minutes with the [Quick Start Guide](/docs/api-reference/nlp/quickstart/)
+- **Configuration:** Learn about [Setup & Configuration](/docs/api-reference/nlp/setup/)
+- **Examples:** See [Use Cases & Examples](/docs/api-reference/nlp/use-cases/) for real-world use cases

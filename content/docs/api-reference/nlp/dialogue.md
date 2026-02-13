@@ -369,6 +369,6 @@ If `generate_response` returns "(conversation not found)", ensure you're using t
 
 ## Next Steps
 
-- **See Examples:** Check out [Use Cases & Examples](/docs/nlp-tools/use-cases/) for chatbot patterns
-- **Explore Other Pipelines:** See [Pipelines](/docs/nlp-tools/pipelines/) for all available NLP tasks
-- **Configuration:** Learn about [Setup & Configuration](/docs/nlp-tools/setup/)
+- **See Examples:** Check out [Use Cases & Examples](/docs/api-reference/nlp/use-cases/) for chatbot patterns
+- **Explore Other Pipelines:** See [Pipelines](/docs/api-reference/nlp/pipelines/) for all available NLP tasks
+- **Configuration:** Learn about [Setup & Configuration](/docs/api-reference/nlp/setup/)
