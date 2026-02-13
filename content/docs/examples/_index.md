@@ -1,11 +1,10 @@
 ---
-title: "Examples - Defense-Grade, HIPAA-Compliant AI Toolkit"
-description: "Working code examples for MagicAF — the defense-grade, HIPAA-compliant, airgapped AI toolkit. Secure LLM, NLP, RAG, and AI analysis examples for SIPR/NIPR, secret, and classified environments."
+title: "Examples"
+description: "Working code examples for common MagicAF use cases."
 weight: 6
-keywords: "defense-grade ai examples, hipaa-compliant ai examples, airgapped ai examples, secure llm examples, secure nlp examples, secure rag examples, secure ai toolkit examples"
 ---
 
-Complete, runnable examples that demonstrate real-world usage patterns for **MagicAF — the defense-grade, HIPAA-compliant, airgapped AI toolkit**. Each example shows a different level of customization for secure AI systems in **SIPR/NIPR, secret, classified, and healthcare environments**. These examples showcase MagicAF's comprehensive **NLP, RAG, embeddings, vector search, and AI analysis capabilities** beyond just LLMs.
+Complete, runnable examples that demonstrate real-world usage patterns. Each example shows a different level of customization.
 
 ---
 

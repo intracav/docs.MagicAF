@@ -1,11 +1,10 @@
 ---
-title: "Edge & Mobile - Defense-Grade, HIPAA-Compliant AI"
-description: "Deploy MagicAF — the defense-grade, HIPAA-compliant, airgapped AI toolkit — on resource-constrained devices for secure edge deployments."
+title: "Edge & Mobile"
+description: "Deploy MagicAF on resource-constrained devices — phones, tablets, embedded systems, and edge servers."
 weight: 3
-keywords: "defense-grade ai edge, hipaa-compliant ai edge, airgapped ai edge, secure llm edge, secure ai mobile, secure ai edge deployment"
 ---
 
-MagicAF supports deployment on resource-constrained devices where running Qdrant and a full LLM server is impractical. Perfect for **secure edge deployments** in **defense, healthcare, and classified environments** where devices must operate in **airgapped, disconnected conditions**.
+MagicAF supports deployment on resource-constrained devices where running Qdrant and a full LLM server is impractical.
 
 ## Architecture
 

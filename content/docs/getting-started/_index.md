@@ -1,11 +1,10 @@
 ---
-title: "Getting Started - Defense-Grade, HIPAA-Compliant AI Toolkit"
-description: "Get started with MagicAF — the defense-grade, HIPAA-compliant, airgapped AI toolkit for secure environments. Install, configure local services, and run your first secure RAG pipeline."
+title: "Getting Started"
+description: "Install MagicAF, configure local services, and run your first RAG pipeline."
 weight: 1
-keywords: "defense-grade ai getting started, hipaa-compliant ai getting started, airgapped ai getting started, secure llm getting started, secure ai toolkit getting started"
 ---
 
-Get up and running with **MagicAF — the defense-grade, HIPAA-compliant, airgapped AI toolkit** in three steps: install prerequisites, add the crates, and run your first secure query. MagicAF provides comprehensive NLP, RAG, and AI analysis tools beyond just LLMs, all designed for secure, on-premises deployments.
+Get up and running with MagicAF in three steps: install prerequisites, add the crates, and run your first query.
 
 ---
 

@@ -1,11 +1,10 @@
 ---
-title: "Scaling - Defense-Grade, HIPAA-Compliant AI Infrastructure"
-description: "Horizontal scaling strategies for MagicAF — the defense-grade, HIPAA-compliant, airgapped AI toolkit — in secure, on-premises environments."
+title: "Scaling"
+description: "Horizontal scaling strategies for each MagicAF component."
 weight: 5
-keywords: "defense-grade ai scaling, hipaa-compliant ai scaling, airgapped ai scaling, secure ai scaling, secure ai infrastructure scaling"
 ---
 
-MagicAF applications are stateless by design. Every component can be scaled independently in **defense-grade, HIPAA-compliant, airgapped environments** — perfect for **SIPR/NIPR, secret, classified, and healthcare deployments** requiring high availability and performance.
+MagicAF applications are stateless by design. Every component can be scaled independently.
 
 ## Scaling Strategy
 

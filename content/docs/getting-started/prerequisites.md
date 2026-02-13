@@ -1,11 +1,10 @@
 ---
-title: "Prerequisites - Defense-Grade, HIPAA-Compliant AI Toolkit"
-description: "System requirements and local services needed to run MagicAF — the defense-grade, HIPAA-compliant, airgapped AI toolkit for secure environments."
+title: "Prerequisites"
+description: "System requirements and local services needed to run MagicAF."
 weight: 1
-keywords: "defense-grade ai prerequisites, hipaa-compliant ai prerequisites, airgapped ai prerequisites, secure llm prerequisites, secure ai toolkit prerequisites"
 ---
 
-MagicAF requires three local services and a Rust toolchain. All services communicate over HTTP — **no cloud accounts, no vendor SDKs, no external dependencies**. Perfect for **airgapped, SIPR/NIPR, secret, classified, and HIPAA-regulated environments** where data must never leave the network boundary.
+MagicAF requires three local services and a Rust toolchain. All services communicate over HTTP — no cloud accounts, no vendor SDKs.
 
 ## Rust Toolchain
 

@@ -1,11 +1,11 @@
 ---
-title: "API Reference - Defense-Grade, HIPAA-Compliant AI Toolkit"
-description: "Complete API reference for MagicAF — the defense-grade, HIPAA-compliant, airgapped AI toolkit. Every trait, struct, configuration option, and error type for secure LLM, NLP, RAG, and AI analysis tools."
+title: "API Reference"
+description: "Complete API reference for defense-grade AI toolkit. Every trait, struct, configuration option, and error type for secure, air-gapped AI deployments."
 weight: 4
-keywords: "defense-grade ai api, hipaa-compliant ai api, airgapped ai api, secure llm api, secure nlp api, secure rag api, secure ai toolkit api"
+keywords: [API reference, secure AI API, defense-grade API, HIPAA-compliant API, air-gapped API]
 ---
 
-This section documents every public type in the **MagicAF defense-grade, HIPAA-compliant AI framework**. Use it as a reference while building secure AI systems for SIPR/NIPR, secret, classified, and healthcare environments. MagicAF provides comprehensive APIs for secure LLM, NLP, RAG, embeddings, vector search, and AI analysis tools.
+This section documents every public type in the MagicAF framework. Use it as a reference while building.
 
 ---
 

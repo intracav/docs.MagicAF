@@ -1,6 +1,6 @@
 ---
-title: "MagicAF - Defense-Grade, HIPAA-Compliant, Airgapped AI Toolkit for Secure Environments"
+title: "MagicAF Documentation"
 layout: "home"
-description: "MagicAF is a defense-grade, HIPAA-compliant, airgapped AI toolkit designed for secure, secret, SIPR/NIPR, and classified environments. Production-grade Rust framework providing secure LLM, NLP, RAG, and AI analysis tools for on-premises deployments. Beyond LLMs — comprehensive localized AI infrastructure."
-keywords: "defense-grade ai, healthcare-grade ai, hipaa-compliant ai, hipaa-approved ai, sipr ai, nipr ai, secret ai, classified ai, airgapped ai, secure llm, secure ai toolkit, on-premises ai, local llm, secure nlp, secure rag, defense ai, healthcare ai, air-gapped ai, secure vector search, secure embeddings, classified ai toolkit, secret ai toolkit, government ai, military ai, healthcare ai framework, defense ai framework, airgapped llm, secure language model, secure natural language processing, secure retrieval augmented generation, secure ai framework, on-premises llm, local ai framework, secure ai infrastructure, air-gapped deployment, secure ai deployment, defense ai framework, healthcare ai framework, nlp toolkit, rag toolkit, ai analysis tools, secure ai analysis"
+description: "Defense-grade, HIPAA-compliant AI toolkit for secure, air-gapped deployments. Production-ready Rust framework for RAG pipelines, NLP analysis, embeddings, vector search, and LLM orchestration. Designed for SIPR/NIPR, classified, and healthcare environments."
+keywords: [defense-grade AI, healthcare-grade AI, HIPAA-compliant AI, SIPR AI, NIPR AI, classified AI, secure AI, airgapped AI, secure LLM, secure NLP, air-gapped deployment, RAG framework, vector search, embeddings, Rust AI framework]
 ---

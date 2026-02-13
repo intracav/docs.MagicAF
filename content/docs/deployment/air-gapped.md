@@ -1,11 +1,11 @@
 ---
-title: "Air-Gapped Deployment - SIPR/NIPR, Secret, Classified Environments"
-description: "Deploy MagicAF in fully air-gapped, disconnected environments with no internet access. Perfect for SIPR/NIPR, secret, classified, and defense-grade deployments requiring complete network isolation."
+title: "Air-Gapped Setup"
+description: "Deploy MagicAF in fully disconnected, classified, and defense-grade environments. Complete guide for SIPR/NIPR, HIPAA-compliant, and air-gapped AI deployments with zero internet dependencies."
 weight: 2
-keywords: "airgapped ai, air-gapped ai deployment, sipr ai deployment, nipr ai deployment, secret ai deployment, classified ai deployment, defense ai deployment, airgapped llm, air-gapped llm, disconnected ai, offline ai, secure airgapped ai"
+keywords: [air-gapped, airgapped, classified deployment, SIPR, NIPR, defense-grade, HIPAA-compliant, offline AI, disconnected AI, secure deployment]
 ---
 
-MagicAF is designed for **air-gapped environments from the ground up** — ideal for **SIPR/NIPR networks**, **secret and classified systems**, **defense infrastructure**, and **HIPAA-regulated healthcare environments** requiring complete network isolation. Every service runs locally, and all dependencies can be vendored for offline use. This makes MagicAF the perfect solution for environments where data must never leave the network boundary.
+MagicAF is designed for air-gapped environments from the ground up. Every service runs locally, and all dependencies can be vendored for offline use. For more information about MagicAF's security architecture and compliance features, see the [About page](/about/).
 
 ## Overview
 

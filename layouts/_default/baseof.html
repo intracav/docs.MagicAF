@@ -17,8 +17,9 @@
     {{- /* Load search modal script */ -}}
     {{- $fusejs := resources.Get "js/fuse.basic.min.js" }}
     {{- $kbdHint := resources.Get "js/kbd-hint.js" }}
+    {{- $themeFix := resources.Get "js/theme-toggle-fix.js" }}
     {{- $searchModal := resources.Get "js/search-modal.js" | js.Build (dict "params" (dict "fuseOpts" site.Params.fuseOpts)) | resources.Minify }}
-    {{- $searchScript := (slice $fusejs $kbdHint $searchModal) | resources.Concat "assets/js/search-modal-bundle.js" }}
+    {{- $searchScript := (slice $fusejs $kbdHint $themeFix $searchModal) | resources.Concat "assets/js/search-modal-bundle.js" }}
     {{- if not site.Params.assets.disableFingerprinting }}
     {{- $searchScript = $searchScript | fingerprint }}
     <script defer crossorigin="anonymous" src="{{ $searchScript.RelPermalink }}" integrity="{{ $searchScript.Data.Integrity }}"></script>

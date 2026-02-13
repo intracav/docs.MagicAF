@@ -1,11 +1,10 @@
 ---
-title: "Docker Compose - Defense-Grade, HIPAA-Compliant AI Deployment"
-description: "Reference Docker Compose configuration for deploying MagicAF — the defense-grade, HIPAA-compliant, airgapped AI toolkit — in secure, on-premises environments."
+title: "Docker Compose"
+description: "Reference Docker Compose configuration for deploying all MagicAF infrastructure services."
 weight: 1
-keywords: "defense-grade ai docker, hipaa-compliant ai docker, airgapped ai docker, secure llm docker, secure ai docker deployment, sipr ai docker, nipr ai docker"
 ---
 
-A MagicAF deployment requires three local services — all running securely on-premises with **zero cloud dependencies**. Here's a reference Docker Compose configuration that starts all of them, perfect for **defense-grade, HIPAA-compliant, SIPR/NIPR, secret, and classified environments**.
+A MagicAF deployment requires three local services. Here's a reference Docker Compose configuration that starts all of them.
 
 ## Infrastructure Components
 

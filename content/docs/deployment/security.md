@@ -1,11 +1,11 @@
 ---
-title: "Security & Compliance - HIPAA, SIPR/NIPR, Defense-Grade Security"
-description: "Security and compliance guidance for MagicAF deployments in defense, healthcare, and classified environments. HIPAA-compliant, SIPR/NIPR-ready, defense-grade security hardening for airgapped AI systems."
+title: "Security"
+description: "Defense-grade security architecture, HIPAA compliance, and hardening guidance for secure AI deployments. Complete security checklist for classified, healthcare, and regulated environments."
 weight: 6
-keywords: "hipaa-compliant ai, hipaa-approved ai, sipr ai security, nipr ai security, defense-grade ai security, secret ai security, classified ai security, airgapped ai security, secure llm security, secure ai compliance, healthcare ai security, defense ai security"
+keywords: [security, defense-grade, HIPAA-compliant, secure AI, classified security, healthcare security, compliance, hardening, secure deployment]
 ---
 
-MagicAF is designed with **defense-grade security and compliance** as first principles. All services run locally, no data leaves the network boundary, and the framework makes no assumptions about data sensitivity. MagicAF is engineered for **HIPAA-compliant healthcare deployments**, **SIPR/NIPR classified environments**, **secret and top-secret government systems**, and **defense-grade airgapped infrastructure**.
+MagicAF is designed with security as a first principle. All services run locally, no data leaves the network boundary, and the framework makes no assumptions about data sensitivity. Learn more about MagicAF's [defense-grade architecture and compliance features](/about/).
 
 ## Security Architecture
 
@@ -85,45 +85,11 @@ cargo install cargo-audit
 cargo audit
 ```
 
-## Compliance & Regulatory Support
-
-### HIPAA Compliance
-
-MagicAF is designed to support **HIPAA-compliant healthcare deployments**:
-
-- **No PHI/PII assumptions** — framework never inspects payload content; data classification is application-controlled
-- **Local-only processing** — all AI services run on-premises; no data transmission to external services
-- **Audit trail support** — structured logging provides natural integration points for HIPAA audit requirements
-- **Access control ready** — adapter layer provides natural boundaries for role-based access control (RBAC)
-- **Encryption support** — TLS termination and encryption at rest are application-controlled
-
-### SIPR/NIPR & Classified Environments
-
-MagicAF is engineered for **SIPR/NIPR networks** and **classified government systems**:
-
-- **Air-gapped by design** — zero outbound network dependencies
-- **No cloud services** — all components run on-premises
-- **Vendor-independent** — no vendor lock-in or external dependencies
-- **Model integrity** — SHA-256 checksums for model file verification
-- **Secret/classified data handling** — framework is domain-neutral; data classification is application-controlled
-
-### Defense-Grade Security
-
-MagicAF meets **defense-grade security requirements**:
-
-- **Network isolation** — all services bind to internal interfaces
-- **Supply chain security** — dependency auditing with `cargo audit`
-- **Container security** — Docker image vulnerability scanning
-- **Structured logging** — JSON-formatted logs for SIEM integration
-- **No data leakage** — operational metadata only; no payload content in logs
-
 ## Air-Gap Security Benefits
 
 Air-gapped deployments inherently prevent:
 - Data exfiltration via network
 - Supply chain attacks on model downloads
 - Unauthorized model or dependency updates
-- External service dependencies
-- Cloud vendor lock-in
 
 See [Air-Gapped Setup](/docs/deployment/air-gapped/) for deployment instructions.

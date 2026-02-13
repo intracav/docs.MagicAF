@@ -1,8 +1,7 @@
 ---
-title: "Installation - Defense-Grade, HIPAA-Compliant AI Toolkit"
-description: "Add MagicAF — the defense-grade, HIPAA-compliant, airgapped AI toolkit — to your Rust project and configure for secure environments."
+title: "Installation"
+description: "Add MagicAF to your Rust project and configure the environment."
 weight: 2
-keywords: "defense-grade ai installation, hipaa-compliant ai installation, airgapped ai installation, secure llm installation, secure ai toolkit installation"
 ---
 
 ## Add Dependencies

@@ -4,15 +4,17 @@ title: "MagicAF"
 theme: "PaperMod"
 
 enableRobotsTXT: true
-enableGitInfo: true
+enableGitInfo: false
 buildDrafts: false
 buildFuture: false
 buildExpired: false
 enableEmoji: true
 
-# SEO Configuration
-canonifyURLs: true
-relativeURLs: false
+# Sitemap configuration for SEO
+sitemap:
+  changefreq: "monthly"
+  priority: 0.5
+  filename: "sitemap.xml"
 
 minify:
   disableXML: true
@@ -27,8 +29,8 @@ outputs:
 params:
   env: production
   title: "MagicAF"
-  description: "Defense-grade, HIPAA-compliant, airgapped AI toolkit for secure, secret, SIPR/NIPR environments. Production-grade Rust framework for secure LLM, NLP, RAG, and AI analysis tools in on-premises deployments."
-  keywords: [magicaf, rust, rag, embeddings, vector-search, llm, on-premises, air-gapped, framework, sdk, defense-grade, healthcare-grade, hipaa-compliant, hipaa-approved, sipr, nipr, secret, classified, airgapped, secure llm, secure ai, on-premises ai, local llm, secure nlp, secure rag, defense ai, healthcare ai, air-gapped ai, secure vector search, secure embeddings, classified ai, secret ai, government ai, military ai, healthcare ai toolkit, defense ai toolkit, airgapped llm, secure language model, secure natural language processing, secure retrieval augmented generation, secure ai framework, on-premises llm, local ai framework, secure ai infrastructure, air-gapped deployment, secure ai deployment, defense ai framework, healthcare ai framework, nlp toolkit, rag toolkit, ai analysis tools, secure ai analysis]
+  description: "Defense-grade, HIPAA-compliant AI toolkit for secure, air-gapped deployments. Production-ready Rust framework for RAG pipelines, NLP analysis, embeddings, vector search, and LLM orchestration. Designed for SIPR/NIPR, classified, and healthcare environments."
+  keywords: [magicaf, rust, rag, embeddings, vector-search, llm, on-premises, air-gapped, framework, sdk, defense-grade, healthcare-grade, HIPAA-compliant, SIPR, NIPR, classified, secure AI, airgapped AI, secure LLM, on-premises AI, NLP toolkit, RAG framework, secure vector search, defense AI, healthcare AI, secure embeddings, air-gapped deployment, classified AI, secure NLP, local AI, self-hosted AI, Intracav]
   author: "MagicAF Contributors"
 
   defaultTheme: auto
@@ -60,13 +62,21 @@ params:
   homeInfoParams:
     Title: "MagicAF Documentation"
     Content: >
-      Production-grade Rust framework for building AI-powered systems.
-      Embeddings, vector search, LLM orchestration, and RAG workflows —
-      designed for secure, on-premises environments.
+      Defense-grade, HIPAA-compliant AI toolkit for secure, air-gapped deployments.
+      Production-ready Rust framework for RAG pipelines, NLP analysis, embeddings, 
+      vector search, and LLM orchestration. Designed for SIPR/NIPR, classified, 
+      and healthcare environments with zero cloud dependencies.
 
   socialIcons:
     - name: github
       url: "https://github.com/magicaf/magicaf"
+  
+  # Social media configuration for Open Graph and Twitter Cards
+  social:
+    twitter: "intracav"
+  
+  # Default Open Graph image (1200x630 recommended)
+  ogImage: "/og-image.png"
 
   fuseOpts:
     isCaseSensitive: false
@@ -91,6 +101,10 @@ markup:
 
 menu:
   main:
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 5
     - identifier: docs
       name: Documentation
       url: /docs/

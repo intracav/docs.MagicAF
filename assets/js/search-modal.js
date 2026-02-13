@@ -17,60 +17,58 @@ let resultsAvailable = false;
 function loadSearchIndex() {
     if (fuse) return; // Already loaded
     
-    // Check if Fuse is available
-    if (typeof Fuse === 'undefined') {
-        console.error('Fuse.js is not loaded');
-        return;
-    }
-    
-    // Get the correct path to index.json (always at site root)
-    // Use absolute path - works from any page location
-    const indexPath = new URL('/index.json', window.location.origin).pathname;
-    
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-                try {
-                    let data = JSON.parse(xhr.responseText);
-                    if (data && Array.isArray(data)) {
-                        let options = {
-                            distance: 100,
-                            threshold: 0.4,
-                            ignoreLocation: true,
-                            keys: ['title', 'permalink', 'summary', 'content']
+                let data = JSON.parse(xhr.responseText);
+                if (data) {
+                    let options = {
+                        distance: 100,
+                        threshold: 0.4,
+                        ignoreLocation: true,
+                        keys: ['title', 'permalink', 'summary', 'content']
+                    };
+                    if (params.fuseOpts) {
+                        options = {
+                            isCaseSensitive: params.fuseOpts.iscasesensitive ?? false,
+                            includeScore: params.fuseOpts.includescore ?? false,
+                            includeMatches: params.fuseOpts.includematches ?? false,
+                            minMatchCharLength: params.fuseOpts.minmatchcharlength ?? 1,
+                            shouldSort: params.fuseOpts.shouldsort ?? true,
+                            findAllMatches: params.fuseOpts.findallmatches ?? false,
+                            keys: params.fuseOpts.keys ?? ['title', 'permalink', 'summary', 'content'],
+                            location: params.fuseOpts.location ?? 0,
+                            threshold: params.fuseOpts.threshold ?? 0.4,
+                            distance: params.fuseOpts.distance ?? 100,
+                            ignoreLocation: params.fuseOpts.ignorelocation ?? true
                         };
-                        if (params.fuseOpts) {
-                            options = {
-                                isCaseSensitive: params.fuseOpts.iscasesensitive ?? false,
-                                includeScore: params.fuseOpts.includescore ?? false,
-                                includeMatches: params.fuseOpts.includematches ?? false,
-                                minMatchCharLength: params.fuseOpts.minmatchcharlength ?? 1,
-                                shouldSort: params.fuseOpts.shouldsort ?? true,
-                                findAllMatches: params.fuseOpts.findallmatches ?? false,
-                                keys: params.fuseOpts.keys ?? ['title', 'permalink', 'summary', 'content'],
-                                location: params.fuseOpts.location ?? 0,
-                                threshold: params.fuseOpts.threshold ?? 0.4,
-                                distance: params.fuseOpts.distance ?? 100,
-                                ignoreLocation: params.fuseOpts.ignorelocation ?? true
-                            };
-                        }
-                        fuse = new Fuse(data, options);
-                        console.log('Search index loaded:', data.length, 'items');
-                    } else {
-                        console.error('Invalid search index format');
                     }
-                } catch (e) {
-                    console.error('Failed to parse search index:', e);
+                    fuse = new Fuse(data, options);
                 }
-            } else {
-                console.error('Failed to load search index:', xhr.status, indexPath);
             }
         }
     };
-    xhr.onerror = function() {
-        console.error('Network error loading search index:', indexPath);
-    };
+    // Get the correct path to index.json (always at site root)
+    // Calculate relative path from current page to site root
+    let pathname = window.location.pathname;
+    // Remove trailing slash and split
+    pathname = pathname.replace(/\/$/, '') || '/';
+    let parts = pathname.split('/').filter(p => p);
+    
+    // Calculate depth (number of path segments)
+    let depth = parts.length;
+    
+    // Build relative path: '../' for each level deep we are
+    let indexPath;
+    if (depth === 0 || pathname === '/') {
+        // We're at root
+        indexPath = './index.json';
+    } else {
+        // We're N levels deep, need N '../' to get to root
+        indexPath = '../'.repeat(depth) + 'index.json';
+    }
+    
     xhr.open('GET', indexPath);
     xhr.send();
 }
@@ -115,59 +113,37 @@ function activeToggle(ae) {
 
 // Execute search
 function executeSearch(query) {
-    if (!fuse) {
-        if (resList) resList.innerHTML = '<li class="search-result-empty">Loading search index...</li>';
-        loadSearchIndex();
-        // Retry after a short delay
-        setTimeout(() => {
-            if (fuse && query.trim()) {
-                executeSearch(query);
-            }
-        }, 500);
-        return;
-    }
-    
-    if (!query.trim()) {
+    if (!fuse || !query.trim()) {
         if (resList) resList.innerHTML = '';
         resultsAvailable = false;
         return;
     }
 
     let results;
-    try {
-        if (params.fuseOpts && params.fuseOpts.limit) {
-            results = fuse.search(query.trim(), {limit: params.fuseOpts.limit});
-        } else {
-            results = fuse.search(query.trim());
-        }
+    if (params.fuseOpts && params.fuseOpts.limit) {
+        results = fuse.search(query.trim(), {limit: params.fuseOpts.limit});
+    } else {
+        results = fuse.search(query.trim());
+    }
 
-        if (results.length !== 0) {
-            let resultSet = '';
-            for (let item in results) {
-                const result = results[item].item;
-                const title = result.title || 'Untitled';
-                const permalink = result.permalink || '#';
-                const summary = result.summary || '';
-                resultSet += `<li class="search-result-item">
-                    <a href="${permalink}" class="search-result-link">
-                        <header class="search-result-header">${title}</header>
-                        ${summary ? `<div class="search-result-summary">${summary}</div>` : ''}
-                    </a>
-                </li>`;
-            }
-            if (resList) {
-                resList.innerHTML = resultSet;
-                resultsAvailable = true;
-                first = resList.firstChild;
-                last = resList.lastChild;
-            }
-        } else {
-            if (resList) resList.innerHTML = '<li class="search-result-empty">No results found</li>';
-            resultsAvailable = false;
+    if (results.length !== 0) {
+        let resultSet = '';
+        for (let item in results) {
+            resultSet += `<li class="search-result-item">
+                <a href="${results[item].item.permalink}" class="search-result-link">
+                    <header class="search-result-header">${results[item].item.title}</header>
+                    ${results[item].item.summary ? `<div class="search-result-summary">${results[item].item.summary}</div>` : ''}
+                </a>
+            </li>`;
         }
-    } catch (e) {
-        console.error('Search error:', e);
-        if (resList) resList.innerHTML = '<li class="search-result-empty">Search error occurred</li>';
+        if (resList) {
+            resList.innerHTML = resultSet;
+            resultsAvailable = true;
+            first = resList.firstChild;
+            last = resList.lastChild;
+        }
+    } else {
+        if (resList) resList.innerHTML = '<li class="search-result-empty">No results found</li>';
         resultsAvailable = false;
     }
 }

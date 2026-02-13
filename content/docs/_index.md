@@ -1,13 +1,13 @@
 ---
-title: "MagicAF Documentation - Defense-Grade, HIPAA-Compliant AI Toolkit"
-description: "Complete documentation for MagicAF — the defense-grade, HIPAA-compliant, airgapped AI toolkit for secure, secret, SIPR/NIPR environments. Secure LLM, NLP, RAG, and AI analysis tools for on-premises deployments."
+title: "Documentation"
+description: "Defense-grade, HIPAA-compliant AI toolkit documentation. Build secure RAG pipelines, NLP analysis, and AI-powered systems for air-gapped, classified, and healthcare environments."
 weight: 1
-keywords: "defense-grade ai documentation, hipaa-compliant ai documentation, airgapped ai documentation, secure llm documentation, secure nlp documentation, secure rag documentation, sipr ai, nipr ai, secret ai, classified ai"
+keywords: [defense-grade AI, healthcare-grade AI, HIPAA-compliant, secure AI, air-gapped AI, RAG framework, NLP toolkit]
 ---
 
-MagicAF is a **defense-grade, healthcare-grade, HIPAA-compliant** modular Rust framework that provides the foundational building blocks for secure AI-powered systems: **embeddings**, **vector search**, **LLM orchestration**, **RAG workflows**, and **comprehensive NLP/analysis tools**.
+MagicAF is a modular, production-grade Rust framework that provides the foundational building blocks for AI-powered systems: **embeddings**, **vector search**, **LLM orchestration**, and **RAG workflows**.
 
-Designed from the ground up for **air-gapped, on-premises environments** — no cloud dependencies, no vendor lock-in. MagicAF goes **far beyond LLMs**, providing direct and easy access to the full array of NLP, RAG, and analysis tools that have developed alongside language models. These powerful tools are now aggregated in a localized, secure way — perfect for **SIPR/NIPR, secret, classified, and HIPAA-regulated environments**.
+It is designed from the ground up for **air-gapped, on-premises environments** — no cloud dependencies, no vendor lock-in. MagicAF is a [defense-grade, HIPAA-compliant AI toolkit](/about/) suitable for classified, healthcare, and regulated deployments.
 
 ---
 

@@ -1,11 +1,10 @@
 ---
-title: "Observability - Defense-Grade, HIPAA-Compliant AI Monitoring"
-description: "Structured logging, health checks, and metrics for production MagicAF deployments in defense-grade, HIPAA-compliant, airgapped environments."
+title: "Observability"
+description: "Structured logging, health checks, and metrics for production MagicAF deployments."
 weight: 4
-keywords: "defense-grade ai observability, hipaa-compliant ai observability, airgapped ai observability, secure ai monitoring, secure ai logging, secure ai metrics"
 ---
 
-MagicAF provides built-in observability through structured logging, health checks, and tracing instrumentation — designed for **defense-grade, HIPAA-compliant, airgapped environments** where audit trails and SIEM integration are critical for compliance.
+MagicAF provides built-in observability through structured logging, health checks, and tracing instrumentation.
 
 ## Structured Logging
 

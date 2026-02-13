@@ -1,11 +1,11 @@
 ---
-title: "Architecture - Defense-Grade AI Framework Design"
-description: "MagicAF's three-layer architecture for defense-grade, HIPAA-compliant AI systems. Comprehensive NLP, RAG, and AI analysis tools beyond LLMs in secure, airgapped environments."
+title: "Architecture"
+description: "MagicAF's secure, three-layer architecture for defense-grade AI systems. Designed for air-gapped, HIPAA-compliant deployments with complete separation of concerns."
 weight: 1
-keywords: "defense-grade ai architecture, hipaa-compliant ai architecture, airgapped ai architecture, secure ai architecture, secure llm architecture, secure nlp architecture, secure rag architecture, ai toolkit architecture"
+keywords: [architecture, secure architecture, defense-grade architecture, air-gapped architecture, HIPAA-compliant architecture]
 ---
 
-MagicAF follows a strict three-layer architecture designed for **defense-grade, HIPAA-compliant, secure environments**. Each layer has a single responsibility, and layers communicate only through well-defined trait boundaries. MagicAF goes **far beyond LLMs** — it provides comprehensive **NLP, RAG, embeddings, vector search, and AI analysis tools** that are aggregated in a localized, secure way perfect for **SIPR/NIPR, secret, classified, and healthcare environments**.
+MagicAF follows a strict three-layer architecture. Each layer has a single responsibility, and layers communicate only through well-defined trait boundaries.
 
 ## Layer Model
 
@@ -33,15 +33,13 @@ MagicAF follows a strict three-layer architecture designed for **defense-grade, 
 
 ## Layer 1 — Infrastructure
 
-The infrastructure layer provides the **fundamental AI primitives** that go far beyond just LLMs. MagicAF aggregates the full array of **NLP, RAG, and AI analysis tools** that have developed alongside language models. Each primitive is defined as an async trait, enabling secure, localized access to powerful AI capabilities.
+The infrastructure layer provides the fundamental AI primitives. Each primitive is defined as an async trait.
 
 | Module | Trait | Purpose |
 |--------|-------|---------|
-| `embeddings` | `EmbeddingService` | Produce dense vectors from text — **semantic understanding and NLP analysis** |
-| `vector_store` | `VectorStore` | Index, search, and delete vectors with JSON payloads — **RAG and knowledge retrieval** |
-| `llm` | `LlmService` | Chat completion and text generation via OpenAI-compatible API — **language generation** |
-
-**Beyond LLMs**: MagicAF provides direct and easy access to the complete suite of AI tools — embeddings for semantic analysis, vector stores for knowledge retrieval, and LLMs for generation — all aggregated in a localized, secure framework perfect for defense-grade and HIPAA-compliant environments.
+| `embeddings` | `EmbeddingService` | Produce dense vectors from text |
+| `vector_store` | `VectorStore` | Index, search, and delete vectors with JSON payloads |
+| `llm` | `LlmService` | Chat completion and text generation via OpenAI-compatible API |
 
 Concrete implementations ship in separate crates:
 

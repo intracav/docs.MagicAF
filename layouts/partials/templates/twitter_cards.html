@@ -1,0 +1,55 @@
+{{- /* Custom Twitter Card template - Always use large image cards */ -}}
+{{- $twitterImage := "" }}
+
+{{- /* Determine image source */ -}}
+{{- if .Params.cover.image -}}
+  {{- if (ne $.Params.cover.relative true) }}
+    {{- $twitterImage = .Params.cover.image | absURL }}
+  {{- else }}
+    {{- $twitterImage = (path.Join .RelPermalink .Params.cover.image) | absURL }}
+  {{- end }}
+{{- else if .Params.image }}
+  {{- $twitterImage = .Params.image | absURL }}
+{{- else if site.Params.ogImage }}
+  {{- $twitterImage = site.Params.ogImage | absURL }}
+{{- else }}
+  {{- $images := partial "templates/_funcs/get-page-images" . -}}
+  {{- with index $images 0 -}}
+    {{- $twitterImage = .Permalink }}
+  {{- else -}}
+    {{- /* Default fallback image */ -}}
+    {{- $twitterImage = "/og-image.png" | absURL }}
+  {{- end -}}
+{{- end }}
+
+{{- /* Always use summary_large_image for better visibility */ -}}
+<meta name="twitter:card" content="summary_large_image">
+
+{{- if $twitterImage }}
+<meta name="twitter:image" content="{{ $twitterImage }}">
+<meta name="twitter:image:alt" content="{{ or .Title site.Title }}">
+{{- end }}
+
+<meta name="twitter:title" content="{{ or .Title site.Title }}">
+<meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary | plainify | truncate 200 }}{{ else }}{{ with site.Params.description }}{{ . | plainify | truncate 200 }}{{ end }}{{ end }}{{ end }}">
+
+{{- /* Twitter site/creator configuration */ -}}
+{{- $twitterSite := "" }}
+{{- with site.Params.social }}
+  {{- if reflect.IsMap . }}
+    {{- with .twitter }}
+      {{- $content := . }}
+      {{- if not (strings.HasPrefix . "@") }}
+        {{- $content = printf "@%v" . }}
+      {{- end }}
+      <meta name="twitter:site" content="{{ $content }}">
+      <meta name="twitter:creator" content="{{ $content }}">
+    {{- end }}
+  {{- end }}
+{{- end }}
+
+{{- /* Fallback to Intracav if no Twitter handle configured */ -}}
+{{- if not $twitterSite }}
+  <meta name="twitter:site" content="@intracav">
+  <meta name="twitter:creator" content="@intracav">
+{{- end }}

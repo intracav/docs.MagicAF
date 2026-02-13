@@ -1,11 +1,11 @@
 ---
-title: "RAG Pipeline - Secure Retrieval-Augmented Generation"
-description: "How MagicAF's six-step Retrieval-Augmented Generation pipeline works in defense-grade, HIPAA-compliant, airgapped environments. Secure RAG for SIPR/NIPR, secret, and classified systems."
+title: "RAG Pipeline"
+description: "How the six-step Retrieval-Augmented Generation pipeline works in secure, air-gapped environments. Defense-grade RAG for HIPAA-compliant and classified deployments."
 weight: 2
-keywords: "secure rag pipeline, defense-grade rag, hipaa-compliant rag, airgapped rag, secure retrieval augmented generation, sipr rag, nipr rag, secret rag, classified rag"
+keywords: [RAG pipeline, secure RAG, air-gapped RAG, defense-grade RAG, HIPAA-compliant RAG, retrieval-augmented generation]
 ---
 
-The `RAGWorkflow` engine executes a deterministic six-step pipeline every time you call `.run()`. Each step is handled by a pluggable component, all running securely in **airgapped, on-premises environments** perfect for **defense-grade, HIPAA-compliant, SIPR/NIPR, secret, and classified deployments**. MagicAF's RAG pipeline goes beyond simple LLM queries — it provides comprehensive **NLP analysis, semantic search, and knowledge retrieval** capabilities.
+The `RAGWorkflow` engine executes a deterministic six-step pipeline every time you call `.run()`. Each step is handled by a pluggable component.
 
 ## Pipeline Overview
 

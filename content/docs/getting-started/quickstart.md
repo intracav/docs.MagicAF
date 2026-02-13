@@ -1,11 +1,11 @@
 ---
-title: "Quickstart - Defense-Grade, HIPAA-Compliant AI Toolkit"
-description: "Build a complete secure RAG pipeline in under 50 lines of Rust. Defense-grade, HIPAA-compliant, airgapped AI toolkit for secure environments."
+title: "Quickstart"
+description: "Build a complete, secure RAG pipeline in under 50 lines of Rust. Get started with defense-grade AI toolkit for air-gapped, HIPAA-compliant deployments."
 weight: 3
-keywords: "defense-grade ai quickstart, hipaa-compliant ai quickstart, airgapped ai quickstart, secure llm quickstart, secure rag quickstart, secure ai toolkit quickstart"
+keywords: [quickstart, secure RAG, air-gapped RAG, HIPAA-compliant AI, defense-grade AI, secure pipeline]
 ---
 
-This guide walks you through building a full **secure Retrieval-Augmented Generation pipeline** using MagicAF — the **defense-grade, HIPAA-compliant, airgapped AI toolkit**: embed documents, store them in a vector database, and answer questions using a secure, local LLM. All components run on-premises with **zero cloud dependencies**, perfect for **SIPR/NIPR, secret, classified, and healthcare environments**.
+This guide walks you through building a full Retrieval-Augmented Generation pipeline: embed documents, store them in a vector database, and answer questions using an LLM.
 
 ## The Complete Pipeline
 

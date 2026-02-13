@@ -1,11 +1,10 @@
 ---
-title: "Deployment - Defense-Grade, HIPAA-Compliant, Airgapped AI"
-description: "Deploy MagicAF in defense-grade, HIPAA-compliant, airgapped production environments. Docker, air-gapped, edge/mobile, observability, and scaling for SIPR/NIPR, secret, and classified systems."
+title: "Deployment"
+description: "Deploy MagicAF in production — Docker, air-gapped, edge/mobile, observability, and scaling."
 weight: 5
-keywords: "defense-grade ai deployment, hipaa-compliant ai deployment, airgapped ai deployment, sipr ai deployment, nipr ai deployment, secret ai deployment, classified ai deployment, secure ai deployment, on-premises ai deployment"
 ---
 
-MagicAF is designed for **defense-grade, HIPAA-compliant, secure, on-premises deployments** where data must not leave the network boundary. Perfect for **SIPR/NIPR networks**, **secret and classified environments**, **defense infrastructure**, and **healthcare systems** requiring complete data sovereignty. This section covers every deployment scenario from air-gapped classified systems to HIPAA-regulated healthcare environments.
+MagicAF is designed for secure, on-premises deployments where data must not leave the network boundary. This section covers every deployment scenario.
 
 ---
 

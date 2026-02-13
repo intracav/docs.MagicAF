@@ -1,104 +1,47 @@
-{{- /* Enhanced SEO for MagicAF Documentation */ -}}
-
-{{- /* Enhanced Schema.org Structured Data for Documentation Site */ -}}
+{{- /* Custom head content for SEO and structured data */ -}}
 {{- if .IsHome }}
-{{- /* WebSite Schema with SearchAction */ -}}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "{{ site.Title }}",
-  "url": "{{ site.BaseURL }}",
-  "description": "{{ site.Params.description }}",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": "{{ site.BaseURL }}search/?q={search_term_string}"
-    },
-    "query-input": "required name=search_term_string"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "{{ site.Title }}",
-    "url": "{{ site.BaseURL }}"
-  }
-}
-</script>
-{{- /* SoftwareApplication Schema */ -}}
+{{- /* JSON-LD structured data for homepage */ -}}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "{{ site.Title }}",
+  "name": "MagicAF",
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "Linux, macOS, Windows",
-  "description": "{{ site.Params.description }}",
-  "url": "{{ site.BaseURL }}",
   "offers": {
     "@type": "Offer",
     "price": "0",
     "priceCurrency": "USD"
   },
-  "keywords": "{{ delimit site.Params.keywords ", " }}",
-  "programmingLanguage": "Rust",
-  "license": "MIT OR Apache-2.0"
-}
-</script>
-{{- else if .IsPage }}
-{{- /* DocumentationPage Schema for documentation pages */ -}}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "headline": "{{ .Title }}",
-  "description": "{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 200 }}{{ end }}",
-  "url": "{{ .Permalink }}",
-  "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
-  "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
-  "inLanguage": "{{ .Language.Lang | default "en-us" }}",
-  "keywords": [
-    {{- if .Params.keywords }}
-    {{ range $i, $e := .Params.keywords }}{{ if $i }}, {{ end }}"{{ $e }}"{{ end }}
-    {{- else if .Params.tags }}
-    {{ range $i, $e := .Params.tags }}{{ if $i }}, {{ end }}"{{ $e }}"{{ end }}
-    {{- end }}
+  "description": "Defense-grade, HIPAA-compliant AI toolkit for secure, air-gapped deployments. Production-ready Rust framework for RAG pipelines, NLP analysis, embeddings, vector search, and LLM orchestration.",
+  "keywords": "defense-grade AI, healthcare-grade AI, HIPAA-compliant AI, SIPR AI, NIPR AI, classified AI, secure AI, airgapped AI, secure LLM, secure NLP, air-gapped deployment, RAG framework, vector search, embeddings, Rust AI framework",
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "Healthcare Professionals, Defense Contractors, Government Agencies, Security-Conscious Organizations"
+  },
+  "featureList": [
+    "Air-gapped deployment",
+    "HIPAA compliance",
+    "Defense-grade security",
+    "SIPR/NIPR compatible",
+    "RAG pipelines",
+    "Vector search",
+    "Embedding generation",
+    "LLM orchestration",
+    "NLP analysis tools",
+    "Zero cloud dependencies"
   ],
-  "author": {
+  "provider": {
     "@type": "Organization",
-    "name": "{{ site.Title }}"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "{{ site.Title }}",
-    "url": "{{ site.BaseURL }}"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "{{ .Permalink }}"
-  },
-  "about": {
-    "@type": "SoftwareApplication",
-    "name": "{{ site.Title }}"
+    "name": "Intracav",
+    "url": "https://www.intracav.ai/"
   }
 }
 </script>
 {{- end }}
 
-{{- /* Enhanced Open Graph Image */ -}}
-{{- if not .Params.cover.image }}
-<meta property="og:image" content="{{ site.BaseURL }}images/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="{{ .Title }} - {{ site.Title }}">
-{{- end }}
+{{- /* Open Graph and Twitter Card meta tags are handled by templates/opengraph.html and templates/twitter_cards.html */ -}}
 
-{{- /* Enhanced Twitter Card */ -}}
-{{- if not .Params.cover.image }}
-<meta name="twitter:image" content="{{ site.BaseURL }}images/twitter-card.png">
-<meta name="twitter:image:alt" content="{{ .Title }} - {{ site.Title }}">
-{{- end }}
-
-{{- /* Additional SEO Meta Tags */ -}}
-<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-<meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+{{- /* Additional security/compliance meta tags */ -}}
+<meta name="security-compliance" content="HIPAA, Defense-Grade, Air-Gapped, SIPR/NIPR Compatible">
+<meta name="deployment-model" content="On-Premises, Air-Gapped, Self-Hosted">
