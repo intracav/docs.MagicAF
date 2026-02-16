@@ -48,7 +48,7 @@ You are new to MagicAF and want to build your first working pipeline, then under
 
 {{< difficulty "intermediate" >}}
 
-You are evaluating MagicAF for your organization and need to understand capabilities, trade-offs, security posture, and deployment requirements.
+You are evaluating MagicAF — part of the [Intracav](https://www.intracav.ai/) ecosystem — for your organization and need to understand capabilities, trade-offs, security posture, and deployment requirements.
 
 <div class="learning-path">
 <div class="learning-path-step">

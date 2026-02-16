@@ -5,7 +5,7 @@ weight: 1
 keywords: [defense-grade AI, healthcare-grade AI, HIPAA-compliant, secure AI, air-gapped AI, RAG framework, NLP toolkit]
 ---
 
-MagicAF is a modular, production-grade Rust framework that provides the foundational building blocks for AI-powered systems: **embeddings**, **vector search**, **LLM orchestration**, and **RAG workflows**.
+MagicAF is a modular, production-grade Rust framework — built by [Intracav](https://www.intracav.ai/) — that provides the foundational building blocks for AI-powered systems: **embeddings**, **vector search**, **LLM orchestration**, and **RAG workflows**.
 
 It is designed from the ground up for **air-gapped, on-premises environments** — no cloud dependencies, no vendor lock-in. MagicAF is a [defense-grade, HIPAA-compliant AI toolkit](/about/) suitable for classified, healthcare, and regulated deployments.
 

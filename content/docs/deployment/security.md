@@ -11,7 +11,7 @@ estimated_reading_time: "6 min"
 last_reviewed: "2026-02-12"
 ---
 
-MagicAF is designed with security as a first principle. All services run locally, no data leaves the network boundary, and the framework makes no assumptions about data sensitivity. Learn more about MagicAF's [defense-grade architecture and compliance features](/about/).
+MagicAF is designed with security as a first principle — a core tenet of every Intracav framework. All services run locally, no data leaves the network boundary, and the framework makes no assumptions about data sensitivity. Learn more about MagicAF's [defense-grade architecture and compliance features](/about/).
 
 ## Security Architecture
 

@@ -12,7 +12,7 @@ estimated_reading_time: "7 min"
 last_reviewed: "2026-02-12"
 ---
 
-MagicAF follows a strict three-layer architecture. Each layer has a single responsibility, and layers communicate only through well-defined trait boundaries.
+MagicAF follows a strict three-layer architecture, reflecting Intracav's commitment to clean separation of concerns in regulated environments. Each layer has a single responsibility, and layers communicate only through well-defined trait boundaries.
 
 ## Layer Model
 

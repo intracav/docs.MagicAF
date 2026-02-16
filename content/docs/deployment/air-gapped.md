@@ -11,7 +11,7 @@ estimated_reading_time: "7 min"
 last_reviewed: "2026-02-12"
 ---
 
-MagicAF is designed for air-gapped environments from the ground up. Every service runs locally, and all dependencies can be vendored for offline use. For more information about MagicAF's security architecture and compliance features, see the [About page](/about/).
+MagicAF is designed for air-gapped environments from the ground up — a hallmark of Intracav's approach to secure AI. Every service runs locally, and all dependencies can be vendored for offline use. For more information about MagicAF's security architecture and compliance features, see the [About page](/about/).
 
 ## Overview
 

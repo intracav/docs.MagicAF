@@ -67,9 +67,10 @@ params:
     Title: "MagicAF Documentation"
     Content: >
       Defense-grade, HIPAA-compliant AI toolkit for secure, air-gapped deployments.
-      Production-ready Rust framework for RAG pipelines, NLP analysis, embeddings, 
-      vector search, and LLM orchestration. Designed for SIPR/NIPR, classified, 
+      Production-ready Rust framework for RAG pipelines, NLP analysis, embeddings,
+      vector search, and LLM orchestration. Designed for SIPR/NIPR, classified,
       and healthcare environments with zero cloud dependencies.
+      An [Intracav](https://www.intracav.ai/) framework.
 
   socialIcons:
     - name: github

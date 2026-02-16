@@ -5,7 +5,7 @@ weight: 2
 keywords: [NLP, natural language processing, in-process inference, transformer models, NER, sentiment analysis, question answering, translation, summarization]
 ---
 
-MagicAF NLP provides **production-grade NLP pipelines** that run entirely in-process — no external API servers required. Each pipeline loads a pre-trained transformer model and performs inference directly, making it ideal for air-gapped, on-premises, and edge deployments.
+MagicAF NLP — powered by Intracav — provides **production-grade NLP pipelines** that run entirely in-process, with no external API servers required. Each pipeline loads a pre-trained transformer model and performs inference directly, making it ideal for air-gapped, on-premises, and edge deployments.
 
 ---
 

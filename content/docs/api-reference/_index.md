@@ -5,7 +5,7 @@ weight: 4
 keywords: [API reference, secure AI API, defense-grade API, HIPAA-compliant API, air-gapped API, NLP pipelines]
 ---
 
-This section documents every public type in the MagicAF framework. Use it as a reference while building.
+This section documents every public type in the MagicAF framework, Intracav's defense-grade AI toolkit. Use it as a reference while building.
 
 ---
 

@@ -4,7 +4,7 @@ description: "Install MagicAF, configure local services, and run your first RAG 
 weight: 1
 ---
 
-Get up and running with MagicAF in three steps: install prerequisites, add the crates, and run your first query.
+Get up and running with MagicAF — Intracav's defense-grade AI framework — in three steps: install prerequisites, add the crates, and run your first query.
 
 ---
 
