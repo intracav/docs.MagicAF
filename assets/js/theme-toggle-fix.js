@@ -27,12 +27,9 @@
             searchToggle.style.setProperty('z-index', '1', 'important');
         }
         
-        // Remove any overlays that might block
-        const searchModal = document.getElementById('search-modal');
-        if (searchModal && !searchModal.classList.contains('active')) {
-            searchModal.style.setProperty('display', 'none', 'important');
-            searchModal.style.setProperty('pointer-events', 'none', 'important');
-        }
+        // Search modal visibility is handled by CSS (.search-modal / .search-modal.active).
+        // Do NOT set inline display/pointer-events here — inline !important
+        // cannot be overridden by the CSS class toggle and breaks the modal.
     }
     
     // Run immediately and on load

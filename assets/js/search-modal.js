@@ -75,6 +75,9 @@ function loadSearchIndex() {
 
 // Show modal
 function showModal() {
+    // Clear any inline styles that may have been set by other scripts
+    searchModal.style.removeProperty('display');
+    searchModal.style.removeProperty('pointer-events');
     searchModal.setAttribute('aria-hidden', 'false');
     searchModal.classList.add('active');
     document.body.style.overflow = 'hidden';
