@@ -27,8 +27,13 @@
 .callout--info .callout__title {
   color: #1d4ed8;
 }
-.dark .callout--info {
-  background: rgba(59, 130, 246, 0.1);
+.dark .callout--info,
+[data-theme="dark"] .callout--info {
+  background: rgba(59, 130, 246, 0.08);
+  border-color: rgba(59, 130, 246, 0.6);
+}
+[data-theme="dark"] .callout--info .callout__title {
+  color: #60a5fa;
 }
 
 /* Warning */
@@ -39,8 +44,13 @@
 .callout--warning .callout__title {
   color: #d97706;
 }
-.dark .callout--warning {
-  background: rgba(245, 158, 11, 0.1);
+.dark .callout--warning,
+[data-theme="dark"] .callout--warning {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.6);
+}
+[data-theme="dark"] .callout--warning .callout__title {
+  color: #fbbf24;
 }
 
 /* Danger */
@@ -51,8 +61,13 @@
 .callout--danger .callout__title {
   color: #dc2626;
 }
-.dark .callout--danger {
-  background: rgba(239, 68, 68, 0.1);
+.dark .callout--danger,
+[data-theme="dark"] .callout--danger {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.6);
+}
+[data-theme="dark"] .callout--danger .callout__title {
+  color: #f87171;
 }
 
 /* Tip */
@@ -63,6 +78,11 @@
 .callout--tip .callout__title {
   color: #16a34a;
 }
-.dark .callout--tip {
-  background: rgba(34, 197, 94, 0.1);
+.dark .callout--tip,
+[data-theme="dark"] .callout--tip {
+  background: rgba(34, 197, 94, 0.08);
+  border-color: rgba(34, 197, 94, 0.6);
+}
+[data-theme="dark"] .callout--tip .callout__title {
+  color: #4ade80;
 }

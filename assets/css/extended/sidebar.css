@@ -171,8 +171,8 @@
 [data-theme="dark"] .docs-nav__link.active,
 [data-theme="dark"] .docs-nav__link--section.active,
 [data-theme="dark"] .docs-nav__subitem .docs-nav__link.active {
-  color: #818cf8; /* Lighter accent for dark mode */
-  border-left-color: #818cf8;
+  color: #7289da; /* Discord blurple (lighter for readability) */
+  border-left-color: #5865f2; /* Discord blurple */
 }
 
 [data-theme="light"] .docs-nav__link.active,

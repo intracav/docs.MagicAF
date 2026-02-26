@@ -23,19 +23,33 @@
 }
 
 /* Support both .dark class and PaperMod's [data-theme="dark"] */
+/* Discord dark theme palette */
 .dark,
-[data-theme="dark"] {
-  --accent: #818cf8;
-  --accent-light: #a5b4fc;
-  --accent-subtle: rgba(99, 102, 241, 0.12);
-  --surface-elevated: #1e1e2e;
-  --border-subtle: #374151;
-  --text-primary: #f9fafb;
-  --text-secondary: #9ca3af;
-  --text-tertiary: #6b7280;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+[data-theme="dark"],
+:root[data-theme="dark"] {
+  /* Override PaperMod base vars with Discord dark colors */
+  --theme: rgb(49, 51, 56);           /* Discord primary bg  #313338 */
+  --entry: rgb(43, 45, 49);           /* Discord secondary bg #2b2d31 */
+  --primary: rgb(219, 222, 225);      /* Discord text normal  #dbdee1 */
+  --secondary: rgb(181, 186, 193);    /* Discord interactive  #b5bac1 */
+  --tertiary: rgb(78, 80, 88);        /* Discord muted        #4e5058 */
+  --content: rgb(219, 222, 225);      /* Discord text normal  #dbdee1 */
+  --code-block-bg: rgb(30, 31, 34);   /* Discord tertiary bg  #1e1f22 */
+  --code-bg: rgb(43, 45, 49);         /* Discord secondary bg #2b2d31 */
+  --border: rgb(59, 61, 68);          /* Discord divider      #3b3d44 */
+
+  /* Custom vars */
+  --accent: #5865f2;                           /* Discord blurple */
+  --accent-light: #7289da;                     /* Lighter blurple */
+  --accent-subtle: rgba(88, 101, 242, 0.15);   /* Blurple tint */
+  --surface-elevated: rgb(56, 58, 64);         /* Elevated above primary #383a40 */
+  --border-subtle: #3b3d44;
+  --text-primary: #dbdee1;
+  --text-secondary: #b5bac1;
+  --text-tertiary: #80848e;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
 }
 
 body {

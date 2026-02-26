@@ -161,7 +161,7 @@ button.search-toggle,
 }
 
 [data-theme="dark"] .search-modal__overlay {
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.85);
 }
 
 /* Modal container */
@@ -186,7 +186,9 @@ button.search-toggle,
 }
 
 [data-theme="dark"] .search-modal__container {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  background: rgb(43, 45, 49); /* Discord secondary bg #2b2d31 */
+  border-color: rgb(59, 61, 68);
+  box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.7), 0 10px 20px -5px rgba(0, 0, 0, 0.5);
 }
 
 /* Modal header */
