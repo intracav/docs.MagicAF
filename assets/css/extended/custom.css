@@ -7,14 +7,25 @@
 
 :root {
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
-  --accent: #6366f1;
-  --accent-light: #818cf8;
-  --accent-subtle: #eef2ff;
+
+  /* Discord light theme palette */
+  --theme: #ffffff;                  /* Discord primary bg */
+  --entry: #f2f3f5;                  /* Discord secondary bg — cards, sidebar */
+  --primary: #2e3338;                /* Discord text normal */
+  --secondary: #4f5660;              /* Discord interactive normal */
+  --tertiary: #e3e5e8;               /* Discord background tertiary — borders */
+  --content: #2e3338;
+  --code-bg: #e9eaec;                /* Inline code background */
+  --border: #e3e5e8;                 /* Discord divider */
+
+  --accent: #5865f2;                 /* Discord blurple */
+  --accent-light: #7289da;
+  --accent-subtle: #eef0fe;          /* Light blurple tint */
   --surface-elevated: #ffffff;
-  --border-subtle: #e5e7eb;
-  --text-primary: #111827;
-  --text-secondary: #6b7280;
-  --text-tertiary: #9ca3af;
+  --border-subtle: #e3e5e8;
+  --text-primary: #2e3338;
+  --text-secondary: #4f5660;
+  --text-tertiary: #80848e;
   --radius: 8px;
   --radius-lg: 12px;
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -39,8 +50,8 @@
   --border: rgb(59, 61, 68);          /* Discord divider      #3b3d44 */
 
   /* Custom vars */
-  --accent: #5865f2;                           /* Discord blurple */
-  --accent-light: #7289da;                     /* Lighter blurple */
+  --accent: #949cf7;                           /* Blurple lightened for text readability */
+  --accent-light: #b9beff;                     /* Even lighter for hover/emphasis */
   --accent-subtle: rgba(88, 101, 242, 0.15);   /* Blurple tint */
   --surface-elevated: rgb(56, 58, 64);         /* Elevated above primary #383a40 */
   --border-subtle: #3b3d44;

@@ -167,17 +167,51 @@
   }
 }
 
-/* Theme-aware accent color fallback */
+/* Discord dark mode sidebar overrides */
+[data-theme="dark"] .docs-sidebar {
+  background: #2b2d31; /* Discord secondary bg — darker than content area */
+  border-right-color: #1e1f22;
+}
+
+/* Section labels: brighter than --text-tertiary (#80848e) which is too dim at 12px */
+[data-theme="dark"] .docs-nav__link--section {
+  color: #9ea3ad;
+}
+
+/* Hover: lighten instead of darken (correct for Discord-style sidebar) */
+[data-theme="dark"] .docs-nav__link:hover {
+  background: #35373c;
+  color: #dbdee1;
+}
+
+/* Active states: lighter blurple for readability against #2b2d31 */
 [data-theme="dark"] .docs-nav__link.active,
 [data-theme="dark"] .docs-nav__link--section.active,
 [data-theme="dark"] .docs-nav__subitem .docs-nav__link.active {
-  color: #7289da; /* Discord blurple (lighter for readability) */
-  border-left-color: #5865f2; /* Discord blurple */
+  color: #949cf7;
+  border-left-color: #5865f2;
+  background: #35373c;
+}
+
+/* Discord light mode sidebar overrides */
+[data-theme="light"] .docs-sidebar {
+  background: #f2f3f5; /* Discord secondary bg — distinct from white content area */
+  border-right-color: #e3e5e8;
+}
+
+[data-theme="light"] .docs-nav__link--section {
+  color: #80848e; /* Discord muted text */
+}
+
+[data-theme="light"] .docs-nav__link:hover {
+  background: rgba(79, 84, 92, 0.08); /* Discord hover modifier */
+  color: #2e3338;
 }
 
 [data-theme="light"] .docs-nav__link.active,
 [data-theme="light"] .docs-nav__link--section.active,
 [data-theme="light"] .docs-nav__subitem .docs-nav__link.active {
-  color: #6366f1; /* Standard accent for light mode */
-  border-left-color: #6366f1;
+  color: #5865f2; /* Discord blurple */
+  border-left-color: #5865f2;
+  background: rgba(88, 101, 242, 0.08); /* Blurple tint for active bg */
 }
