@@ -57,4 +57,58 @@ MagicError variants, error codes, and helper constructors.
 FFI preparation, error codes, and language binding strategy.
 
 </div>
+<div class="card">
+
+### [Resilience →](/docs/api-reference/core/resilience/)
+Retry with exponential backoff, circuit breaker, and rate limiter.
+
+</div>
+<div class="card">
+
+### [Security →](/docs/api-reference/core/security/)
+Prompt guard, PII redaction, response validation, and FIPS mode.
+
+</div>
+<div class="card">
+
+### [Compliance →](/docs/api-reference/core/compliance/)
+GDPR right-to-erasure workflows with verification and audit trail.
+
+</div>
+<div class="card">
+
+### [Observability →](/docs/api-reference/core/observability/)
+Structured audit logging, OpenTelemetry metrics, and Prometheus integration.
+
+</div>
+<div class="card">
+
+### [Health & Shutdown →](/docs/api-reference/core/health-shutdown/)
+Startup health gates, health reports, and graceful shutdown primitives.
+
+</div>
+<div class="card">
+
+### [Embedding Cache →](/docs/api-reference/core/embedding-cache/)
+LRU embedding cache with TTL and GDPR-aware purging.
+
+</div>
+<div class="card">
+
+### [Reranking →](/docs/api-reference/core/reranking/)
+Score threshold filtering and cross-encoder reranking for RAG.
+
+</div>
+<div class="card">
+
+### [Streaming & Tool Calling →](/docs/api-reference/core/streaming/)
+SSE streaming, function calling, and the multi-provider LLM gateway.
+
+</div>
+<div class="card">
+
+### [Speech-to-Text (ASR) →](/docs/api-reference/core/asr/)
+AsrService trait, Whisper integration, and Voice Activity Detection.
+
+</div>
 </div>

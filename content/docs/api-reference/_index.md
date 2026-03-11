@@ -62,6 +62,60 @@ MagicError variants, error codes, and helper constructors.
 FFI preparation, error codes, and language binding strategy.
 
 </div>
+<div class="card">
+
+### [Resilience →](/docs/api-reference/core/resilience/)
+Retry, circuit breaker, and rate limiter.
+
+</div>
+<div class="card">
+
+### [Security →](/docs/api-reference/core/security/)
+Prompt guard, PII redaction, response validation, FIPS.
+
+</div>
+<div class="card">
+
+### [Compliance →](/docs/api-reference/core/compliance/)
+GDPR right-to-erasure workflows.
+
+</div>
+<div class="card">
+
+### [Observability →](/docs/api-reference/core/observability/)
+Audit logging and OpenTelemetry metrics.
+
+</div>
+<div class="card">
+
+### [Health & Shutdown →](/docs/api-reference/core/health-shutdown/)
+Startup health gates and graceful shutdown.
+
+</div>
+<div class="card">
+
+### [Embedding Cache →](/docs/api-reference/core/embedding-cache/)
+LRU cache with TTL for embedding vectors.
+
+</div>
+<div class="card">
+
+### [Reranking →](/docs/api-reference/core/reranking/)
+Cross-encoder and threshold reranking for RAG.
+
+</div>
+<div class="card">
+
+### [Streaming & Tool Calling →](/docs/api-reference/core/streaming/)
+SSE streaming, function calling, multi-provider gateway.
+
+</div>
+<div class="card">
+
+### [Speech-to-Text (ASR) →](/docs/api-reference/core/asr/)
+AsrService, Whisper, and Voice Activity Detection.
+
+</div>
 </div>
 
 ---
@@ -139,6 +193,12 @@ Multi-turn conversation with DialoGPT.
 </div>
 <div class="card">
 
+### [Text Generation →](/docs/api-reference/nlp/text-generation/)
+Auto-regressive language generation with GPT-2.
+
+</div>
+<div class="card">
+
 ### [Keyword Extraction →](/docs/api-reference/nlp/keyword-extraction/)
 Key terms from documents using sentence embeddings.
 
@@ -165,6 +225,21 @@ Working code examples for common NLP tasks.
 
 ---
 
+## Mobile
+
+On-device text intelligence for Flutter mobile clients from the `magicaf_mobile` crate.
+
+<div class="card-grid">
+<div class="card">
+
+### [Mobile API →](/docs/api-reference/mobile/)
+Keyword extraction, prompt injection detection, audio utilities, and Flutter bindings.
+
+</div>
+</div>
+
+---
+
 ## Generating Rust API Docs
 
 For inline documentation with full type signatures, generate Rust docs:
@@ -178,11 +253,22 @@ cargo doc --workspace --no-deps --open
 ```
 magicaf_core
 ├── adapters        # Extension traits + defaults
+├── asr             # AsrService trait + Voice Activity Detection
+├── audit           # Structured audit logging
+├── circuit_breaker # Circuit breaker state machine
+├── compliance      # GDPR right-to-erasure workflows
 ├── config          # Configuration structs
-├── embeddings      # EmbeddingService trait + LocalEmbeddingService
+├── embeddings      # EmbeddingService trait + LocalEmbeddingService + cache
 ├── errors          # MagicError enum + Result alias
-├── llm             # LlmService trait + OpenAI DTOs
-├── rag             # RAGWorkflow engine + RAGResult
+├── health          # Startup health gates
+├── llm             # LlmService trait + OpenAI DTOs + tool calling
+├── metrics         # OpenTelemetry + Prometheus integration
+├── rag             # RAGWorkflow engine + RAGResult + reranking
+├── rate_limiter    # Semaphore-based concurrency limiter
+├── retry           # Exponential backoff with jitter
+├── security        # Prompt guard, PII filter, response guard, FIPS
+├── shutdown        # Graceful shutdown primitives
+├── telemetry       # Tracing initialization helpers
 ├── vector_store    # VectorStore trait + InMemoryVectorStore
 └── prelude         # Convenience re-exports
 
@@ -196,5 +282,16 @@ magicaf_qdrant
 └── QdrantVectorStore
 
 magicaf_local_llm
-└── LocalLlmService
+├── LocalLlmService     # OpenAI-compatible LLM client
+├── AnthropicLlmService # Anthropic Messages API client
+├── LlmGateway          # Multi-provider router
+└── WhisperAsrService   # Whisper-compatible ASR client
+
+magicaf_mobile
+├── extract_keywords    # Keyword extraction
+├── suggest_title       # Title generation
+├── is_prompt_injection # Prompt injection detection
+├── audio_energy_level  # Audio RMS energy
+├── word_count          # Unicode word counting
+└── truncate_to_words   # Word-bounded truncation
 ```
