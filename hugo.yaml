@@ -126,6 +126,10 @@ menu:
       name: Examples
       url: /docs/examples/
       weight: 30
+    - identifier: menu-lumen-ui
+      name: Lumen UI
+      url: /docs/lumen-ui/
+      weight: 15
     - identifier: search
       name: Search
       url: /search/

@@ -60,6 +60,12 @@ Docker Compose, air-gapped setup, edge/mobile deployment, observability, and sca
 Working code for minimal RAG, document Q&A, and multi-source analysis pipelines.
 
 </div>
+<div class="card">
+
+### [Lumen UI →](/docs/lumen-ui/)
+Component DSL for AI-generated user interfaces — 72 components, streaming parser, and dynamic LLM integration.
+
+</div>
 </div>
 
 ---
