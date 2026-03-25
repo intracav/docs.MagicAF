@@ -186,9 +186,9 @@ button.search-toggle,
 }
 
 [data-theme="dark"] .search-modal__container {
-  background: #221408;
-  border-color: #3D2A1C;
-  box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.7), 0 10px 20px -5px rgba(0, 0, 0, 0.5);
+  background: var(--surface, #28180C);
+  border-color: var(--border, rgba(253,250,245,0.08));
+  box-shadow: var(--shadow-lg);
 }
 
 /* Modal header */

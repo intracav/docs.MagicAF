@@ -1,0 +1,5 @@
+<div class="tip-card">
+  <div class="tip-label">💡 Tip</div>
+  {{ with .Get "title" }}<div class="tip-title">{{ . }}</div>{{ end }}
+  <div class="tip-body">{{ .Inner | markdownify }}</div>
+</div>

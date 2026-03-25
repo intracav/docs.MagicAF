@@ -1,0 +1,7 @@
+<div class="step">
+  <div class="step-indicator">{{ .Get "num" }}</div>
+  <div class="step-content">
+    {{ with .Get "title" }}<h4>{{ . }}</h4>{{ end }}
+    <div>{{ .Inner | markdownify }}</div>
+  </div>
+</div>

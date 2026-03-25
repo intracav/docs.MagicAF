@@ -19,7 +19,8 @@
     {{- $kbdHint := resources.Get "js/kbd-hint.js" }}
     {{- $themeFix := resources.Get "js/theme-toggle-fix.js" }}
     {{- $searchModal := resources.Get "js/search-modal.js" | js.Build (dict "params" (dict "fuseOpts" site.Params.fuseOpts)) | resources.Minify }}
-    {{- $searchScript := (slice $fusejs $kbdHint $themeFix $searchModal) | resources.Concat "assets/js/search-modal-bundle.js" }}
+    {{- $scrollInteractions := resources.Get "js/scroll-interactions.js" }}
+    {{- $searchScript := (slice $fusejs $kbdHint $themeFix $searchModal $scrollInteractions) | resources.Concat "assets/js/search-modal-bundle.js" }}
     {{- if not site.Params.assets.disableFingerprinting }}
     {{- $searchScript = $searchScript | fingerprint }}
     <script defer crossorigin="anonymous" src="{{ $searchScript.RelPermalink }}" integrity="{{ $searchScript.Data.Integrity }}"></script>
@@ -35,6 +36,7 @@
 <body class="{{ if $isDocsPage }}docs-page{{ end }}" id="top">
 {{- end }}
     {{ partialCached "header.html" . .Page -}}
+    <div class="scroll-progress"></div>
     <div class="page-wrapper{{ if $isDocsPage }} with-sidebar{{ end }}">
         {{- if $isDocsPage }}
         {{- partial "docs_sidebar.html" . }}
