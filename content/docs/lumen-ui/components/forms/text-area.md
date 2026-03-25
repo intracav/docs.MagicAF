@@ -11,6 +11,67 @@ last_reviewed: "2026-03-17"
 
 TextArea renders a multi-line text input for collecting longer-form content — clinical notes, assessment narratives, procedure descriptions, or free-text comments. It supports configurable height via the `rows` prop. When the user submits or blurs the field, TextArea dispatches a `submitForm` action with the field's `id` and current `value`.
 
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Interactive Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Discharge Summary</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card lm-card--elevated">
+        <div class="lm-card__header">
+          <div class="lm-card__title">Discharge Summary</div>
+          <div class="lm-card__description">Complete the discharge documentation</div>
+        </div>
+        <div class="lm-card__body">
+          <div class="lm-stack lm-stack--vertical" style="gap:14px;">
+            <div class="lm-stack lm-stack--horizontal" style="gap:12px;">
+              <div class="lm-form-group" style="flex:1;">
+                <label class="lm-form-label">Discharge Diagnosis</label>
+                <input class="lm-input" type="text" placeholder="Primary diagnosis">
+              </div>
+              <div class="lm-form-group" style="flex:1;">
+                <label class="lm-form-label">Discharge Date</label>
+                <div class="lm-date-picker">
+                  <input class="lm-input" type="date">
+                  <span class="lm-date-picker__icon">&#128197;</span>
+                </div>
+              </div>
+            </div>
+            <div class="lm-form-group">
+              <label class="lm-form-label">Hospital Course</label>
+              <textarea class="lm-textarea" rows="4" placeholder="Summarize the patient's hospital course..."></textarea>
+            </div>
+            <div class="lm-form-group">
+              <label class="lm-form-label">Patient Instructions</label>
+              <textarea class="lm-textarea" rows="3" placeholder="Activity restrictions, diet, follow-up..."></textarea>
+              <span class="lm-form-hint">Include medication changes and follow-up appointments</span>
+            </div>
+            <div class="lm-form-group">
+              <label class="lm-form-label">Disposition</label>
+              <select class="lm-select">
+                <option value="" disabled selected>Select disposition</option>
+                <option value="home">Home</option>
+                <option value="home_services">Home with Services</option>
+                <option value="snf">Skilled Nursing</option>
+                <option value="rehab">Rehab</option>
+                <option value="ama">AMA</option>
+              </select>
+            </div>
+            <div class="lm-checkbox">
+              <div class="lm-checkbox__box"><span class="lm-checkbox__check">&#10003;</span></div>
+              <span>Patient/family education completed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## Props
 
 | Property | Type | Default | Description |

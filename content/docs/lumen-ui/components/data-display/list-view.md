@@ -34,6 +34,28 @@ ListView(
 )
 ```
 
+## Live Preview
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Live Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">ListView — Post-Op Instructions</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <ol class="lm-list-view">
+        <li>Take medications as prescribed</li>
+        <li>Follow up in 7 days for wound check</li>
+        <li>Call if fever exceeds 101.5&deg;F or pain increases</li>
+        <li>Avoid heavy lifting for 2 weeks</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -71,6 +93,40 @@ Card(title="Discharge Instructions",
   )
 )
 ```
+
+## Composition Preview
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Composition Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Card + Alert + ListView — Discharge Checklist</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card lm-card--elevated">
+        <div class="lm-card__header"><div class="lm-card__title">Discharge Instructions</div></div>
+        <div class="lm-card__body">
+          <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border-radius:8px;background:rgba(88,101,242,0.08);border:1px solid rgba(88,101,242,0.2);margin-bottom:14px;">
+            <span style="font-size:16px;">&#9432;</span>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:2px;">Important</div>
+              <div style="font-size:13px;color:var(--text-secondary);">Review all items before leaving.</div>
+            </div>
+          </div>
+          <ul class="lm-list-view lm-list-view--checklist">
+            <li><strong>Medications reviewed</strong><br><span style="font-size:12px;color:var(--text-secondary);">Metformin 1000mg BID, Lisinopril 10mg daily</span></li>
+            <li><strong>Follow-up scheduled</strong><br><span style="font-size:12px;color:var(--text-secondary);">Dr. Smith, March 24 at 10:00 AM</span></li>
+            <li><strong>Activity restrictions explained</strong><br><span style="font-size:12px;color:var(--text-secondary);">No heavy lifting for 14 days</span></li>
+            <li><strong>Warning signs reviewed</strong><br><span style="font-size:12px;color:var(--text-secondary);">Fever, redness, increasing pain</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ## Notes
 

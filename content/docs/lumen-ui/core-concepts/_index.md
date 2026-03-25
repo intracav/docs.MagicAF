@@ -6,6 +6,51 @@ weight: 3
 
 Lumen UI is built around a small number of interlocking concepts. Understanding these will let you author components by hand, debug LLM-generated output, customize the rendering pipeline, and extend the system with new components.
 
+<div class="lumen-demo">
+  <div class="lumen-demo__label">The Full Pipeline</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">How Lumen UI Works, End to End</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-pipeline">
+        <div class="lm-pipeline__step">
+          <div class="lm-pipeline__icon">&#128221;</div>
+          <span class="lm-pipeline__label">DSL / JSON</span>
+          <span class="lm-pipeline__sublabel">Input formats</span>
+        </div>
+        <span class="lm-pipeline__arrow">&#8594;</span>
+        <div class="lm-pipeline__step">
+          <div class="lm-pipeline__icon">&#9881;</div>
+          <span class="lm-pipeline__label">Parser</span>
+          <span class="lm-pipeline__sublabel">Stream-safe</span>
+        </div>
+        <span class="lm-pipeline__arrow">&#8594;</span>
+        <div class="lm-pipeline__step">
+          <div class="lm-pipeline__icon">&#127795;</div>
+          <span class="lm-pipeline__label">LumenNode</span>
+          <span class="lm-pipeline__sublabel">Component tree</span>
+        </div>
+        <span class="lm-pipeline__arrow">&#8594;</span>
+        <div class="lm-pipeline__step">
+          <div class="lm-pipeline__icon">&#127912;</div>
+          <span class="lm-pipeline__label">Renderer</span>
+          <span class="lm-pipeline__sublabel">Registry + Theme</span>
+        </div>
+        <span class="lm-pipeline__arrow">&#8594;</span>
+        <div class="lm-pipeline__step">
+          <div class="lm-pipeline__icon">&#128241;</div>
+          <span class="lm-pipeline__label">Flutter UI</span>
+          <span class="lm-pipeline__sublabel">Interactive</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ---
 
 <div class="card-grid">

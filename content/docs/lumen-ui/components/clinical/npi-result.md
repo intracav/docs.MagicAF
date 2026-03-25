@@ -50,6 +50,62 @@ NpiResult(
 )
 ```
 
+### Live Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">NpiResult &mdash; Cardiology Providers</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px;">Cardiology Providers Near 90210</div>
+<div class="lm-stack lm-stack--vertical lm-stack--gap-8">
+<div class="lm-npi-result">
+<div class="lm-npi-result__header" style="background:rgba(56,178,172,0.06);">
+<div class="lm-npi-result__avatar" style="background:rgba(56,178,172,0.15);color:#38B2AC;">JS</div>
+<div style="flex:1;">
+<div style="font-size:15px;font-weight:700;color:var(--text-primary);">Dr. Jane A. Smith, MD</div>
+<div style="font-size:12px;color:var(--text-tertiary);font-family:var(--font-mono);">NPI: 1234567890</div>
+</div>
+<span class="lm-badge lm-badge--default" style="font-size:11px;">Individual</span>
+</div>
+<div style="padding:12px 16px;">
+<div class="lm-kv">
+<span class="lm-kv__key">Specialty</span><span class="lm-kv__value">Cardiovascular Disease (207RC0000X)</span>
+<span class="lm-kv__key">Gender</span><span class="lm-kv__value">Female</span>
+<span class="lm-kv__key">Address</span><span class="lm-kv__value">123 Medical Center Dr, Beverly Hills, CA 90210</span>
+<span class="lm-kv__key">Phone</span><span class="lm-kv__value">310-555-0142</span>
+</div>
+</div>
+</div>
+<div class="lm-npi-result">
+<div class="lm-npi-result__header" style="background:rgba(56,178,172,0.06);">
+<div class="lm-npi-result__avatar" style="background:rgba(56,178,172,0.15);color:#38B2AC;">RC</div>
+<div style="flex:1;">
+<div style="font-size:15px;font-weight:700;color:var(--text-primary);">Dr. Robert Chen, MD</div>
+<div style="font-size:12px;color:var(--text-tertiary);font-family:var(--font-mono);">NPI: 0987654321</div>
+</div>
+<span class="lm-badge lm-badge--default" style="font-size:11px;">Individual</span>
+</div>
+<div style="padding:12px 16px;">
+<div class="lm-kv">
+<span class="lm-kv__key">Specialty</span><span class="lm-kv__value">Interventional Cardiology (207RI0011X)</span>
+<span class="lm-kv__key">Address</span><span class="lm-kv__value">456 Heart Institute Blvd, Los Angeles, CA 90048</span>
+<span class="lm-kv__key">Phone</span><span class="lm-kv__value">323-555-0198</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -101,6 +157,60 @@ Stack(direction="vertical", gap=16,
   )
 )
 ```
+
+### Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">EP Referral Workflow</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+<div class="lm-fhir-patient">
+<div class="lm-fhir-patient__header" style="background:rgba(56,178,172,0.06);">
+<div class="lm-fhir-patient__avatar" style="background:rgba(56,178,172,0.15);color:#38B2AC;">A</div>
+<div>
+<div class="lm-fhir-patient__name">Alice Thompson</div>
+<div class="lm-fhir-patient__mrn">DOB: 1975-09-22 &middot; Female &middot; PAF, HTN &middot; PCP: Dr. Gonzalez</div>
+</div>
+</div>
+</div>
+<div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:4px;">Electrophysiology Referral Options</div>
+<div class="lm-npi-result">
+<div class="lm-npi-result__header" style="background:rgba(56,178,172,0.06);">
+<div class="lm-npi-result__avatar" style="background:rgba(56,178,172,0.15);color:#38B2AC;">MP</div>
+<div style="flex:1;">
+<div style="font-size:14px;font-weight:700;">Dr. Michael Park, MD</div>
+<div style="font-size:12px;color:var(--text-tertiary);font-family:var(--font-mono);">NPI: 1122334455</div>
+</div>
+</div>
+<div style="padding:8px 16px;">
+<div class="lm-kv">
+<span class="lm-kv__key">Specialty</span><span class="lm-kv__value">Clinical Cardiac Electrophysiology</span>
+<span class="lm-kv__key">Phone</span><span class="lm-kv__value">310-555-0256</span>
+</div>
+</div>
+</div>
+<div class="lm-clinical-note">
+<div style="padding:8px 16px;border-bottom:1px solid var(--border);display:flex;gap:8px;">
+<span class="lm-badge" style="background:var(--entry);color:var(--text-secondary);font-size:11px;">Progress Note</span>
+<span class="lm-badge" style="background:var(--entry);color:var(--text-secondary);font-size:11px;">Dr. Gonzalez</span>
+</div>
+<div class="lm-clinical-note__section">
+<div class="lm-clinical-note__section-body">Referring patient to EP for ablation evaluation given recurrent symptomatic AF on rate control. Anticoagulation current.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 ## Notes
 

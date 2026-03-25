@@ -43,6 +43,39 @@ CodeBlock(
 )
 ```
 
+## Live Preview
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Live Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">CodeBlock — FHIR Patient Resource</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-code-block">
+        <div class="lm-code-block__header">
+          <span class="lm-code-block__lang">JSON</span>
+          <button class="lm-code-block__copy">Copy</button>
+        </div>
+        <div class="lm-code-block__body">{
+  <span class="lm-json-viewer__key">"resourceType"</span>: <span class="lm-json-viewer__string">"Patient"</span>,
+  <span class="lm-json-viewer__key">"id"</span>: <span class="lm-json-viewer__string">"example"</span>,
+  <span class="lm-json-viewer__key">"name"</span>: [<span class="lm-json-viewer__bracket">{</span>
+    <span class="lm-json-viewer__key">"use"</span>: <span class="lm-json-viewer__string">"official"</span>,
+    <span class="lm-json-viewer__key">"family"</span>: <span class="lm-json-viewer__string">"Doe"</span>,
+    <span class="lm-json-viewer__key">"given"</span>: [<span class="lm-json-viewer__string">"Jane"</span>]
+  <span class="lm-json-viewer__bracket">}</span>],
+  <span class="lm-json-viewer__key">"birthDate"</span>: <span class="lm-json-viewer__string">"1985-04-12"</span>,
+  <span class="lm-json-viewer__key">"gender"</span>: <span class="lm-json-viewer__string">"female"</span>
+}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -83,6 +116,49 @@ Card(title="RxNorm Lookup API",
   )
 )
 ```
+
+## Composition Preview
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Composition Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Card + Markdown + CodeBlock — API Docs</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card lm-card--elevated">
+        <div class="lm-card__header"><div class="lm-card__title">RxNorm Lookup API</div></div>
+        <div class="lm-card__body">
+          <div class="lm-markdown" style="margin-bottom:12px;">
+            <p>Query the RxNorm API for drug information by name or RxCUI.</p>
+          </div>
+          <div class="lm-code-block" style="margin-bottom:12px;">
+            <div class="lm-code-block__header">
+              <span class="lm-code-block__lang">Request</span>
+              <button class="lm-code-block__copy">Copy</button>
+            </div>
+            <div class="lm-code-block__body">curl -X GET 'https://rxnav.nlm.nih.gov/REST/rxcui.json?name=lisinopril'</div>
+          </div>
+          <div class="lm-code-block">
+            <div class="lm-code-block__header">
+              <span class="lm-code-block__lang">Response</span>
+              <button class="lm-code-block__copy">Copy</button>
+            </div>
+            <div class="lm-code-block__body">{
+  <span class="lm-json-viewer__key">"idGroup"</span>: <span class="lm-json-viewer__bracket">{</span>
+    <span class="lm-json-viewer__key">"name"</span>: <span class="lm-json-viewer__string">"lisinopril"</span>,
+    <span class="lm-json-viewer__key">"rxnormId"</span>: [<span class="lm-json-viewer__string">"104377"</span>]
+  <span class="lm-json-viewer__bracket">}</span>
+}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ## Notes
 

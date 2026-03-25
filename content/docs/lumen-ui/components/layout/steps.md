@@ -43,6 +43,41 @@ Steps(
 )
 ```
 
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Live Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Steps — Clinical Workflow</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-steps">
+        <div class="lm-steps__item lm-steps__item--completed">
+          <div class="lm-steps__number">&#10003;</div>
+          <div class="lm-steps__title">Patient Intake</div>
+          <div class="lm-steps__desc">Demographics and insurance</div>
+        </div>
+        <div class="lm-steps__item">
+          <div class="lm-steps__number">2</div>
+          <div class="lm-steps__title" style="font-weight: 700;">Clinical Assessment</div>
+          <div class="lm-steps__desc">Vitals and chief complaint</div>
+        </div>
+        <div class="lm-steps__item lm-steps__item--pending">
+          <div class="lm-steps__number">3</div>
+          <div class="lm-steps__title">Diagnostic Orders</div>
+          <div class="lm-steps__desc">Labs and imaging</div>
+        </div>
+        <div class="lm-steps__item lm-steps__item--pending">
+          <div class="lm-steps__number">4</div>
+          <div class="lm-steps__title">Treatment Plan</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -83,6 +118,59 @@ Card(title="Prior Authorization Workflow",
   )
 )
 ```
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Composition Preview — Prior Auth Workflow</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Steps — Prior Authorization</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card">
+        <div class="lm-card__header">
+          <div class="lm-card__title">Prior Authorization Workflow</div>
+        </div>
+        <div class="lm-card__body">
+          <div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+            <div class="lm-steps">
+              <div class="lm-steps__item lm-steps__item--completed">
+                <div class="lm-steps__number">&#10003;</div>
+                <div class="lm-steps__title">Submit Request</div>
+              </div>
+              <div class="lm-steps__item lm-steps__item--completed">
+                <div class="lm-steps__number">&#10003;</div>
+                <div class="lm-steps__title">Clinical Review</div>
+                <div class="lm-steps__desc">Peer-to-peer if needed</div>
+              </div>
+              <div class="lm-steps__item">
+                <div class="lm-steps__number">3</div>
+                <div class="lm-steps__title" style="font-weight: 700;">Insurance Decision</div>
+              </div>
+              <div class="lm-steps__item lm-steps__item--pending">
+                <div class="lm-steps__number">4</div>
+                <div class="lm-steps__title">Notification</div>
+                <div class="lm-steps__desc">Patient and provider notified</div>
+              </div>
+            </div>
+            <div class="lm-separator">
+              <div class="lm-separator__line"></div>
+            </div>
+            <div class="lm-alert lm-alert--info">
+              <span class="lm-alert__icon">&#8505;</span>
+              <div class="lm-alert__content">
+                <div class="lm-alert__title">Awaiting Decision</div>
+                <div class="lm-alert__message">Aetna clinical review completed. Decision expected within 48 hours.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ## Notes
 

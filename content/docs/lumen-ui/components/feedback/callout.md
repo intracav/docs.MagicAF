@@ -83,6 +83,94 @@ Card(title="Medication Counseling — Warfarin",
 )
 ```
 
+## Interactive Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Callout Variants</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-12">
+
+<div class="lm-callout" style="border-left:3px solid #5865F2; background:rgba(88,101,242,0.06); border-radius:8px; padding:12px 14px;">
+<div class="lm-callout__title" style="font-weight:700; font-size:13px; margin-bottom:4px; color:#5865F2;">&#9432; Info</div>
+<div class="lm-callout__body" style="font-size:13px; color:var(--text-secondary);">Consider checking renal function before starting ACE inhibitors in patients over 65.</div>
+</div>
+
+<div class="lm-callout" style="border-left:3px solid #F5A623; background:rgba(245,166,35,0.06); border-radius:8px; padding:12px 14px;">
+<div class="lm-callout__title" style="font-weight:700; font-size:13px; margin-bottom:4px; color:#F5A623;">&#9888; Warning</div>
+<div class="lm-callout__body" style="font-size:13px; color:var(--text-secondary);">Fluoroquinolones are associated with tendinitis, peripheral neuropathy, and CNS effects.</div>
+</div>
+
+<div class="lm-callout" style="border-left:3px solid #DA373C; background:rgba(218,55,60,0.06); border-radius:8px; padding:12px 14px;">
+<div class="lm-callout__title" style="font-weight:700; font-size:13px; margin-bottom:4px; color:#DA373C;">&#9888; Black Box Warning</div>
+<div class="lm-callout__body" style="font-size:13px; color:var(--text-secondary);"><strong>Warfarin</strong> requires regular INR monitoring. Target INR range: <strong>2.0 &ndash; 3.0</strong> for most indications. Risk of fatal bleeding events.</div>
+</div>
+
+<div class="lm-callout" style="border-left:3px solid #3BA55C; background:rgba(59,165,92,0.06); border-radius:8px; padding:12px 14px;">
+<div class="lm-callout__title" style="font-weight:700; font-size:13px; margin-bottom:4px; color:#3BA55C;">&#10003; Clinical Pearl</div>
+<div class="lm-callout__body" style="font-size:13px; color:var(--text-secondary);">Maintain consistent vitamin K intake while on warfarin. Report unusual bruising or bleeding promptly.</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+## Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Demo</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Medication Counseling &mdash; Warfarin</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-card">
+<div class="lm-card__header"><div class="lm-card__title">Medication Counseling &mdash; Warfarin</div></div>
+<div class="lm-card__body">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-12">
+
+<div class="lm-callout" style="border-left:3px solid #DA373C; background:rgba(218,55,60,0.06); border-radius:8px; padding:12px 14px;">
+<div class="lm-callout__title" style="font-weight:700; font-size:13px; margin-bottom:4px; color:#DA373C;">High-Risk Medication</div>
+<div class="lm-callout__body" style="font-size:13px; color:var(--text-secondary);">Warfarin requires regular INR monitoring. Target INR range: <strong>2.0 &ndash; 3.0</strong> for most indications.</div>
+</div>
+
+<div class="lm-callout" style="border-left:3px solid #3BA55C; background:rgba(59,165,92,0.06); border-radius:8px; padding:12px 14px;">
+<div class="lm-callout__title" style="font-weight:700; font-size:13px; margin-bottom:6px; color:#3BA55C;">Patient Education Points</div>
+<div class="lm-callout__body" style="font-size:13px; color:var(--text-secondary);">
+&bull; Maintain consistent vitamin K intake<br>
+&bull; Report unusual bruising or bleeding<br>
+&bull; Avoid NSAIDs unless directed<br>
+&bull; Carry a medical alert card
+</div>
+</div>
+
+<div class="lm-callout" style="border-left:3px solid #5865F2; background:rgba(88,101,242,0.06); border-radius:8px; padding:12px 14px;">
+<div class="lm-callout__title" style="font-weight:700; font-size:13px; margin-bottom:6px; color:#5865F2;">Next Lab Due</div>
+<div class="lm-callout__body">
+<div class="lm-stack lm-stack--horizontal lm-stack--gap-24">
+<div class="lm-stat"><div class="lm-stat__label">INR Due</div><div class="lm-stat__value" style="font-size:18px;">2026-03-24</div></div>
+<div class="lm-stat"><div class="lm-stat__label">Last INR</div><div class="lm-stat__value" style="font-size:18px;">2.4</div></div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 ## Notes
 
 - Callout's `variant` uses `"danger"` instead of `"error"` — this differs from Alert's enum. Use `"danger"` for Callout, `"error"` for Alert.

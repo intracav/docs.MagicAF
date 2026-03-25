@@ -11,6 +11,65 @@ last_reviewed: "2026-03-17"
 
 Select renders a dropdown menu that lets the user choose one value from a predefined list. Options can be provided as simple strings or as `{label, value}` objects when the display text differs from the underlying value. When the selection changes, Select dispatches a `submitForm` action with the field's `id` and selected `value`.
 
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Interactive Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Allergy Entry</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card lm-card--elevated">
+        <div class="lm-card__header">
+          <div class="lm-card__title">Allergy Entry</div>
+          <div class="lm-card__description">Document a new allergy for this patient</div>
+        </div>
+        <div class="lm-card__body">
+          <div class="lm-stack lm-stack--vertical" style="gap:14px;">
+            <div class="lm-form-group">
+              <label class="lm-form-label">Allergen</label>
+              <input class="lm-input" type="text" placeholder="e.g. Penicillin">
+            </div>
+            <div class="lm-form-group">
+              <label class="lm-form-label">Reaction Type</label>
+              <select class="lm-select">
+                <option value="" disabled selected>Select reaction</option>
+                <option value="anaphylaxis">Anaphylaxis</option>
+                <option value="rash">Rash</option>
+                <option value="gi_upset">GI Upset</option>
+                <option value="angioedema">Angioedema</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="lm-form-group">
+              <label class="lm-form-label">Severity</label>
+              <select class="lm-select">
+                <option value="" disabled selected>Select severity</option>
+                <option value="mild">Mild — localized</option>
+                <option value="moderate">Moderate — systemic</option>
+                <option value="severe">Severe — life-threatening</option>
+              </select>
+            </div>
+            <div class="lm-form-group">
+              <label class="lm-form-label">Department</label>
+              <select class="lm-select">
+                <option value="" disabled selected>Select department</option>
+                <option value="em">Emergency Medicine</option>
+                <option value="im">Internal Medicine</option>
+                <option value="gs">General Surgery</option>
+                <option value="peds">Pediatrics</option>
+              </select>
+              <span class="lm-form-hint">Department that documented the allergy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## Props
 
 | Property | Type | Default | Description |

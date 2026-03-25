@@ -82,6 +82,103 @@ Stack(direction="vertical", gap=12,
 )
 ```
 
+## Interactive Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Source Cards</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-8">
+
+<div class="lm-source-card">
+<div class="lm-source-card__content">
+<div class="lm-source-card__title">ACC/AHA Hypertension Guidelines 2024</div>
+<div class="lm-source-card__snippet">For patients with confirmed hypertension and cardiovascular risk factors, initial therapy with an ACE inhibitor or ARB is recommended.</div>
+<div style="display:flex; align-items:center; gap:8px; margin-top:6px;">
+<span class="lm-source-card__source">AHA</span>
+<span class="lm-source-card__relevance">95%</span>
+</div>
+</div>
+</div>
+
+<div class="lm-source-card">
+<div class="lm-source-card__content">
+<div class="lm-source-card__title">ADA Standards of Care 2025</div>
+<div class="lm-source-card__snippet">ACE inhibitors are first-line antihypertensive agents in patients with diabetes and albuminuria.</div>
+<div style="display:flex; align-items:center; gap:8px; margin-top:6px;">
+<span class="lm-source-card__source">ADA</span>
+<span class="lm-source-card__relevance">88%</span>
+</div>
+</div>
+</div>
+
+<div class="lm-source-card">
+<div class="lm-source-card__content">
+<div class="lm-source-card__title">JNC 8 Evidence Review</div>
+<div class="lm-source-card__snippet">In the general population aged &ge;60 years, initiate treatment at SBP &ge;150 mmHg.</div>
+<div style="display:flex; align-items:center; gap:8px; margin-top:6px;">
+<span class="lm-source-card__source">JAMA</span>
+<span class="lm-source-card__relevance">72%</span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+## Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Demo</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Agent Response with Sources</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-12">
+
+<div style="font-size:13px; color:var(--text-primary); line-height:1.6;">Current guidelines recommend initiating ACE inhibitor therapy for patients with hypertension and diabetes, targeting a blood pressure below 130/80 mmHg.</div>
+
+<div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-tertiary); margin-bottom:-4px;">Sources</div>
+
+<div class="lm-source-card">
+<div class="lm-source-card__content">
+<div class="lm-source-card__title">ACC/AHA Hypertension Guidelines 2024</div>
+<div class="lm-source-card__snippet">For patients with diabetes, a BP target of &lt;130/80 mmHg is recommended.</div>
+<div style="display:flex; align-items:center; gap:8px; margin-top:6px;">
+<span class="lm-source-card__source">AHA</span>
+<span class="lm-source-card__relevance">95%</span>
+</div>
+</div>
+</div>
+
+<div class="lm-source-card">
+<div class="lm-source-card__content">
+<div class="lm-source-card__title">ADA Standards of Care 2025</div>
+<div class="lm-source-card__snippet">ACE inhibitors are first-line antihypertensive agents in patients with diabetes and albuminuria.</div>
+<div style="display:flex; align-items:center; gap:8px; margin-top:6px;">
+<span class="lm-source-card__source">ADA</span>
+<span class="lm-source-card__relevance">88%</span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
 ## Notes
 
 - **Relevance score**: The `score` prop (0-1) is rendered as a percentage badge or bar indicator. Higher scores appear more prominently. Omit it if relevance scoring is not applicable.

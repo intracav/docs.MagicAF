@@ -1,12 +1,15 @@
 {{- /* Footer custom content area start */ -}}
-<div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.9rem; opacity: 0.8;">
-    <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center;">
-        <span>Related resources:</span>
-        <a href="https://www.intracav.ai/" rel="noopener noreferrer" target="_blank" style="text-decoration: none;">Intracav AI</a>
-        <span>·</span>
-        <a href="https://blog.intracav.ai/" rel="noopener noreferrer" target="_blank" style="text-decoration: none;">Intracav Blog</a>
-        <span>·</span>
-        <a href="https://www.qpolicy.ai/" rel="noopener noreferrer" target="_blank" style="text-decoration: none;">QPolicy</a>
+<div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.85rem;">
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-tertiary);">
+        <a href="https://www.intracav.ai/" rel="noopener noreferrer" target="_blank" style="text-decoration: none; color: var(--accent);">Intracav</a>
+        <span style="opacity: 0.4;">·</span>
+        <a href="https://blog.intracav.ai/" rel="noopener noreferrer" target="_blank" style="text-decoration: none; color: var(--text-secondary);">Blog</a>
+        <span style="opacity: 0.4;">·</span>
+        <a href="https://www.qpolicy.ai/" rel="noopener noreferrer" target="_blank" style="text-decoration: none; color: var(--text-secondary);">QPolicy</a>
     </div>
 </div>
 {{- /* Footer custom content area end */ -}}
+
+{{- /* Lumen UI interactive mockup behaviors */ -}}
+{{ $lumenJS := resources.Get "js/lumen-mockups.js" | minify }}
+<script src="{{ $lumenJS.RelPermalink }}" defer></script>

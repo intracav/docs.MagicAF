@@ -39,6 +39,70 @@ AdverseEvents(
 )
 ```
 
+### Live Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">AdverseEvents &mdash; Metformin</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-card">
+<div class="lm-card__header" style="border-left:3px solid #ED8936;padding-left:13px;">
+<div class="lm-card__title">METFORMIN &mdash; Adverse Events</div>
+<div class="lm-card__description">15,234 total FAERS reports</div>
+</div>
+<div class="lm-card__body">
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+<span class="lm-badge lm-badge--error">89 Deaths</span>
+<span class="lm-badge lm-badge--warning">1,842 Hospitalizations</span>
+<span class="lm-badge" style="background:rgba(214,158,46,0.1);color:#D69E2E;">312 Life-threatening</span>
+</div>
+<div class="lm-adverse-events__chart">
+<div class="lm-adverse-events__bar-row">
+<span class="lm-adverse-events__bar-label">Nausea</span>
+<div class="lm-adverse-events__bar-track"><div class="lm-adverse-events__bar-fill" style="width:100%;background:#DA373C;"></div></div>
+<span class="lm-adverse-events__bar-count">3,421</span>
+</div>
+<div class="lm-adverse-events__bar-row">
+<span class="lm-adverse-events__bar-label">Diarrhea</span>
+<div class="lm-adverse-events__bar-track"><div class="lm-adverse-events__bar-fill" style="width:85%;background:#ED8936;"></div></div>
+<span class="lm-adverse-events__bar-count">2,891</span>
+</div>
+<div class="lm-adverse-events__bar-row">
+<span class="lm-adverse-events__bar-label">Abdominal Pain</span>
+<div class="lm-adverse-events__bar-track"><div class="lm-adverse-events__bar-fill" style="width:35%;background:#F5A623;"></div></div>
+<span class="lm-adverse-events__bar-count">1,205</span>
+</div>
+<div class="lm-adverse-events__bar-row">
+<span class="lm-adverse-events__bar-label">Vomiting</span>
+<div class="lm-adverse-events__bar-track"><div class="lm-adverse-events__bar-fill" style="width:29%;background:#F5A623;"></div></div>
+<span class="lm-adverse-events__bar-count">987</span>
+</div>
+<div class="lm-adverse-events__bar-row">
+<span class="lm-adverse-events__bar-label">Decreased Appetite</span>
+<div class="lm-adverse-events__bar-track"><div class="lm-adverse-events__bar-fill" style="width:19%;background:#5865F2;"></div></div>
+<span class="lm-adverse-events__bar-count">654</span>
+</div>
+<div class="lm-adverse-events__bar-row">
+<span class="lm-adverse-events__bar-label">Lactic Acidosis</span>
+<div class="lm-adverse-events__bar-track"><div class="lm-adverse-events__bar-fill" style="width:12%;background:#DA373C;"></div></div>
+<span class="lm-adverse-events__bar-count">412</span>
+</div>
+</div>
+</div>
+</div>
+<div style="padding:8px 16px;font-size:11px;color:var(--text-tertiary);font-style:italic;border-top:1px solid var(--border);">FDA FAERS data &mdash; reports do not establish causation</div>
+</div>
+</div>
+</div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -94,6 +158,63 @@ Stack(direction="vertical", gap=16,
   )
 )
 ```
+
+### Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Atorvastatin Safety Profile</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+<div class="lm-drug-card">
+<div class="lm-drug-card__header" style="background:rgba(61,191,128,0.08);">
+<div class="lm-drug-card__name">Atorvastatin 40 MG Oral Tablet</div>
+<div class="lm-drug-card__rxcui">RxCUI: 259255 &middot; Lipitor</div>
+</div>
+</div>
+<div class="lm-adverse-events__chart">
+<div class="lm-adverse-events__bar-row">
+<span class="lm-adverse-events__bar-label">Myalgia</span>
+<div class="lm-adverse-events__bar-track"><div class="lm-adverse-events__bar-fill" style="width:100%;background:#DA373C;"></div></div>
+<span class="lm-adverse-events__bar-count">8,932</span>
+</div>
+<div class="lm-adverse-events__bar-row">
+<span class="lm-adverse-events__bar-label">Fatigue</span>
+<div class="lm-adverse-events__bar-track"><div class="lm-adverse-events__bar-fill" style="width:26%;background:#F5A623;"></div></div>
+<span class="lm-adverse-events__bar-count">2,341</span>
+</div>
+<div class="lm-adverse-events__bar-row">
+<span class="lm-adverse-events__bar-label">Arthralgia</span>
+<div class="lm-adverse-events__bar-track"><div class="lm-adverse-events__bar-fill" style="width:21%;background:#F5A623;"></div></div>
+<span class="lm-adverse-events__bar-count">1,876</span>
+</div>
+<div class="lm-adverse-events__bar-row">
+<span class="lm-adverse-events__bar-label">Rhabdomyolysis</span>
+<div class="lm-adverse-events__bar-track"><div class="lm-adverse-events__bar-fill" style="width:14%;background:#DA373C;"></div></div>
+<span class="lm-adverse-events__bar-count">1,247</span>
+</div>
+<div class="lm-adverse-events__bar-row">
+<span class="lm-adverse-events__bar-label">Hepatotoxicity</span>
+<div class="lm-adverse-events__bar-track"><div class="lm-adverse-events__bar-fill" style="width:10%;background:#DA373C;"></div></div>
+<span class="lm-adverse-events__bar-count">892</span>
+</div>
+</div>
+<div class="lm-interactions__item">
+<span class="lm-interactions__severity lm-interactions__severity--high">High</span>
+<div class="lm-interactions__desc">Concurrent use with gemfibrozil increases the risk of rhabdomyolysis. Monitor CK levels if myalgia develops.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 ## Notes
 

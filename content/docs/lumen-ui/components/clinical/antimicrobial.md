@@ -47,6 +47,54 @@ Antimicrobial(
 )
 ```
 
+### Live Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Antimicrobial &mdash; Piperacillin-Tazobactam</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-card">
+<div class="lm-card__header" style="border-left:3px solid #3DBF80;padding-left:13px;">
+<div class="lm-card__title" style="display:flex;align-items:center;gap:8px;">Piperacillin-Tazobactam <span class="lm-badge lm-badge--error">Severe</span></div>
+<div class="lm-card__description">Hospital-acquired pneumonia &middot; ICU</div>
+</div>
+<div class="lm-card__body">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-12">
+<div>
+<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-tertiary);margin-bottom:4px;">Dosing</div>
+<div style="font-size:13px;color:var(--text-primary);">4.5g IV q6h (extended infusion over 4 hours preferred)</div>
+</div>
+<div>
+<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-tertiary);margin-bottom:4px;">Duration</div>
+<div style="font-size:13px;color:var(--text-primary);">7&ndash;10 days. Consider de-escalation at 48&ndash;72h based on culture data.</div>
+</div>
+<div>
+<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-tertiary);margin-bottom:4px;">Spectrum</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;">
+<span class="lm-badge lm-badge--success">Gram-negative incl. Pseudomonas</span>
+<span class="lm-badge lm-badge--info">Gram-positive excl. MRSA</span>
+<span class="lm-badge lm-badge--default">Anaerobes</span>
+</div>
+</div>
+<div>
+<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-tertiary);margin-bottom:4px;">Monitoring</div>
+<div style="font-size:13px;color:var(--text-primary);">Renal function (BUN/Cr), CBC with differential, hepatic function</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -100,6 +148,55 @@ Stack(direction="vertical", gap=16,
   )
 )
 ```
+
+### Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Infectious Disease Workup &mdash; CAP</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+<div class="lm-ddx">
+<div class="lm-ddx__header"><div class="lm-ddx__title">Differential Dx &mdash; Fever, productive cough, hypoxia</div></div>
+<ul class="lm-ddx__list">
+<li class="lm-ddx__item">
+<span class="lm-ddx__rank">1</span>
+<span class="lm-ddx__name">Community-acquired pneumonia<br><span style="font-size:11px;color:var(--text-tertiary);font-weight:400;">J18.9</span></span>
+<span class="lm-ddx__likelihood lm-ddx__likelihood--high">High</span>
+</li>
+<li class="lm-ddx__item">
+<span class="lm-ddx__rank">2</span>
+<span class="lm-ddx__name">COVID-19</span>
+<span class="lm-ddx__likelihood lm-ddx__likelihood--moderate">Moderate</span>
+</li>
+<li class="lm-ddx__item">
+<span class="lm-ddx__rank">3</span>
+<span class="lm-ddx__name">PE with infarction</span>
+<span class="lm-ddx__likelihood lm-ddx__likelihood--low">Low</span>
+</li>
+</ul>
+</div>
+<div class="lm-card">
+<div class="lm-card__header" style="border-left:3px solid #3DBF80;padding-left:13px;">
+<div class="lm-card__title" style="display:flex;align-items:center;gap:8px;">Ceftriaxone + Azithromycin <span class="lm-badge lm-badge--warning">Moderate</span></div>
+<div class="lm-card__description">Community-acquired pneumonia &middot; Inpatient</div>
+</div>
+<div class="lm-card__body">
+<div style="font-size:13px;color:var(--text-primary);line-height:1.6;">Ceftriaxone 1g IV q24h + Azithromycin 500mg IV/PO q24h<br>Duration: 5&ndash;7 days. Switch to oral when clinically improving.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 ## Notes
 

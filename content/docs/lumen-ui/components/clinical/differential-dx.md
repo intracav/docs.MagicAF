@@ -52,6 +52,51 @@ DifferentialDx(
 )
 ```
 
+### Live Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">DifferentialDx &mdash; Chest Pain</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-ddx">
+<div class="lm-ddx__header">
+<div class="lm-ddx__title">Differential Dx &mdash; Chest pain, substernal, radiating to left arm</div>
+</div>
+<ul class="lm-ddx__list">
+<li class="lm-ddx__item">
+<span class="lm-ddx__rank">1</span>
+<span class="lm-ddx__name">Acute Myocardial Infarction<br><span style="font-size:11px;color:var(--text-tertiary);font-weight:400;">I21.9 &middot; ECG, troponin, CBC, BMP</span></span>
+<span class="lm-ddx__likelihood lm-ddx__likelihood--high">High</span>
+</li>
+<li class="lm-ddx__item">
+<span class="lm-ddx__rank">2</span>
+<span class="lm-ddx__name">Unstable Angina<br><span style="font-size:11px;color:var(--text-tertiary);font-weight:400;">I20.0 &middot; Serial troponins q3h, stress test</span></span>
+<span class="lm-ddx__likelihood lm-ddx__likelihood--moderate">Moderate</span>
+</li>
+<li class="lm-ddx__item">
+<span class="lm-ddx__rank">3</span>
+<span class="lm-ddx__name">Pulmonary Embolism<br><span style="font-size:11px;color:var(--text-tertiary);font-weight:400;">I26.99 &middot; D-dimer, CT angiography</span></span>
+<span class="lm-ddx__likelihood lm-ddx__likelihood--low">Low</span>
+</li>
+<li class="lm-ddx__item">
+<span class="lm-ddx__rank">4</span>
+<span class="lm-ddx__name">GERD<br><span style="font-size:11px;color:var(--text-tertiary);font-weight:400;">K21.0 &middot; Diagnosis of exclusion</span></span>
+<span class="lm-ddx__likelihood lm-ddx__likelihood--low">Low</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -97,6 +142,79 @@ Stack(direction="vertical", gap=16,
   )
 )
 ```
+
+### Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">ED Workup &mdash; Acute Dyspnea</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+<div class="lm-triage lm-triage--2">
+<div class="lm-triage__banner">
+<span class="lm-triage__level-badge">ESI 2 &mdash; Emergent</span>
+<span class="lm-triage__wait">Immediate</span>
+</div>
+<div class="lm-triage__body">
+<div>
+<div class="lm-triage__row-label">Chief Complaint</div>
+<div class="lm-triage__row-value">Acute dyspnea, SpO2 88% on room air</div>
+</div>
+<div>
+<div class="lm-triage__row-label">Action</div>
+<div class="lm-triage__row-value">Supplemental O2, continuous pulse ox, ABG</div>
+</div>
+</div>
+</div>
+<div class="lm-ddx">
+<div class="lm-ddx__header"><div class="lm-ddx__title">Differential Dx &mdash; Acute dyspnea</div></div>
+<ul class="lm-ddx__list">
+<li class="lm-ddx__item">
+<span class="lm-ddx__rank">1</span>
+<span class="lm-ddx__name">Pulmonary Embolism</span>
+<span class="lm-ddx__likelihood lm-ddx__likelihood--high">High</span>
+</li>
+<li class="lm-ddx__item">
+<span class="lm-ddx__rank">2</span>
+<span class="lm-ddx__name">Decompensated Heart Failure</span>
+<span class="lm-ddx__likelihood lm-ddx__likelihood--moderate">Moderate</span>
+</li>
+<li class="lm-ddx__item">
+<span class="lm-ddx__rank">3</span>
+<span class="lm-ddx__name">Pneumonia</span>
+<span class="lm-ddx__likelihood lm-ddx__likelihood--moderate">Moderate</span>
+</li>
+<li class="lm-ddx__item">
+<span class="lm-ddx__rank">4</span>
+<span class="lm-ddx__name">Pneumothorax</span>
+<span class="lm-ddx__likelihood lm-ddx__likelihood--low">Low</span>
+</li>
+</ul>
+</div>
+<div class="lm-card">
+<div class="lm-card__header" style="background:rgba(61,191,128,0.06);">
+<div class="lm-lab-ranges__header">
+<span class="lm-lab-ranges__name">D-Dimer</span>
+<span class="lm-badge lm-badge--default">ng/mL</span>
+</div>
+</div>
+<div class="lm-card__body">
+<div class="lm-kv"><span class="lm-kv__key">Adult</span><span class="lm-kv__value">&lt; 500</span></div>
+<div style="margin-top:6px;font-size:12px;color:var(--text-tertiary);">&#9432; Age-adjusted cutoff: age &times; 10 for patients &gt;50</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 ## Notes
 

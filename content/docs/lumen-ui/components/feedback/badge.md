@@ -70,6 +70,86 @@ Card(title="Patient Allergies",
 )
 ```
 
+## Interactive Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Badge Variants</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+
+<div>
+<div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-tertiary); margin-bottom:8px;">All Variants</div>
+<div class="lm-stack lm-stack--horizontal lm-stack--gap-8" style="flex-wrap:wrap;">
+<span class="lm-badge lm-badge--default">Default</span>
+<span class="lm-badge lm-badge--success">Success</span>
+<span class="lm-badge lm-badge--warning">Warning</span>
+<span class="lm-badge lm-badge--error">Critical</span>
+<span class="lm-badge lm-badge--info">Info</span>
+</div>
+</div>
+
+<div>
+<div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-tertiary); margin-bottom:8px;">Clinical Use &mdash; Patient Allergies</div>
+<div class="lm-stack lm-stack--horizontal lm-stack--gap-8" style="flex-wrap:wrap;">
+<span class="lm-badge lm-badge--error">Penicillin &mdash; Anaphylaxis</span>
+<span class="lm-badge lm-badge--warning">Sulfa &mdash; Rash</span>
+<span class="lm-badge lm-badge--default">Latex &mdash; Contact</span>
+<span class="lm-badge lm-badge--success">NKDA Verified</span>
+</div>
+</div>
+
+<div>
+<div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-tertiary); margin-bottom:8px;">Order Statuses</div>
+<div class="lm-stack lm-stack--horizontal lm-stack--gap-8" style="flex-wrap:wrap;">
+<span class="lm-badge lm-badge--success">Resulted</span>
+<span class="lm-badge lm-badge--warning">Pending</span>
+<span class="lm-badge lm-badge--info">In Progress</span>
+<span class="lm-badge lm-badge--error">Stat</span>
+<span class="lm-badge lm-badge--default">Routine</span>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+## Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Demo</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Active Orders</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-card">
+<div class="lm-card__header"><div class="lm-card__title">Active Orders</div></div>
+<div class="lm-card__body">
+<table class="lm-table">
+<thead><tr><th>Order</th><th>Status</th><th>Priority</th></tr></thead>
+<tbody>
+<tr><td>CBC with Diff</td><td><span class="lm-badge lm-badge--success">Resulted</span></td><td><span class="lm-badge lm-badge--default">Routine</span></td></tr>
+<tr><td>CT Abdomen/Pelvis</td><td><span class="lm-badge lm-badge--warning">Pending</span></td><td><span class="lm-badge lm-badge--error">Stat</span></td></tr>
+<tr><td>Blood Culture x2</td><td><span class="lm-badge lm-badge--info">Collected</span></td><td><span class="lm-badge lm-badge--warning">Urgent</span></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 ## Notes
 
 - Badge is a leaf component — it does not accept children. The `text` prop controls its entire content.

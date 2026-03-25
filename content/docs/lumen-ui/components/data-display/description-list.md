@@ -34,6 +34,34 @@ DescriptionList(
 )
 ```
 
+## Live Preview
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Live Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">DescriptionList — Diagnosis Record</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <dl class="lm-description-list">
+        <dt>Diagnosis</dt>
+        <dd>Type 2 Diabetes Mellitus</dd>
+        <dt>ICD-10</dt>
+        <dd>E11.9</dd>
+        <dt>Onset</dt>
+        <dd>January 2024</dd>
+        <dt>Status</dt>
+        <dd>Active</dd>
+        <dt>Provider</dt>
+        <dd>Dr. Smith, Endocrinology</dd>
+      </dl>
+    </div>
+  </div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -78,6 +106,61 @@ Card(title="Procedure Summary",
   ])
 )
 ```
+
+## Composition Preview
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Composition Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Card + DescriptionList + Timeline — Procedure Summary</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card lm-card--elevated">
+        <div class="lm-card__header"><div class="lm-card__title">Procedure Summary</div></div>
+        <div class="lm-card__body">
+          <dl class="lm-description-list" style="margin-bottom:20px;">
+            <dt>Procedure</dt>
+            <dd>Laparoscopic Appendectomy</dd>
+            <dt>CPT Code</dt>
+            <dd>44970</dd>
+            <dt>Surgeon</dt>
+            <dd>Dr. Martinez</dd>
+            <dt>Anesthesia</dt>
+            <dd>General</dd>
+            <dt>Duration</dt>
+            <dd>47 minutes</dd>
+            <dt>EBL</dt>
+            <dd>&lt; 50 mL</dd>
+            <dt>Complications</dt>
+            <dd>None</dd>
+          </dl>
+          <div class="lm-timeline">
+            <div class="lm-timeline__item">
+              <div class="lm-timeline__dot" style="background:#3BA55C;box-shadow:0 0 0 2px #3BA55C;"></div>
+              <div class="lm-timeline__title">Pre-op cleared</div>
+            </div>
+            <div class="lm-timeline__item">
+              <div class="lm-timeline__dot" style="background:#5865F2;box-shadow:0 0 0 2px #5865F2;"></div>
+              <div class="lm-timeline__title">Anesthesia induced</div>
+            </div>
+            <div class="lm-timeline__item">
+              <div class="lm-timeline__dot" style="background:#3BA55C;box-shadow:0 0 0 2px #3BA55C;"></div>
+              <div class="lm-timeline__title">Procedure completed</div>
+            </div>
+            <div class="lm-timeline__item">
+              <div class="lm-timeline__dot" style="background:#3BA55C;box-shadow:0 0 0 2px #3BA55C;"></div>
+              <div class="lm-timeline__title">Recovery room</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ## Notes
 

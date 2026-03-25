@@ -57,6 +57,79 @@ Card(title="Care Team Availability",
 )
 ```
 
+## Interactive Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">StatusBadge States</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+
+<div>
+<div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-tertiary); margin-bottom:8px;">Provider Availability</div>
+<div class="lm-stack lm-stack--vertical lm-stack--gap-8">
+<div class="lm-status-badge lm-status-badge--online"><span class="lm-status-badge__dot"></span> Dr. Martinez &mdash; Attending</div>
+<div class="lm-status-badge lm-status-badge--busy"><span class="lm-status-badge__dot"></span> Dr. Kim &mdash; Fellow (in procedure)</div>
+<div class="lm-status-badge lm-status-badge--away"><span class="lm-status-badge__dot"></span> Dr. Patel &mdash; Resident (post-call)</div>
+<div class="lm-status-badge lm-status-badge--offline"><span class="lm-status-badge__dot"></span> Dr. Johnson &mdash; Off Service</div>
+</div>
+</div>
+
+<hr style="border:none; border-top:1px solid var(--border); margin:0;">
+
+<div>
+<div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-tertiary); margin-bottom:8px;">System Connectivity</div>
+<div class="lm-stack lm-stack--horizontal lm-stack--gap-16" style="flex-wrap:wrap;">
+<div class="lm-status-badge lm-status-badge--online"><span class="lm-status-badge__dot"></span> EPIC &mdash; Connected</div>
+<div class="lm-status-badge lm-status-badge--busy"><span class="lm-status-badge__dot"></span> Telemetry &mdash; Disconnected</div>
+<div class="lm-status-badge lm-status-badge--away"><span class="lm-status-badge__dot"></span> Lab Interface &mdash; Degraded</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+## Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Demo</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Care Team Availability</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-card">
+<div class="lm-card__header"><div class="lm-card__title">Care Team Availability</div></div>
+<div class="lm-card__body">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-8">
+<div class="lm-status-badge lm-status-badge--online"><span class="lm-status-badge__dot"></span> Dr. Martinez &mdash; Attending</div>
+<div class="lm-status-badge lm-status-badge--busy"><span class="lm-status-badge__dot"></span> Dr. Kim &mdash; Fellow (in procedure)</div>
+<div class="lm-status-badge lm-status-badge--away"><span class="lm-status-badge__dot"></span> Dr. Patel &mdash; Resident (post-call)</div>
+<div class="lm-status-badge lm-status-badge--offline"><span class="lm-status-badge__dot"></span> Dr. Johnson &mdash; Off Service</div>
+<hr style="border:none; border-top:1px solid var(--border); margin:4px 0;">
+<div class="lm-stack lm-stack--horizontal lm-stack--gap-16" style="flex-wrap:wrap;">
+<div class="lm-status-badge lm-status-badge--online"><span class="lm-status-badge__dot"></span> EPIC &mdash; Connected</div>
+<div class="lm-status-badge lm-status-badge--busy"><span class="lm-status-badge__dot"></span> Telemetry &mdash; Disconnected</div>
+<div class="lm-status-badge lm-status-badge--away"><span class="lm-status-badge__dot"></span> Lab Interface &mdash; Degraded</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 ## Notes
 
 - The JSON type is `status_badge` (snake_case), matching the DSL name `StatusBadge` (PascalCase).

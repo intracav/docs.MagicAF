@@ -34,6 +34,32 @@ KeyValue(
 )
 ```
 
+## Live Preview
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Live Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">KeyValue — Patient Demographics</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-kv">
+        <span class="lm-kv__key">Name</span>
+        <span class="lm-kv__value">Jane Doe</span>
+        <span class="lm-kv__key">DOB</span>
+        <span class="lm-kv__value">1985-04-12</span>
+        <span class="lm-kv__key">MRN</span>
+        <span class="lm-kv__value">MRN-00412389</span>
+        <span class="lm-kv__key">Insurance</span>
+        <span class="lm-kv__value">Blue Cross PPO</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -71,6 +97,38 @@ Card(title="Patient Demographics",
   Badge(text="Verified", variant="success")
 )
 ```
+
+## Composition Preview
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Composition Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Card + KeyValue + Badge</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card lm-card--elevated">
+        <div class="lm-card__header"><div class="lm-card__title">Patient Demographics</div></div>
+        <div class="lm-card__body">
+          <div class="lm-kv" style="margin-bottom:12px;">
+            <span class="lm-kv__key">Full Name</span>
+            <span class="lm-kv__value">Jane Doe</span>
+            <span class="lm-kv__key">Date of Birth</span>
+            <span class="lm-kv__value">April 12, 1985</span>
+            <span class="lm-kv__key">Sex</span>
+            <span class="lm-kv__value">Female</span>
+            <span class="lm-kv__key">Primary Phone</span>
+            <span class="lm-kv__value">(555) 012-3456</span>
+          </div>
+          <span style="display:inline-block;padding:3px 10px;font-size:12px;font-weight:600;border-radius:12px;background:rgba(59,165,92,0.12);color:#3BA55C;">Verified</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ## Notes
 

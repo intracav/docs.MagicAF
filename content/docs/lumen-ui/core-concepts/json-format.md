@@ -63,6 +63,27 @@ Props can be nested inside a `props` object or placed at the top level alongside
 }
 ```
 
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Both JSON Forms Produce the Same Output</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Stat Component</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-stat">
+        <span class="lm-stat__label">Heart Rate</span>
+        <div class="lm-stat__value-row">
+          <span class="lm-stat__value">72</span>
+          <span class="lm-stat__unit">bpm</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 The parser merges top-level keys into the props map. If both forms are present, `props` takes precedence.
 
 ## Children
@@ -90,6 +111,41 @@ Child components are an array under `children`:
 }
 ```
 
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Rendered Result</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Card with Children</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card">
+        <div class="lm-card__header"><div class="lm-card__title">Dashboard</div></div>
+        <div class="lm-card__body">
+          <div class="lm-stack lm-stack--horizontal lm-stack--gap-24">
+            <div class="lm-stat">
+              <span class="lm-stat__label">HR</span>
+              <div class="lm-stat__value-row">
+                <span class="lm-stat__value">72</span>
+                <span class="lm-stat__unit">bpm</span>
+              </div>
+            </div>
+            <div class="lm-stat">
+              <span class="lm-stat__label">SpO2</span>
+              <div class="lm-stat__value-row">
+                <span class="lm-stat__value">98</span>
+                <span class="lm-stat__unit">%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## Slots
 
 Named children for components that have specific placement areas:
@@ -110,6 +166,30 @@ Named children for components that have specific placement areas:
   ]
 }
 ```
+
+<div class="lumen-demo lumen-demo--compact">
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Slots: Badge in Card Header</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card">
+        <div class="lm-card__header">
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <div class="lm-card__title">Report</div>
+            <span class="lm-badge lm-badge--warning">Draft</span>
+          </div>
+        </div>
+        <div class="lm-card__body">
+          <p style="font-size:14px; color:var(--text-primary); margin:0;">Report body...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ## Multiple Root Components
 
@@ -138,6 +218,79 @@ The parser applies recovery:
 4. Returns the result with `isPartial: true`
 
 This means partial JSON produces renderable (if incomplete) trees during streaming, just like the DSL parser.
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Recovery in Action</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Partial JSON &rarr; Recovered Rendering</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-stack lm-stack--vertical lm-stack--gap-12">
+        <div style="font-family:'SF Mono',Monaco,monospace; font-size:12px; line-height:1.6; color:var(--text-primary); background:var(--entry); padding:10px 14px; border-radius:6px; border-left:3px solid #F5A623;">
+          <span style="color:var(--text-tertiary);">// Truncated input:</span><br>
+          {"type":"card","props":{"title":"Results<span class="lm-streaming-text__cursor"></span>
+        </div>
+        <div style="display:flex; align-items:center; justify-content:center; gap:8px; padding:4px 0;">
+          <span style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-tertiary);">Recovery</span>
+          <span style="color:var(--text-tertiary);">&#8595;</span>
+        </div>
+        <div class="lm-card">
+          <div class="lm-card__header">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <div class="lm-card__title">Results</div>
+              <span class="lm-badge lm-badge--warning" style="font-size:10px;">isPartial</span>
+            </div>
+          </div>
+          <div class="lm-card__body" style="min-height:20px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+## DSL vs. JSON: Side by Side
+
+The same component tree can be expressed in either format. The DSL is more compact; the JSON is more explicit.
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Structural Comparison</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Same Component, Two Formats</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-split lm-split--horizontal">
+        <div class="lm-split__pane">
+          <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-tertiary); margin-bottom:8px;">DSL &mdash; 3 lines</div>
+          <div style="font-family:'SF Mono',Monaco,monospace; font-size:12px; line-height:1.6; color:var(--text-primary); white-space:pre; background:var(--entry); padding:12px; border-radius:6px;">Card(title="Labs",
+  Stat(label="WBC", value="7.2"),
+  Stat(label="Hgb", value="14.1")
+)</div>
+        </div>
+        <div class="lm-split__pane">
+          <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-tertiary); margin-bottom:8px;">JSON &mdash; 14 lines</div>
+          <div style="font-family:'SF Mono',Monaco,monospace; font-size:12px; line-height:1.6; color:var(--text-primary); white-space:pre; background:var(--entry); padding:12px; border-radius:6px;">{"type":"card",
+ "props":{"title":"Labs"},
+ "children":[
+  {"type":"stat",
+   "label":"WBC",
+   "value":"7.2"},
+  {"type":"stat",
+   "label":"Hgb",
+   "value":"14.1"}
+ ]}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ## When to Use JSON vs. DSL
 

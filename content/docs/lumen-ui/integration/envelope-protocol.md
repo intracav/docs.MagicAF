@@ -15,6 +15,9 @@ When MCP tools on the server produce structured data — drug information, lab r
 
 ## Envelope Structure
 
+<div class="lumen-demo lumen-demo--split">
+  <div class="lumen-demo__code">
+
 ```json
 {
   "__lumen__": {
@@ -26,15 +29,47 @@ When MCP tools on the server produce structured data — drug information, lab r
       "dose_form_groups": ["Oral Tablet"]
     }
   },
-  "raw": "{\"name\":\"Lisinopril 10 MG Oral Tablet\",\"rxcui\":\"104377\",...}"
+  "raw": "{\"name\":\"Lisinopril...\"}"
 }
-\nThe Lumen client will render this — do NOT reproduce.
 ```
+
+  </div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Rendered Output</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-drug-card">
+        <div class="lm-drug-card__header">
+          <div class="lm-drug-card__name">Lisinopril 10 MG Oral Tablet</div>
+          <div class="lm-drug-card__rxcui">RxCUI: 104377</div>
+        </div>
+        <div class="lm-drug-card__body">
+          <div>
+            <div class="lm-drug-card__section-label">Term Type</div>
+            <span style="font-size: 13px; color: var(--text-primary);">SCD (Semantic Clinical Drug)</span>
+          </div>
+          <div>
+            <div class="lm-drug-card__section-label">Dose Form</div>
+            <div class="lm-drug-card__tags">
+              <span class="lm-drug-card__tag">Oral Tablet</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+The envelope JSON (left) is what the server sends. The component (right) is what the user sees. The LLM never reproduces the structured data as text.
 
 | Field | Purpose |
 |-------|---------|
 | `__lumen__` | Object containing `type` (component type) and `props` (component props) |
-| `raw` | Stringified JSON of the original data — available for the LLM to reference |
+| `raw` | Stringified JSON of the original data -- available for the LLM to reference |
 | Trailing text | Instruction to the LLM not to reproduce the data as text |
 
 ## Server-Side Generation (Rust)
@@ -101,26 +136,46 @@ String _stripLumenSuffix(String text) {
 
 The `type` field in the envelope maps to Lumen component types via the `ArtifactAdapter`:
 
-| Envelope Type | Component |
-|---------------|-----------|
-| `drug_card` | DrugCard |
-| `drug_interactions` | DrugInteractions |
-| `lab_ranges` | LabRanges |
-| `adverse_events` | AdverseEvents |
-| `drug_recalls` | DrugRecalls |
-| `iv_drip` | IVDrip |
-| `renal_dose` | RenalDose |
-| `clinical_note` | ClinicalNote |
-| `differential_dx` | DifferentialDx |
-| `antimicrobial` | Antimicrobial |
-| `allergy_safety` | AllergySafety |
-| `guidelines` | Guidelines |
-| `cms_coverage` | CmsCoverage |
-| `clinical_trials` | ClinicalTrials |
-| `npi_result` | NpiResult |
-| `hcpcs_codes` | HcpcsCodes |
-| `triage_card` | TriageCard |
-| `lumen_component` | *Parsed directly as DSL/JSON* |
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Envelope Type to Component Mapping</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">17 Clinical Type Mappings</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <table class="lm-table lm-table--compact lm-table--striped">
+        <thead>
+          <tr>
+            <th>Envelope Type</th>
+            <th>Component</th>
+            <th>Category</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>drug_card</code></td><td>DrugCard</td><td><span style="background: rgba(88,101,242,0.15); color: #5865F2; padding: 1px 6px; border-radius: 3px; font-size: 11px; font-weight: 600;">Clinical</span></td></tr>
+          <tr><td><code>drug_interactions</code></td><td>DrugInteractions</td><td><span style="background: rgba(88,101,242,0.15); color: #5865F2; padding: 1px 6px; border-radius: 3px; font-size: 11px; font-weight: 600;">Clinical</span></td></tr>
+          <tr><td><code>lab_ranges</code></td><td>LabRanges</td><td><span style="background: rgba(88,101,242,0.15); color: #5865F2; padding: 1px 6px; border-radius: 3px; font-size: 11px; font-weight: 600;">Clinical</span></td></tr>
+          <tr><td><code>adverse_events</code></td><td>AdverseEvents</td><td><span style="background: rgba(88,101,242,0.15); color: #5865F2; padding: 1px 6px; border-radius: 3px; font-size: 11px; font-weight: 600;">Clinical</span></td></tr>
+          <tr><td><code>triage_card</code></td><td>TriageCard</td><td><span style="background: rgba(88,101,242,0.15); color: #5865F2; padding: 1px 6px; border-radius: 3px; font-size: 11px; font-weight: 600;">Clinical</span></td></tr>
+          <tr><td><code>differential_dx</code></td><td>DifferentialDx</td><td><span style="background: rgba(88,101,242,0.15); color: #5865F2; padding: 1px 6px; border-radius: 3px; font-size: 11px; font-weight: 600;">Clinical</span></td></tr>
+          <tr><td><code>clinical_note</code></td><td>ClinicalNote</td><td><span style="background: rgba(88,101,242,0.15); color: #5865F2; padding: 1px 6px; border-radius: 3px; font-size: 11px; font-weight: 600;">Clinical</span></td></tr>
+          <tr><td><code>iv_drip</code></td><td>IVDrip</td><td><span style="background: rgba(88,101,242,0.15); color: #5865F2; padding: 1px 6px; border-radius: 3px; font-size: 11px; font-weight: 600;">Clinical</span></td></tr>
+          <tr><td><code>renal_dose</code></td><td>RenalDose</td><td><span style="background: rgba(88,101,242,0.15); color: #5865F2; padding: 1px 6px; border-radius: 3px; font-size: 11px; font-weight: 600;">Clinical</span></td></tr>
+          <tr><td><code>antimicrobial</code></td><td>Antimicrobial</td><td><span style="background: rgba(88,101,242,0.15); color: #5865F2; padding: 1px 6px; border-radius: 3px; font-size: 11px; font-weight: 600;">Clinical</span></td></tr>
+          <tr><td><code>guidelines</code></td><td>Guidelines</td><td><span style="background: rgba(59,165,92,0.15); color: #3BA55C; padding: 1px 6px; border-radius: 3px; font-size: 11px; font-weight: 600;">Reference</span></td></tr>
+          <tr><td><code>cms_coverage</code></td><td>CmsCoverage</td><td><span style="background: rgba(59,165,92,0.15); color: #3BA55C; padding: 1px 6px; border-radius: 3px; font-size: 11px; font-weight: 600;">Reference</span></td></tr>
+          <tr><td><code>clinical_trials</code></td><td>ClinicalTrials</td><td><span style="background: rgba(59,165,92,0.15); color: #3BA55C; padding: 1px 6px; border-radius: 3px; font-size: 11px; font-weight: 600;">Reference</span></td></tr>
+          <tr><td><code>npi_result</code></td><td>NpiResult</td><td><span style="background: rgba(250,166,26,0.15); color: #FAA61A; padding: 1px 6px; border-radius: 3px; font-size: 11px; font-weight: 600;">Lookup</span></td></tr>
+          <tr><td><code>hcpcs_codes</code></td><td>HcpcsCodes</td><td><span style="background: rgba(250,166,26,0.15); color: #FAA61A; padding: 1px 6px; border-radius: 3px; font-size: 11px; font-weight: 600;">Lookup</span></td></tr>
+          <tr><td><code>lumen_component</code></td><td><em>Parsed directly</em></td><td><span style="background: rgba(233,30,99,0.15); color: #E91E63; padding: 1px 6px; border-radius: 3px; font-size: 11px; font-weight: 600;">Passthrough</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
 See the [Artifact Adapter](/docs/lumen-ui/integration/artifact-adapter/) page for the complete mapping.
 

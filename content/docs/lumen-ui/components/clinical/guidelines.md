@@ -60,6 +60,66 @@ Guidelines(
 )
 ```
 
+### Live Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Guidelines &mdash; Hypertension Management</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-card">
+<div class="lm-card__header" style="border-left:3px solid #5865F2;padding-left:13px;">
+<div class="lm-card__title">Hypertension Management in Adults</div>
+<div class="lm-card__description">AHA/ACC 2024 Clinical Practice Guidelines</div>
+</div>
+<div class="lm-card__body">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-8">
+<div class="lm-guidelines__item" style="border-left:3px solid #DA373C;padding-left:12px;">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+<span style="font-size:12px;font-weight:700;color:#DA373C;">1</span>
+<span class="lm-guidelines__level">Level A</span>
+</div>
+<div class="lm-guidelines__text" style="font-weight:600;">Blood Pressure Target</div>
+<div style="font-size:13px;color:var(--text-secondary);margin-top:2px;">Target BP &lt; 130/80 mmHg for patients with established CVD or 10-year ASCVD risk &ge; 10%</div>
+</div>
+<div class="lm-guidelines__item" style="border-left:3px solid #DA373C;padding-left:12px;">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+<span style="font-size:12px;font-weight:700;color:#DA373C;">2</span>
+<span class="lm-guidelines__level">Level A</span>
+</div>
+<div class="lm-guidelines__text" style="font-weight:600;">First-Line Therapy</div>
+<div style="font-size:13px;color:var(--text-secondary);margin-top:2px;">Initiate with ACE inhibitor, ARB, calcium channel blocker, or thiazide diuretic</div>
+</div>
+<div class="lm-guidelines__item" style="border-left:3px solid #ED8936;padding-left:12px;">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+<span style="font-size:12px;font-weight:700;color:#ED8936;">3</span>
+<span class="lm-guidelines__level">Level B-R</span>
+</div>
+<div class="lm-guidelines__text" style="font-weight:600;">Combination Therapy</div>
+<div style="font-size:13px;color:var(--text-secondary);margin-top:2px;">If BP &gt;20/10 mmHg above target, initiate two first-line agents from different classes</div>
+</div>
+<div class="lm-guidelines__item" style="border-left:3px solid #ED8936;padding-left:12px;">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+<span style="font-size:12px;font-weight:700;color:#ED8936;">4</span>
+<span class="lm-guidelines__level">Level A</span>
+</div>
+<div class="lm-guidelines__text" style="font-weight:600;">Lifestyle Modifications</div>
+<div style="font-size:13px;color:var(--text-secondary);margin-top:2px;">DASH diet, sodium &lt;1500mg/day, aerobic exercise 150 min/week, weight management</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -106,6 +166,62 @@ Stack(direction="vertical", gap=16,
   )
 )
 ```
+
+### Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Hypertension in Diabetes &mdash; Treatment Decision</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+<div class="lm-fhir-patient">
+<div class="lm-fhir-patient__header" style="background:rgba(56,178,172,0.06);">
+<div class="lm-fhir-patient__avatar" style="background:rgba(56,178,172,0.15);color:#38B2AC;">H</div>
+<div>
+<div class="lm-fhir-patient__name">Helen Martinez</div>
+<div class="lm-fhir-patient__mrn">DOB: 1960-02-28 &middot; Female &middot; HTN, DM2, CKD Stage 2</div>
+</div>
+</div>
+</div>
+<div class="lm-calculator">
+<div class="lm-calculator__header"><div class="lm-calculator__name">10-Year ASCVD Risk</div></div>
+<div class="lm-calculator__result" style="background:rgba(218,55,60,0.06);">
+<div class="lm-calculator__score" style="color:#DA373C;">18.2%</div>
+<div class="lm-calculator__interpretation">High cardiovascular risk. Aggressive BP management and statin therapy recommended.</div>
+</div>
+</div>
+<div class="lm-card">
+<div class="lm-card__header" style="border-left:3px solid #5865F2;padding-left:13px;">
+<div class="lm-card__title">Hypertension in Diabetes</div>
+<div class="lm-card__description">ADA Standards of Care 2024</div>
+</div>
+<div class="lm-card__body">
+<div class="lm-guidelines__item" style="border-left:3px solid #DA373C;padding-left:12px;margin-bottom:8px;">
+<span class="lm-guidelines__level">Level A</span>
+<div class="lm-guidelines__text" style="font-weight:600;">Target &lt; 130/80 mmHg if achievable without undue burden</div>
+</div>
+<div class="lm-guidelines__item" style="border-left:3px solid #DA373C;padding-left:12px;margin-bottom:8px;">
+<span class="lm-guidelines__level">Level A</span>
+<div class="lm-guidelines__text" style="font-weight:600;">ACE inhibitor or ARB first-line in diabetes with albuminuria</div>
+</div>
+<div class="lm-guidelines__item" style="border-left:3px solid #DA373C;padding-left:12px;">
+<div class="lm-guidelines__text" style="font-weight:600;">Add ACE inhibitor to current CCB monotherapy given CKD and diabetes</div>
+<div style="font-size:12px;color:var(--text-tertiary);margin-top:4px;">Current BP 152/94 on amlodipine 5mg</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 ## Notes
 

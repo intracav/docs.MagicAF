@@ -161,7 +161,7 @@ button.search-toggle,
 }
 
 [data-theme="dark"] .search-modal__overlay {
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(22, 14, 6, 0.9);
 }
 
 /* Modal container */
@@ -186,8 +186,8 @@ button.search-toggle,
 }
 
 [data-theme="dark"] .search-modal__container {
-  background: rgb(43, 45, 49); /* Discord secondary bg #2b2d31 */
-  border-color: rgb(59, 61, 68);
+  background: #221408;
+  border-color: #3D2A1C;
   box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.7), 0 10px 20px -5px rgba(0, 0, 0, 0.5);
 }
 
@@ -230,7 +230,7 @@ button.search-toggle,
 }
 
 .search-modal__input:focus {
-  border-color: var(--accent, #6366f1);
+  border-color: var(--accent);
 }
 
 .search-modal__input::placeholder {
@@ -298,8 +298,8 @@ button.search-toggle,
 
 .search-result-item.focus {
   background: var(--entry);
-  border-color: var(--accent, #6366f1);
-  outline: 2px solid var(--accent, #6366f1);
+  border-color: var(--accent);
+  outline: 2px solid var(--accent);
   outline-offset: -2px;
 }
 

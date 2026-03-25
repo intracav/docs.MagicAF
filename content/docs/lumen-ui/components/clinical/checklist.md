@@ -48,6 +48,66 @@ Checklist(
 )
 ```
 
+### Live Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview &mdash; Click items to toggle</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Checklist &mdash; Pre-Operative Safety</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-card">
+<div class="lm-card__header">
+<div class="lm-card__title">Pre-Operative Safety Checklist <span style="font-weight:400;color:var(--text-tertiary);font-size:13px;">4/8</span></div>
+</div>
+<div class="lm-card__body" style="padding:8px 16px 16px;">
+<div style="border-left:3px solid var(--accent);padding-left:12px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-secondary);margin-bottom:8px;">Documentation</div>
+<div class="lm-checklist__item checked" style="cursor:pointer;">
+<span class="lm-checklist__box">&#10003;</span>
+<span class="lm-checklist__text">Informed consent signed and witnessed</span>
+</div>
+<div class="lm-checklist__item checked" style="cursor:pointer;">
+<span class="lm-checklist__box">&#10003;</span>
+<span class="lm-checklist__text">H&amp;P completed within 30 days</span>
+</div>
+<div class="lm-checklist__item" style="cursor:pointer;">
+<span class="lm-checklist__box"></span>
+<span class="lm-checklist__text">Surgical site marked</span>
+</div>
+<div style="border-left:3px solid var(--accent);padding-left:12px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-secondary);margin:12px 0 8px;">Pre-Op Assessment</div>
+<div class="lm-checklist__item checked" style="cursor:pointer;">
+<span class="lm-checklist__box">&#10003;</span>
+<span class="lm-checklist__text">NPO status confirmed (&gt;8h solids, &gt;2h clear liquids)</span>
+</div>
+<div class="lm-checklist__item checked" style="cursor:pointer;">
+<span class="lm-checklist__box">&#10003;</span>
+<span class="lm-checklist__text">Allergies reviewed and documented</span>
+</div>
+<div class="lm-checklist__item" style="cursor:pointer;">
+<span class="lm-checklist__box"></span>
+<span class="lm-checklist__text">Antibiotic prophylaxis administered within 60 min</span>
+</div>
+<div style="border-left:3px solid var(--accent);padding-left:12px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--text-secondary);margin:12px 0 8px;">Equipment &amp; Safety</div>
+<div class="lm-checklist__item" style="cursor:pointer;">
+<span class="lm-checklist__box"></span>
+<span class="lm-checklist__text">Blood products available if needed</span>
+</div>
+<div class="lm-checklist__item" style="cursor:pointer;">
+<span class="lm-checklist__box"></span>
+<span class="lm-checklist__text">IV access established (18g or larger)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -102,6 +162,74 @@ Stack(direction="vertical", gap=16,
   )
 )
 ```
+
+### Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Preview &mdash; Click items to toggle</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">TKA Pre-Op Workflow</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+<div class="lm-fhir-patient">
+<div class="lm-fhir-patient__header" style="background:rgba(56,178,172,0.06);">
+<div class="lm-fhir-patient__avatar" style="background:rgba(56,178,172,0.15);color:#38B2AC;">T</div>
+<div>
+<div class="lm-fhir-patient__name">Thomas Rivera</div>
+<div class="lm-fhir-patient__mrn">DOB: 1965-03-14 &middot; Male &middot; Right knee OA, HTN, DM2</div>
+</div>
+</div>
+</div>
+<div class="lm-allergy-safety">
+<div class="lm-allergy-safety__header lm-allergy-safety__header--safe" style="padding:10px 16px;border-radius:8px;">
+<span style="font-weight:600;font-size:13px;">Cefazolin vs Penicillin (Rash)</span>
+<span class="lm-badge lm-badge--success">Low Risk</span>
+</div>
+</div>
+<div class="lm-card">
+<div class="lm-card__header"><div class="lm-card__title">TKA Pre-Op Checklist</div></div>
+<div class="lm-card__body" style="padding:8px 16px 16px;">
+<div class="lm-checklist__item checked" style="cursor:pointer;">
+<span class="lm-checklist__box">&#10003;</span>
+<span class="lm-checklist__text">Patient verified (name, DOB, MRN)</span>
+</div>
+<div class="lm-checklist__item checked" style="cursor:pointer;">
+<span class="lm-checklist__box">&#10003;</span>
+<span class="lm-checklist__text">Surgical site confirmed: RIGHT knee</span>
+</div>
+<div class="lm-checklist__item checked" style="cursor:pointer;">
+<span class="lm-checklist__box">&#10003;</span>
+<span class="lm-checklist__text">Consent on file for right TKA</span>
+</div>
+<div class="lm-checklist__item checked" style="cursor:pointer;">
+<span class="lm-checklist__box">&#10003;</span>
+<span class="lm-checklist__text">Metformin held 24h pre-op</span>
+</div>
+<div class="lm-checklist__item" style="cursor:pointer;">
+<span class="lm-checklist__box"></span>
+<span class="lm-checklist__text">Cefazolin 2g IV ordered (allergy cleared)</span>
+</div>
+<div class="lm-checklist__item" style="cursor:pointer;">
+<span class="lm-checklist__box"></span>
+<span class="lm-checklist__text">DVT prophylaxis plan documented</span>
+</div>
+<div class="lm-checklist__item" style="cursor:pointer;">
+<span class="lm-checklist__box"></span>
+<span class="lm-checklist__text">Physical therapy consulted</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 ## Notes
 

@@ -67,6 +67,118 @@ Card(title="Prescription Review",
 )
 ```
 
+## Interactive Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Alert Variants</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-12">
+
+<div class="lm-alert lm-alert--info">
+<span class="lm-alert__icon">&#9432;</span>
+<div class="lm-alert__content">
+<div class="lm-alert__title">New Lab Results Available</div>
+<div class="lm-alert__message">CBC and BMP results from 03/21 are ready for review.</div>
+</div>
+</div>
+
+<div class="lm-alert lm-alert--warning">
+<span class="lm-alert__icon">&#9888;</span>
+<div class="lm-alert__content">
+<div class="lm-alert__title">Drug Interaction Detected</div>
+<div class="lm-alert__message">Lisinopril + Potassium may cause hyperkalemia. Monitor serum K+ levels.</div>
+</div>
+</div>
+
+<div class="lm-alert lm-alert--error">
+<span class="lm-alert__icon">&#10005;</span>
+<div class="lm-alert__content">
+<div class="lm-alert__title">Allergy Contraindication</div>
+<div class="lm-alert__message">Patient has documented penicillin allergy. Amoxicillin is contraindicated.</div>
+</div>
+</div>
+
+<div class="lm-alert lm-alert--success">
+<span class="lm-alert__icon">&#10003;</span>
+<div class="lm-alert__content">
+<div class="lm-alert__title">Interaction Check Complete</div>
+<div class="lm-alert__message">No additional interactions found for current medication list.</div>
+</div>
+<button class="lm-alert__dismiss" aria-label="Dismiss">&times;</button>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+> **Try it** — Click the **&times;** button on the success alert to dismiss it.
+
+## Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Demo</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Prescription Review</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-card">
+<div class="lm-card__header"><div class="lm-card__title">Prescription Review</div></div>
+<div class="lm-card__body">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-12">
+
+<div class="lm-alert lm-alert--error">
+<span class="lm-alert__icon">&#10005;</span>
+<div class="lm-alert__content">
+<div class="lm-alert__title">Allergy Warning</div>
+<div class="lm-alert__message">Patient has documented penicillin allergy. Amoxicillin is contraindicated.</div>
+</div>
+</div>
+
+<div class="lm-alert lm-alert--warning">
+<span class="lm-alert__icon">&#9888;</span>
+<div class="lm-alert__content">
+<div class="lm-alert__title">Renal Dosing Required</div>
+<div class="lm-alert__message">eGFR 38 mL/min — adjust metformin dose per renal guidelines.</div>
+</div>
+</div>
+
+<table class="lm-table">
+<thead><tr><th>Medication</th><th>Dose</th><th>Route</th><th>Frequency</th></tr></thead>
+<tbody>
+<tr><td>Lisinopril</td><td>10mg</td><td>PO</td><td>Daily</td></tr>
+<tr><td>Metformin</td><td>500mg</td><td>PO</td><td>BID</td></tr>
+<tr><td>Atorvastatin</td><td>20mg</td><td>PO</td><td>QHS</td></tr>
+</tbody>
+</table>
+
+<div class="lm-alert lm-alert--success">
+<span class="lm-alert__icon">&#10003;</span>
+<div class="lm-alert__content">
+<div class="lm-alert__title">Interaction Check Complete</div>
+<div class="lm-alert__message">No additional interactions found.</div>
+</div>
+<button class="lm-alert__dismiss" aria-label="Dismiss">&times;</button>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 ## Notes
 
 - Alert is a leaf component — it does not accept children. For a similar component that supports rich child content, use Callout instead.

@@ -51,6 +51,55 @@ ClinicalTrials(
 )
 ```
 
+### Live Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">ClinicalTrials &mdash; SGLT2 Inhibitors</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px;">Active Trials for Type 2 Diabetes with SGLT2 Inhibitors</div>
+<div class="lm-stack lm-stack--vertical lm-stack--gap-8">
+<div class="lm-trial">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+<span class="lm-trial__nct">NCT04012345</span>
+<span class="lm-trial__phase">Phase 3</span>
+<span class="lm-badge lm-badge--success" style="font-size:11px;">Recruiting</span>
+</div>
+<div class="lm-trial__title">Comparative Effectiveness of GLP-1 Receptor Agonists vs SGLT2 Inhibitors in Type 2 Diabetes with Heart Failure</div>
+<div style="font-size:12px;color:var(--text-tertiary);margin-top:6px;">National Institutes of Health</div>
+<div style="font-size:12px;color:var(--text-secondary);margin-top:4px;line-height:1.5;">Randomized controlled trial comparing cardiovascular outcomes of semaglutide vs empagliflozin in T2DM patients with HFrEF.</div>
+</div>
+<div class="lm-trial">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+<span class="lm-trial__nct">NCT04098765</span>
+<span class="lm-trial__phase">Phase 4</span>
+<span class="lm-badge lm-badge--success" style="font-size:11px;">Active</span>
+</div>
+<div class="lm-trial__title">Long-term Renal Outcomes with Dapagliflozin in CKD and Type 2 Diabetes</div>
+<div style="font-size:12px;color:var(--text-tertiary);margin-top:6px;">AstraZeneca</div>
+</div>
+<div class="lm-trial">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;">
+<span class="lm-trial__nct">NCT03876543</span>
+<span class="lm-trial__phase">Phase 2</span>
+<span class="lm-badge lm-badge--info" style="font-size:11px;">Completed</span>
+</div>
+<div class="lm-trial__title">SGLT2 Inhibitor Discontinuation in Elderly Patients</div>
+<div style="font-size:12px;color:var(--text-tertiary);margin-top:6px;">Mayo Clinic</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -102,6 +151,60 @@ Stack(direction="vertical", gap=16,
   )
 )
 ```
+
+### Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">SGLT2i in Heart Failure &mdash; Guidelines + Trials</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+<div class="lm-card">
+<div class="lm-card__header" style="border-left:3px solid #5865F2;padding-left:13px;">
+<div class="lm-card__title">SGLT2 Inhibitor Use in Heart Failure</div>
+<div class="lm-card__description">AHA/ACC/HFSA 2024</div>
+</div>
+<div class="lm-card__body">
+<div class="lm-guidelines__item" style="border-left:3px solid #DA373C;padding-left:12px;margin-bottom:8px;">
+<span class="lm-guidelines__level">Level A</span>
+<div class="lm-guidelines__text">SGLT2i recommended for all patients with HFrEF regardless of diabetes status</div>
+</div>
+<div class="lm-guidelines__item" style="border-left:3px solid #ED8936;padding-left:12px;">
+<span class="lm-guidelines__level">Level B</span>
+<div class="lm-guidelines__text">SGLT2i reasonable to reduce hospitalization and cardiovascular death in HFpEF</div>
+</div>
+</div>
+</div>
+<div class="lm-trial">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+<span class="lm-trial__nct">NCT03036124</span>
+<span class="lm-trial__phase">Phase 3</span>
+<span class="lm-badge lm-badge--info" style="font-size:11px;">Completed</span>
+</div>
+<div class="lm-trial__title">EMPEROR-Preserved: Empagliflozin in HFpEF</div>
+<div style="font-size:12px;color:var(--text-tertiary);margin-top:4px;">Boehringer Ingelheim</div>
+</div>
+<div class="lm-trial">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+<span class="lm-trial__nct">NCT03619213</span>
+<span class="lm-trial__phase">Phase 3</span>
+<span class="lm-badge lm-badge--info" style="font-size:11px;">Completed</span>
+</div>
+<div class="lm-trial__title">DELIVER: Dapagliflozin in HFpEF</div>
+<div style="font-size:12px;color:var(--text-tertiary);margin-top:4px;">AstraZeneca</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 ## Notes
 

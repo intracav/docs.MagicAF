@@ -11,6 +11,93 @@ last_reviewed: "2026-03-17"
 
 RadioGroup renders a set of mutually exclusive radio buttons under a shared label. Exactly one option can be selected at a time. When the selection changes, RadioGroup dispatches a `submitForm` action with the group's `id` and the selected `value`.
 
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Interactive Preview — click to select</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Pain Assessment</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card lm-card--elevated">
+        <div class="lm-card__header">
+          <div class="lm-card__title">Pain Assessment</div>
+          <div class="lm-card__description">Classify pain type and severity</div>
+        </div>
+        <div class="lm-card__body">
+          <div class="lm-stack lm-stack--vertical" style="gap:18px;">
+            <div class="lm-form-group">
+              <label class="lm-form-label">Pain Type</label>
+              <div class="lm-radio-group" data-radio-group="pain_type">
+                <div class="lm-radio" data-value="acute">
+                  <div class="lm-radio__circle"><div class="lm-radio__dot"></div></div>
+                  <span>Acute</span>
+                </div>
+                <div class="lm-radio" data-value="chronic">
+                  <div class="lm-radio__circle"><div class="lm-radio__dot"></div></div>
+                  <span>Chronic</span>
+                </div>
+                <div class="lm-radio" data-value="neuropathic">
+                  <div class="lm-radio__circle"><div class="lm-radio__dot"></div></div>
+                  <span>Neuropathic</span>
+                </div>
+                <div class="lm-radio" data-value="referred">
+                  <div class="lm-radio__circle"><div class="lm-radio__dot"></div></div>
+                  <span>Referred</span>
+                </div>
+              </div>
+            </div>
+            <div class="lm-form-group">
+              <label class="lm-form-label">Severity</label>
+              <div class="lm-radio-group" data-radio-group="severity">
+                <div class="lm-radio" data-value="mild">
+                  <div class="lm-radio__circle"><div class="lm-radio__dot"></div></div>
+                  <span>Mild</span>
+                </div>
+                <div class="lm-radio selected" data-value="moderate">
+                  <div class="lm-radio__circle"><div class="lm-radio__dot"></div></div>
+                  <span>Moderate</span>
+                </div>
+                <div class="lm-radio" data-value="severe">
+                  <div class="lm-radio__circle"><div class="lm-radio__dot"></div></div>
+                  <span>Severe</span>
+                </div>
+                <div class="lm-radio" data-value="critical">
+                  <div class="lm-radio__circle"><div class="lm-radio__dot"></div></div>
+                  <span>Critical</span>
+                </div>
+              </div>
+            </div>
+            <div class="lm-form-group">
+              <label class="lm-form-label">Laterality</label>
+              <div class="lm-radio-group" data-radio-group="laterality">
+                <div class="lm-radio" data-value="left">
+                  <div class="lm-radio__circle"><div class="lm-radio__dot"></div></div>
+                  <span>Left</span>
+                </div>
+                <div class="lm-radio" data-value="right">
+                  <div class="lm-radio__circle"><div class="lm-radio__dot"></div></div>
+                  <span>Right</span>
+                </div>
+                <div class="lm-radio" data-value="bilateral">
+                  <div class="lm-radio__circle"><div class="lm-radio__dot"></div></div>
+                  <span>Bilateral</span>
+                </div>
+                <div class="lm-radio" data-value="na">
+                  <div class="lm-radio__circle"><div class="lm-radio__dot"></div></div>
+                  <span>Not Applicable</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## Props
 
 | Property | Type | Default | Description |

@@ -11,6 +11,54 @@ last_reviewed: "2026-03-17"
 
 Checkbox renders a binary toggle with an adjacent label. It is used for consent confirmations, boolean preferences, and multi-select scenarios where each option is independent. When toggled, Checkbox dispatches a `toggleState` action with the field's `id` and the new boolean `value`.
 
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Interactive Preview — click to toggle</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Pre-Procedure Checklist</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card lm-card--elevated">
+        <div class="lm-card__header">
+          <div class="lm-card__title">Pre-Procedure Checklist</div>
+          <div class="lm-card__description">Confirm all items before proceeding to the OR</div>
+        </div>
+        <div class="lm-card__body">
+          <div class="lm-stack lm-stack--vertical" style="gap:12px;">
+            <div class="lm-checkbox checked">
+              <div class="lm-checkbox__box"><span class="lm-checkbox__check">&#10003;</span></div>
+              <span>Informed consent signed</span>
+            </div>
+            <div class="lm-checkbox checked">
+              <div class="lm-checkbox__box"><span class="lm-checkbox__check">&#10003;</span></div>
+              <span>Allergies reviewed</span>
+            </div>
+            <div class="lm-checkbox">
+              <div class="lm-checkbox__box"><span class="lm-checkbox__check">&#10003;</span></div>
+              <span>Recent labs reviewed (CBC, BMP, coags within 30 days)</span>
+            </div>
+            <div class="lm-checkbox">
+              <div class="lm-checkbox__box"><span class="lm-checkbox__check">&#10003;</span></div>
+              <span>NPO status confirmed</span>
+            </div>
+            <div class="lm-checkbox">
+              <div class="lm-checkbox__box"><span class="lm-checkbox__check">&#10003;</span></div>
+              <span>Surgical site marked</span>
+            </div>
+            <div class="lm-checkbox">
+              <div class="lm-checkbox__box"><span class="lm-checkbox__check">&#10003;</span></div>
+              <span>Blood products on hold (if applicable)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## Props
 
 | Property | Type | Default | Description |

@@ -33,11 +33,40 @@ const LumenRenderer({
 
 ## Behavior
 
-1. **Registry initialization** — On first build, calls `ComponentRegistry.instance.registerAll()` (idempotent)
-2. **Theme resolution** — If `theme` is null, reads `Theme.of(context).brightness` and creates `LumenThemeData.dark()` or `LumenThemeData.light()`
-3. **Context creation** — Creates a `LumenRenderContext` with the `onAction` callback and `isStreaming` flag
-4. **Node rendering** — For each node, looks up the component definition and calls its builder, wrapped in an `ErrorBoundary`
-5. **Layout** — Returns a `Column` with `CrossAxisAlignment.stretch` containing all rendered widgets
+<div class="lumen-demo lumen-demo--compact">
+  <div class="lumen-demo__label">Rendering Pipeline</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__content lm">
+      <div class="lm-steps">
+        <div class="lm-steps__item lm-steps__item--completed">
+          <div class="lm-steps__number">1</div>
+          <div class="lm-steps__title">Registry Initialization</div>
+          <div class="lm-steps__desc">Calls <code>ComponentRegistry.instance.registerAll()</code> (idempotent)</div>
+        </div>
+        <div class="lm-steps__item lm-steps__item--completed">
+          <div class="lm-steps__number">2</div>
+          <div class="lm-steps__title">Theme Resolution</div>
+          <div class="lm-steps__desc">Reads <code>Theme.of(context).brightness</code> &#8594; <code>LumenThemeData.dark()</code> or <code>.light()</code></div>
+        </div>
+        <div class="lm-steps__item lm-steps__item--completed">
+          <div class="lm-steps__number">3</div>
+          <div class="lm-steps__title">Context Creation</div>
+          <div class="lm-steps__desc">Creates <code>LumenRenderContext</code> with <code>onAction</code> callback and <code>isStreaming</code></div>
+        </div>
+        <div class="lm-steps__item">
+          <div class="lm-steps__number">4</div>
+          <div class="lm-steps__title">Node Rendering</div>
+          <div class="lm-steps__desc">Looks up definition &#8594; calls builder &#8594; wraps in <code>ErrorBoundary</code></div>
+        </div>
+        <div class="lm-steps__item lm-steps__item--pending">
+          <div class="lm-steps__number">5</div>
+          <div class="lm-steps__title">Layout</div>
+          <div class="lm-steps__desc">Returns <code>Column(crossAxisAlignment: stretch)</code> of rendered widgets</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ## Static Methods
 

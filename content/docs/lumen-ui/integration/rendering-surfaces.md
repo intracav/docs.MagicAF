@@ -11,6 +11,66 @@ last_reviewed: "2026-03-17"
 
 Lumen UI components appear in five distinct surfaces across the application. Each surface has a slightly different integration pattern, but all use the same `LumenParser` + `LumenRenderer` pipeline.
 
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Five Rendering Surfaces</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Where Lumen Components Appear</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-grid lm-grid--3" style="gap: 12px;">
+        <div class="lm-card" style="text-align: center; padding: 20px 12px;">
+          <div style="font-size: 28px; margin-bottom: 8px;">💬</div>
+          <div style="font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">Chat Messages</div>
+          <div style="font-size: 12px; color: var(--text-secondary);">&lt;lumen&gt; blocks inline with markdown</div>
+          <div style="margin-top: 8px;">
+            <span style="background: #3BA55C; color: #fff; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 3px;">Streaming</span>
+          </div>
+        </div>
+        <div class="lm-card" style="text-align: center; padding: 20px 12px;">
+          <div style="font-size: 28px; margin-bottom: 8px;">📋</div>
+          <div style="font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">Artifact Panel</div>
+          <div style="font-size: 12px; color: var(--text-secondary);">480px side panel / bottom sheet</div>
+          <div style="margin-top: 8px;">
+            <span style="background: #5865F2; color: #fff; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 3px;">ArtifactAdapter</span>
+          </div>
+        </div>
+        <div class="lm-card" style="text-align: center; padding: 20px 12px;">
+          <div style="font-size: 28px; margin-bottom: 8px;">🤖</div>
+          <div style="font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">Agent Runs</div>
+          <div style="font-size: 12px; color: var(--text-secondary);">Envelopes + &lt;lumen&gt; blocks</div>
+          <div style="margin-top: 8px;">
+            <span style="background: #3BA55C; color: #fff; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 3px;">Streaming</span>
+            <span style="background: #FAA61A; color: #fff; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 3px; margin-left: 4px;">Envelope</span>
+          </div>
+        </div>
+      </div>
+      <div class="lm-grid lm-grid--2" style="gap: 12px; margin-top: 12px;">
+        <div class="lm-card" style="text-align: center; padding: 20px 12px;">
+          <div style="font-size: 28px; margin-bottom: 8px;">⚡</div>
+          <div style="font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">Workflow Outputs</div>
+          <div style="font-size: 12px; color: var(--text-secondary);">MCP tool node results in DAG editor</div>
+          <div style="margin-top: 8px;">
+            <span style="background: #FAA61A; color: #fff; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 3px;">Envelope</span>
+          </div>
+        </div>
+        <div class="lm-card" style="text-align: center; padding: 20px 12px;">
+          <div style="font-size: 28px; margin-bottom: 8px;">📐</div>
+          <div style="font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">Blueprint Agents</div>
+          <div style="font-size: 12px; color: var(--text-secondary);">Progressive step-by-step results</div>
+          <div style="margin-top: 8px;">
+            <span style="background: #FAA61A; color: #fff; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 3px;">Envelope</span>
+            <span style="background: #9B59B6; color: #fff; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 3px; margin-left: 4px;">Partial</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## 1. Chat Messages
 
 **Integration point:** `message_bubble.dart`
@@ -86,13 +146,61 @@ This surface supports the full range of clinical components — drug cards, lab 
 
 ## Summary
 
-| Surface | Source of Components | Streaming | Artifact Panel |
-|---------|---------------------|-----------|----------------|
-| Chat | `<lumen>` blocks in LLM text | Yes | Yes |
-| Artifacts | `ArtifactAdapter` from tool results | No | Yes (is the panel) |
-| Agent Runs | `__lumen__` envelopes + `<lumen>` blocks | Yes | Yes |
-| Workflows | `__lumen__` envelopes from MCP nodes | No | No |
-| Blueprints | `__lumen__` envelopes per step | Partial | No |
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Feature Comparison</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Surface Capabilities</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <table class="lm-table lm-table--striped">
+        <thead>
+          <tr>
+            <th>Surface</th>
+            <th>Source</th>
+            <th>Streaming</th>
+            <th>Panel</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Chat</strong></td>
+            <td><code>&lt;lumen&gt;</code> blocks</td>
+            <td><span style="color: #3BA55C; font-weight: 600;">Yes</span></td>
+            <td><span style="color: #3BA55C; font-weight: 600;">Yes</span></td>
+          </tr>
+          <tr>
+            <td><strong>Artifacts</strong></td>
+            <td>ArtifactAdapter</td>
+            <td><span style="color: var(--text-tertiary);">No</span></td>
+            <td><span style="color: #5865F2; font-weight: 600;">Is the panel</span></td>
+          </tr>
+          <tr>
+            <td><strong>Agent Runs</strong></td>
+            <td>Envelopes + <code>&lt;lumen&gt;</code></td>
+            <td><span style="color: #3BA55C; font-weight: 600;">Yes</span></td>
+            <td><span style="color: #3BA55C; font-weight: 600;">Yes</span></td>
+          </tr>
+          <tr>
+            <td><strong>Workflows</strong></td>
+            <td><code>__lumen__</code> envelopes</td>
+            <td><span style="color: var(--text-tertiary);">No</span></td>
+            <td><span style="color: var(--text-tertiary);">No</span></td>
+          </tr>
+          <tr>
+            <td><strong>Blueprints</strong></td>
+            <td><code>__lumen__</code> per step</td>
+            <td><span style="color: #FAA61A; font-weight: 600;">Partial</span></td>
+            <td><span style="color: var(--text-tertiary);">No</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
 All five surfaces use the same parser, renderer, theme, and component registry. A component that works in chat works identically in a workflow or blueprint.
 

@@ -48,6 +48,44 @@ ScrollArea(maxHeight=300,
 )
 ```
 
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Live Preview — Scrollable Table (scroll to see more rows)</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">ScrollArea — maxHeight=200</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-scroll-area" style="max-height: 200px;">
+        <table class="lm-table lm-table--striped">
+          <thead>
+            <tr><th>Test</th><th>Result</th><th>Reference</th><th>Flag</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>WBC</td><td>7.2 K/uL</td><td>4.5-11.0</td><td></td></tr>
+            <tr><td>RBC</td><td>4.8 M/uL</td><td>4.5-5.5</td><td></td></tr>
+            <tr><td>Hgb</td><td>14.1 g/dL</td><td>12.0-16.0</td><td></td></tr>
+            <tr><td>Hct</td><td>42.3%</td><td>36-46%</td><td></td></tr>
+            <tr><td>MCV</td><td>88.1 fL</td><td>80-100</td><td></td></tr>
+            <tr><td>MCH</td><td>29.4 pg</td><td>27-33</td><td></td></tr>
+            <tr><td>MCHC</td><td>33.3 g/dL</td><td>32-36</td><td></td></tr>
+            <tr><td>Plt</td><td>245 K/uL</td><td>150-400</td><td></td></tr>
+            <tr><td>RDW</td><td>13.2%</td><td>11.5-14.5</td><td></td></tr>
+            <tr><td>MPV</td><td>9.8 fL</td><td>7.4-10.4</td><td></td></tr>
+            <tr><td>Neutrophils</td><td>62%</td><td>40-70%</td><td></td></tr>
+            <tr><td>Lymphocytes</td><td>28%</td><td>20-40%</td><td></td></tr>
+            <tr><td>Monocytes</td><td>7%</td><td>2-8%</td><td></td></tr>
+            <tr><td>Eosinophils</td><td>2%</td><td>1-4%</td><td></td></tr>
+            <tr><td>Basophils</td><td>1%</td><td>0-1%</td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -106,6 +144,77 @@ SplitView(ratio=0.5,
   )
 )
 ```
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Composition Preview — Encounter List (scroll the left pane)</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">ScrollArea — Inside SplitView</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-split lm-split--horizontal">
+        <div class="lm-split__pane">
+          <div class="lm-card__header" style="padding: 0 0 8px;">
+            <div class="lm-card__title">Patient Encounters</div>
+          </div>
+          <div class="lm-scroll-area" style="max-height: 220px;">
+            <div class="lm-stack lm-stack--vertical lm-stack--gap-8">
+              <div class="lm-card lm-card--outlined">
+                <div class="lm-card__header">
+                  <div class="lm-card__title" style="font-size: 13px;">2026-03-15 &mdash; Follow-up</div>
+                </div>
+                <div class="lm-card__body" style="padding-top: 4px;">
+                  <p style="font-size: 12px; color: var(--text-secondary); margin: 0;">Routine diabetes follow-up. A1c improved to 6.9%.</p>
+                </div>
+              </div>
+              <div class="lm-card lm-card--outlined">
+                <div class="lm-card__header">
+                  <div class="lm-card__title" style="font-size: 13px;">2026-02-10 &mdash; Urgent</div>
+                </div>
+                <div class="lm-card__body" style="padding-top: 4px;">
+                  <p style="font-size: 12px; color: var(--text-secondary); margin: 0;">URI symptoms. Rapid strep negative.</p>
+                </div>
+              </div>
+              <div class="lm-card lm-card--outlined">
+                <div class="lm-card__header">
+                  <div class="lm-card__title" style="font-size: 13px;">2026-01-05 &mdash; Annual</div>
+                </div>
+                <div class="lm-card__body" style="padding-top: 4px;">
+                  <p style="font-size: 12px; color: var(--text-secondary); margin: 0;">Annual wellness visit. Screening labs ordered.</p>
+                </div>
+              </div>
+              <div class="lm-card lm-card--outlined">
+                <div class="lm-card__header">
+                  <div class="lm-card__title" style="font-size: 13px;">2025-11-20 &mdash; Follow-up</div>
+                </div>
+                <div class="lm-card__body" style="padding-top: 4px;">
+                  <p style="font-size: 12px; color: var(--text-secondary); margin: 0;">Post-hospitalization follow-up. Wound healing well.</p>
+                </div>
+              </div>
+              <div class="lm-card lm-card--outlined">
+                <div class="lm-card__header">
+                  <div class="lm-card__title" style="font-size: 13px;">2025-09-08 &mdash; Emergency</div>
+                </div>
+                <div class="lm-card__body" style="padding-top: 4px;">
+                  <p style="font-size: 12px; color: var(--text-secondary); margin: 0;">Acute cholecystitis. Admitted for surgery.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="lm-split__pane">
+          <div class="lm-card__header" style="padding: 0 0 8px;">
+            <div class="lm-card__title">Selected Encounter Details</div>
+          </div>
+          <p style="font-size: 13px; color: var(--text-tertiary); margin: 0;">Select an encounter from the list to view full details.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ## Notes
 

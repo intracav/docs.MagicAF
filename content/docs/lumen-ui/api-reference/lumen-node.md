@@ -13,6 +13,28 @@ last_reviewed: "2026-03-17"
 
 **Source:** `packages/lumen_ui/lib/src/core/parser/parse_result.dart`
 
+<div class="lumen-demo lumen-demo--compact">
+  <div class="lumen-demo__label">Node Structure</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__content lm">
+      <div class="lm-card lm-card--outlined" style="font-family: var(--font-mono); font-size: 12px;">
+        <div class="lm-card__body" style="padding: 14px;">
+          <div style="color: #5865F2; font-weight: 700; margin-bottom: 8px;">LumenNode</div>
+          <div style="display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; color: var(--text-secondary);">
+            <span style="color: var(--text-tertiary);">type</span><span><code>String</code> &mdash; <span style="color: #3BA55C;">"card"</span></span>
+            <span style="color: var(--text-tertiary);">props</span><span><code>Map&lt;String, dynamic&gt;</code> &mdash; <span style="color: #FAA61A;">{title: "Summary"}</span></span>
+            <span style="color: var(--text-tertiary);">children</span><span><code>List&lt;LumenNode&gt;</code> &mdash; <span style="color: #9B59B6;">[Stat(...), Table(...)]</span></span>
+            <span style="color: var(--text-tertiary);">slots</span><span><code>Map&lt;String, LumenNode&gt;</code> &mdash; <span style="color: var(--text-tertiary);">{header: ...}</span></span>
+            <span style="color: var(--text-tertiary);">text</span><span><code>String?</code> &mdash; leaf content</span>
+            <span style="color: var(--text-tertiary);">id</span><span><code>String?</code> &mdash; stable key for streaming</span>
+            <span style="color: var(--text-tertiary);">isPartial</span><span><code>bool</code> &mdash; recovered from incomplete input</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## Constructor
 
 ```dart

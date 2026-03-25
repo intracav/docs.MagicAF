@@ -13,6 +13,45 @@ last_reviewed: "2026-03-17"
 
 **Source:** `packages/lumen_ui/lib/src/core/parser/lumen_parser.dart`
 
+<div class="lumen-demo lumen-demo--compact">
+  <div class="lumen-demo__label">Parser Architecture</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__content lm">
+      <div class="lm-pipeline">
+        <div class="lm-pipeline__step">
+          <div class="lm-pipeline__icon" style="color: var(--text-secondary);">
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M4 5h12M4 10h12M4 15h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="lm-pipeline__label">Input String</div>
+          <div class="lm-pipeline__sublabel">DSL or JSON</div>
+        </div>
+        <div class="lm-pipeline__arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M10 16l4-4M10 16l-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>auto-detect</span>
+        </div>
+        <div class="lm-pipeline__step">
+          <div class="lm-pipeline__icon" style="color: #5865F2;">
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M7 4l-4 6 4 6M13 4l4 6-4 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="lm-pipeline__label">LumenParser.parse()</div>
+          <div class="lm-pipeline__sublabel">{ or [ &#8594; JSON | else &#8594; DSL</div>
+        </div>
+        <div class="lm-pipeline__arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M10 16l4-4M10 16l-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>returns</span>
+        </div>
+        <div class="lm-pipeline__step" style="border-color: var(--accent);">
+          <div class="lm-pipeline__icon" style="color: #3BA55C;">
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 7h6M7 10h4M7 13h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="lm-pipeline__label">LumenParseResult</div>
+          <div class="lm-pipeline__sublabel">nodes[] + errors[] + isPartial</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## Static Methods
 
 ### `parse`

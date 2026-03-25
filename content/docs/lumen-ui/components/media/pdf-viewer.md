@@ -61,6 +61,81 @@ Tabs(
 )
 ```
 
+## Interactive Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">PDF Viewer</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-pdf-viewer">
+<div class="lm-pdf-viewer__toolbar">
+<span style="font-size:16px; color:#DA373C;">&#128196;</span>
+<span style="font-weight:600; font-size:13px; flex:1;">Discharge Summary</span>
+<span class="lm-badge lm-badge--default" style="font-size:11px;">3 pages</span>
+</div>
+<div class="lm-pdf-viewer__body">
+<div style="text-align:center; padding:24px; color:var(--text-tertiary); font-size:12px;">
+<div style="font-size:36px; opacity:0.25; margin-bottom:8px;">&#128196;</div>
+<div style="font-weight:500;">discharge_summary.pdf</div>
+<div style="margin-top:4px; font-size:11px;">Click to open in viewer</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+## Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Demo</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Discharge Report</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-12">
+
+<div class="lm-card">
+<div class="lm-card__header"><div class="lm-card__title">Summary</div></div>
+<div class="lm-card__body">
+<div style="font-size:13px; color:var(--text-secondary);">Patient discharged in stable condition. Follow up in 2 weeks with cardiology.</div>
+</div>
+</div>
+
+<div class="lm-card">
+<div class="lm-card__header"><div class="lm-card__title">Full Report</div></div>
+<div class="lm-card__body">
+<div class="lm-pdf-viewer">
+<div class="lm-pdf-viewer__toolbar">
+<span style="font-size:16px; color:#DA373C;">&#128196;</span>
+<span style="font-weight:600; font-size:13px; flex:1;">Discharge Summary &mdash; John Doe</span>
+<span class="lm-badge lm-badge--default" style="font-size:11px;">5 pages</span>
+</div>
+<div class="lm-pdf-viewer__body">
+<div style="text-align:center; padding:20px; color:var(--text-tertiary); font-size:12px;">
+<div style="font-size:28px; opacity:0.25; margin-bottom:6px;">&#128196;</div>
+<div style="font-weight:500;">discharge_summary.pdf</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
 ## Notes
 
 - **Rendering**: The component displays a card-style preview with a PDF icon, title, and page count badge. Tapping the card opens the PDF URL in the platform's default viewer or browser tab.

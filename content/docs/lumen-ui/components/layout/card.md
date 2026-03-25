@@ -31,6 +31,125 @@ Card(title="Patient Summary", variant="elevated",
 )
 ```
 
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Live Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Card — Elevated Variant</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card lm-card--elevated">
+        <div class="lm-card__header">
+          <div class="lm-card__title">Patient Summary</div>
+        </div>
+        <div class="lm-card__body">
+          <div class="lm-stack lm-stack--horizontal lm-stack--gap-24">
+            <div class="lm-stat">
+              <span class="lm-stat__label">Age</span>
+              <div class="lm-stat__value-row">
+                <span class="lm-stat__value">67</span>
+              </div>
+            </div>
+            <div class="lm-stat">
+              <span class="lm-stat__label">Sex</span>
+              <div class="lm-stat__value-row">
+                <span class="lm-stat__value">Male</span>
+              </div>
+            </div>
+            <div class="lm-stat">
+              <span class="lm-stat__label">BMI</span>
+              <div class="lm-stat__value-row">
+                <span class="lm-stat__value">24.3</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+### Variant Gallery
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">All Four Card Variants</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Card Variants</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-grid lm-grid--2" style="gap: 16px;">
+        <div class="lm-card">
+          <div class="lm-card__header">
+            <div class="lm-card__title">Default</div>
+            <p class="lm-card__description">Subtle background with border</p>
+          </div>
+          <div class="lm-card__body">
+            <div class="lm-stat">
+              <span class="lm-stat__label">Heart Rate</span>
+              <div class="lm-stat__value-row">
+                <span class="lm-stat__value">72</span>
+                <span class="lm-stat__unit">bpm</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="lm-card lm-card--outlined">
+          <div class="lm-card__header">
+            <div class="lm-card__title">Outlined</div>
+            <p class="lm-card__description">Prominent border, no fill</p>
+          </div>
+          <div class="lm-card__body">
+            <div class="lm-stat">
+              <span class="lm-stat__label">Blood Pressure</span>
+              <div class="lm-stat__value-row">
+                <span class="lm-stat__value">128/82</span>
+                <span class="lm-stat__unit">mmHg</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="lm-card lm-card--elevated">
+          <div class="lm-card__header">
+            <div class="lm-card__title">Elevated</div>
+            <p class="lm-card__description">Drop shadow, no border</p>
+          </div>
+          <div class="lm-card__body">
+            <div class="lm-stat">
+              <span class="lm-stat__label">Temperature</span>
+              <div class="lm-stat__value-row">
+                <span class="lm-stat__value">37.1</span>
+                <span class="lm-stat__unit">&deg;C</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="lm-card lm-card--ghost">
+          <div class="lm-card__header">
+            <div class="lm-card__title">Ghost</div>
+            <p class="lm-card__description">No border or background</p>
+          </div>
+          <div class="lm-card__body">
+            <div class="lm-stat">
+              <span class="lm-stat__label">SpO2</span>
+              <div class="lm-stat__value-row">
+                <span class="lm-stat__value">98</span>
+                <span class="lm-stat__unit">%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -72,6 +191,51 @@ Grid(columns=2, gap=16,
   )
 )
 ```
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Composition Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Card — Composition with Grid</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-grid lm-grid--2" style="gap: 16px;">
+        <div class="lm-card lm-card--outlined">
+          <div class="lm-card__header">
+            <div class="lm-card__title">Vital Signs</div>
+          </div>
+          <div class="lm-card__body">
+            <table class="lm-table lm-table--compact">
+              <thead>
+                <tr><th>Vital</th><th>Value</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>HR</td><td>78 bpm</td></tr>
+                <tr><td>BP</td><td>128/82 mmHg</td></tr>
+                <tr><td>SpO2</td><td>97%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="lm-card lm-card--outlined">
+          <div class="lm-card__header">
+            <div class="lm-card__title">Active Medications</div>
+          </div>
+          <div class="lm-card__body">
+            <div class="lm-stack lm-stack--vertical lm-stack--gap-8">
+              <span class="lm-badge lm-badge--info">Lisinopril 10mg</span>
+              <span class="lm-badge lm-badge--info">Metformin 500mg</span>
+              <span class="lm-badge lm-badge--info">Atorvastatin 20mg</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ## Notes
 

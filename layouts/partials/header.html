@@ -28,7 +28,11 @@
                 {{- else if hasPrefix site.Params.label.iconSVG "<svg" }}
                     {{ site.Params.label.iconSVG | safeHTML }}
                 {{- end -}}
+                {{- if eq $label_text "MagicAF" -}}
+                <span class="wordmark-primary">Magic</span><span class="wordmark-accent">AF</span>
+                {{- else -}}
                 {{- $label_text -}}
+                {{- end -}}
             </a>
             {{- end }}
             <div class="logo-switches">

@@ -54,6 +54,57 @@ DrugRecalls(
 )
 ```
 
+### Live Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">DrugRecalls &mdash; Metformin HCl ER</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-card">
+<div class="lm-card__header">
+<div class="lm-card__title" style="display:flex;align-items:center;gap:8px;">Drug Recalls &mdash; Metformin HCl ER <span class="lm-badge lm-badge--warning">3 Recalls</span></div>
+</div>
+<div class="lm-card__body">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-8">
+<div class="lm-drug-recalls__item">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+<span class="lm-drug-recalls__class lm-drug-recalls__class--II">Class II</span>
+<span class="lm-badge lm-badge--error" style="font-size:11px;">Ongoing</span>
+</div>
+<div style="font-size:13px;color:var(--text-primary);margin-bottom:4px;">NDMA impurity above acceptable daily intake limit</div>
+<div style="font-size:12px;color:var(--text-tertiary);">Apotex Corp &middot; Metformin HCl ER 500mg tablets</div>
+</div>
+<div class="lm-drug-recalls__item">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+<span class="lm-drug-recalls__class lm-drug-recalls__class--II">Class II</span>
+<span class="lm-badge" style="font-size:11px;background:var(--entry);color:var(--text-tertiary);">Completed</span>
+</div>
+<div style="font-size:13px;color:var(--text-primary);margin-bottom:4px;">Failed dissolution specifications</div>
+<div style="font-size:12px;color:var(--text-tertiary);">Granules Pharmaceuticals &middot; Metformin HCl ER 750mg tablets</div>
+</div>
+<div class="lm-drug-recalls__item">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+<span class="lm-drug-recalls__class lm-drug-recalls__class--III">Class III</span>
+<span class="lm-badge" style="font-size:11px;background:var(--entry);color:var(--text-tertiary);">Terminated</span>
+</div>
+<div style="font-size:13px;color:var(--text-primary);margin-bottom:4px;">Labeling error: incorrect expiration date</div>
+<div style="font-size:12px;color:var(--text-tertiary);">Teva Pharmaceuticals &middot; Metformin HCl ER 500mg tablets</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -111,6 +162,61 @@ Stack(direction="vertical", gap=16,
   )
 )
 ```
+
+### Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Valsartan Safety Review</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+<div class="lm-drug-card">
+<div class="lm-drug-card__header" style="background:rgba(61,191,128,0.08);">
+<div class="lm-drug-card__name">Valsartan 160 MG Oral Tablet</div>
+<div class="lm-drug-card__rxcui">RxCUI: 349483 &middot; Clinical Drug (SCD)</div>
+</div>
+<div class="lm-drug-card__body">
+<div>
+<div class="lm-drug-card__section-label">Brand Names</div>
+<div class="lm-drug-card__tags"><span class="lm-drug-card__tag" style="background:rgba(88,101,242,0.1);color:#5865F2;">Diovan</span></div>
+</div>
+</div>
+</div>
+<div class="lm-alert lm-alert--error">
+<span class="lm-alert__icon">&#9888;</span>
+<div class="lm-alert__content">
+<div class="lm-alert__title">Class I Recall</div>
+<div class="lm-alert__message">Serious adverse health consequences or death may result from use of this product.</div>
+</div>
+</div>
+<div class="lm-drug-recalls__item">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+<span class="lm-drug-recalls__class lm-drug-recalls__class--I">Class I</span>
+<span class="lm-badge lm-badge--error" style="font-size:11px;">Ongoing</span>
+</div>
+<div style="font-size:13px;color:var(--text-primary);margin-bottom:4px;">Presence of NDMA, a probable human carcinogen, above acceptable intake limit</div>
+<div style="font-size:12px;color:var(--text-tertiary);">Major Pharmaceuticals</div>
+</div>
+<div class="lm-drug-recalls__item">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+<span class="lm-drug-recalls__class lm-drug-recalls__class--II">Class II</span>
+<span class="lm-badge" style="font-size:11px;background:var(--entry);color:var(--text-tertiary);">Completed</span>
+</div>
+<div style="font-size:13px;color:var(--text-primary);margin-bottom:4px;">NDEA impurity detected above acceptable levels</div>
+<div style="font-size:12px;color:var(--text-tertiary);">Torrent Pharmaceuticals</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 ## Notes
 

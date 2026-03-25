@@ -14,6 +14,62 @@ last_reviewed: "2026-03-17"
 
 Lumen UI's component system is extensible. You can create new components, register them in the `ComponentRegistry`, and they will automatically appear in the LLM's component catalog.
 
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Component Definition Anatomy</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">What Makes a Custom Component</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-pipeline">
+        <div class="lm-pipeline__step">
+          <div class="lm-pipeline__icon" style="color: #5865F2;">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="3" width="16" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M6 7h8M6 10h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="lm-pipeline__label">ComponentDefinition</div>
+          <div class="lm-pipeline__sublabel">type, category, description, props, examples</div>
+        </div>
+        <div class="lm-pipeline__arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M10 16l4-4M10 16l-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>builder function</span>
+        </div>
+        <div class="lm-pipeline__step">
+          <div class="lm-pipeline__icon" style="color: #3BA55C;">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7 4l-4 6 4 6M13 4l4 6-4 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="lm-pipeline__label">Builder Function</div>
+          <div class="lm-pipeline__sublabel">(node, theme, context) -> Widget</div>
+        </div>
+        <div class="lm-pipeline__arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M10 16l4-4M10 16l-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>register()</span>
+        </div>
+        <div class="lm-pipeline__step">
+          <div class="lm-pipeline__icon" style="color: #FAA61A;">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M10 6v4l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <div class="lm-pipeline__label">Registry</div>
+          <div class="lm-pipeline__sublabel">Renderer + catalog updated</div>
+        </div>
+        <div class="lm-pipeline__arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4v12M10 16l4-4M10 16l-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>auto-generated</span>
+        </div>
+        <div class="lm-pipeline__step" style="border-color: var(--accent);">
+          <div class="lm-pipeline__icon" style="color: #E91E63;">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 8c0-1.1.9-2 2-2s2 .9 2 2c0 1.5-2 2-2 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="14" r="0.75" fill="currentColor"/></svg>
+          </div>
+          <div class="lm-pipeline__label">LLM Catalog</div>
+          <div class="lm-pipeline__sublabel">LLM can now emit VitalsStrip(...)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## Step 1: Define the Component
 
 Create a `ComponentDefinition` with a type, props schema, and builder function:
@@ -115,6 +171,44 @@ Widget _vitalChip(String label, String value, String unit, LumenThemeData theme)
   );
 }
 ```
+
+<div class="lumen-demo lumen-demo--compact">
+  <div class="lumen-demo__label">Output of VitalsStrip Builder</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">VitalsStrip(hr=72, bp_systolic=120, bp_diastolic=80, spo2=98, temp=98.6)</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card" style="padding: 12px;">
+        <div class="lm-stack lm-stack--horizontal" style="justify-content: space-around;">
+          <div class="lm-stat" style="align-items: center;">
+            <span class="lm-stat__label">HR</span>
+            <div class="lm-stat__value-row"><span class="lm-stat__value" style="font-size: 22px;">72</span></div>
+            <span style="font-size: 11px; color: var(--text-tertiary);">bpm</span>
+          </div>
+          <div class="lm-stat" style="align-items: center;">
+            <span class="lm-stat__label">BP</span>
+            <div class="lm-stat__value-row"><span class="lm-stat__value" style="font-size: 22px;">120/80</span></div>
+            <span style="font-size: 11px; color: var(--text-tertiary);">mmHg</span>
+          </div>
+          <div class="lm-stat" style="align-items: center;">
+            <span class="lm-stat__label">SpO2</span>
+            <div class="lm-stat__value-row"><span class="lm-stat__value" style="font-size: 22px;">98</span></div>
+            <span style="font-size: 11px; color: var(--text-tertiary);">%</span>
+          </div>
+          <div class="lm-stat" style="align-items: center;">
+            <span class="lm-stat__label">Temp</span>
+            <div class="lm-stat__value-row"><span class="lm-stat__value" style="font-size: 22px;">98.6</span></div>
+            <span style="font-size: 11px; color: var(--text-tertiary);">&#176;F</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ### Guidelines for Builders
 

@@ -44,6 +44,56 @@ Tabs(labels=["Overview", "Labs", "Medications"],
 )
 ```
 
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Live Preview — Interactive Tabs (click to switch)</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Tabs — 3 Panels</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-tabs">
+        <div class="lm-tabs__nav">
+          <button class="lm-tabs__tab active" data-tab="overview">Overview</button>
+          <button class="lm-tabs__tab" data-tab="labs">Labs</button>
+          <button class="lm-tabs__tab" data-tab="meds">Medications</button>
+        </div>
+        <div class="lm-tabs__panel active" data-tab="overview">
+          <div class="lm-card lm-card--ghost">
+            <div class="lm-card__header">
+              <div class="lm-card__title">Patient Overview</div>
+            </div>
+            <div class="lm-card__body">
+              <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 0;">67-year-old male with HTN and T2DM. Presenting for routine follow-up.</p>
+            </div>
+          </div>
+        </div>
+        <div class="lm-tabs__panel" data-tab="labs">
+          <table class="lm-table lm-table--striped">
+            <thead>
+              <tr><th>Test</th><th>Result</th><th>Reference</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>HbA1c</td><td>7.1%</td><td>&lt;7.0%</td></tr>
+              <tr><td>Creatinine</td><td>1.1 mg/dL</td><td>0.7-1.3</td></tr>
+              <tr><td>eGFR</td><td>72 mL/min</td><td>&gt;60</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lm-tabs__panel" data-tab="meds">
+          <div class="lm-stack lm-stack--vertical lm-stack--gap-8">
+            <span class="lm-badge lm-badge--info">Lisinopril 10mg PO daily</span>
+            <span class="lm-badge lm-badge--info">Metformin 500mg PO BID</span>
+            <span class="lm-badge lm-badge--info">Atorvastatin 20mg PO QHS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -111,6 +161,88 @@ Card(title="Encounter Summary",
   )
 )
 ```
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Composition Preview — SOAP Note (click tabs)</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Tabs — Encounter Summary (SOAP)</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card">
+        <div class="lm-card__header">
+          <div class="lm-card__title">Encounter Summary</div>
+        </div>
+        <div class="lm-card__body">
+          <div class="lm-tabs">
+            <div class="lm-tabs__nav">
+              <button class="lm-tabs__tab active" data-tab="subjective">Subjective</button>
+              <button class="lm-tabs__tab" data-tab="objective">Objective</button>
+              <button class="lm-tabs__tab" data-tab="assessment">Assessment</button>
+              <button class="lm-tabs__tab" data-tab="plan">Plan</button>
+            </div>
+            <div class="lm-tabs__panel active" data-tab="subjective">
+              <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 0;"><strong>Chief complaint:</strong> Fatigue and increased thirst x 2 weeks.<br><strong>HPI:</strong> Patient reports polyuria, polydipsia, and a 5-lb weight loss.</p>
+            </div>
+            <div class="lm-tabs__panel" data-tab="objective">
+              <div class="lm-stack lm-stack--vertical lm-stack--gap-12">
+                <div class="lm-grid lm-grid--3" style="gap: 12px;">
+                  <div class="lm-stat">
+                    <span class="lm-stat__label">Temp</span>
+                    <div class="lm-stat__value-row">
+                      <span class="lm-stat__value">36.8</span>
+                      <span class="lm-stat__unit">&deg;C</span>
+                    </div>
+                  </div>
+                  <div class="lm-stat">
+                    <span class="lm-stat__label">HR</span>
+                    <div class="lm-stat__value-row">
+                      <span class="lm-stat__value">82</span>
+                      <span class="lm-stat__unit">bpm</span>
+                    </div>
+                  </div>
+                  <div class="lm-stat">
+                    <span class="lm-stat__label">BP</span>
+                    <div class="lm-stat__value-row">
+                      <span class="lm-stat__value">142/88</span>
+                      <span class="lm-stat__unit">mmHg</span>
+                    </div>
+                  </div>
+                </div>
+                <table class="lm-table">
+                  <thead>
+                    <tr><th>Test</th><th>Result</th><th>Flag</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Glucose (fasting)</td><td>186 mg/dL</td><td class="flag-h">H</td></tr>
+                    <tr><td>HbA1c</td><td>8.2%</td><td class="flag-h">H</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="lm-tabs__panel" data-tab="assessment">
+              <ol style="font-size: 13px; color: var(--text-secondary); line-height: 1.8; margin: 0; padding-left: 20px;">
+                <li>Uncontrolled type 2 diabetes mellitus</li>
+                <li>Hypertension, stage 1</li>
+              </ol>
+            </div>
+            <div class="lm-tabs__panel" data-tab="plan">
+              <ol style="font-size: 13px; color: var(--text-secondary); line-height: 1.8; margin: 0; padding-left: 20px;">
+                <li>Start <strong>Metformin</strong> 500mg PO BID</li>
+                <li>Increase <strong>Lisinopril</strong> to 20mg daily</li>
+                <li>Diabetic education referral</li>
+                <li>Follow-up in 3 months with repeat HbA1c</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ## Notes
 

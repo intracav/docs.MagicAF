@@ -56,6 +56,64 @@ Stack(direction="vertical", gap=12,
 )
 ```
 
+## Interactive Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Streaming Text</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+
+<div>
+<div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-tertiary); margin-bottom:6px;">With Cursor (streaming)</div>
+<div class="lm-streaming-text">Based on the lab results, the patient's renal function shows a mild elevation in creatinine at 1.4 mg/dL, suggesting early stage CKD. The eGFR of 52 mL/min places this in <strong>Stage 3a</strong><span class="lm-streaming-text__cursor"></span></div>
+</div>
+
+<div>
+<div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-tertiary); margin-bottom:6px;">Without Cursor (complete)</div>
+<div class="lm-streaming-text">Based on the lab results, the patient's renal function shows a mild elevation in creatinine at 1.4 mg/dL, suggesting early stage CKD. The eGFR of 52 mL/min/1.73m&sup2; places this in <strong>CKD Stage 3a</strong>.</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+## Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Demo</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Active Agent Response</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-12">
+
+<div class="lm-thinking open">
+<div class="lm-thinking__trigger">
+<span class="lm-thinking__trigger-icon">&#9654;</span>
+Reasoning
+</div>
+<div class="lm-thinking__body">Creatinine 1.4 is above normal (0.7-1.3). eGFR 52 = Stage 3a CKD. Need to check for proteinuria and adjust medication doses.</div>
+</div>
+
+<div class="lm-streaming-text" style="font-size:13px; line-height:1.6;">Based on the lab results, the patient's renal function shows a mild elevation in creatinine (1.4 mg/dL, reference 0.7-1.3). The estimated GFR of 52 mL/min/1.73m&sup2; places this in <strong>CKD Stage 3a</strong><span class="lm-streaming-text__cursor"></span></div>
+
+</div>
+</div>
+</div>
+</div>
+
 ## Notes
 
 - **Cursor behavior**: The blinking cursor appears at the end of the rendered text. Set `showCursor=false` once streaming is complete to indicate the response is finalized.

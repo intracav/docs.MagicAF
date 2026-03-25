@@ -79,6 +79,84 @@ Stack(direction="vertical", gap=8,
 )
 ```
 
+## Interactive Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Tool Result</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-8">
+
+<div class="lm-tool-result">
+<div class="lm-tool-result__label" style="color:#3BA55C;">&#10003; rxnorm_lookup &mdash; Found 3 results</div>
+<div style="padding:10px 12px;">
+<table class="lm-table lm-table--compact">
+<thead><tr><th>RxCUI</th><th>Name</th><th>TTY</th></tr></thead>
+<tbody>
+<tr><td>314076</td><td>Lisinopril 10 MG Oral Tablet</td><td>SCD</td></tr>
+<tr><td>316151</td><td>Lisinopril 20 MG Oral Tablet</td><td>SCD</td></tr>
+<tr><td>197884</td><td>Lisinopril 5 MG Oral Tablet</td><td>SCD</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+## Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Demo</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Lookup Sequence</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-8">
+
+<div class="lm-tool-call" data-expandable>
+<span class="lm-tool-call__icon lm-tool-call__icon--completed">&#10003;</span>
+<span class="lm-tool-call__name">icd10_lookup</span>
+<span class="lm-tool-call__primary-arg">Type 2 Diabetes</span>
+<span class="lm-tool-call__duration">0.5s</span>
+<div class="lm-tool-call__args">
+<div class="lm-kv">
+<span class="lm-kv__key">query</span><span class="lm-kv__value">type 2 diabetes mellitus</span>
+</div>
+</div>
+</div>
+
+<div class="lm-tool-result">
+<div class="lm-tool-result__label" style="color:#3BA55C;">&#10003; icd10_lookup &mdash; Found 5 codes</div>
+<div style="padding:10px 12px;">
+<table class="lm-table lm-table--compact">
+<thead><tr><th>Code</th><th>Description</th></tr></thead>
+<tbody>
+<tr><td>E11.9</td><td>Type 2 diabetes mellitus without complications</td></tr>
+<tr><td>E11.65</td><td>Type 2 diabetes mellitus with hyperglycemia</td></tr>
+<tr><td>E11.22</td><td>Type 2 diabetes with diabetic CKD</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
 ## Notes
 
 - **Status styling**: A `success` result displays with a green accent border/icon. An `error` result uses red and typically wraps an error message or fallback content.

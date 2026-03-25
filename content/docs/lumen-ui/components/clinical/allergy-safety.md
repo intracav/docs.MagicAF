@@ -55,6 +55,48 @@ AllergySafety(
 )
 ```
 
+### Live Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">AllergySafety &mdash; Cefazolin vs Penicillin</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-allergy-safety">
+<div class="lm-allergy-safety__header lm-allergy-safety__header--safe" style="padding:16px;border-radius:12px 12px 0 0;">
+<div>
+<div style="font-size:16px;font-weight:700;">Cefazolin</div>
+<div style="font-size:13px;color:var(--text-secondary);margin-top:2px;">Known allergen: Penicillin &middot; Prior reaction: <span style="color:#F5A623;font-weight:600;">Rash</span></div>
+</div>
+<span class="lm-badge lm-badge--success" style="font-size:13px;padding:4px 14px;">Low Risk</span>
+</div>
+<div style="padding:16px;border:1px solid var(--border);border-top:0;border-radius:0 0 12px 12px;">
+<div style="font-size:13px;color:var(--text-primary);line-height:1.6;margin-bottom:12px;">Cephalosporins are generally safe in patients with penicillin allergy. Cross-reactivity rate is &lt;2% for later-generation cephalosporins. Skin testing recommended if prior reaction was severe.</div>
+<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-tertiary);margin-bottom:6px;">Cross-Reactivity Data</div>
+<div style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:12px;">
+First-generation cephalosporins (e.g., cefazolin): ~1%<br>
+Second/third-generation: &lt;0.5%<br>
+Carbapenems: &lt;1%
+</div>
+<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-tertiary);margin-bottom:6px;">Alternatives if High-Risk</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;">
+<span class="lm-badge lm-badge--default">Vancomycin</span>
+<span class="lm-badge lm-badge--default">Clindamycin</span>
+<span class="lm-badge lm-badge--default">Aztreonam</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -106,6 +148,67 @@ Stack(direction="vertical", gap=16,
   )
 )
 ```
+
+### Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Pre-Op Antibiotic Selection</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+<div class="lm-fhir-patient">
+<div class="lm-fhir-patient__header" style="background:rgba(56,178,172,0.06);">
+<div class="lm-fhir-patient__avatar" style="background:rgba(56,178,172,0.15);color:#38B2AC;">D</div>
+<div>
+<div class="lm-fhir-patient__name">David Chen</div>
+<div class="lm-fhir-patient__mrn">DOB: 1970-06-15 &middot; Male &middot; Scheduled for TKA</div>
+</div>
+</div>
+<div style="padding:12px 16px;">
+<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:#ED8936;margin-bottom:6px;">Allergies</div>
+<div style="font-size:13px;color:var(--text-primary);">Penicillin &mdash; <span style="color:#DA373C;font-weight:600;">Anaphylaxis (2019)</span> &middot; Codeine &mdash; Nausea</div>
+</div>
+</div>
+<div class="lm-allergy-safety">
+<div class="lm-allergy-safety__header lm-allergy-safety__header--caution" style="padding:12px 16px;border-radius:8px 8px 0 0;">
+<span style="font-weight:700;">Cefazolin vs Penicillin Anaphylaxis</span>
+<span class="lm-badge lm-badge--warning">Moderate Risk</span>
+</div>
+<div style="padding:12px 16px;font-size:13px;color:var(--text-primary);line-height:1.6;border:1px solid var(--border);border-top:0;border-radius:0 0 8px 8px;">Prior anaphylaxis to penicillin elevates concern. Consider skin testing. If unavailable, use vancomycin 15mg/kg IV as alternative.</div>
+</div>
+<div class="lm-card">
+<div class="lm-card__header"><div class="lm-card__title">Pre-Op Antibiotic Checklist</div></div>
+<div class="lm-card__body" style="padding:8px 16px;">
+<div class="lm-checklist__item checked" style="cursor:pointer;">
+<span class="lm-checklist__box">&#10003;</span>
+<span class="lm-checklist__text">Allergy history reviewed</span>
+</div>
+<div class="lm-checklist__item" style="cursor:pointer;">
+<span class="lm-checklist__box"></span>
+<span class="lm-checklist__text">Skin testing ordered</span>
+</div>
+<div class="lm-checklist__item" style="cursor:pointer;">
+<span class="lm-checklist__box"></span>
+<span class="lm-checklist__text">Alternative antibiotic selected</span>
+</div>
+<div class="lm-checklist__item checked" style="cursor:pointer;">
+<span class="lm-checklist__box">&#10003;</span>
+<span class="lm-checklist__text">Anesthesia notified of allergy</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 ## Notes
 

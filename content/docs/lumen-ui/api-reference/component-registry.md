@@ -111,6 +111,48 @@ Lazy-generated prompt section for agent contexts. Similar to `chatPromptSection`
 
 ## ComponentCategory
 
+<div class="lumen-demo lumen-demo--compact">
+  <div class="lumen-demo__label">8 Component Categories</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__content lm">
+      <div class="lm-grid lm-grid--4" style="gap: 8px;">
+        <div class="lm-card" style="text-align: center; padding: 12px 8px;">
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #5865F2;">Layout</div>
+          <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 2px;">Card, Grid, Tabs, Stack</div>
+        </div>
+        <div class="lm-card" style="text-align: center; padding: 12px 8px;">
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #3BA55C;">Data Display</div>
+          <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 2px;">Table, Stat, KeyValue</div>
+        </div>
+        <div class="lm-card" style="text-align: center; padding: 12px 8px;">
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #FAA61A;">Charts</div>
+          <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 2px;">Bar, Line, Pie, Gauge</div>
+        </div>
+        <div class="lm-card" style="text-align: center; padding: 12px 8px;">
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #E91E63;">Forms</div>
+          <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 2px;">Input, Toggle, Slider</div>
+        </div>
+        <div class="lm-card" style="text-align: center; padding: 12px 8px;">
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #DA373C;">Clinical</div>
+          <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 2px;">DrugCard, Triage, Labs</div>
+        </div>
+        <div class="lm-card" style="text-align: center; padding: 12px 8px;">
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #9B59B6;">Media</div>
+          <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 2px;">Image, PDF, FileCard</div>
+        </div>
+        <div class="lm-card" style="text-align: center; padding: 12px 8px;">
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #E67E22;">Feedback</div>
+          <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 2px;">Alert, Badge, Progress</div>
+        </div>
+        <div class="lm-card" style="text-align: center; padding: 12px 8px;">
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #11806A;">AI</div>
+          <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 2px;">ToolCall, Thinking, FollowUp</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ```dart
 enum ComponentCategory {
   layout,

@@ -11,6 +11,131 @@ last_reviewed: "2026-03-17"
 
 Sparkline renders a minimal trend line from a flat array of numbers. It has no axes, labels, or gridlines — just the shape of the data. Designed to be embedded inline alongside text, stats, or inside table cells where a full chart would be too heavy but the trend direction is valuable context.
 
+## Preview
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Live Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Sparkline — Inline Trends</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card lm-card--elevated">
+        <div class="lm-card__header">
+          <div class="lm-card__title">Vital Signs — Last 6 Hours</div>
+        </div>
+        <div class="lm-card__body">
+          <div class="lm-grid lm-grid--3">
+            <!-- Heart Rate -->
+            <div class="lm-stack lm-stack--vertical lm-stack--gap-4">
+              <div class="lm-stat">
+                <span class="lm-stat__label">Heart Rate</span>
+                <div class="lm-stat__value-row"><span class="lm-stat__value">72</span><span class="lm-stat__unit">bpm</span></div>
+              </div>
+              <div class="lm-sparkline">
+                <svg class="lm-sparkline__svg" viewBox="0 0 80 24" style="width:100%;height:28px;">
+                  <polyline class="lm-sparkline__line" points="0,18 13,12 27,6 40,10 53,14 67,10 80,12" stroke="#3BA55C"/>
+                </svg>
+              </div>
+            </div>
+            <!-- SpO2 -->
+            <div class="lm-stack lm-stack--vertical lm-stack--gap-4">
+              <div class="lm-stat">
+                <span class="lm-stat__label">SpO2</span>
+                <div class="lm-stat__value-row"><span class="lm-stat__value">97</span><span class="lm-stat__unit">%</span></div>
+              </div>
+              <div class="lm-sparkline">
+                <svg class="lm-sparkline__svg" viewBox="0 0 80 24" style="width:100%;height:28px;">
+                  <polygon class="lm-sparkline__area" points="0,4 13,8 27,12 40,8 53,8 67,8 80,8 80,24 0,24" fill="var(--accent)"/>
+                  <polyline class="lm-sparkline__line" points="0,4 13,8 27,12 40,8 53,8 67,8 80,8"/>
+                </svg>
+              </div>
+            </div>
+            <!-- Temperature -->
+            <div class="lm-stack lm-stack--vertical lm-stack--gap-4">
+              <div class="lm-stat lm-stat--warning">
+                <span class="lm-stat__label">Temp</span>
+                <div class="lm-stat__value-row"><span class="lm-stat__value">38.2</span><span class="lm-stat__unit">&#176;C</span></div>
+              </div>
+              <div class="lm-sparkline">
+                <svg class="lm-sparkline__svg" viewBox="0 0 80 24" style="width:100%;height:28px;">
+                  <polyline class="lm-sparkline__line" points="0,22 13,18 27,14 40,10 53,6 67,2 80,0" stroke="#FAA61A"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+### Standalone Sparklines
+
+<div class="lumen-demo lumen-demo--compact">
+  <div class="lumen-demo__label">Live Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Sparkline — Variants</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card lm-card--elevated">
+        <div class="lm-card__body">
+          <div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+            <!-- Stable trend -->
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span style="font-size:12px;font-weight:600;color:var(--text-secondary);width:60px;">Stable</span>
+              <div class="lm-sparkline" style="flex:1;">
+                <svg class="lm-sparkline__svg" viewBox="0 0 120 24" style="width:100%;height:24px;">
+                  <polyline class="lm-sparkline__line" points="0,12 15,10 30,14 45,11 60,13 75,10 90,12 105,11 120,12" stroke="#3BA55C"/>
+                </svg>
+              </div>
+              <span style="font-size:13px;font-weight:700;color:var(--text-primary);">72 bpm</span>
+            </div>
+            <!-- Rising trend -->
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span style="font-size:12px;font-weight:600;color:var(--text-secondary);width:60px;">Rising</span>
+              <div class="lm-sparkline" style="flex:1;">
+                <svg class="lm-sparkline__svg" viewBox="0 0 120 24" style="width:100%;height:24px;">
+                  <polyline class="lm-sparkline__line" points="0,22 15,20 30,18 45,16 60,12 75,10 90,6 105,4 120,2" stroke="#FAA61A"/>
+                </svg>
+              </div>
+              <span style="font-size:13px;font-weight:700;color:#FAA61A;">38.4&#176;C</span>
+            </div>
+            <!-- Declining trend -->
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span style="font-size:12px;font-weight:600;color:var(--text-secondary);width:60px;">Falling</span>
+              <div class="lm-sparkline" style="flex:1;">
+                <svg class="lm-sparkline__svg" viewBox="0 0 120 24" style="width:100%;height:24px;">
+                  <polyline class="lm-sparkline__line" points="0,4 15,6 30,8 45,10 60,12 75,14 90,18 105,20 120,22" stroke="#ED4245"/>
+                </svg>
+              </div>
+              <span style="font-size:13px;font-weight:700;color:#ED4245;">88 mmHg</span>
+            </div>
+            <!-- Filled variant -->
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span style="font-size:12px;font-weight:600;color:var(--text-secondary);width:60px;">Filled</span>
+              <div class="lm-sparkline" style="flex:1;">
+                <svg class="lm-sparkline__svg" viewBox="0 0 120 24" style="width:100%;height:24px;">
+                  <polygon class="lm-sparkline__area" points="0,16 15,12 30,8 45,14 60,6 75,10 90,4 105,8 120,6 120,24 0,24"/>
+                  <polyline class="lm-sparkline__line" points="0,16 15,12 30,8 45,14 60,6 75,10 90,4 105,8 120,6"/>
+                </svg>
+              </div>
+              <span style="font-size:13px;font-weight:700;color:var(--text-primary);">97%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## Props
 
 | Property | Type | Default | Description |

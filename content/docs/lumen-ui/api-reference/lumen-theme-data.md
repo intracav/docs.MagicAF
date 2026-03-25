@@ -53,6 +53,46 @@ Creates a light theme with high-contrast colors on a white background.
 
 ## LumenColors
 
+<div class="lumen-demo lumen-demo--compact">
+  <div class="lumen-demo__label">Dark Theme Palette</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__content lm">
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px;">
+        <div style="text-align: center;">
+          <div style="width: 100%; height: 36px; border-radius: 6px; background: #5865F2; margin-bottom: 4px;"></div>
+          <div style="font-size: 10px; font-weight: 600; color: var(--text-tertiary);">primary</div>
+          <div style="font-size: 10px; color: var(--text-tertiary); font-family: var(--font-mono);">#5865F2</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="width: 100%; height: 36px; border-radius: 6px; background: #313338; border: 1px solid var(--border); margin-bottom: 4px;"></div>
+          <div style="font-size: 10px; font-weight: 600; color: var(--text-tertiary);">background</div>
+          <div style="font-size: 10px; color: var(--text-tertiary); font-family: var(--font-mono);">#313338</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="width: 100%; height: 36px; border-radius: 6px; background: #2B2D31; border: 1px solid var(--border); margin-bottom: 4px;"></div>
+          <div style="font-size: 10px; font-weight: 600; color: var(--text-tertiary);">card</div>
+          <div style="font-size: 10px; color: var(--text-tertiary); font-family: var(--font-mono);">#2B2D31</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="width: 100%; height: 36px; border-radius: 6px; background: #DA373C; margin-bottom: 4px;"></div>
+          <div style="font-size: 10px; font-weight: 600; color: var(--text-tertiary);">destructive</div>
+          <div style="font-size: 10px; color: var(--text-tertiary); font-family: var(--font-mono);">#DA373C</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="width: 100%; height: 36px; border-radius: 6px; background: #3BA55C; margin-bottom: 4px;"></div>
+          <div style="font-size: 10px; font-weight: 600; color: var(--text-tertiary);">success</div>
+          <div style="font-size: 10px; color: var(--text-tertiary); font-family: var(--font-mono);">#3BA55C</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="width: 100%; height: 36px; border-radius: 6px; background: #F5A623; margin-bottom: 4px;"></div>
+          <div style="font-size: 10px; font-weight: 600; color: var(--text-tertiary);">warning</div>
+          <div style="font-size: 10px; color: var(--text-tertiary); font-family: var(--font-mono);">#F5A623</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 23 semantic color tokens used by all components:
 
 | Token | Dark Value | Purpose |
@@ -97,6 +137,47 @@ Creates a light theme with high-contrast colors on a white background.
 | `buttonSm` | Button labels |
 
 ## LumenChartColors
+
+<div class="lumen-demo lumen-demo--compact">
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__content lm">
+      <div style="display: flex; gap: 6px; align-items: flex-end;">
+        <div style="flex: 1; text-align: center;">
+          <div style="height: 40px; border-radius: 4px 4px 0 0; background: #5865F2;"></div>
+          <div style="font-size: 10px; color: var(--text-tertiary); margin-top: 4px; font-family: var(--font-mono);">[0]</div>
+        </div>
+        <div style="flex: 1; text-align: center;">
+          <div style="height: 36px; border-radius: 4px 4px 0 0; background: #3BA55C;"></div>
+          <div style="font-size: 10px; color: var(--text-tertiary); margin-top: 4px; font-family: var(--font-mono);">[1]</div>
+        </div>
+        <div style="flex: 1; text-align: center;">
+          <div style="height: 32px; border-radius: 4px 4px 0 0; background: #FAA61A;"></div>
+          <div style="font-size: 10px; color: var(--text-tertiary); margin-top: 4px; font-family: var(--font-mono);">[2]</div>
+        </div>
+        <div style="flex: 1; text-align: center;">
+          <div style="height: 28px; border-radius: 4px 4px 0 0; background: #ED4245;"></div>
+          <div style="font-size: 10px; color: var(--text-tertiary); margin-top: 4px; font-family: var(--font-mono);">[3]</div>
+        </div>
+        <div style="flex: 1; text-align: center;">
+          <div style="height: 24px; border-radius: 4px 4px 0 0; background: #9B59B6;"></div>
+          <div style="font-size: 10px; color: var(--text-tertiary); margin-top: 4px; font-family: var(--font-mono);">[4]</div>
+        </div>
+        <div style="flex: 1; text-align: center;">
+          <div style="height: 20px; border-radius: 4px 4px 0 0; background: #E91E63;"></div>
+          <div style="font-size: 10px; color: var(--text-tertiary); margin-top: 4px; font-family: var(--font-mono);">[5]</div>
+        </div>
+        <div style="flex: 1; text-align: center;">
+          <div style="height: 16px; border-radius: 4px 4px 0 0; background: #11806A;"></div>
+          <div style="font-size: 10px; color: var(--text-tertiary); margin-top: 4px; font-family: var(--font-mono);">[6]</div>
+        </div>
+        <div style="flex: 1; text-align: center;">
+          <div style="height: 12px; border-radius: 4px 4px 0 0; background: #E67E22;"></div>
+          <div style="font-size: 10px; color: var(--text-tertiary); margin-top: 4px; font-family: var(--font-mono);">[7]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 Indexed palette of 8 colors for chart data series:
 

@@ -44,6 +44,46 @@ Calculator(
 )
 ```
 
+### Live Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Calculator &mdash; CHA2DS2-VASc</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-calculator">
+<div class="lm-calculator__header">
+<div class="lm-calculator__name">CHA2DS2-VASc Score</div>
+</div>
+<div class="lm-calculator__result" style="background:rgba(245,166,35,0.06);">
+<div class="lm-calculator__score" style="color:#F5A623;">3</div>
+<div style="display:inline-block;padding:2px 10px;border-radius:12px;background:rgba(245,166,35,0.1);color:#F5A623;font-size:12px;font-weight:600;margin-top:4px;">Moderate Risk</div>
+<div class="lm-calculator__interpretation">Annual stroke risk: 3.2%. Anticoagulation recommended.</div>
+</div>
+<div style="padding:16px;">
+<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-tertiary);margin-bottom:8px;">Inputs</div>
+<div class="lm-kv">
+<span class="lm-kv__key">Age</span><span class="lm-kv__value">72</span>
+<span class="lm-kv__key">Sex</span><span class="lm-kv__value">Male</span>
+<span class="lm-kv__key">CHF</span><span class="lm-kv__value" style="color:#3BA55C;">Yes</span>
+<span class="lm-kv__key">Hypertension</span><span class="lm-kv__value" style="color:#3BA55C;">Yes</span>
+<span class="lm-kv__key">Diabetes</span><span class="lm-kv__value" style="color:var(--text-tertiary);">No</span>
+<span class="lm-kv__key">Stroke Hx</span><span class="lm-kv__value" style="color:var(--text-tertiary);">No</span>
+<span class="lm-kv__key">Vascular Disease</span><span class="lm-kv__value" style="color:var(--text-tertiary);">No</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -95,6 +135,54 @@ Stack(direction="vertical", gap=16,
   )
 )
 ```
+
+### Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Cardiology Assessment &mdash; AFib Workup</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+<div class="lm-triage lm-triage--3">
+<div class="lm-triage__banner">
+<span class="lm-triage__level-badge">ESI 3 &mdash; Urgent</span>
+<span class="lm-triage__wait">45 min</span>
+</div>
+<div class="lm-triage__body">
+<div>
+<div class="lm-triage__row-label">Chief Complaint</div>
+<div class="lm-triage__row-value">Palpitations and lightheadedness, 3 episodes this week</div>
+</div>
+</div>
+</div>
+<div class="lm-calculator">
+<div class="lm-calculator__header"><div class="lm-calculator__name">HAS-BLED Score</div></div>
+<div class="lm-calculator__result" style="background:rgba(59,165,92,0.06);">
+<div class="lm-calculator__score" style="color:#3BA55C;">2</div>
+<div style="display:inline-block;padding:2px 10px;border-radius:12px;background:rgba(59,165,92,0.1);color:#3BA55C;font-size:12px;font-weight:600;">Low Risk</div>
+<div class="lm-calculator__interpretation">Low bleeding risk. Benefits of anticoagulation likely outweigh risks.</div>
+</div>
+</div>
+<div class="lm-calculator">
+<div class="lm-calculator__header"><div class="lm-calculator__name">CHA2DS2-VASc Score</div></div>
+<div class="lm-calculator__result" style="background:rgba(218,55,60,0.06);">
+<div class="lm-calculator__score" style="color:#DA373C;">4</div>
+<div style="display:inline-block;padding:2px 10px;border-radius:12px;background:rgba(218,55,60,0.1);color:#DA373C;font-size:12px;font-weight:600;">High Risk</div>
+<div class="lm-calculator__interpretation">Annual stroke risk: 4.0%. Oral anticoagulation strongly recommended.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 ## Notes
 

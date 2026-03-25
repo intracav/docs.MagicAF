@@ -58,6 +58,79 @@ Card(title="Patient Record",
 )
 ```
 
+## Interactive Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Empty State</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-empty-state">
+<div class="lm-empty-state__icon" style="font-size:36px; opacity:0.4;">&#128300;</div>
+<div class="lm-empty-state__title">No Lab Results</div>
+<div class="lm-empty-state__message">No labs have been ordered or resulted for this encounter.</div>
+<button class="lm-empty-state__action">Order Labs</button>
+</div>
+</div>
+</div>
+</div>
+
+## Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Demo</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Patient Record</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-card">
+<div class="lm-card__header"><div class="lm-card__title">Patient Record</div></div>
+<div class="lm-card__body">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+
+<div>
+<div style="font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-tertiary); margin-bottom:8px;">Medications</div>
+<div class="lm-stack lm-stack--horizontal lm-stack--gap-8" style="flex-wrap:wrap;">
+<span class="lm-badge lm-badge--default">Lisinopril 10mg</span>
+<span class="lm-badge lm-badge--default">Metformin 500mg</span>
+<span class="lm-badge lm-badge--default">Atorvastatin 20mg</span>
+</div>
+</div>
+
+<hr style="border:none; border-top:1px solid var(--border); margin:0;">
+
+<div class="lm-empty-state" style="padding:24px 0;">
+<div class="lm-empty-state__icon" style="font-size:28px; opacity:0.4;">&#128300;</div>
+<div class="lm-empty-state__title">No Lab Results</div>
+<div class="lm-empty-state__message">No labs have been ordered or resulted for this encounter.</div>
+<button class="lm-empty-state__action">Order Labs</button>
+</div>
+
+<hr style="border:none; border-top:1px solid var(--border); margin:0;">
+
+<div class="lm-empty-state" style="padding:24px 0;">
+<div class="lm-empty-state__icon" style="font-size:28px; opacity:0.4;">&#128221;</div>
+<div class="lm-empty-state__title">No Clinical Notes</div>
+<div class="lm-empty-state__message">No notes have been authored for this encounter.</div>
+<button class="lm-empty-state__action">Create Note</button>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 ## Notes
 
 - The JSON type is `empty_state` (snake_case), matching the DSL name `EmptyState` (PascalCase).

@@ -59,6 +59,93 @@ Card(title="Visit Documents",
 )
 ```
 
+## Interactive Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">File Cards</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-8">
+
+<div class="lm-file-card">
+<div class="lm-file-card__icon" style="color:#DA373C;">&#128196;</div>
+<div class="lm-file-card__info">
+<div class="lm-file-card__name">lab_results.pdf</div>
+<div class="lm-file-card__meta">PDF &middot; 2.4 MB</div>
+</div>
+</div>
+
+<div class="lm-file-card">
+<div class="lm-file-card__icon" style="color:#3BA55C;">&#128196;</div>
+<div class="lm-file-card__info">
+<div class="lm-file-card__name">Lab_Panel_CBC.xlsx</div>
+<div class="lm-file-card__meta">XLSX &middot; 340 KB</div>
+</div>
+</div>
+
+<div class="lm-file-card">
+<div class="lm-file-card__icon" style="color:#5865F2;">&#128444;</div>
+<div class="lm-file-card__info">
+<div class="lm-file-card__name">EKG_Tracing.png</div>
+<div class="lm-file-card__meta">PNG &middot; 890 KB</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+## Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Demo</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Visit Documents</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-card">
+<div class="lm-card__header"><div class="lm-card__title">Visit Documents</div></div>
+<div class="lm-card__body">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-8">
+<div class="lm-file-card">
+<div class="lm-file-card__icon" style="color:#DA373C;">&#128196;</div>
+<div class="lm-file-card__info">
+<div class="lm-file-card__name">History_and_Physical.pdf</div>
+<div class="lm-file-card__meta">PDF &middot; 1.2 MB</div>
+</div>
+</div>
+<div class="lm-file-card">
+<div class="lm-file-card__icon" style="color:#3BA55C;">&#128196;</div>
+<div class="lm-file-card__info">
+<div class="lm-file-card__name">Lab_Panel_CBC.xlsx</div>
+<div class="lm-file-card__meta">XLSX &middot; 340 KB</div>
+</div>
+</div>
+<div class="lm-file-card">
+<div class="lm-file-card__icon" style="color:#5865F2;">&#128444;</div>
+<div class="lm-file-card__info">
+<div class="lm-file-card__name">EKG_Tracing.png</div>
+<div class="lm-file-card__meta">PNG &middot; 890 KB</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 ## Notes
 
 - **Type icon**: The component maps common extensions and MIME types (`pdf`, `docx`, `xlsx`, `csv`, `png`, `jpg`, `html`) to distinct icons. Unrecognized types fall back to a generic file icon.

@@ -30,6 +30,64 @@ Grid(columns=3, gap=16,
 )
 ```
 
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Live Preview — 3-Column Grid</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Grid — columns=3, gap=16</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-grid lm-grid--3" style="gap: 16px;">
+        <div class="lm-card">
+          <div class="lm-card__header">
+            <div class="lm-card__title">CBC</div>
+          </div>
+          <div class="lm-card__body">
+            <div class="lm-stat">
+              <span class="lm-stat__label">WBC</span>
+              <div class="lm-stat__value-row">
+                <span class="lm-stat__value">7.2</span>
+                <span class="lm-stat__unit">K/uL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="lm-card">
+          <div class="lm-card__header">
+            <div class="lm-card__title">BMP</div>
+          </div>
+          <div class="lm-card__body">
+            <div class="lm-stat">
+              <span class="lm-stat__label">Na</span>
+              <div class="lm-stat__value-row">
+                <span class="lm-stat__value">140</span>
+                <span class="lm-stat__unit">mEq/L</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="lm-card">
+          <div class="lm-card__header">
+            <div class="lm-card__title">LFTs</div>
+          </div>
+          <div class="lm-card__body">
+            <div class="lm-stat">
+              <span class="lm-stat__label">ALT</span>
+              <div class="lm-stat__value-row">
+                <span class="lm-stat__value">28</span>
+                <span class="lm-stat__unit">U/L</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -90,6 +148,106 @@ Card(title="Patient Dashboard",
   )
 )
 ```
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Composition Preview — Patient Dashboard</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Grid — 2-Column Dashboard</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card">
+        <div class="lm-card__header">
+          <div class="lm-card__title">Patient Dashboard</div>
+        </div>
+        <div class="lm-card__body">
+          <div class="lm-grid lm-grid--2" style="gap: 16px;">
+            <div class="lm-card lm-card--outlined">
+              <div class="lm-card__header">
+                <div class="lm-card__title">Vital Signs</div>
+              </div>
+              <div class="lm-card__body">
+                <div class="lm-stack lm-stack--vertical lm-stack--gap-8">
+                  <div class="lm-stat">
+                    <span class="lm-stat__label">HR</span>
+                    <div class="lm-stat__value-row">
+                      <span class="lm-stat__value">72</span>
+                      <span class="lm-stat__unit">bpm</span>
+                    </div>
+                  </div>
+                  <div class="lm-stat">
+                    <span class="lm-stat__label">BP</span>
+                    <div class="lm-stat__value-row">
+                      <span class="lm-stat__value">120/78</span>
+                      <span class="lm-stat__unit">mmHg</span>
+                    </div>
+                  </div>
+                  <div class="lm-stat">
+                    <span class="lm-stat__label">RR</span>
+                    <div class="lm-stat__value-row">
+                      <span class="lm-stat__value">16</span>
+                      <span class="lm-stat__unit">/min</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="lm-card lm-card--outlined">
+              <div class="lm-card__header">
+                <div class="lm-card__title">Medications</div>
+              </div>
+              <div class="lm-card__body">
+                <table class="lm-table lm-table--compact">
+                  <thead>
+                    <tr><th>Drug</th><th>Dose</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Lisinopril</td><td>10mg daily</td></tr>
+                    <tr><td>Metformin</td><td>500mg BID</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="lm-card lm-card--outlined">
+              <div class="lm-card__header">
+                <div class="lm-card__title">Lab Trends</div>
+              </div>
+              <div class="lm-card__body">
+                <div class="lm-stack lm-stack--vertical lm-stack--gap-4">
+                  <div class="lm-stat">
+                    <span class="lm-stat__label">WBC Trend</span>
+                    <div class="lm-stat__value-row">
+                      <span class="lm-stat__value">7.2</span>
+                      <span class="lm-stat__unit">K/uL</span>
+                    </div>
+                    <span class="lm-stat__change lm-stat__change--neutral">&#8596; stable</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="lm-card lm-card--outlined">
+              <div class="lm-card__header">
+                <div class="lm-card__title">Alerts</div>
+              </div>
+              <div class="lm-card__body">
+                <div class="lm-alert lm-alert--warning">
+                  <span class="lm-alert__icon">&#9888;</span>
+                  <div class="lm-alert__content">
+                    <div class="lm-alert__title">A1c overdue</div>
+                    <div class="lm-alert__message">Last HbA1c was 8 months ago.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ## Notes
 

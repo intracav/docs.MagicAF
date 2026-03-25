@@ -11,6 +11,141 @@ last_reviewed: "2026-03-17"
 
 Gauge renders a semi-circular arc representing a single value within a defined range. Configurable thresholds allow color-coded zones — normal, warning, and critical — making it ideal for vital signs, compliance scores, and real-time metrics where the relationship between the current value and acceptable bounds matters.
 
+## Preview
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Live Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Gauge — SpO2 Monitor</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card lm-card--elevated">
+        <div class="lm-card__header">
+          <div class="lm-card__title">SpO2 Monitor</div>
+          <div class="lm-card__description">Oxygen saturation — normal range</div>
+        </div>
+        <div class="lm-card__body" style="display:flex;justify-content:center;">
+          <div class="lm-gauge">
+            <svg class="lm-gauge__svg" viewBox="0 0 180 100" style="width:180px;height:100px;">
+              <!-- Track (full semi-circle arc) -->
+              <!-- Arc from 180deg to 0deg, center at 90,90, radius 70 -->
+              <path class="lm-gauge__track" d="M 20,90 A 70,70 0 0,1 160,90"/>
+              <!-- Fill: 98% of 90-100 range = 80% of arc -->
+              <!-- Arc sweep for 80%: need dasharray approach -->
+              <path class="lm-gauge__fill" d="M 20,90 A 70,70 0 0,1 160,90"
+                stroke="#3BA55C"
+                stroke-dasharray="220"
+                stroke-dashoffset="44"/>
+              <!-- Value display -->
+              <text class="lm-gauge__value" x="90" y="82">98<tspan style="font-size:14px;font-weight:500;">%</tspan></text>
+            </svg>
+            <div class="lm-gauge__label">SpO2</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+### Vitals Dashboard — Triple Gauge
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Live Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Gauge — Patient Vitals Dashboard</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card lm-card--elevated">
+        <div class="lm-card__header">
+          <div class="lm-card__title">Patient Vitals — Room 412</div>
+        </div>
+        <div class="lm-card__body">
+          <div class="lm-grid lm-grid--3">
+            <!-- SpO2 Gauge: 98% in 90-100 range (normal) -->
+            <div class="lm-gauge">
+              <svg class="lm-gauge__svg" viewBox="0 0 180 100" style="width:180px;height:100px;">
+                <path class="lm-gauge__track" d="M 20,90 A 70,70 0 0,1 160,90"/>
+                <path class="lm-gauge__fill" d="M 20,90 A 70,70 0 0,1 160,90"
+                  stroke="#3BA55C"
+                  stroke-dasharray="220"
+                  stroke-dashoffset="44"/>
+                <text class="lm-gauge__value" x="90" y="82">98<tspan style="font-size:14px;font-weight:500;">%</tspan></text>
+              </svg>
+              <div class="lm-gauge__label">SpO2</div>
+            </div>
+            <!-- HR Gauge: 72 bpm in 40-180 range (normal) -->
+            <div class="lm-gauge">
+              <svg class="lm-gauge__svg" viewBox="0 0 180 100" style="width:180px;height:100px;">
+                <path class="lm-gauge__track" d="M 20,90 A 70,70 0 0,1 160,90"/>
+                <path class="lm-gauge__fill" d="M 20,90 A 70,70 0 0,1 160,90"
+                  stroke="#5865F2"
+                  stroke-dasharray="220"
+                  stroke-dashoffset="120"/>
+                <text class="lm-gauge__value" x="90" y="76">72</text>
+                <text x="90" y="92" text-anchor="middle" style="font-size:10px;fill:var(--text-tertiary);">bpm</text>
+              </svg>
+              <div class="lm-gauge__label">Heart Rate</div>
+            </div>
+            <!-- Temp Gauge: 37.1 C in 35-42 range (normal) -->
+            <div class="lm-gauge">
+              <svg class="lm-gauge__svg" viewBox="0 0 180 100" style="width:180px;height:100px;">
+                <path class="lm-gauge__track" d="M 20,90 A 70,70 0 0,1 160,90"/>
+                <path class="lm-gauge__fill" d="M 20,90 A 70,70 0 0,1 160,90"
+                  stroke="#3BA55C"
+                  stroke-dasharray="220"
+                  stroke-dashoffset="154"/>
+                <text class="lm-gauge__value" x="90" y="76">37.1</text>
+                <text x="90" y="92" text-anchor="middle" style="font-size:10px;fill:var(--text-tertiary);">&#176;C</text>
+              </svg>
+              <div class="lm-gauge__label">Temperature</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+### Warning State
+
+<div class="lumen-demo lumen-demo--compact">
+  <div class="lumen-demo__label">Live Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Gauge — Threshold Warning</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card lm-card--elevated">
+        <div class="lm-card__body" style="display:flex;justify-content:center;">
+          <div class="lm-gauge">
+            <svg class="lm-gauge__svg" viewBox="0 0 180 100" style="width:180px;height:100px;">
+              <path class="lm-gauge__track" d="M 20,90 A 70,70 0 0,1 160,90"/>
+              <path class="lm-gauge__fill" d="M 20,90 A 70,70 0 0,1 160,90"
+                stroke="#FAA61A"
+                stroke-dasharray="220"
+                stroke-dashoffset="110"/>
+              <text class="lm-gauge__value" x="90" y="76" style="fill:#FAA61A;">93</text>
+              <text x="90" y="92" text-anchor="middle" style="font-size:10px;fill:var(--text-tertiary);">%</text>
+            </svg>
+            <div class="lm-gauge__label">SpO2 — Warning</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## Props
 
 | Property | Type | Default | Description |

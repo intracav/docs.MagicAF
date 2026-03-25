@@ -6,6 +6,35 @@ weight: 6
 
 Deeper topics for extending and customizing Lumen UI.
 
+<div class="lumen-demo lumen-demo--compact">
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__content lm">
+      <div class="lm-grid lm-grid--4" style="gap: 10px;">
+        <div style="text-align: center; padding: 12px 8px;">
+          <div style="font-size: 24px; margin-bottom: 6px;">&#128221;</div>
+          <div style="font-size: 12px; font-weight: 600; color: var(--text-primary);">Language Spec</div>
+          <div style="font-size: 11px; color: var(--text-tertiary);">Formal grammar</div>
+        </div>
+        <div style="text-align: center; padding: 12px 8px;">
+          <div style="font-size: 24px; margin-bottom: 6px;">&#127912;</div>
+          <div style="font-size: 12px; font-weight: 600; color: var(--text-primary);">Patterns</div>
+          <div style="font-size: 11px; color: var(--text-tertiary);">Dashboards, tabs</div>
+        </div>
+        <div style="text-align: center; padding: 12px 8px;">
+          <div style="font-size: 24px; margin-bottom: 6px;">&#128295;</div>
+          <div style="font-size: 12px; font-weight: 600; color: var(--text-primary);">Custom</div>
+          <div style="font-size: 11px; color: var(--text-tertiary);">Build your own</div>
+        </div>
+        <div style="text-align: center; padding: 12px 8px;">
+          <div style="font-size: 24px; margin-bottom: 6px;">&#128737;</div>
+          <div style="font-size: 12px; font-weight: 600; color: var(--text-primary);">Errors</div>
+          <div style="font-size: 11px; color: var(--text-tertiary);">Graceful fallbacks</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ---
 
 <div class="card-grid">

@@ -44,6 +44,63 @@ IVDrip(
 )
 ```
 
+### Live Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">IVDrip &mdash; Norepinephrine</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-card">
+<div style="padding:16px;text-align:center;background:rgba(14,165,233,0.06);border-bottom:1px solid var(--border);">
+<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#0EA5E9;margin-bottom:4px;">NOREPINEPHRINE</div>
+<div class="lm-iv-drip__rate">
+<div class="lm-iv-drip__rate-value" style="color:#0EA5E9;">15</div>
+<div class="lm-iv-drip__rate-unit">mL/hr</div>
+</div>
+<div style="font-size:13px;color:var(--text-secondary);">0.1 mcg/kg/min</div>
+<div style="margin-top:8px;"><span class="lm-badge lm-badge--success">Within Range</span></div>
+</div>
+<div style="padding:16px;">
+<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-tertiary);margin-bottom:8px;">Order Details</div>
+<div class="lm-kv">
+<span class="lm-kv__key">Dose</span><span class="lm-kv__value">0.1 mcg/kg/min</span>
+<span class="lm-kv__key">Weight</span><span class="lm-kv__value">80 kg</span>
+<span class="lm-kv__key">Target</span><span class="lm-kv__value">MAP &gt; 65 mmHg</span>
+<span class="lm-kv__key">Concentration</span><span class="lm-kv__value">4mg / 250mL</span>
+</div>
+</div>
+<div style="padding:0 16px 16px;">
+<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-tertiary);margin-bottom:8px;">Titration Table</div>
+<table class="lm-table lm-table--compact">
+<thead><tr><th>Dose</th><th>Rate</th><th>Level</th></tr></thead>
+<tbody>
+<tr><td>0.05 mcg/kg/min</td><td>7.5 mL/hr</td><td>Starting</td></tr>
+<tr><td style="font-weight:600;">0.1 mcg/kg/min</td><td style="font-weight:600;">15 mL/hr</td><td><span class="lm-badge lm-badge--info" style="font-size:10px;">Current</span></td></tr>
+<tr><td>0.2 mcg/kg/min</td><td>30 mL/hr</td><td>Max usual</td></tr>
+<tr><td>0.3 mcg/kg/min</td><td>45 mL/hr</td><td>Max</td></tr>
+</tbody>
+</table>
+</div>
+<div style="padding:0 16px 16px;">
+<div style="font-size:12px;color:var(--text-tertiary);line-height:1.6;">
+&#9432; Administer via central line only<br>
+&#9432; Monitor arterial blood pressure continuously<br>
+&#9432; Taper gradually &mdash; do not discontinue abruptly
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -89,6 +146,54 @@ Stack(direction="vertical", gap=16,
   )
 )
 ```
+
+### Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">ICU Drip Management</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+<div class="lm-card">
+<div style="padding:12px 16px;text-align:center;background:rgba(14,165,233,0.06);border-bottom:1px solid var(--border);">
+<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#0EA5E9;">VASOPRESSIN</div>
+<div class="lm-iv-drip__rate">
+<div class="lm-iv-drip__rate-value" style="color:#0EA5E9;font-size:28px;">2.5</div>
+<div class="lm-iv-drip__rate-unit">mL/hr &middot; 0.04 units/min</div>
+</div>
+<span class="lm-badge lm-badge--success" style="margin-top:4px;">Within Range</span>
+</div>
+<div style="padding:8px 16px;font-size:12px;color:var(--text-tertiary);">
+&#9432; Fixed dose &mdash; do not titrate<br>
+&#9432; Use as second vasopressor with norepinephrine
+</div>
+</div>
+<div class="lm-card">
+<div style="padding:12px 16px;text-align:center;background:rgba(14,165,233,0.06);border-bottom:1px solid var(--border);">
+<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#0EA5E9;">PROPOFOL</div>
+<div class="lm-iv-drip__rate">
+<div class="lm-iv-drip__rate-value" style="color:#0EA5E9;font-size:28px;">20</div>
+<div class="lm-iv-drip__rate-unit">mL/hr &middot; 50 mcg/kg/min &middot; Target RASS -2</div>
+</div>
+<span class="lm-badge lm-badge--success" style="margin-top:4px;">Within Range</span>
+</div>
+<div style="padding:8px 16px;font-size:12px;color:var(--text-tertiary);">
+&#9432; Monitor triglycerides q48h<br>
+&#9432; Assess for propofol infusion syndrome if &gt;48h
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 ## Notes
 

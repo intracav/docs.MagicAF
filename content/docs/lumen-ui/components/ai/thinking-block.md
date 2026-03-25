@@ -54,6 +54,80 @@ Stack(direction="vertical", gap=12,
 )
 ```
 
+## Interactive Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Thinking Block</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-12">
+
+<div class="lm-thinking">
+<div class="lm-thinking__trigger">
+<span class="lm-thinking__trigger-icon">&#9654;</span>
+Clinical Reasoning
+</div>
+<div class="lm-thinking__body">The patient presents with chest pain. Given the risk factors (age 65, hypertension, diabetes), I should consider ACS workup including troponin, ECG, and chest X-ray. The described pattern of substernal pressure radiating to the left arm with diaphoresis raises concern for STEMI. Immediate 12-lead ECG and serial troponins are indicated.</div>
+</div>
+
+<div class="lm-thinking">
+<div class="lm-thinking__trigger">
+<span class="lm-thinking__trigger-icon">&#9654;</span>
+Drug Interaction Analysis
+</div>
+<div class="lm-thinking__body">Patient is on Lisinopril 10mg and Spironolactone 25mg. Both are potassium-sparing &mdash; need to flag hyperkalemia risk. Last K+ was 4.8 mEq/L (high-normal). Should recommend monitoring within 1 week.</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+> **Try it** — Click the thinking block headers to expand and collapse the reasoning content.
+
+## Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Demo</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Agent Response</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-12">
+
+<div class="lm-thinking">
+<div class="lm-thinking__trigger">
+<span class="lm-thinking__trigger-icon">&#9654;</span>
+Drug Interaction Analysis
+</div>
+<div class="lm-thinking__body">Patient is on Lisinopril 10mg and Spironolactone 25mg. Both are potassium-sparing &mdash; need to flag hyperkalemia risk. Last K+ was 4.8 mEq/L (high-normal). Should recommend monitoring.</div>
+</div>
+
+<div style="font-size:13px; color:var(--text-primary); line-height:1.6;">
+<strong>Warning:</strong> Concurrent use of Lisinopril and Spironolactone increases the risk of hyperkalemia. The patient's last potassium level (4.8 mEq/L) is at the upper end of normal. Recommend checking serum potassium within 1 week.
+</div>
+
+<div class="lm-follow-up">
+<button class="lm-follow-up__btn">What is the target potassium range?</button>
+<button class="lm-follow-up__btn">Alternative medications?</button>
+<button class="lm-follow-up__btn">Show full interaction details</button>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
 ## Notes
 
 - **Default state**: The block starts collapsed, showing only the label and a chevron indicator. Tapping expands it to reveal the full content.

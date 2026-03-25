@@ -43,6 +43,75 @@ LabRanges(
 )
 ```
 
+### Live Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">LabRanges &mdash; CBC &amp; BMP</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+<div class="lm-card">
+<div class="lm-card__header" style="background:rgba(61,191,128,0.06);">
+<div class="lm-lab-ranges__header">
+<span class="lm-lab-ranges__name">WBC</span>
+<span class="lm-badge lm-badge--default">K/uL</span>
+</div>
+</div>
+<div class="lm-card__body">
+<div class="lm-kv">
+<span class="lm-kv__key">Adult</span><span class="lm-kv__value">4.5 &ndash; 11.0</span>
+</div>
+<div class="lm-lab-range-bar"><div class="lm-lab-range-bar__marker" style="left:50%;"></div></div>
+<div class="lm-lab-range-bar__labels"><span>Low</span><span>Normal</span><span>High</span></div>
+<div style="margin-top:8px;font-size:12px;color:var(--text-tertiary);display:flex;gap:4px;align-items:start;">&#9432; Elevated in infection, stress, steroids</div>
+</div>
+</div>
+<div class="lm-card">
+<div class="lm-card__header" style="background:rgba(61,191,128,0.06);">
+<div class="lm-lab-ranges__header">
+<span class="lm-lab-ranges__name">Hemoglobin</span>
+<span class="lm-badge lm-badge--default">g/dL</span>
+</div>
+</div>
+<div class="lm-card__body">
+<div class="lm-kv">
+<span class="lm-kv__key">Male</span><span class="lm-kv__value">13.5 &ndash; 17.5</span>
+<span class="lm-kv__key">Female</span><span class="lm-kv__value">12.0 &ndash; 16.0</span>
+</div>
+<div class="lm-lab-range-bar"><div class="lm-lab-range-bar__marker" style="left:55%;"></div></div>
+<div class="lm-lab-range-bar__labels"><span>Low</span><span>Normal</span><span>High</span></div>
+</div>
+</div>
+<div class="lm-card">
+<div class="lm-card__header" style="background:rgba(61,191,128,0.06);">
+<div class="lm-lab-ranges__header">
+<span class="lm-lab-ranges__name">Creatinine</span>
+<span class="lm-badge lm-badge--default">mg/dL</span>
+</div>
+</div>
+<div class="lm-card__body">
+<div class="lm-kv">
+<span class="lm-kv__key">Male</span><span class="lm-kv__value">0.7 &ndash; 1.3</span>
+<span class="lm-kv__key">Female</span><span class="lm-kv__value">0.6 &ndash; 1.1</span>
+</div>
+<div class="lm-lab-range-bar"><div class="lm-lab-range-bar__marker" style="left:60%;"></div></div>
+<div class="lm-lab-range-bar__labels"><span>Low</span><span>Normal</span><span>High</span></div>
+<div style="margin-top:8px;font-size:12px;color:var(--text-tertiary);display:flex;gap:4px;align-items:start;">&#9432; Varies with muscle mass and hydration</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -81,6 +150,57 @@ Stack(direction="vertical", gap=16,
   )
 )
 ```
+
+### Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Renal Function Workup</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+<div class="lm-card">
+<div class="lm-card__header" style="background:rgba(61,191,128,0.06);">
+<div class="lm-lab-ranges__header">
+<span class="lm-lab-ranges__name">BUN</span>
+<span class="lm-badge lm-badge--default">mg/dL</span>
+</div>
+</div>
+<div class="lm-card__body">
+<div class="lm-kv"><span class="lm-kv__key">Adult</span><span class="lm-kv__value">7 &ndash; 20</span></div>
+</div>
+</div>
+<div class="lm-card">
+<div class="lm-card__header" style="background:rgba(61,191,128,0.06);">
+<div class="lm-lab-ranges__header">
+<span class="lm-lab-ranges__name">GFR</span>
+<span class="lm-badge lm-badge--default">mL/min/1.73m&sup2;</span>
+</div>
+</div>
+<div class="lm-card__body">
+<div class="lm-kv"><span class="lm-kv__key">Adult</span><span class="lm-kv__value">&gt; 60</span></div>
+<div style="margin-top:8px;font-size:12px;color:var(--text-tertiary);">&#9432; CKD staging based on sustained GFR reduction</div>
+</div>
+</div>
+<div class="lm-calculator">
+<div class="lm-calculator__header"><div class="lm-calculator__name">CKD-EPI GFR</div></div>
+<div class="lm-calculator__result">
+<div class="lm-calculator__score" style="color:#ED8936;">42</div>
+<div style="font-size:13px;color:var(--text-secondary);">mL/min/1.73m&sup2;</div>
+<div class="lm-calculator__interpretation">CKD Stage 3b. Consider nephrology referral.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 ## Notes
 

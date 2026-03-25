@@ -13,6 +13,55 @@ last_reviewed: "2026-03-17"
 
 The `ArtifactAdapter` is the bridge between legacy artifact types (used by the Lumen server and MCP tools) and the Lumen component system. It converts a `ChatArtifact` — with a type string and JSON content — into a `LumenNode` tree that the renderer can display.
 
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Before and After -- Legacy Artifact to Lumen Component</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">ArtifactAdapter Conversion</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-split lm-split--horizontal">
+        <div class="lm-split__pane">
+          <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-tertiary); margin-bottom: 10px;">Legacy Artifact (Raw JSON)</div>
+          <div style="background: var(--entry); border-radius: 8px; padding: 12px; font-family: var(--font-mono); font-size: 11px; color: var(--text-secondary); line-height: 1.6; white-space: pre; overflow-x: auto;">type: <span style="color: #FAA61A;">"rxnorm"</span>
+content: {
+  <span style="color: #5865F2;">"name"</span>: "Metformin 500 MG",
+  <span style="color: #5865F2;">"rxcui"</span>: "861004",
+  <span style="color: #5865F2;">"tty"</span>: "SCD",
+  <span style="color: #5865F2;">"dose_form_groups"</span>: [
+    "Oral Tablet"
+  ]
+}</div>
+        </div>
+        <div class="lm-split__pane">
+          <div style="font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-tertiary); margin-bottom: 10px;">Rendered Component</div>
+          <div class="lm-drug-card">
+            <div class="lm-drug-card__header">
+              <div class="lm-drug-card__name">Metformin 500 MG</div>
+              <div class="lm-drug-card__rxcui">RxCUI: 861004</div>
+            </div>
+            <div class="lm-drug-card__body">
+              <div>
+                <div class="lm-drug-card__section-label">Term Type</div>
+                <span style="font-size: 13px; color: var(--text-primary);">SCD</span>
+              </div>
+              <div>
+                <div class="lm-drug-card__section-label">Dose Form</div>
+                <div class="lm-drug-card__tags">
+                  <span class="lm-drug-card__tag">Oral Tablet</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## Usage
 
 ```dart
@@ -86,11 +135,40 @@ return LumenRenderer(nodes: [node]);
 
 The adapter follows a priority chain:
 
-1. **Known clinical type** → maps to the specific clinical component with typed props
-2. **Known document type** → maps to CodeBlock, Markdown, PdfViewer, etc.
-3. **JSON content** → attempts to parse as component props for a generic component
-4. **Plain text** → wraps in a Markdown component
-5. **Unknown type** → renders as a Card with the artifact title and raw content
+<div class="lumen-demo lumen-demo--compact">
+  <div class="lumen-demo__label">Conversion Priority Chain</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__content lm">
+      <div class="lm-steps">
+        <div class="lm-steps__item lm-steps__item--completed">
+          <div class="lm-steps__number">1</div>
+          <div class="lm-steps__title">Known clinical type</div>
+          <div class="lm-steps__desc">Maps to the specific clinical component (DrugCard, LabRanges, TriageCard, etc.) with typed props</div>
+        </div>
+        <div class="lm-steps__item lm-steps__item--completed">
+          <div class="lm-steps__number">2</div>
+          <div class="lm-steps__title">Known document type</div>
+          <div class="lm-steps__desc">Maps to CodeBlock, Markdown, PdfViewer, FileCard, or HtmlEmbed</div>
+        </div>
+        <div class="lm-steps__item">
+          <div class="lm-steps__number">3</div>
+          <div class="lm-steps__title">JSON content</div>
+          <div class="lm-steps__desc">Attempts to parse as component props for a generic component</div>
+        </div>
+        <div class="lm-steps__item lm-steps__item--pending">
+          <div class="lm-steps__number">4</div>
+          <div class="lm-steps__title">Plain text</div>
+          <div class="lm-steps__desc">Wraps in a Markdown component</div>
+        </div>
+        <div class="lm-steps__item lm-steps__item--pending">
+          <div class="lm-steps__number">5</div>
+          <div class="lm-steps__title">Unknown type</div>
+          <div class="lm-steps__desc">Renders as a Card with the artifact title and raw content</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ### Data Table Auto-Inference
 

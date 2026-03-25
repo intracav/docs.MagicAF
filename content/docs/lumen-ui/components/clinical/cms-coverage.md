@@ -46,6 +46,54 @@ CmsCoverage(
 )
 ```
 
+### Live Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">CmsCoverage &mdash; CGM Systems</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-card">
+<div class="lm-card__header" style="border-left:3px solid #3B82F6;padding-left:13px;">
+<div class="lm-card__title" style="display:flex;align-items:center;gap:8px;">Continuous Glucose Monitoring Systems <span class="lm-badge lm-badge--success">Covered</span></div>
+<div class="lm-card__description">LCD L33822</div>
+</div>
+<div class="lm-card__body">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-12">
+<div>
+<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-tertiary);margin-bottom:4px;">Coverage Criteria</div>
+<div style="font-size:13px;color:var(--text-primary);line-height:1.6;">Patient must have diabetes mellitus treated with insulin (3+ daily injections or insulin pump). Patient must perform SMBG 4+ times per day. In-person visit within 6 months prior to ordering.</div>
+</div>
+<div>
+<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-tertiary);margin-bottom:4px;">Covered Devices</div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;">
+<span class="lm-badge lm-badge--default">Dexcom G6/G7</span>
+<span class="lm-badge lm-badge--default">FreeStyle Libre 2/3</span>
+<span class="lm-badge lm-badge--default">Medtronic Guardian</span>
+</div>
+</div>
+<div>
+<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-tertiary);margin-bottom:4px;">Limitations</div>
+<div style="font-size:13px;color:var(--text-primary);line-height:1.6;">One receiver per 5 years unless device is no longer functional. Sensors and transmitters replaced per manufacturer-specified intervals.</div>
+</div>
+<div>
+<div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-tertiary);margin-bottom:4px;">Documentation Requirements</div>
+<div style="font-size:13px;color:var(--text-primary);line-height:1.6;">Written order from treating provider. Medical records supporting insulin regimen and SMBG frequency. Certification of in-person evaluation.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -98,6 +146,70 @@ Stack(direction="vertical", gap=16,
   )
 )
 ```
+
+### Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Preview &mdash; Click checklist items to toggle</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Prior Auth &mdash; Total Knee Replacement</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+<div class="lm-card">
+<div class="lm-card__header" style="border-left:3px solid #3B82F6;padding-left:13px;">
+<div class="lm-card__title" style="display:flex;align-items:center;gap:8px;">Knee Arthroplasty (TKR) <span class="lm-badge lm-badge--success">Covered</span></div>
+<div class="lm-card__description">NCD 150.10</div>
+</div>
+<div class="lm-card__body">
+<div style="font-size:13px;color:var(--text-primary);line-height:1.6;">Severe knee osteoarthritis with functional impairment unresponsive to conservative management for at least 3 months.</div>
+</div>
+</div>
+<div class="lm-stack lm-stack--vertical" style="gap:0;">
+<div class="lm-hcpcs__item">
+<span class="lm-hcpcs__code">27447</span>
+<span class="lm-hcpcs__desc">Arthroplasty, knee, condyle and plateau; medial AND lateral compartments</span>
+</div>
+<div class="lm-hcpcs__item">
+<span class="lm-hcpcs__code">99213</span>
+<span class="lm-hcpcs__desc">Pre-operative office visit</span>
+</div>
+</div>
+<div class="lm-card">
+<div class="lm-card__header"><div class="lm-card__title">Prior Auth Documentation Checklist</div></div>
+<div class="lm-card__body" style="padding:8px 16px 16px;">
+<div class="lm-checklist__item checked" style="cursor:pointer;">
+<span class="lm-checklist__box">&#10003;</span>
+<span class="lm-checklist__text">CMS coverage criteria met</span>
+</div>
+<div class="lm-checklist__item checked" style="cursor:pointer;">
+<span class="lm-checklist__box">&#10003;</span>
+<span class="lm-checklist__text">Imaging reports attached</span>
+</div>
+<div class="lm-checklist__item checked" style="cursor:pointer;">
+<span class="lm-checklist__box">&#10003;</span>
+<span class="lm-checklist__text">Conservative therapy documentation</span>
+</div>
+<div class="lm-checklist__item" style="cursor:pointer;">
+<span class="lm-checklist__box"></span>
+<span class="lm-checklist__text">Functional assessment score</span>
+</div>
+<div class="lm-checklist__item" style="cursor:pointer;">
+<span class="lm-checklist__box"></span>
+<span class="lm-checklist__text">Medical clearance letter</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 ## Notes
 

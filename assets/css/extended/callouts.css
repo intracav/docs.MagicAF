@@ -1,88 +1,92 @@
-/* Callout boxes for tips, warnings, and notes */
+/* ============================================================================
+   Callout Boxes — Intracav Brand Semantic Colors
+   info/tip → sage | warning → terracotta | danger → rose
+   ============================================================================ */
 
 .callout {
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm, 10px);
   padding: 1em 1.25em;
   margin: 1.5em 0;
   border-left: 4px solid;
 }
 
 .callout__title {
-  font-weight: 700;
-  font-size: 0.9em;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-weight: 600;
+  font-size: 0.8em;
   margin-bottom: 0.4em;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.06em;
 }
 
 .callout__content p:last-child {
   margin-bottom: 0;
 }
 
-/* Info (default) */
+/* Info — sage */
 .callout--info {
-  background: #eff6ff;
-  border-color: #3b82f6;
+  background: rgba(126,156,132,0.08);
+  border-color: #7E9C84;
 }
 .callout--info .callout__title {
-  color: #1d4ed8;
+  color: #4A7050;
 }
 .dark .callout--info,
 [data-theme="dark"] .callout--info {
-  background: rgba(59, 130, 246, 0.08);
-  border-color: rgba(59, 130, 246, 0.6);
+  background: rgba(126,156,132,0.1);
+  border-color: rgba(126,156,132,0.6);
 }
 [data-theme="dark"] .callout--info .callout__title {
-  color: #60a5fa;
+  color: #C4D9C7;
 }
 
-/* Warning */
+/* Warning — terracotta */
 .callout--warning {
-  background: #fffbeb;
-  border-color: #f59e0b;
+  background: rgba(188,114,80,0.08);
+  border-color: #BC7250;
 }
 .callout--warning .callout__title {
-  color: #d97706;
+  color: #8F4E2E;
 }
 .dark .callout--warning,
 [data-theme="dark"] .callout--warning {
-  background: rgba(245, 158, 11, 0.08);
-  border-color: rgba(245, 158, 11, 0.6);
+  background: rgba(188,114,80,0.1);
+  border-color: rgba(188,114,80,0.6);
 }
 [data-theme="dark"] .callout--warning .callout__title {
-  color: #fbbf24;
+  color: #E8C4A8;
 }
 
-/* Danger */
+/* Danger — rose */
 .callout--danger {
-  background: #fef2f2;
-  border-color: #ef4444;
+  background: rgba(184,112,112,0.08);
+  border-color: #B87070;
 }
 .callout--danger .callout__title {
-  color: #dc2626;
+  color: #7A3A3A;
 }
 .dark .callout--danger,
 [data-theme="dark"] .callout--danger {
-  background: rgba(239, 68, 68, 0.08);
-  border-color: rgba(239, 68, 68, 0.6);
+  background: rgba(184,112,112,0.1);
+  border-color: rgba(184,112,112,0.6);
 }
 [data-theme="dark"] .callout--danger .callout__title {
-  color: #f87171;
+  color: #D4A0A0;
 }
 
-/* Tip */
+/* Tip — sage */
 .callout--tip {
-  background: #f0fdf4;
-  border-color: #22c55e;
+  background: rgba(126,156,132,0.08);
+  border-color: #7E9C84;
 }
 .callout--tip .callout__title {
-  color: #16a34a;
+  color: #4A7050;
 }
 .dark .callout--tip,
 [data-theme="dark"] .callout--tip {
-  background: rgba(34, 197, 94, 0.08);
-  border-color: rgba(34, 197, 94, 0.6);
+  background: rgba(126,156,132,0.1);
+  border-color: rgba(126,156,132,0.6);
 }
 [data-theme="dark"] .callout--tip .callout__title {
-  color: #4ade80;
+  color: #C4D9C7;
 }

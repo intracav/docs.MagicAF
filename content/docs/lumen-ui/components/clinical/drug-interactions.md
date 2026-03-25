@@ -46,6 +46,48 @@ DrugInteractions(
 )
 ```
 
+### Live Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">DrugInteractions &mdash; Warfarin</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-card">
+<div class="lm-card__header" style="border-left:3px solid #ED8936;padding-left:13px;">
+<div class="lm-card__title" style="display:flex;align-items:center;gap:8px;">Drug Interactions &mdash; Warfarin <span class="lm-badge lm-badge--warning" style="font-size:11px;">Coumadin</span></div>
+</div>
+<div class="lm-card__body">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-8">
+<div class="lm-interactions__item">
+<span class="lm-interactions__severity lm-interactions__severity--high">High</span>
+<div class="lm-interactions__desc">Concurrent use with aspirin increases the risk of bleeding. NSAIDs may potentiate the anticoagulant effect.</div>
+</div>
+<div class="lm-interactions__item">
+<span class="lm-interactions__severity lm-interactions__severity--moderate">Contraindication</span>
+<div class="lm-interactions__desc">Active pathological bleeding. Pregnancy (first and third trimesters).</div>
+</div>
+<div class="lm-alert lm-alert--warning" style="margin-top:4px;">
+<span class="lm-alert__icon">&#9888;</span>
+<div class="lm-alert__content">
+<div class="lm-alert__message">Monitor INR closely when initiating, discontinuing, or changing doses of interacting medications.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div style="padding:8px 16px;font-size:11px;color:var(--text-tertiary);font-style:italic;">Sourced from FDA drug labels. Verify with a clinical pharmacist.</div>
+</div>
+</div>
+</div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -99,6 +141,49 @@ Stack(direction="vertical", gap=16,
   )
 )
 ```
+
+### Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Clopidogrel Safety Review</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+<div class="lm-drug-card">
+<div class="lm-drug-card__header" style="background:rgba(61,191,128,0.08);">
+<div class="lm-drug-card__name">Clopidogrel 75 MG Oral Tablet</div>
+<div class="lm-drug-card__rxcui">RxCUI: 309362 &middot; Clinical Drug (SCD)</div>
+</div>
+<div class="lm-drug-card__body">
+<div>
+<div class="lm-drug-card__section-label">Active Ingredients</div>
+<div class="lm-drug-card__tags"><span class="lm-drug-card__tag" style="background:rgba(61,191,128,0.1);color:#38A169;">Clopidogrel</span></div>
+</div>
+</div>
+</div>
+<div class="lm-interactions__item">
+<span class="lm-interactions__severity lm-interactions__severity--high">High</span>
+<div class="lm-interactions__desc">Omeprazole reduces the antiplatelet effect of clopidogrel by inhibiting CYP2C19. Avoid concomitant use with omeprazole or esomeprazole. Pantoprazole is a safer PPI alternative.</div>
+</div>
+<div class="lm-allergy-safety">
+<div class="lm-allergy-safety__header lm-allergy-safety__header--safe" style="padding:12px 16px;border-radius:8px;">
+<span style="font-weight:700;">Allergy Safety &mdash; Clopidogrel vs Aspirin Allergy</span>
+<span class="lm-badge lm-badge--success">Low Risk</span>
+</div>
+<div style="padding:8px 16px;font-size:13px;color:var(--text-secondary);">Clopidogrel is not cross-reactive with aspirin. Safe to use in aspirin-allergic patients.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 ## Notes
 

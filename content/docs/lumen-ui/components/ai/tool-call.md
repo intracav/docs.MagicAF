@@ -64,6 +64,132 @@ Card(title="Agent Activity",
 )
 ```
 
+## Interactive Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">ToolCall States</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-8">
+
+<div class="lm-tool-call" data-expandable>
+<span class="lm-tool-call__icon lm-tool-call__icon--running"></span>
+<span class="lm-tool-call__name">lab_reference_ranges</span>
+<span class="lm-tool-call__primary-arg">HbA1c</span>
+<div class="lm-tool-call__args">
+<div class="lm-kv">
+<span class="lm-kv__key">analyte</span><span class="lm-kv__value">HbA1c</span>
+<span class="lm-kv__key">unit</span><span class="lm-kv__value">%</span>
+</div>
+</div>
+</div>
+
+<div class="lm-tool-call" data-expandable>
+<span class="lm-tool-call__icon lm-tool-call__icon--completed">&#10003;</span>
+<span class="lm-tool-call__name">rxnorm_lookup</span>
+<span class="lm-tool-call__primary-arg">Metformin</span>
+<span class="lm-tool-call__duration">0.6s</span>
+<div class="lm-tool-call__args">
+<div class="lm-kv">
+<span class="lm-kv__key">query</span><span class="lm-kv__value">metformin 500mg</span>
+</div>
+</div>
+</div>
+
+<div class="lm-tool-call" data-expandable>
+<span class="lm-tool-call__icon lm-tool-call__icon--completed">&#10003;</span>
+<span class="lm-tool-call__name">drug_interactions</span>
+<span class="lm-tool-call__primary-arg">Metformin</span>
+<span class="lm-tool-call__duration">1.1s</span>
+<div class="lm-tool-call__args">
+<div class="lm-kv">
+<span class="lm-kv__key">drug</span><span class="lm-kv__value">metformin</span>
+<span class="lm-kv__key">against</span><span class="lm-kv__value">lisinopril, atorvastatin</span>
+</div>
+</div>
+</div>
+
+<div class="lm-tool-call" data-expandable>
+<span class="lm-tool-call__icon lm-tool-call__icon--error">&#10005;</span>
+<span class="lm-tool-call__name">formulary_check</span>
+<span class="lm-tool-call__primary-arg">Entresto</span>
+<span class="lm-tool-call__duration">3.2s</span>
+<div class="lm-tool-call__args">
+<div class="lm-kv">
+<span class="lm-kv__key">drug</span><span class="lm-kv__value">sacubitril/valsartan</span>
+<span class="lm-kv__key">error</span><span class="lm-kv__value">Formulary service timeout</span>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+> **Try it** — Click any tool call card to expand and view its full arguments.
+
+## Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Demo</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">Agent Activity</span>
+</div>
+<div class="lumen-demo__content lm">
+<div class="lm-card">
+<div class="lm-card__header"><div class="lm-card__title">Agent Activity</div></div>
+<div class="lm-card__body">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-4">
+<div class="lm-tool-call" data-expandable>
+<span class="lm-tool-call__icon lm-tool-call__icon--completed">&#10003;</span>
+<span class="lm-tool-call__name">rxnorm_lookup</span>
+<span class="lm-tool-call__primary-arg">Metformin</span>
+<span class="lm-tool-call__duration">0.6s</span>
+<div class="lm-tool-call__args">
+<div class="lm-kv">
+<span class="lm-kv__key">query</span><span class="lm-kv__value">metformin 500mg</span>
+</div>
+</div>
+</div>
+<div class="lm-tool-call" data-expandable>
+<span class="lm-tool-call__icon lm-tool-call__icon--completed">&#10003;</span>
+<span class="lm-tool-call__name">drug_interactions</span>
+<span class="lm-tool-call__primary-arg">Metformin</span>
+<span class="lm-tool-call__duration">1.1s</span>
+<div class="lm-tool-call__args">
+<div class="lm-kv">
+<span class="lm-kv__key">drug</span><span class="lm-kv__value">metformin</span>
+</div>
+</div>
+</div>
+<div class="lm-tool-call" data-expandable>
+<span class="lm-tool-call__icon lm-tool-call__icon--running"></span>
+<span class="lm-tool-call__name">lab_reference_ranges</span>
+<span class="lm-tool-call__primary-arg">HbA1c</span>
+<div class="lm-tool-call__args">
+<div class="lm-kv">
+<span class="lm-kv__key">analyte</span><span class="lm-kv__value">HbA1c</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 ## Notes
 
 - **Status indicators**: `running` shows an animated spinner, `completed` shows a green checkmark, and `error` shows a red error icon.

@@ -37,6 +37,35 @@ Patient **Jane Doe** (MRN: 12345) was admitted on 2026-03-15 for acute appendici
 """)
 ```
 
+## Live Preview
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Live Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Markdown — Discharge Summary</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-markdown">
+        <h3>Discharge Summary</h3>
+        <p>Patient <strong>Jane Doe</strong> (MRN: 12345) was admitted on 2026-03-15 for acute appendicitis.</p>
+        <h3>Procedure</h3>
+        <ul>
+          <li>Laparoscopic appendectomy performed without complications</li>
+          <li>Estimated blood loss: &lt; 50 mL</li>
+        </ul>
+        <h3>Follow-Up</h3>
+        <p>1. Return to clinic in 7 days for wound check<br>
+        2. Resume normal diet as tolerated<br>
+        3. Call if fever &gt; 101.5&deg;F or increasing pain</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -74,6 +103,45 @@ Patient presents with well-controlled type 2 diabetes. HbA1c improved from 8.2% 
 """)
 )
 ```
+
+## Composition Preview
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Composition Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Card + KeyValue + Markdown — Encounter Note</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card lm-card--elevated">
+        <div class="lm-card__header"><div class="lm-card__title">Encounter Note</div></div>
+        <div class="lm-card__body">
+          <div class="lm-kv" style="margin-bottom:16px;">
+            <span class="lm-kv__key">Provider</span>
+            <span class="lm-kv__value">Dr. Smith</span>
+            <span class="lm-kv__key">Date</span>
+            <span class="lm-kv__value">2026-03-17</span>
+            <span class="lm-kv__key">Type</span>
+            <span class="lm-kv__value">Follow-Up Visit</span>
+          </div>
+          <div class="lm-markdown">
+            <h3>Assessment</h3>
+            <p>Patient presents with well-controlled type 2 diabetes. HbA1c improved from 8.2% to 7.1%.</p>
+            <h3>Plan</h3>
+            <ul>
+              <li>Continue metformin 1000mg BID</li>
+              <li>Recheck HbA1c in 3 months</li>
+              <li>Referral to ophthalmology for annual screening</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ## Notes
 

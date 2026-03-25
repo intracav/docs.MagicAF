@@ -46,6 +46,45 @@ TriageCard(
 )
 ```
 
+### Live Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Live Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">TriageCard &mdash; ESI Level 3</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-triage lm-triage--3">
+<div class="lm-triage__banner">
+<span class="lm-triage__level-badge">ESI 3 &mdash; Urgent</span>
+<span class="lm-triage__wait">Wait: 30 min</span>
+</div>
+<div class="lm-triage__body">
+<div>
+<div class="lm-triage__row-label">Chief Complaint</div>
+<div class="lm-triage__row-value">Chest pain, onset 2 hours ago</div>
+</div>
+<div>
+<div class="lm-triage__row-label">Vitals</div>
+<div class="lm-triage__row-value">HR 92, BP 145/90, SpO2 96%, RR 18, Temp 98.6&deg;F</div>
+</div>
+<div>
+<div class="lm-triage__row-label">Recommended Action</div>
+<div class="lm-triage__row-value">12-lead ECG, troponin, chest X-ray. Place on cardiac monitor.</div>
+</div>
+</div>
+<div class="lm-triage__footer">Clinical decision support &mdash; verify with attending physician</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -84,6 +123,65 @@ Stack(direction="vertical", gap=16,
   )
 )
 ```
+
+### Composition Preview
+
+<div class="lumen-demo">
+<div class="lumen-demo__label">Composition Preview</div>
+<div class="lumen-demo__frame">
+<div class="lumen-demo__bar">
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__dot"></span>
+<span class="lumen-demo__bar-title">ED Assessment Dashboard</span>
+</div>
+<div class="lumen-demo__content">
+<div class="lm">
+<div class="lm-stack lm-stack--vertical lm-stack--gap-16">
+<div class="lm-triage lm-triage--2">
+<div class="lm-triage__banner">
+<span class="lm-triage__level-badge">ESI 2 &mdash; Emergent</span>
+<span class="lm-triage__wait">Immediate</span>
+</div>
+<div class="lm-triage__body">
+<div>
+<div class="lm-triage__row-label">Chief Complaint</div>
+<div class="lm-triage__row-value">Severe headache, worst of life, sudden onset</div>
+</div>
+<div>
+<div class="lm-triage__row-label">Recommended Action</div>
+<div class="lm-triage__row-value">CT head without contrast STAT. Neurosurgery consult.</div>
+</div>
+</div>
+<div class="lm-triage__footer">Clinical decision support &mdash; verify with attending physician</div>
+</div>
+<div class="lm-ddx">
+<div class="lm-ddx__header">
+<div class="lm-ddx__title">Differential Dx &mdash; Thunderclap headache</div>
+</div>
+<ul class="lm-ddx__list">
+<li class="lm-ddx__item">
+<span class="lm-ddx__rank">1</span>
+<span class="lm-ddx__name">Subarachnoid hemorrhage</span>
+<span class="lm-ddx__likelihood lm-ddx__likelihood--high">High</span>
+</li>
+<li class="lm-ddx__item">
+<span class="lm-ddx__rank">2</span>
+<span class="lm-ddx__name">Hypertensive emergency</span>
+<span class="lm-ddx__likelihood lm-ddx__likelihood--moderate">Moderate</span>
+</li>
+<li class="lm-ddx__item">
+<span class="lm-ddx__rank">3</span>
+<span class="lm-ddx__name">Migraine</span>
+<span class="lm-ddx__likelihood lm-ddx__likelihood--low">Low</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 ## Notes
 

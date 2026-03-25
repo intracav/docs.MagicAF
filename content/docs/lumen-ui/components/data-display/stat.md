@@ -34,6 +34,74 @@ Stat(
 )
 ```
 
+## Live Preview
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Live Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Stat — All Variants</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-grid lm-grid--3" style="margin-bottom:16px;">
+        <div class="lm-stat">
+          <div class="lm-stat__label">Heart Rate</div>
+          <div class="lm-stat__value-row">
+            <span class="lm-stat__value">72</span>
+            <span class="lm-stat__unit">bpm</span>
+          </div>
+          <div class="lm-stat__change lm-stat__change--up">&#9650; +3</div>
+        </div>
+        <div class="lm-stat lm-stat--success">
+          <div class="lm-stat__label">SpO2</div>
+          <div class="lm-stat__value-row">
+            <span class="lm-stat__value">98</span>
+            <span class="lm-stat__unit">%</span>
+          </div>
+          <div class="lm-stat__change lm-stat__change--up">&#9650; +1</div>
+        </div>
+        <div class="lm-stat lm-stat--danger">
+          <div class="lm-stat__label">Temperature</div>
+          <div class="lm-stat__value-row">
+            <span class="lm-stat__value">101.2</span>
+            <span class="lm-stat__unit">&deg;F</span>
+          </div>
+          <div class="lm-stat__change lm-stat__change--up">&#9650; +2.1</div>
+        </div>
+      </div>
+      <div class="lm-grid lm-grid--3">
+        <div class="lm-stat lm-stat--warning">
+          <div class="lm-stat__label">Glucose</div>
+          <div class="lm-stat__value-row">
+            <span class="lm-stat__value">142</span>
+            <span class="lm-stat__unit">mg/dL</span>
+          </div>
+          <div class="lm-stat__change lm-stat__change--up">&#9650; +22</div>
+        </div>
+        <div class="lm-stat">
+          <div class="lm-stat__label">Blood Pressure</div>
+          <div class="lm-stat__value-row">
+            <span class="lm-stat__value">120/80</span>
+            <span class="lm-stat__unit">mmHg</span>
+          </div>
+          <div class="lm-stat__change lm-stat__change--neutral">&#9654; stable</div>
+        </div>
+        <div class="lm-stat">
+          <div class="lm-stat__label">Respiratory Rate</div>
+          <div class="lm-stat__value-row">
+            <span class="lm-stat__value">18</span>
+            <span class="lm-stat__unit">/min</span>
+          </div>
+          <div class="lm-stat__change lm-stat__change--down">&#9660; -5</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -65,6 +133,78 @@ Card(title="Current Vitals",
   )
 )
 ```
+
+## Composition Preview
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Composition Preview</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">Card + Grid + Stat — Vitals Dashboard</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card lm-card--elevated">
+        <div class="lm-card__header"><div class="lm-card__title">Current Vitals</div></div>
+        <div class="lm-card__body">
+          <div class="lm-grid lm-grid--3" style="margin-bottom:16px;">
+            <div class="lm-stat">
+              <div class="lm-stat__label">Heart Rate</div>
+              <div class="lm-stat__value-row">
+                <span class="lm-stat__value">72</span>
+                <span class="lm-stat__unit">bpm</span>
+              </div>
+              <div class="lm-stat__change lm-stat__change--down">&#9660; -5</div>
+            </div>
+            <div class="lm-stat">
+              <div class="lm-stat__label">Blood Pressure</div>
+              <div class="lm-stat__value-row">
+                <span class="lm-stat__value">120/80</span>
+                <span class="lm-stat__unit">mmHg</span>
+              </div>
+              <div class="lm-stat__change lm-stat__change--neutral">&#9654; stable</div>
+            </div>
+            <div class="lm-stat lm-stat--success">
+              <div class="lm-stat__label">SpO2</div>
+              <div class="lm-stat__value-row">
+                <span class="lm-stat__value">98</span>
+                <span class="lm-stat__unit">%</span>
+              </div>
+              <div class="lm-stat__change lm-stat__change--up">&#9650; +1</div>
+            </div>
+          </div>
+          <div class="lm-grid lm-grid--3">
+            <div class="lm-stat lm-stat--danger">
+              <div class="lm-stat__label">Temperature</div>
+              <div class="lm-stat__value-row">
+                <span class="lm-stat__value">101.2</span>
+                <span class="lm-stat__unit">&deg;F</span>
+              </div>
+              <div class="lm-stat__change lm-stat__change--up">&#9650; +2.1</div>
+            </div>
+            <div class="lm-stat">
+              <div class="lm-stat__label">Respiratory Rate</div>
+              <div class="lm-stat__value-row">
+                <span class="lm-stat__value">18</span>
+                <span class="lm-stat__unit">/min</span>
+              </div>
+            </div>
+            <div class="lm-stat lm-stat--warning">
+              <div class="lm-stat__label">Glucose</div>
+              <div class="lm-stat__value-row">
+                <span class="lm-stat__value">142</span>
+                <span class="lm-stat__unit">mg/dL</span>
+              </div>
+              <div class="lm-stat__change lm-stat__change--up">&#9650; +22</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ## Notes
 

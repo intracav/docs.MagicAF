@@ -40,6 +40,43 @@ SplitView(ratio=0.6, gap=16,
 )
 ```
 
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Live Preview — 60/40 Split</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">SplitView — ratio=0.6</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-split lm-split--horizontal" style="grid-template-columns: 60% 1fr;">
+        <div class="lm-split__pane">
+          <div class="lm-card__header" style="padding: 0 0 8px;">
+            <div class="lm-card__title">Patient Information</div>
+          </div>
+          <div class="lm-kv">
+            <span class="lm-kv__key">Name</span>
+            <span class="lm-kv__value">Maria Santos</span>
+            <span class="lm-kv__key">DOB</span>
+            <span class="lm-kv__value">1958-11-23</span>
+            <span class="lm-kv__key">MRN</span>
+            <span class="lm-kv__value">00482916</span>
+            <span class="lm-kv__key">PCP</span>
+            <span class="lm-kv__value">Dr. James Chen</span>
+          </div>
+        </div>
+        <div class="lm-split__pane">
+          <div class="lm-card__header" style="padding: 0 0 8px;">
+            <div class="lm-card__title">Clinical Notes</div>
+          </div>
+          <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 0;">Patient presents for evaluation of persistent lower back pain radiating to the left leg. Symptoms began 3 weeks ago without antecedent trauma.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 ## JSON Example
 
 ```json
@@ -112,6 +149,73 @@ Card(title="Medication Reconciliation",
   )
 )
 ```
+
+<div class="lumen-demo">
+  <div class="lumen-demo__label">Composition Preview — Medication Reconciliation</div>
+  <div class="lumen-demo__frame">
+    <div class="lumen-demo__bar">
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__dot"></span>
+      <span class="lumen-demo__bar-title">SplitView — Med Reconciliation</span>
+    </div>
+    <div class="lumen-demo__content lm">
+      <div class="lm-card">
+        <div class="lm-card__header">
+          <div class="lm-card__title">Medication Reconciliation</div>
+        </div>
+        <div class="lm-card__body">
+          <div class="lm-split lm-split--horizontal">
+            <div class="lm-split__pane">
+              <div class="lm-card__header" style="padding: 0 0 8px;">
+                <div class="lm-card__title" style="font-size: 13px;">Home Medications</div>
+              </div>
+              <table class="lm-table lm-table--compact lm-table--striped">
+                <thead>
+                  <tr><th>Drug</th><th>Dose</th><th>Route</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Lisinopril</td><td>10mg</td><td>PO daily</td></tr>
+                  <tr><td>Metformin</td><td>500mg</td><td>PO BID</td></tr>
+                  <tr><td>Atorvastatin</td><td>20mg</td><td>PO QHS</td></tr>
+                  <tr><td>Aspirin</td><td>81mg</td><td>PO daily</td></tr>
+                  <tr><td>Omeprazole</td><td>20mg</td><td>PO daily</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="lm-split__pane">
+              <div class="lm-card__header" style="padding: 0 0 8px;">
+                <div class="lm-card__title" style="font-size: 13px;">Inpatient Orders</div>
+              </div>
+              <div class="lm-stack lm-stack--vertical lm-stack--gap-8">
+                <div class="lm-alert lm-alert--info" style="padding: 8px 12px;">
+                  <span class="lm-alert__icon" style="font-size: 12px;">&#8505;</span>
+                  <div class="lm-alert__content">
+                    <div class="lm-alert__title" style="font-size: 12px;">New</div>
+                    <div class="lm-alert__message" style="font-size: 11px;">Enoxaparin 40mg SQ daily</div>
+                  </div>
+                </div>
+                <div class="lm-alert lm-alert--warning" style="padding: 8px 12px;">
+                  <span class="lm-alert__icon" style="font-size: 12px;">&#9888;</span>
+                  <div class="lm-alert__content">
+                    <div class="lm-alert__title" style="font-size: 12px;">Held</div>
+                    <div class="lm-alert__message" style="font-size: 11px;">Metformin &mdash; contrast study</div>
+                  </div>
+                </div>
+                <div class="lm-alert" style="padding: 8px 12px;">
+                  <div class="lm-alert__content">
+                    <div class="lm-alert__title" style="font-size: 12px;">Continued</div>
+                    <div class="lm-alert__message" style="font-size: 11px;">Lisinopril 10mg PO daily</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 ## Notes
 
