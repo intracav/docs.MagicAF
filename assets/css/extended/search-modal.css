@@ -3,97 +3,67 @@
    Sleek integrated search with keyboard shortcuts
    ============================================================================ */
 
-/* Search toggle button in header - ensure container doesn't constrain */
-.logo-switches {
-  flex-wrap: nowrap !important;
-  align-items: center !important;
-  gap: 1em !important;
-  position: relative !important;
-  display: inline-flex !important;
-}
-
-/* Ensure header and nav are always clickable */
-.header,
-.nav,
-.logo {
-  pointer-events: auto !important;
-  position: relative !important;
-  z-index: 1000 !important;
-}
-
-/* Ensure theme toggle is always clickable and properly spaced */
+/* Theme toggle button */
 .logo-switches button#theme-toggle {
-  position: relative !important;
-  z-index: 10000 !important;
-  pointer-events: auto !important;
-  margin: auto 4px !important;
-  margin-right: 0.5em !important;
-  flex-shrink: 0 !important;
-  order: -1 !important;
-  cursor: pointer !important;
-  min-width: 40px !important;
-  min-height: 40px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  isolation: isolate !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill, 100px);
+  background: transparent;
+  cursor: pointer;
+  color: var(--text-3);
+  font-size: 1rem;
+  transition: all var(--dur-fast, 200ms) var(--ease, ease);
+  flex-shrink: 0;
+  margin: 0 !important;
 }
 
-/* Ensure search button doesn't block theme toggle - reduce width and add spacing */
-.logo-switches .search-toggle {
-  position: relative !important;
-  z-index: 1 !important;
-  max-width: 180px !important;
-  min-width: 180px !important;
-  margin-left: 0 !important;
-  /* TEMPORARY: Uncomment to test if search button is blocking theme toggle */
-  /* display: none !important; */
+.logo-switches button#theme-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-glow);
 }
 
-
+/* Search toggle button — compact pill */
 button.search-toggle,
 .search-toggle {
   display: flex !important;
   align-items: center !important;
-  justify-content: flex-start !important;
-  gap: 0.6em !important;
-  padding: 0.4em 1.2em !important;
-  margin-left: 1em !important;
-  margin-right: 0 !important;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-  min-width: 180px !important;
-  max-width: 180px !important;
+  justify-content: center !important;
+  gap: 0.5em !important;
+  padding: 0.4em 0.875em !important;
+  margin: 0 !important;
+  min-width: auto !important;
+  max-width: none !important;
   width: auto !important;
-  height: auto !important;
-  line-height: 1.4 !important;
-  background: var(--entry) !important;
+  height: 36px !important;
+  line-height: 1 !important;
+  background: transparent !important;
   border: 1px solid var(--border) !important;
-  border-radius: var(--radius) !important;
-  color: var(--secondary) !important;
+  border-radius: var(--r-pill, 100px) !important;
+  color: var(--text-3) !important;
   cursor: pointer !important;
-  transition: all 0.15s ease;
-  font-size: 0.875rem !important;
-  font-family: inherit !important;
+  transition: all var(--dur-fast, 200ms) ease;
+  font-size: 0.78rem !important;
+  font-family: var(--font-body) !important;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
-  flex-grow: 0 !important;
   box-sizing: border-box !important;
-  position: relative !important;
-  z-index: 1 !important;
-  pointer-events: auto !important;
-  order: 1 !important;
-  margin-right: 0.5em !important;
 }
 
 .search-toggle:hover {
-  background: var(--theme);
-  border-color: var(--tertiary);
-  color: var(--primary);
+  color: var(--accent) !important;
+  border-color: var(--accent) !important;
+  background: var(--accent-glow) !important;
 }
 
 .search-toggle svg {
   flex-shrink: 0;
+  width: 16px;
+  height: 16px;
 }
 
 .search-kbd-hint {

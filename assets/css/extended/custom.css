@@ -515,25 +515,54 @@ a {
 
 /* --- Navigation (header) --------------------------------------------------- */
 
-nav.nav {
+.header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
-  height: var(--header-h);
   background: rgba(237,228,213,0.85);
   backdrop-filter: blur(12px) saturate(150%);
   -webkit-backdrop-filter: blur(12px) saturate(150%);
   border-bottom: 1px solid var(--border-lt);
-  box-shadow: none;
-  transition: background var(--dur-fast) var(--ease);
 }
 
-.dark nav.nav,
-[data-theme="dark"] nav.nav {
+.dark .header,
+[data-theme="dark"] .header {
   background: rgba(22,14,6,0.85);
   border-bottom-color: var(--border);
+}
+
+/* Single-row nav: logo | menu | switches */
+nav.nav {
+  display: flex;
+  flex-wrap: nowrap !important;
+  align-items: center;
+  height: var(--header-h);
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  line-height: var(--header-h);
+  box-shadow: none;
+  gap: 0.5rem;
+}
+
+.logo {
+  flex-shrink: 0;
+  margin: 0 !important;
+}
+
+/* Push menu to the right, switches stay after menu */
+#menu {
+  display: flex !important;
+  margin: 0 !important;
+  margin-left: auto !important;
+  gap: 0.125rem;
+  align-items: center;
+}
+
+#menu li + li {
+  margin-inline-start: 0 !important;
 }
 
 #menu a {
@@ -541,10 +570,11 @@ nav.nav {
   font-weight: 500;
   font-size: 0.82rem;
   color: var(--text-2);
-  padding: 0.5rem 0.875rem;
+  padding: 0.4rem 0.75rem;
   border-radius: var(--r-pill);
   transition: all var(--dur-fast) var(--ease);
   letter-spacing: 0;
+  white-space: nowrap;
 }
 
 #menu a:hover {
@@ -556,6 +586,21 @@ nav.nav {
   color: var(--accent);
   background: var(--accent-glow);
   font-weight: 600;
+}
+
+/* Logo switches (theme toggle + search) — after menu */
+.logo-switches {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  margin: 0 0 0 0.5rem !important;
+  flex-shrink: 0;
+  order: 0;
+}
+
+/* Adjust body to account for fixed header */
+body {
+  padding-top: var(--header-h);
 }
 
 /* --- Logo / Wordmark ------------------------------------------------------- */
@@ -603,23 +648,57 @@ nav.nav {
 /* --- Home page hero -------------------------------------------------------- */
 
 .first-entry {
-  border: 1px solid var(--border-lt);
-  border-radius: var(--r);
-  box-shadow: var(--shadow-md);
-  padding: 2.5em;
-  background: var(--surface-hi);
-  transition: all var(--dur-med) var(--ease);
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 4rem 2rem 3rem;
+  background: transparent;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 .first-entry:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
+  box-shadow: none;
+  transform: none;
 }
 
 .first-entry .entry-header h2 {
   font-family: var(--font-display);
-  font-size: 1.75em;
+  font-size: clamp(2.2rem, 4vw, 3rem);
   font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+}
+
+.first-entry .entry-content {
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--text-2);
+  line-height: 1.75;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+/* Social icons on home */
+.social-icons {
+  justify-content: center;
+}
+
+.social-icons a {
+  color: var(--text-3);
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.social-icons a:hover {
+  color: var(--accent);
+}
+
+/* Home page content area */
+body:not(.docs-page) .main:not(.with-sidebar) {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 2rem 4rem;
 }
 
 /* --- Post list / section pages — Guide Card style -------------------------- */
@@ -704,8 +783,27 @@ nav.nav {
 /* --- Responsive ------------------------------------------------------------ */
 
 @media (max-width: 1024px) {
-  nav.nav {
+  .header {
     position: sticky;
+    top: 0;
+  }
+
+  nav.nav {
+    position: relative;
+  }
+
+  body {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  #menu {
+    display: none !important;
+  }
+
+  .search-kbd-hint {
+    display: none !important;
   }
 }
 
