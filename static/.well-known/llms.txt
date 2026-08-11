@@ -1,0 +1,14 @@
+# MagicAF — .well-known/llms.txt
+
+The canonical LLM index for magicaf.intracav.ai lives at:
+
+https://magicaf.intracav.ai/llms.txt
+
+MagicAF is the open-source Rust AI/ML/NLP framework by Intracav —
+embeddings, vector search, LLM orchestration, RAG pipelines, and NLP
+tooling with zero cloud dependencies, for healthcare and air-gapped
+environments.
+
+Sitemap: https://magicaf.intracav.ai/sitemap.xml
+Contact: hello@intracav.ai
+GitHub: https://github.com/magicaf/magicaf

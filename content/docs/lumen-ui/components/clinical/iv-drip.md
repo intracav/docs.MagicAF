@@ -11,6 +11,8 @@ last_reviewed: "2026-03-17"
 
 IVDrip renders the output of an IV drip rate calculation, displaying the drug name, calculated rate in mL/hr, dose delivered, dose range status (within/above/below range), order details, a titration table, and clinical notes. The hero section prominently displays the rate with a sky-blue accent, making it immediately readable at the bedside.
 
+For the clinical practice behind this component — vesicants, extravasation, compatibility, and smart pumps — see the [infusion therapy safety guide on The Clinical Database](https://clinical-database.com/vascular-access/guides/infusion-therapy-safety/).
+
 ## Props
 
 | Property | Type | Default | Description |

@@ -11,6 +11,8 @@ last_reviewed: "2026-03-17"
 
 TriageCard renders an Emergency Severity Index (ESI) triage assessment with a prominent acuity level badge, chief complaint, expected wait time, and recommended action. Each ESI level (1-5) is color-coded to match standard triage conventions, making it immediately scannable in clinical workflows.
 
+For the clinical context this component supports, see the [emergency medicine guidelines on The Clinical Database](https://clinical-database.com/ed/).
+
 ## Props
 
 | Property | Type | Default | Description |

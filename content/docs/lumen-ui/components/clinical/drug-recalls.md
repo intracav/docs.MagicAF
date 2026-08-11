@@ -11,6 +11,8 @@ last_reviewed: "2026-03-17"
 
 DrugRecalls renders FDA drug recall data with classification-based severity indicators. Each recall is displayed with a color-coded left border (Class I = red, Class II = orange, Class III = amber), classification and status badges, the recalling firm, and the recall reason. A prominent Class I warning banner appears at the top when any Class I recall is present.
 
+For open, clinician-reviewed medication and infusion safety references, see [The Clinical Database](https://clinical-database.com/).
+
 ## Props
 
 | Property | Type | Default | Description |

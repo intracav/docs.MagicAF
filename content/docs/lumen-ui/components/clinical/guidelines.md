@@ -11,6 +11,8 @@ last_reviewed: "2026-03-17"
 
 Guidelines renders clinical practice recommendations from authoritative sources (e.g., AHA, ACC, IDSA). Recommendations are displayed as numbered cards with priority-colored left borders and evidence level badges. The component also supports collapsible detail sections, free-text content fallback, and supporting PubMed evidence sources. A custom or default clinical disclaimer is rendered at the bottom.
 
+For an example of the kind of source content this component renders, see the [indexed vascular access guidelines (INS, CDC, IDSA, SHEA/IDSA, MAGIC) on The Clinical Database](https://clinical-database.com/vascular-access/guidelines/).
+
 ## Props
 
 | Property | Type | Default | Description |

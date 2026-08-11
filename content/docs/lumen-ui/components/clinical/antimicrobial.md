@@ -11,6 +11,8 @@ last_reviewed: "2026-03-17"
 
 Antimicrobial renders antibiotic selection guidance for a given infection, including dosing regimen, duration, monitoring parameters, and spectrum coverage. The component supports both structured format (drug name with detail sections) and server envelope format (infection type with free-text content). Severity is displayed as a color-coded badge in the header.
 
+For clinical grounding on catheter-associated infection prevention, see the [evidence-based CLABSI prevention guidance on The Clinical Database](https://clinical-database.com/vascular-access/guides/clabsi-prevention/).
+
 ## Props
 
 | Property | Type | Default | Description |

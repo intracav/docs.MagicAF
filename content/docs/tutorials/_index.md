@@ -32,6 +32,12 @@ Tutorials are **guided, narrative walkthroughs** — distinct from [Guides](/doc
 {{< difficulty "advanced" >}} Walk through a complete prepare-transfer-build-verify cycle for a disconnected lab.
 
 </div>
+<div class="card">
+
+### [Clinical RAG over The Clinical Database →](/docs/tutorials/clinical-rag-pipeline-clinical-database/)
+{{< difficulty "intermediate" >}} Ground a clinical assistant in a citable, clinician-reviewed corpus, with citations back to canonical URLs.
+
+</div>
 </div>
 
 ---

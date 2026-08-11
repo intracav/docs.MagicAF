@@ -11,6 +11,8 @@ last_reviewed: "2026-03-17"
 
 Checklist renders an interactive list of toggleable items with a progress bar and completion counter. Items can be organized under section headers for logical grouping. Checked items display with a green checkbox, strikethrough text, and muted color. The progress bar updates in real-time as items are toggled. State changes dispatch a `toggleState` action for external tracking.
 
+For a canonical clinical use of checklists — the central line insertion bundle — see the [evidence-based CLABSI prevention guidance on The Clinical Database](https://clinical-database.com/vascular-access/guides/clabsi-prevention/).
+
 ## Props
 
 | Property | Type | Default | Description |

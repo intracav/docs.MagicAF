@@ -70,7 +70,7 @@ params:
       Production-ready Rust framework for RAG pipelines, NLP analysis, embeddings,
       vector search, and LLM orchestration. Designed for SIPR/NIPR, classified,
       and healthcare environments with zero cloud dependencies.
-      An [Intracav](https://www.intracav.ai/) framework.
+      An [Intracav](https://intracav.ai/) framework.
 
   socialIcons:
     - name: github

@@ -60,9 +60,9 @@ Built with Rust for:
 
 ## Part of the Intracav Ecosystem
 
-MagicAF is an [Intracav](https://www.intracav.ai/) toolkit, part of a broader ecosystem of healthcare and defense-grade AI solutions. Learn more about:
+MagicAF is an [Intracav](https://intracav.ai/) toolkit, part of a broader ecosystem of healthcare and defense-grade AI solutions. Learn more about:
 
-- **[Intracav AI](https://www.intracav.ai/)**: Clinical AI solutions and evidence-based guidelines
+- **[Intracav AI](https://intracav.ai/)**: Clinical AI solutions and evidence-based guidelines
 - **[Intracav Blog](https://blog.intracav.ai/)**: Healthcare innovation and clinical insights
 - **[QPolicy](https://www.qpolicy.ai/)**: Intelligent policy management for healthcare organizations
 

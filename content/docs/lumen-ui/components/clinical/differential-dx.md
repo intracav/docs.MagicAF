@@ -11,6 +11,8 @@ last_reviewed: "2026-03-17"
 
 DifferentialDx renders a ranked list of differential diagnoses for a given chief complaint. Each diagnosis card displays its name, likelihood badge (color-coded), optional ICD-10 code, supporting evidence, and recommended workup. The component supports both structured diagnosis arrays and plain text content as a fallback.
 
+For clinical grounding on the presentations behind a differential, see the [emergency medicine reference section on The Clinical Database](https://clinical-database.com/ed/).
+
 ## Props
 
 | Property | Type | Default | Description |

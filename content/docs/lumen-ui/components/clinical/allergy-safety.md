@@ -11,6 +11,8 @@ last_reviewed: "2026-03-17"
 
 AllergySafety renders a cross-reactivity safety assessment between a proposed drug and a known allergen. The header displays the drug name with a risk level badge (color-coded from green/safe to red/contraindicated), the type of prior reaction, and a clinical recommendation. Detail sections provide additional context such as cross-reactivity rates and alternative medications.
 
+For clinician-reviewed reference content to ground assessments like this, see [The Clinical Database](https://clinical-database.com/).
+
 ## Props
 
 | Property | Type | Default | Description |

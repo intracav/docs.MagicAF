@@ -1,8 +1,16 @@
 {{- if not (.Param "hideFooter") }}
 <footer class="footer">
-    <span>&copy; {{ now.Year }} <a href="https://www.intracav.ai/" rel="noopener noreferrer" target="_blank">Intracav</a></span>
+    <span>&copy; {{ now.Year }} <a href="https://intracav.ai/" rel="noopener noreferrer" target="_blank">Intracav</a></span>
     <span style="opacity: 0.4; margin: 0 0.5em;">&middot;</span>
     <span><a href="{{ "" | absLangURL }}">{{ site.Title }}</a> Documentation</span>
+    <br>
+    <span><a href="https://docs.intracav.ai" rel="noopener noreferrer" target="_blank" title="End-user documentation for Lumen, the clinical AI platform built on MagicAF">Lumen docs</a></span>
+    <span style="opacity: 0.4; margin: 0 0.5em;">&middot;</span>
+    <span><a href="https://clinical-database.com" rel="noopener noreferrer" target="_blank" title="The Clinical Database — open clinical reference">The Clinical Database</a></span>
+    <span style="opacity: 0.4; margin: 0 0.5em;">&middot;</span>
+    <span><a href="https://qpolicy.ai" rel="noopener noreferrer" target="_blank" title="qPolicy — enterprise policy compliance">qPolicy</a></span>
+    <span style="opacity: 0.4; margin: 0 0.5em;">&middot;</span>
+    <span><a href="https://github.com/magicaf/magicaf" rel="noopener noreferrer" target="_blank" title="MagicAF source code on GitHub">GitHub</a></span>
 </footer>
 {{- end }}
 

@@ -7,7 +7,7 @@ keywords: [lumen ui, component dsl, ai-generated ui, generative ui, structured o
 
 Lumen UI is a declarative component system that turns structured definitions — written by an LLM or by hand — into rich, interactive Flutter widgets in real time. It ships 72 production-ready components across 8 categories, a streaming-resilient parser, and a dynamic prompt system that teaches any LLM how to use every component.
 
-It is the rendering layer that powers [Intracav Lumen](https://www.intracav.ai/) — the AI clinical assistant — and is designed to be the bridge between structured AI output and pixel-perfect UI.
+It is the rendering layer that powers [Intracav Lumen](https://intracav.ai/) — the AI clinical assistant — and is designed to be the bridge between structured AI output and pixel-perfect UI. These pages document the component DSL itself; for end-user documentation of Lumen, the product these components render for, see the [Lumen docs](https://docs.intracav.ai).
 
 ---
 
