@@ -7,8 +7,6 @@ categories: [concept]
 difficulty: intermediate
 prerequisites:
   - /docs/lumen-ui/introduction/
-estimated_reading_time: "10 min"
-last_reviewed: "2026-03-17"
 ---
 
 The Lumen DSL is a purpose-built language for describing component trees. It uses PascalCase function-call syntax — compact enough for LLMs to produce efficiently, readable enough for humans to author and debug.

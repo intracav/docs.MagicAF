@@ -5,8 +5,6 @@ weight: 2
 tags: [lumen-ui, callout, feedback]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 Callout renders a highlighted block for surfacing supplementary information, clinical pearls, tips, or warnings. Unlike Alert, Callout accepts children, making it suitable for embedding structured content — lists, tables, or other components — inside an accented container.

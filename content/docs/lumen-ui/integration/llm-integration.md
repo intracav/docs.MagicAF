@@ -8,8 +8,6 @@ difficulty: intermediate
 prerequisites:
   - /docs/lumen-ui/introduction/
   - /docs/lumen-ui/core-concepts/dsl-syntax/
-estimated_reading_time: "7 min"
-last_reviewed: "2026-03-17"
 ---
 
 The core insight behind Lumen UI is that the LLM needs to know what components exist, what props they accept, and how to use them. This is accomplished by a **dynamic component catalog** that is generated from the registry at runtime and injected into every LLM system prompt.

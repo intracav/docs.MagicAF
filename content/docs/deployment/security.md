@@ -1,17 +1,15 @@
 ---
 title: "Security"
-description: "Defense-grade security architecture, HIPAA compliance, and hardening guidance for secure AI deployments. Complete security checklist for classified, healthcare, and regulated environments."
+description: "Security architecture and hardening guidance for MagicAF deployments — logging rules, secret handling, and a checklist for isolated and regulated environments."
 weight: 6
-keywords: [security, defense-grade, HIPAA-compliant, secure AI, classified security, healthcare security, compliance, hardening, secure deployment]
-tags: [deployment, security, hardening, logging, compliance, hipaa]
+keywords: [security, secure AI, hardening, secure deployment, logging, secret handling]
+tags: [deployment, security, hardening, logging, compliance]
 categories: [deployment]
 difficulty: intermediate
 prerequisites: [/docs/deployment/docker/]
-estimated_reading_time: "6 min"
-last_reviewed: "2026-02-12"
 ---
 
-MagicAF is designed with security as a first principle — a core tenet of every Intracav framework. All services run locally, no data leaves the network boundary, and the framework makes no assumptions about data sensitivity. Learn more about MagicAF's [defense-grade architecture and compliance features](/about/).
+MagicAF is designed with security as a first principle. All services run locally, no data leaves the network boundary, and the framework makes no assumptions about data sensitivity.
 
 ## Security Architecture
 
@@ -131,14 +129,15 @@ MagicAF does **not** log at `info` level:
 - Embedding vectors
 - LLM prompts or responses
 
-At `debug` and `trace` levels, additional operational data is logged. **Never use `debug` or `trace` in production** for classified or HIPAA environments.
+At `debug` and `trace` levels, additional operational data is logged. **Never use `debug` or `trace` in production** wherever logs could contain regulated or sensitive data.
 
-### Is MagicAF HIPAA-compliant?
-
+{{< faq question="Is MagicAF HIPAA-compliant?" >}}
 MagicAF is a framework, not a service — HIPAA compliance depends on your deployment. MagicAF supports HIPAA-compliant deployments by:
+
 - Running entirely on-premises with no cloud dependencies
 - Never inspecting, classifying, or persisting PHI within the framework
 - Providing structured logging that can be configured to exclude sensitive data
 - Supporting air-gapped deployment where no data can leave the network
 
 Your deployment must also address access controls, encryption at rest, audit logging, and BAA requirements — these are infrastructure-level concerns outside the framework's scope.
+{{< /faq >}}

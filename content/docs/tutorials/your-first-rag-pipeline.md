@@ -7,8 +7,6 @@ categories: [tutorial]
 difficulty: beginner
 prerequisites:
   - /docs/getting-started/installation/
-estimated_reading_time: "20 min"
-last_reviewed: "2026-02-12"
 ---
 
 {{< difficulty "beginner" >}}

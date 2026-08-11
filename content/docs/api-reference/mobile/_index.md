@@ -5,8 +5,6 @@ weight: 3
 tags: [api, mobile, flutter, ios, android, on-device, text-intelligence]
 categories: [reference]
 difficulty: beginner
-estimated_reading_time: "6 min"
-last_reviewed: "2026-03-10"
 ---
 
 The `magicaf-mobile` crate provides lean, synchronous text intelligence functions designed for Flutter mobile clients. All operations complete in under 1ms with zero network I/O.

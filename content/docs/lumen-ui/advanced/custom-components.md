@@ -8,8 +8,6 @@ difficulty: advanced
 prerequisites:
   - /docs/lumen-ui/core-concepts/rendering/
   - /docs/lumen-ui/integration/llm-integration/
-estimated_reading_time: "8 min"
-last_reviewed: "2026-03-17"
 ---
 
 Lumen UI's component system is extensible. You can create new components, register them in the `ComponentRegistry`, and they will automatically appear in the LLM's component catalog.

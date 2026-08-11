@@ -5,8 +5,6 @@ weight: 3
 tags: [lumen-ui, stat, data-display]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 The `Stat` component displays a single metric prominently — a large value with a descriptive label, optional unit suffix, trend arrow, and change text. It is the primary building block for dashboards, vitals displays, and KPI summaries.

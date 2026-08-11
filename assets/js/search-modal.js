@@ -1,5 +1,5 @@
 // Search Modal with Keyboard Shortcuts
-// Integrates with PaperMod's Fuse.js search
+// Fuse.js over the slim /index.json built by layouts/_default/index.json
 
 import * as params from '@params';
 
@@ -27,7 +27,7 @@ function loadSearchIndex() {
                         distance: 100,
                         threshold: 0.4,
                         ignoreLocation: true,
-                        keys: ['title', 'permalink', 'summary', 'content']
+                        keys: ['title', 'summary']
                     };
                     if (params.fuseOpts) {
                         options = {
@@ -37,7 +37,7 @@ function loadSearchIndex() {
                             minMatchCharLength: params.fuseOpts.minmatchcharlength ?? 1,
                             shouldSort: params.fuseOpts.shouldsort ?? true,
                             findAllMatches: params.fuseOpts.findallmatches ?? false,
-                            keys: params.fuseOpts.keys ?? ['title', 'permalink', 'summary', 'content'],
+                            keys: params.fuseOpts.keys ?? ['title', 'summary'],
                             location: params.fuseOpts.location ?? 0,
                             threshold: params.fuseOpts.threshold ?? 0.4,
                             distance: params.fuseOpts.distance ?? 100,
@@ -49,27 +49,7 @@ function loadSearchIndex() {
             }
         }
     };
-    // Get the correct path to index.json (always at site root)
-    // Calculate relative path from current page to site root
-    let pathname = window.location.pathname;
-    // Remove trailing slash and split
-    pathname = pathname.replace(/\/$/, '') || '/';
-    let parts = pathname.split('/').filter(p => p);
-    
-    // Calculate depth (number of path segments)
-    let depth = parts.length;
-    
-    // Build relative path: '../' for each level deep we are
-    let indexPath;
-    if (depth === 0 || pathname === '/') {
-        // We're at root
-        indexPath = './index.json';
-    } else {
-        // We're N levels deep, need N '../' to get to root
-        indexPath = '../'.repeat(depth) + 'index.json';
-    }
-    
-    xhr.open('GET', indexPath);
+    xhr.open('GET', params.searchIndexURL || '/index.json');
     xhr.send();
 }
 
@@ -134,7 +114,7 @@ function executeSearch(query) {
         for (let item in results) {
             resultSet += `<li class="search-result-item">
                 <a href="${results[item].item.permalink}" class="search-result-link">
-                    <header class="search-result-header">${results[item].item.title}</header>
+                    <header class="search-result-header">${results[item].item.title}${results[item].item.section ? `<span class="search-result-section">${results[item].item.section}</span>` : ''}</header>
                     ${results[item].item.summary ? `<div class="search-result-summary">${results[item].item.summary}</div>` : ''}
                 </a>
             </li>`;
@@ -227,5 +207,4 @@ document.addEventListener('keydown', function (e) {
     }
 });
 
-// Load index on page load
-window.addEventListener('load', loadSearchIndex);
+// The index is loaded lazily by showModal() on first open — no eager fetch.

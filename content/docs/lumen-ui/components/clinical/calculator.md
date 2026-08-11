@@ -5,8 +5,6 @@ weight: 5
 tags: [lumen-ui, calculator, clinical]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 Calculator renders the result of a medical scoring tool or clinical calculator. It displays the calculator name, computed score, severity classification with color-coded iconography, clinical interpretation, the input values used in the calculation, and optional methodology details. The severity determines the accent color of the result banner.

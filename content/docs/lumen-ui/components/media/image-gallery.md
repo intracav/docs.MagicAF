@@ -5,8 +5,6 @@ weight: 2
 tags: [lumen-ui, image-gallery, media]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 The `ImageGallery` component displays multiple images in a responsive grid layout. Each image can include alt text and an optional caption. Use it for multi-view imaging studies, photo sets, or any collection of related visuals.

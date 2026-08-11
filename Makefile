@@ -1,39 +1,28 @@
-.PHONY: setup serve build clean theme
+.PHONY: setup serve serve-prod build build-to clean check claims-check stats help
 
-# Hugo PaperMod theme
-THEME_URL  := https://github.com/adityatelange/hugo-PaperMod.git
-THEME_DIR  := themes/PaperMod
+# Fully custom Hugo site — no theme, no submodules. Requires Hugo extended ≥ 0.154.5.
 
 # ── Setup ────────────────────────────────────────────────────────
 
-## Install Hugo theme as a git submodule
-setup: theme
+## Verify the toolchain
+setup:
+	@hugo version || (echo "Install Hugo extended 0.154.5+ (brew install hugo)"; exit 1)
 	@echo "✓ Setup complete. Run 'make serve' to start the dev server."
-
-theme:
-	@if [ ! -d "$(THEME_DIR)" ]; then \
-		echo "Installing PaperMod theme..."; \
-		git init 2>/dev/null || true; \
-		git submodule add --depth=1 $(THEME_URL) $(THEME_DIR) 2>/dev/null || \
-		git clone --depth=1 $(THEME_URL) $(THEME_DIR); \
-	else \
-		echo "Theme already installed."; \
-	fi
 
 # ── Development ──────────────────────────────────────────────────
 
 ## Start the Hugo development server with live reload
-serve: theme
+serve:
 	hugo server -D --bind 0.0.0.0 --port 1313
 
 ## Start in production mode (no drafts)
-serve-prod: theme
+serve-prod:
 	hugo server --bind 0.0.0.0 --port 1313
 
 # ── Build ────────────────────────────────────────────────────────
 
 ## Build the static site for production
-build: theme
+build:
 	hugo --minify
 
 ## Build and output to a custom directory
@@ -46,9 +35,16 @@ build-to:
 clean:
 	rm -rf public/ resources/_gen/
 
-## Validate all internal links
+## Build and surface any errors or warnings
 check:
 	hugo --minify 2>&1 | grep -i "error\|warn" || echo "✓ No issues found."
+
+## Guard against unverifiable compliance claims (matches lumen-docs CI pattern)
+claims-check:
+	@! grep -rniE 'hipaa-compliant|hipaa compliant|soc 2|iso 27001|sipr|nipr|defense-grade' content/ hugo.yaml layouts/ static/llms.txt \
+		--exclude-dir=.well-known | grep -v 'deployment/security.md' \
+		|| (echo "✗ Unverified compliance claim found (see lines above)"; exit 1)
+	@echo "✓ No unverified compliance claims."
 
 ## Show site statistics
 stats:

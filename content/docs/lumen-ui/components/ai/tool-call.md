@@ -5,8 +5,6 @@ weight: 1
 tags: [lumen-ui, tool-call, ai]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 The `ToolCall` component renders a compact representation of an AI tool invocation. It shows the tool name, execution status, primary argument, and optional duration. Use it to give users visibility into which tools the agent is calling during a conversation — drug lookups, code searches, API requests, and more.

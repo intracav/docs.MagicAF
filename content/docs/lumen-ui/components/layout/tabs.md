@@ -5,8 +5,6 @@ weight: 4
 tags: [lumen-ui, component, layout]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 Tabs organizes content into switchable panels. Each child component corresponds to one tab, and the `labels` prop provides the tab header text. Only the active tab's content is visible at a time. Use Tabs to present parallel views of related data — for example, different lab panels, medication categories, or clinical note sections.

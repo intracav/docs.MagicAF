@@ -1,0 +1,20 @@
+{{- /* FAQPage JSON-LD, populated by the faq shortcode via .Store.
+       Must render at the end of <body> so the store is filled first. */ -}}
+{{- $faqs := .Store.Get "faqs" -}}
+{{- if $faqs -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {{- range $i, $f := $faqs }}{{ if $i }},{{ end }}
+    {
+      "@type": "Question",
+      "name": {{ $f.q }},
+      "acceptedAnswer": { "@type": "Answer", "text": {{ $f.a | plainify }} }
+    }
+    {{- end }}
+  ]
+}
+</script>
+{{- end -}}

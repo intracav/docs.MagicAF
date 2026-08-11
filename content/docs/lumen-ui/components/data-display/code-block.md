@@ -5,8 +5,6 @@ weight: 5
 tags: [lumen-ui, code-block, data-display]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 The `CodeBlock` component displays syntax-highlighted source code. It uses `flutter_highlight` with Atom One Dark/Light themes (auto-selected based on the current brightness), renders an optional header with a title or language label, and includes a built-in copy-to-clipboard button.

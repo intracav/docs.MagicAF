@@ -5,8 +5,6 @@ weight: 2
 tags: [lumen-ui, component, layout]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 Stack arranges its children along a single axis — either vertically (top to bottom) or horizontally (left to right). It is the primary tool for linear flow layouts. Use Stack when you need to control spacing and alignment between sibling components without the overhead of a full grid.

@@ -5,8 +5,6 @@ weight: 5
 tags: [lumen-ui, status-badge, feedback]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 StatusBadge renders a small colored dot alongside a text label, indicating the current state of a person, system, or resource. It is commonly used for provider availability, device connectivity, service health, and patient acuity indicators.

@@ -5,8 +5,6 @@ weight: 1
 tags: [lumen-ui, table, data-display]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 The `Table` component renders tabular data with typed column definitions and row objects. It supports alternating row backgrounds, compact mode, horizontal scrolling for wide datasets, and automatic cell coloring based on a `flag` field in row data (useful for flagging abnormal lab values).

@@ -5,8 +5,6 @@ weight: 1
 tags: [lumen-ui, bar-chart, charts]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 BarChart renders a categorical bar chart from an array of label/value pairs. Use it to compare discrete categories — departments, time periods, diagnosis codes, or any grouping where each bar represents a single value. Supports vertical (default) and horizontal orientations.

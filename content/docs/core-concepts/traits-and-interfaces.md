@@ -7,11 +7,11 @@ categories: [concept]
 difficulty: intermediate
 prerequisites:
   - /docs/core-concepts/architecture/
-estimated_reading_time: "10 min"
-last_reviewed: "2026-02-12"
 ---
 
-MagicAF's extensibility comes from its trait-based design. Every major component is accessed through an async trait, and every trait can be implemented by your application.
+You already put an interface in front of any dependency you don't want owning you — the repository trait in front of the database, the client trait in front of the third-party API. MagicAF applies the same rule to itself. Every major component is accessed through an **async trait**, and every trait can be implemented by your application. The traits are the framework's contract with you: six deliberately placed seams — three where infrastructure plugs in, three where your domain logic does. Everything behind a seam is replaceable; the seam itself stays stable.
+
+If you're working out what you can swap and what you'd be committing to, this page is the full contract — every trait, its methods, what ships in the box, and what you'd implement yourself.
 
 ## Why Traits Instead of Concrete Types?
 

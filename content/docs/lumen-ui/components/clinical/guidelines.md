@@ -5,8 +5,6 @@ weight: 16
 tags: [lumen-ui, guidelines, clinical]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 Guidelines renders clinical practice recommendations from authoritative sources (e.g., AHA, ACC, IDSA). Recommendations are displayed as numbered cards with priority-colored left borders and evidence level badges. The component also supports collapsible detail sections, free-text content fallback, and supporting PubMed evidence sources. A custom or default clinical disclaimer is rendered at the bottom.

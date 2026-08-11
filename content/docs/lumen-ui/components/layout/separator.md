@@ -5,8 +5,6 @@ weight: 8
 tags: [lumen-ui, component, layout]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "2 min"
-last_reviewed: "2026-03-17"
 ---
 
 Separator renders a thin divider line to visually separate groups of content. It can optionally display a text label centered on the line. Use Separator between logical sections within a card or stack to improve scannability without introducing a full heading.

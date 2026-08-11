@@ -4,7 +4,9 @@ description: "Understand MagicAF's architecture, layered design, and extension m
 weight: 2
 ---
 
-MagicAF is built around a small number of powerful ideas. Understanding these concepts will help you use the framework effectively and extend it for your domain.
+Before you build anything serious on an unfamiliar framework, you skim its module layout — you want the mental model before you write the first patch. These three pages are that model for MagicAF: how the layers divide responsibility, what actually happens when you call `.run()`, and which trait seams are yours to implement.
+
+Read them in order. Everything else in these docs — the tutorials, the guides, the deployment references — assumes you have.
 
 ---
 

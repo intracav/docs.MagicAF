@@ -5,8 +5,6 @@ weight: 2
 tags: [lumen-ui, quick-start, getting-started]
 categories: [tutorial]
 difficulty: beginner
-estimated_reading_time: "5 min"
-last_reviewed: "2026-03-17"
 ---
 
 ## Installation

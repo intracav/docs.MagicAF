@@ -6,8 +6,6 @@ tags: [example, analysis, advanced, custom-adapters, generation-config]
 categories: [example]
 difficulty: advanced
 prerequisites: [/docs/examples/document-qa/]
-estimated_reading_time: "10 min"
-last_reviewed: "2026-02-12"
 ---
 
 Imagine you are an analyst at a research lab. Reports arrive from three different sources — field observations, technical assessments, and open-source monitoring. Each has a different format, classification level, and reliability. Your job is to cross-reference them and produce a structured summary: key findings, confidence assessment, information gaps, and recommended next steps.

@@ -1,0 +1,11 @@
+{{- $variant := .Get "variant" | default "contrast" -}}
+<div class="cta-banner cta-{{ $variant }}">
+  <div class="cta-text">
+    <h3>{{ .Get "heading" }}</h3>
+    {{ with .Inner }}<p>{{ . | markdownify }}</p>{{ end }}
+  </div>
+  <div class="cta-actions">
+    <a class="cta-btn cta-primary" href="{{ .Get "href" }}">{{ .Get "label" | default "Get started" }}</a>
+    {{ if .Get "secondary-href" }}<a class="cta-btn cta-secondary" href="{{ .Get "secondary-href" }}">{{ .Get "secondary-label" | default "Learn more" }}</a>{{ end }}
+  </div>
+</div>

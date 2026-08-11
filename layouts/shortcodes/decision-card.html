@@ -1,0 +1,8 @@
+{{- /* "Choose this if" card for decision guides.
+       Usage: {{< decision-card title="Qdrant" tint="green" >}}…criteria markdown…{{< /decision-card >}} */ -}}
+{{- $tint := .Get "tint" | default "accent" -}}
+<div class="guide-card decision-card tint-{{ $tint }}">
+  <span class="card-number">Choose this if</span>
+  <h3>{{ .Get "title" }}</h3>
+  <div class="decision-card-body">{{ .Inner | markdownify }}</div>
+</div>

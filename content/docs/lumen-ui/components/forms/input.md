@@ -5,8 +5,6 @@ weight: 1
 tags: [lumen-ui, input, forms]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 Input renders a single-line text field for collecting short-form user input — patient names, dosages, identifiers, or any scalar value. It supports type variants for email, number, and password entry, and can display inline validation errors. When the user submits or blurs the field, Input dispatches a `submitForm` action with the field's `id` and current `value`.

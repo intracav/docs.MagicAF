@@ -1,21 +1,43 @@
-{{- /* Intracav brand fonts — self-hosted variable woff2 (Cormorant Garamond display,
-       Nunito body, JetBrains Mono code). @font-face rules live in
-       assets/css/extended/fonts.css; files in static/fonts/. */ -}}
-<link rel="preload" href="/fonts/Nunito-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/fonts/CormorantGaramond-var.woff2" as="font" type="font/woff2" crossorigin>
-
-{{- /* Thin-page control: taxonomy/term pages and paginated section lists are
-       crawlable but not indexable. The .Paginator check is restricted to section
-       kind so it never conflicts with PaperMod's .Paginate call on the home page. */ -}}
-{{- if in (slice "term" "taxonomy") .Kind }}
-<meta name="robots" content="noindex, follow">
-{{- else if and (eq .Kind "section") .Paginator (gt .Paginator.PageNumber 1) }}
-<meta name="robots" content="noindex, follow">
-{{- end }}
-
-{{- /* Custom head content for SEO and structured data */ -}}
+{{- /* All structured data for the site, emitted exactly once per page.
+       The Organization @id https://intracav.ai/#organization is the
+       cross-property entity anchor shared with intracav.ai, docs.intracav.ai,
+       clinical-database.com, and qpolicy.ai — it must stay byte-identical. */ -}}
+{{- $orgID := "https://intracav.ai/#organization" }}
 {{- if .IsHome }}
-{{- /* JSON-LD structured data for homepage */ -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://magicaf.intracav.ai/#organization",
+  "name": "MagicAF",
+  "url": "https://magicaf.intracav.ai/",
+  "sameAs": ["https://github.com/magicaf/magicaf"],
+  "parentOrganization": {
+    "@type": "Organization",
+    "@id": "https://intracav.ai/#organization",
+    "name": "Intracav",
+    "url": "https://intracav.ai/",
+    "sameAs": [
+      "https://intracav.ai",
+      "https://lumen.intracav.ai",
+      "https://clinical-database.com",
+      "https://docs.intracav.ai",
+      "https://qpolicy.ai",
+      "https://github.com/magicaf/magicaf"
+    ]
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "MagicAF Documentation",
+  "url": "{{ site.Home.Permalink }}",
+  "description": {{ site.Params.description | jsonify | safeJS }},
+  "publisher": { "@id": "https://intracav.ai/#organization" }
+}
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -28,23 +50,21 @@
     "price": "0",
     "priceCurrency": "USD"
   },
-  "description": "Defense-grade, HIPAA-compliant AI toolkit for secure, air-gapped deployments. Production-ready Rust framework for RAG pipelines, NLP analysis, embeddings, vector search, and LLM orchestration.",
-  "keywords": "defense-grade AI, healthcare-grade AI, HIPAA-compliant AI, SIPR AI, NIPR AI, classified AI, secure AI, airgapped AI, secure LLM, secure NLP, air-gapped deployment, RAG framework, vector search, embeddings, Rust AI framework",
+  "description": "Open-source Rust AI framework for RAG pipelines, NLP analysis, embeddings, vector search, and LLM orchestration — built to run air-gapped with zero cloud dependencies.",
+  "keywords": "Rust AI framework, RAG framework, air-gapped AI, on-premises AI, self-hosted AI, vector search, embeddings, NLP toolkit, secure LLM orchestration",
   "audience": {
     "@type": "Audience",
-    "audienceType": "Healthcare Professionals, Defense Contractors, Government Agencies, Security-Conscious Organizations"
+    "audienceType": "Software Engineers, Healthcare Organizations, Government Agencies, Security-Conscious Organizations"
   },
   "featureList": [
-    "Air-gapped deployment",
-    "HIPAA compliance",
-    "Defense-grade security",
-    "SIPR/NIPR compatible",
+    "Air-gapped deployment with zero cloud dependencies",
+    "Runs entirely on isolated networks",
     "RAG pipelines",
     "Vector search",
     "Embedding generation",
     "LLM orchestration",
     "NLP analysis tools",
-    "Zero cloud dependencies"
+    "No outbound network calls"
   ],
   "provider": {
     "@type": "Organization",
@@ -65,11 +85,8 @@
 {{- end }}
 
 {{- /* TechArticle (pages) + full-depth BreadcrumbList (pages and sections).
-       Never emitted on home, term, or taxonomy pages. The theme's BlogPosting and
-       path-derived BreadcrumbList are suppressed via the project override of
-       templates/schema_json.html so structured data is emitted exactly once. */ -}}
+       Never emitted on home, term, or taxonomy pages. */ -}}
 {{- if and (in (slice "page" "section") .Kind) (not .IsHome) }}
-{{- $orgID := "https://intracav.ai/#organization" }}
 {{- $org := dict "@type" "Organization" "@id" $orgID "name" "Intracav" "url" "https://intracav.ai/" }}
 {{- if eq .Kind "page" }}
 {{- $desc := or .Description (.Summary | plainify | chomp) site.Params.description }}
@@ -101,9 +118,3 @@
 {{- $breadcrumb := dict "@context" "https://schema.org" "@type" "BreadcrumbList" "itemListElement" $crumbs }}
 <script type="application/ld+json">{{ $breadcrumb | jsonify | safeJS }}</script>
 {{- end }}
-
-{{- /* Open Graph and Twitter Card meta tags are handled by templates/opengraph.html and templates/twitter_cards.html */ -}}
-
-{{- /* Additional security/compliance meta tags */ -}}
-<meta name="security-compliance" content="HIPAA, Defense-Grade, Air-Gapped, SIPR/NIPR Compatible">
-<meta name="deployment-model" content="On-Premises, Air-Gapped, Self-Hosted">

@@ -5,8 +5,6 @@ weight: 3
 tags: [lumen-ui, drug-interactions, clinical]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 DrugInteractions renders FDA drug interaction data in two supported formats: structured interaction pairs (drug A / drug B with severity) and per-label cards with collapsible sections for interactions, contraindications, and warnings. The component is typically populated from the `drug_interactions` MCP tool. When both formats are present, structured interactions take precedence over legacy label cards.

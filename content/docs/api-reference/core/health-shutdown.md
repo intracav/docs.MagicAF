@@ -6,8 +6,6 @@ tags: [api, health-check, graceful-shutdown, startup, signal-handling]
 categories: [reference]
 difficulty: intermediate
 prerequisites: [/docs/core-concepts/architecture/]
-estimated_reading_time: "8 min"
-last_reviewed: "2026-03-10"
 ---
 
 MagicAF provides structured startup health verification and cooperative graceful shutdown primitives used across all services.

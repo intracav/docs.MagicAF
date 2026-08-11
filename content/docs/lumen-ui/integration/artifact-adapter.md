@@ -7,8 +7,6 @@ categories: [guide]
 difficulty: intermediate
 prerequisites:
   - /docs/lumen-ui/integration/envelope-protocol/
-estimated_reading_time: "7 min"
-last_reviewed: "2026-03-17"
 ---
 
 The `ArtifactAdapter` is the bridge between legacy artifact types (used by the Lumen server and MCP tools) and the Lumen component system. It converts a `ChatArtifact` — with a type string and JSON content — into a `LumenNode` tree that the renderer can display.

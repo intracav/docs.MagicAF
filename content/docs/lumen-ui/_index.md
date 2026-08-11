@@ -1,13 +1,13 @@
 ---
 title: "Lumen UI"
-description: "A component DSL for AI-generated user interfaces. 72 components across 8 categories, rendered from structured definitions in real time."
+description: "A component DSL for AI-generated user interfaces. 71 components across 8 categories, rendered from structured definitions in real time."
 weight: 9
 keywords: [lumen ui, component dsl, ai-generated ui, generative ui, structured output, clinical components]
 ---
 
-Lumen UI is a declarative component system that turns structured definitions — written by an LLM or by hand — into rich, interactive Flutter widgets in real time. It ships 72 production-ready components across 8 categories, a streaming-resilient parser, and a dynamic prompt system that teaches any LLM how to use every component.
+You have watched an LLM stream markdown into a chat window and thought: this data deserves better than a bullet list. **Lumen UI** is the answer to that thought — a declarative component DSL and rendering engine where the LLM streams a compact component description and the renderer turns it into live, interactive Flutter UI as the tokens arrive. Not markdown that looks like a table. A real table. A real chart. A real triage card.
 
-It is the rendering layer that powers [Intracav Lumen](https://intracav.ai/) — the AI clinical assistant — and is designed to be the bridge between structured AI output and pixel-perfect UI. These pages document the component DSL itself; for end-user documentation of Lumen, the product these components render for, see the [Lumen docs](https://docs.intracav.ai).
+It ships {{< stat "lumen_ui_components" >}} production-ready components across {{< stat "lumen_ui_categories" >}} categories, a streaming-resilient parser that renders incomplete trees mid-stream, and a dynamic prompt system that teaches any LLM how to use every component. It is the rendering layer behind [Intracav Lumen](https://intracav.ai/), the AI clinical assistant — which is why {{< stat "lumen_ui_clinical" >}} of its components are clinical-grade primitives like drug cards, lab ranges, and triage assessments. These pages document the component DSL itself; for end-user documentation of Lumen, the product these components render for, see the [Lumen docs](https://docs.intracav.ai).
 
 ---
 
@@ -93,6 +93,8 @@ This entire dashboard — triage card, vitals stats, drug interaction alert, and
 
 ## How It Works
 
+The LLM writes a compact description of the interface — either the Lumen DSL (PascalCase function calls) or JSON. The parser auto-detects the format and builds a `LumenNode` tree, recovering gracefully from the truncated input that streaming inevitably produces. The renderer walks the tree and emits Flutter widgets. The interface assembles itself on screen while the model is still writing it.
+
 <div class="lm-pipeline" style="justify-content:center; margin: 2em 0;">
   <div class="lm-pipeline__step">
     <div class="lm-pipeline__icon">&#128172;</div>
@@ -127,6 +129,16 @@ This entire dashboard — triage card, vitals stats, drug interaction alert, and
 
 ---
 
+## Should You Use It?
+
+Lumen UI is for teams building **AI-first Flutter applications** — chat assistants, agent frontends, clinical tools — where the LLM is the primary content author and its output deserves real UI. If your model returns structured data (lab results, drug records, metrics, tool outputs) and you are currently flattening it into markdown, this is the layer you are missing.
+
+It is not a general-purpose UI framework. Components are stateless, declarative, and deliberately constrained — the LLM gets a controlled vocabulary, not a scripting language. If a human designer is authoring every screen by hand, use Flutter directly. If a model is authoring screens at runtime, use Lumen UI.
+
+## Where to Start
+
+Read in this order: **core concepts** to learn the DSL and rendering pipeline, **components** to browse the catalog, **integration** to wire it into your LLM backend, **advanced** for the full language spec and custom components, and the **API reference** when you are writing Dart against the library. Or skip straight to the Quick Start and render something first.
+
 <div class="card-grid">
 <div class="card">
 
@@ -149,7 +161,7 @@ DSL syntax, JSON format, rendering pipeline, theming, streaming, and actions.
 <div class="card">
 
 ### [Component Reference →](/docs/lumen-ui/components/)
-Complete reference for all 72 components — props, examples, and usage guidance.
+Complete reference for all {{< stat "lumen_ui_components" >}} components — props, examples, and usage guidance.
 
 </div>
 <div class="card">
@@ -178,16 +190,18 @@ Dart API for LumenParser, LumenRenderer, ComponentRegistry, and supporting class
 
 | Dimension | Detail |
 |-----------|--------|
-| **Components** | 72 across 8 categories |
+| **Components** | {{< stat "lumen_ui_components" >}} across {{< stat "lumen_ui_categories" >}} categories |
 | **Input formats** | Lumen DSL (PascalCase function calls) and JSON |
 | **Rendering target** | Flutter (web, desktop, mobile) |
 | **Streaming** | Partial-content resilient — renders incomplete trees mid-stream |
 | **Theming** | Zero-config, auto-detects light/dark from Flutter context |
 | **LLM integration** | Dynamic component catalog injected into every system prompt |
-| **Clinical** | 20 healthcare-specialized components (drug info, lab ranges, triage, FHIR, etc.) |
+| **Clinical** | {{< stat "lumen_ui_clinical" >}} healthcare-specialized components (drug info, lab ranges, triage, FHIR, etc.) |
 | **Charts** | 8 chart types via `fl_chart` (bar, line, area, pie, radar, scatter, gauge, sparkline) |
 
-## Component Categories
+## What's in the Catalog
+
+{{< stat "lumen_ui_components" >}} components across {{< stat "lumen_ui_categories" >}} categories, from layout primitives to the {{< stat "lumen_ui_clinical" >}} clinical components that power Lumen's healthcare workflows:
 
 <div class="lm-showcase">
   <div class="lm-showcase__item">

@@ -7,8 +7,6 @@ categories: [concept]
 difficulty: intermediate
 prerequisites:
   - /docs/lumen-ui/core-concepts/rendering/
-estimated_reading_time: "5 min"
-last_reviewed: "2026-03-17"
 ---
 
 Lumen UI components are declarative and stateless, but they can still be interactive. When a user taps a button, changes a form field, or clicks a link, the component dispatches an **action** to the host application via the `LumenRenderContext`.

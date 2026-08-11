@@ -6,8 +6,6 @@ tags: [json, structured-output, result-parser, prompt-engineering]
 categories: [guide]
 difficulty: intermediate
 prerequisites: [/docs/guides/building-adapters/]
-estimated_reading_time: "8 min"
-last_reviewed: "2026-02-12"
 ---
 
 MagicAF makes it straightforward to get structured, typed responses from your RAG pipeline. Instead of working with raw text, define a struct and let the framework deserialize it automatically.

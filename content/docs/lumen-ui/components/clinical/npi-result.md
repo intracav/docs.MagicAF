@@ -5,8 +5,6 @@ weight: 17
 tags: [lumen-ui, npi-result, clinical]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 NpiResult renders provider lookup results from the NPI Registry. Each provider card displays a header with name, NPI number, and provider type (Individual or Organization), followed by detailed rows for specialty, credentials, practice location, phone, fax, and NPI issuance dates. Organization providers show an authorized official section. Multiple specialties are listed when available.

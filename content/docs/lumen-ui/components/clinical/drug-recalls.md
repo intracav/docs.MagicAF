@@ -5,8 +5,6 @@ weight: 14
 tags: [lumen-ui, drug-recalls, clinical]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 DrugRecalls renders FDA drug recall data with classification-based severity indicators. Each recall is displayed with a color-coded left border (Class I = red, Class II = orange, Class III = amber), classification and status badges, the recalling firm, and the recall reason. A prominent Class I warning banner appears at the top when any Class I recall is present.

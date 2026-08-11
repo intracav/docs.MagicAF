@@ -4,7 +4,7 @@ description: "Deploy MagicAF in production — Docker, air-gapped, edge/mobile, 
 weight: 5
 ---
 
-MagicAF is designed for secure, on-premises deployments where data must not leave the network boundary. This section covers every deployment scenario.
+Running a pipeline on your laptop and shipping one to production are different problems — production adds the network boundary, the hardware you actually have, and the pager. This section is for the shipping part. MagicAF is designed for secure, on-premises deployments where data must not leave the network boundary, and these pages cover every scenario that implies: from Docker Compose on a single host to fully disconnected environments and resource-constrained edge devices, plus the observability, scaling, and hardening work that comes with operating any of them. If you're still choosing between deployment options, start with the [Deployment Strategy](/docs/decision-guides/deployment-strategy/) decision guide — come here once the decision is made and it's time to ship.
 
 ---
 

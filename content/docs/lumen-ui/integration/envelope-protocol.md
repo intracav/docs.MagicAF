@@ -7,8 +7,6 @@ categories: [guide]
 difficulty: intermediate
 prerequisites:
   - /docs/lumen-ui/core-concepts/rendering/
-estimated_reading_time: "6 min"
-last_reviewed: "2026-03-17"
 ---
 
 When MCP tools on the server produce structured data — drug information, lab ranges, clinical trials, etc. — they wrap the result in a **Lumen envelope**. This envelope tells the client exactly which component to render and with what props, while also including the raw data for the LLM to reference.

@@ -5,8 +5,6 @@ weight: 6
 tags: [lumen-ui, streaming-text, ai]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 The `StreamingText` component renders text content with an optional blinking cursor to indicate that the AI agent is still generating output. It provides the familiar "typing" visual cue seen in chat interfaces. Use it for in-progress agent responses where the text is being streamed token by token.

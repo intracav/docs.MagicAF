@@ -5,8 +5,6 @@ weight: 3
 tags: [lumen-ui, component, layout]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 Grid distributes its children across a fixed number of equal-width columns with consistent spacing. Use Grid for dashboards, card galleries, or any layout where content should be arranged in a uniform multi-column structure.

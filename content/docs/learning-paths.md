@@ -4,7 +4,6 @@ description: "Curated reading sequences for new users, decision-makers, and prod
 weight: 0
 tags: [learning, paths, onboarding, getting-started]
 categories: [guide]
-last_reviewed: "2026-02-12"
 ---
 
 Not sure where to start? Pick the path that matches your goal.

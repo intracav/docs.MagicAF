@@ -5,8 +5,6 @@ weight: 7
 tags: [lumen-ui, list-view, data-display]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 The `ListView` component renders an ordered or unordered list of items. It supports four marker styles — bullet, numbered, check (green checkmark icons), and none — with configurable vertical gap. Items can be plain strings or objects with `text` and optional `description` fields for two-line entries.

@@ -5,8 +5,6 @@ weight: 8
 tags: [lumen-ui, ai, chat, components]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "2 min"
-last_reviewed: "2026-03-17"
 ---
 
 AI / Chat components render the interactive elements of an AI agent conversation. They surface tool invocations, reasoning traces, citation sources, suggested follow-ups, and streaming text output. These components are designed for real-time clinical assistant workflows where transparency into the agent's process is critical.

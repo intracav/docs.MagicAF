@@ -5,8 +5,6 @@ weight: 1
 tags: [lumen-ui, alert, feedback]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 Alert renders a prominent banner for communicating important information, warnings, errors, or success confirmations. Each variant applies a distinct color scheme — blue for info, amber for warning, red for error, green for success. Alerts are commonly used to surface drug interaction warnings, contraindication notices, or confirmation messages within clinical artifacts.

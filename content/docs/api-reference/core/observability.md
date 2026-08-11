@@ -6,8 +6,6 @@ tags: [api, observability, audit, metrics, opentelemetry, prometheus, logging]
 categories: [reference]
 difficulty: intermediate
 prerequisites: [/docs/core-concepts/architecture/]
-estimated_reading_time: "10 min"
-last_reviewed: "2026-03-10"
 ---
 
 MagicAF provides structured audit logging and OpenTelemetry-based metrics throughout all service clients. Every significant operation (RAG query, health check, GDPR deletion) produces auditable events, and all HTTP calls emit latency histograms and counters.

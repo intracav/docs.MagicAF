@@ -5,8 +5,6 @@ weight: 3
 tags: [lumen-ui, api, registry, catalog]
 categories: [api-reference]
 difficulty: intermediate
-estimated_reading_time: "5 min"
-last_reviewed: "2026-03-17"
 ---
 
 `ComponentRegistry` is a singleton that holds all `ComponentDefinition` objects and provides lookup, filtering, and catalog generation.

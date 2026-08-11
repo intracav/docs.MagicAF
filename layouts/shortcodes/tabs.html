@@ -1,0 +1,11 @@
+{{- .Inner -}}
+<div class="tabs" role="tablist">
+  <div class="tabs-nav">
+    {{- range $i, $t := .Store.Get "tabs" }}
+    <button class="tab-btn{{ if not $i }} active{{ end }}" role="tab" aria-selected="{{ if not $i }}true{{ else }}false{{ end }}" data-tab-index="{{ $i }}">{{ $t.name }}</button>
+    {{- end }}
+  </div>
+  {{- range $i, $t := .Store.Get "tabs" }}
+  <div class="tab-panel{{ if not $i }} active{{ end }}" role="tabpanel" data-tab-index="{{ $i }}">{{ $t.content }}</div>
+  {{- end }}
+</div>

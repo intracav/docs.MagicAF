@@ -5,15 +5,13 @@ weight: 1
 tags: [lumen-ui, introduction, generative-ui, dsl]
 categories: [concept]
 difficulty: beginner
-estimated_reading_time: "8 min"
-last_reviewed: "2026-03-17"
 ---
 
 ## What Is Lumen UI?
 
-Lumen UI is a **component DSL and rendering engine** that lets an LLM produce structured, rich UI as part of its response — not just plain text or markdown.
+You already trust an LLM to stream prose token by token into your app. Lumen UI extends that trust one level up: the model streams a compact description of an interface, and the interface assembles itself on screen while the model is still writing. Lumen UI is the **component DSL and rendering engine** that makes this work — structured, rich UI as part of the response, not just plain text or markdown.
 
-When an LLM in the Lumen ecosystem responds to a query, it can emit structured component definitions using either the **Lumen DSL** (a PascalCase function-call syntax) or **JSON**. The Lumen parser converts these definitions into a tree of `LumenNode` objects. The `LumenRenderer` walks that tree and produces real Flutter widgets — tables, charts, clinical cards, forms, and more — in real time, including during streaming.
+Here is the mechanism. When an LLM in the Lumen ecosystem responds to a query, it can emit structured component definitions using either the **Lumen DSL** (a PascalCase function-call syntax) or **JSON**. The Lumen parser converts these definitions into a tree of `LumenNode` objects. The `LumenRenderer` walks that tree and produces real Flutter widgets — tables, charts, clinical cards, forms, and more — in real time, including during streaming.
 
 <div class="lm-pipeline" style="justify-content:center; margin: 2em 0;">
   <div class="lm-pipeline__step">
@@ -79,7 +77,7 @@ LLMs are good at generating text. They are bad at generating UI. The standard ap
   </div>
 </div>
 
-Lumen UI solves this by giving the LLM a controlled vocabulary of 72 typed components, each with a defined schema. The LLM chooses the right component and fills in the props. The renderer handles the rest.
+Lumen UI solves this by giving the LLM a controlled vocabulary of {{< stat "lumen_ui_components" >}} typed components, each with a defined schema. The LLM chooses the right component and fills in the props. The renderer handles the rest. A constrained vocabulary beats free-form HTML on every one of the four failure modes above.
 
 ## How It Works
 
@@ -332,4 +330,4 @@ Lumen UI is designed for AI-first interfaces where the LLM is the primary conten
 
 - **[Quick Start](/docs/lumen-ui/quick-start/)** — render your first component in 20 lines
 - **[DSL Syntax](/docs/lumen-ui/core-concepts/dsl-syntax/)** — learn the Lumen DSL
-- **[Component Reference](/docs/lumen-ui/components/)** — browse all 72 components
+- **[Component Reference](/docs/lumen-ui/components/)** — browse all {{< stat "lumen_ui_components" >}} components

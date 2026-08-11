@@ -3086,3 +3086,16 @@
   background: #BB5C4D;
   border-color: #BB5C4D;
 }
+
+/* ================================================================
+   Small-viewport containment (added during the 2026-08 overhaul):
+   wide mockups scroll inside their own frame — the page itself
+   never scrolls horizontally, down to a 320px viewport.
+   ================================================================ */
+.lumen-demo,
+.lumen-demo__frame {
+  max-width: 100%;
+}
+.lumen-demo__frame {
+  overflow-x: auto;
+}

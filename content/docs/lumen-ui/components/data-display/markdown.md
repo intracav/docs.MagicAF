@@ -5,8 +5,6 @@ weight: 4
 tags: [lumen-ui, markdown, data-display]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 The `Markdown` component renders markdown text into styled Flutter widgets. It supports headings, bold/italic text, inline code, code blocks, blockquotes, lists, tables, and horizontal rules — all themed to match the current Lumen theme. This is the primary component for rendering free-form text content from LLM output.

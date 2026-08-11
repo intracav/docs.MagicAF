@@ -5,8 +5,6 @@ weight: 5
 tags: [lumen-ui, source-card, ai]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 The `SourceCard` component renders a citation reference for a document the agent used to inform its response. It displays the document title, a text snippet, the source name, a relevance score, and an optional link. Use it to provide transparency and verifiability for agent-generated clinical information.

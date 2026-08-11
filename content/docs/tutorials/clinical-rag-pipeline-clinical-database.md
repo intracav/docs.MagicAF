@@ -7,8 +7,6 @@ categories: [tutorial]
 difficulty: intermediate
 prerequisites:
   - /docs/tutorials/your-first-rag-pipeline/
-estimated_reading_time: "25 min"
-last_reviewed: "2026-08-09"
 ---
 
 {{< difficulty "intermediate" >}}

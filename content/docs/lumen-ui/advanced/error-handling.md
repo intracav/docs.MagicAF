@@ -5,8 +5,6 @@ weight: 4
 tags: [lumen-ui, errors, error-boundary, fallback, debugging]
 categories: [guide]
 difficulty: intermediate
-estimated_reading_time: "5 min"
-last_reviewed: "2026-03-17"
 ---
 
 Lumen UI is designed to fail open. At every level — parsing, registry lookup, and rendering — errors are caught and handled gracefully rather than crashing.

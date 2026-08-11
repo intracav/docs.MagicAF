@@ -5,8 +5,6 @@ weight: 2
 tags: [lumen-ui, line-chart, charts]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 LineChart renders one or more data series as trend lines on a shared axis. Each series is an independent line with its own label and color, making it well suited for tracking vitals, lab values, or any metric over time.

@@ -1,0 +1,6 @@
+{{- /* Inline a count from data/site.yaml so numbers never drift in prose.
+       Usage: {{< stat "lumen_ui_components" >}} */ -}}
+{{- $key := .Get 0 -}}
+{{- $val := index site.Data.site.stats $key -}}
+{{- if eq $val nil -}}{{- errorf "stat shortcode: unknown key %q (page %s)" $key .Page.Path -}}{{- end -}}
+{{- $val -}}

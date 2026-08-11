@@ -5,8 +5,6 @@ weight: 5
 tags: [lumen-ui, component, layout]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 Accordion renders a series of collapsible sections. Each child component becomes a section, with its `title` prop used as the section header. Users click a header to expand or collapse its content. Use Accordion when content is too long to display at once and users only need one or a few sections at a time — for example, a review of systems, a multi-section clinical note, or a list of differential diagnoses.

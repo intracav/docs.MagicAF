@@ -5,8 +5,6 @@ weight: 6
 tags: [lumen-ui, json-viewer, data-display]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 The `JsonViewer` component displays JSON data with syntax highlighting — keys, strings, numbers, booleans, and punctuation are each colored distinctly. It includes a header with a title and copy-to-clipboard button. Unlike `CodeBlock`, it takes structured data (an object or array) as input rather than a raw code string, and pretty-prints it automatically.

@@ -5,8 +5,6 @@ weight: 6
 tags: [lumen-ui, empty-state, feedback]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 EmptyState renders a centered placeholder when a content area has no data to display. It provides a title, optional explanatory message, an icon, and an optional call-to-action button. Use it inside cards, tabs, or panels to guide the user when results are empty — no lab results, no medications, no matching records.

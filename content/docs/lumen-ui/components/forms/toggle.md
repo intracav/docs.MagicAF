@@ -5,8 +5,6 @@ weight: 7
 tags: [lumen-ui, toggle, forms]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 Toggle renders a switch control for binary on/off settings. It is visually distinct from Checkbox — a sliding pill rather than a checkmark box — and is typically used for preferences, feature flags, and monitoring toggles. When flipped, Toggle dispatches a `toggleState` action with the field's `id` and the new boolean `value`.

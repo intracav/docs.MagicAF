@@ -1,0 +1,8 @@
+{{- $q := .Get "question" -}}
+{{- $a := .Inner | markdownify -}}
+{{- $faqs := .Page.Store.Get "faqs" | default slice -}}
+{{- .Page.Store.Set "faqs" ($faqs | append (dict "q" $q "a" $a)) -}}
+<details class="faq-item">
+  <summary>{{ $q }}</summary>
+  <div class="faq-answer">{{ $a }}</div>
+</details>

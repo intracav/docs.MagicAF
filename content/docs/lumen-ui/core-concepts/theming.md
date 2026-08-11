@@ -5,8 +5,6 @@ weight: 4
 tags: [lumen-ui, theming, colors, typography, dark-mode]
 categories: [concept]
 difficulty: intermediate
-estimated_reading_time: "8 min"
-last_reviewed: "2026-03-17"
 ---
 
 Lumen UI ships with a complete theme system that auto-detects light or dark mode from Flutter's context. No configuration is required for default usage.

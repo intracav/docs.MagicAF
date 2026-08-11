@@ -5,8 +5,6 @@ weight: 3
 tags: [lumen-ui, charts, visualization]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "2 min"
-last_reviewed: "2026-03-17"
 ---
 
 Charts & Visualization components render interactive, themed charts from structured data. All chart components are powered by [fl_chart](https://pub.dev/packages/fl_chart) under the hood, with automatic color assignment from the active theme's `chartColors` palette.

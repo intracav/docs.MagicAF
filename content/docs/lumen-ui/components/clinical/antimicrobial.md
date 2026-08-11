@@ -5,8 +5,6 @@ weight: 11
 tags: [lumen-ui, antimicrobial, clinical]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 Antimicrobial renders antibiotic selection guidance for a given infection, including dosing regimen, duration, monitoring parameters, and spectrum coverage. The component supports both structured format (drug name with detail sections) and server envelope format (infection type with free-text content). Severity is displayed as a color-coded badge in the header.

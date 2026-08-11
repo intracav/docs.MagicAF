@@ -6,8 +6,6 @@ tags: [deployment, edge, mobile, onnx, coreml, in-memory]
 categories: [deployment]
 difficulty: advanced
 prerequisites: [/docs/core-concepts/traits-and-interfaces/]
-estimated_reading_time: "7 min"
-last_reviewed: "2026-02-12"
 ---
 
 MagicAF supports deployment on resource-constrained devices where running Qdrant and a full LLM server is impractical.

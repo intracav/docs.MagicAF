@@ -4,10 +4,9 @@ description: "Guided, narrative walkthroughs that teach MagicAF concepts through
 weight: 2.5
 tags: [tutorials, learning, hands-on]
 categories: [tutorial]
-last_reviewed: "2026-02-12"
 ---
 
-Tutorials are **guided, narrative walkthroughs** — distinct from [Guides](/docs/guides/) (how-to references) and [Examples](/docs/examples/) (annotated code). Each tutorial explains *why* you're doing each step, not just *what* to type.
+The fastest way to learn a framework is to build something with it and understand every move as you make it. Tutorials are **guided, narrative walkthroughs** — you build a working project step by step, and each step explains *why* you're doing it, not just *what* to type. They're distinct from [Guides](/docs/guides/) (how-to references that get one task done) and [Examples](/docs/examples/) (annotated code to read).
 
 **Follow them in order** — each builds on the previous one.
 

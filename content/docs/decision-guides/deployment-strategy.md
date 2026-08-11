@@ -7,13 +7,13 @@ categories: [guide]
 difficulty: intermediate
 prerequisites:
   - /docs/deployment/docker/
-estimated_reading_time: "10 min"
-last_reviewed: "2026-02-12"
 ---
 
 {{< difficulty "intermediate" >}}
 
-MagicAF supports multiple deployment modes. This guide helps you choose the right one based on your constraints.
+You are used to picking deployment targets by preference — the orchestrator your team likes, the cloud you already have credits on. A local-first AI stack does not work that way. Your **deployment mode** is decided by two facts you mostly do not control: whether the target host can reach the internet, and what your ops reality permits (Docker or not, GPU or not, how much RAM). Answer those honestly and the mode picks itself.
+
+This guide is for engineers choosing how to ship a MagicAF pipeline. You will leave with a mode, the performance you should expect from your hardware tier, and a link to the setup guide for the path you chose. The default position: **run Docker Compose. Move to air-gapped preparation when the target has no internet. Go native when the target has no Docker. Go edge when you have less than 4 GB of RAM or a mobile target.** Preference does not appear anywhere in that sentence.
 
 ## Decision Tree
 
@@ -38,6 +38,8 @@ Additional constraints:
 └── Mobile?       → EDGE deployment (on-device embeddings, optional remote LLM)
 ```
 
+Notice what the tree asks about: network boundary first, ops tooling second, hardware third. It never asks what you would rather run.
+
 ## Deployment Mode Comparison
 
 | | Docker Compose | Air-Gapped Docker | Native | Edge/Mobile |
@@ -48,9 +50,40 @@ Additional constraints:
 | **Vector store** | Qdrant | Qdrant | Qdrant or InMemory | InMemory |
 | **Setup time** | ~15 min | ~1 hour + transfer | ~30 min | ~1 hour |
 | **Maintenance** | `docker compose pull` | Full re-transfer | `cargo update` | App update |
-| **Best for** | Development, staging | Classified networks | Custom environments | Phones, tablets, RPi |
+| **Best for** | Development, staging | Air-gapped networks | Custom environments | Phones, tablets, RPi |
+
+The maintenance row is the one teams underweight. Docker Compose updates with one command; an air-gapped deployment updates by repeating the entire transfer ceremony. Choose air-gapped because your network boundary requires it, never because it sounds robust.
+
+{{< card-grid >}}
+{{< decision-card title="Docker Compose" tint="green" >}}
+- The target host has internet access and Docker
+- You want the ~15 minute setup and one-command updates
+- Development, staging, or connected production
+- This is the **default** — start here unless a constraint forces you off it
+{{< /decision-card >}}
+{{< decision-card title="Air-Gapped" tint="blue" >}}
+- The target host has no internet access — this is a network fact, not a preference
+- You can prepare on a connected machine and physically transfer
+- Data must never leave your network
+- You accept full re-transfer as the update path
+{{< /decision-card >}}
+{{< decision-card title="Native" tint="accent" >}}
+- Docker is unavailable or prohibited on the target
+- You need `cargo build` + systemd in a custom environment
+- You want Qdrant or InMemory as the vector store, your call
+- Your team is comfortable owning the process lifecycle
+{{< /decision-card >}}
+{{< decision-card title="Edge / Mobile" tint="accent" >}}
+- Less than 4 GB of RAM, or the target is a phone, tablet, or RPi
+- InMemoryVectorStore and a small model fit the workload
+- On-device embeddings with an optional remote LLM
+- Retrieval-focused pipelines where a full LLM is optional
+{{< /decision-card >}}
+{{< /card-grid >}}
 
 ## Performance Expectations by Hardware Tier
+
+Set expectations before you deploy, not after. These numbers are what the hardware gives you — no configuration heroics change the tier you are in.
 
 ### Embedding Throughput
 
@@ -86,6 +119,8 @@ Additional constraints:
 | 1,000 | < 1 ms | ~10 MB |
 | 10,000 | ~5 ms | ~100 MB |
 | 100,000 | ~50 ms | ~1 GB |
+
+Read the two vector store tables together: InMemory is fine to about 10,000 documents, and past that Qdrant is the answer. That crossover — not architecture taste — is what should move you between them.
 
 ---
 
@@ -127,4 +162,4 @@ Yes. A common pattern for air-gapped environments with limited hardware:
 - Run the LLM natively with llama.cpp
 - Build the MagicAF application with `cargo build`
 
-This avoids the GPU passthrough complexity of Docker while still using Docker for Qdrant's storage management.
+This avoids the GPU passthrough complexity of Docker while still using Docker for Qdrant's storage management. The modes are ingredients, not camps — combine them where your constraints point in different directions for different components.

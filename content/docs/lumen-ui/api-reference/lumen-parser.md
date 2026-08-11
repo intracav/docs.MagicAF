@@ -5,8 +5,6 @@ weight: 1
 tags: [lumen-ui, api, parser]
 categories: [api-reference]
 difficulty: intermediate
-estimated_reading_time: "4 min"
-last_reviewed: "2026-03-17"
 ---
 
 `LumenParser` is the unified entry point for parsing component definitions. It auto-detects the input format and delegates to the appropriate parser.

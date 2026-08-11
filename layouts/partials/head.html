@@ -1,0 +1,56 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{- $desc := "" -}}
+{{- with .Description }}{{ $desc = . }}{{ else }}{{ with .Params.lead }}{{ $desc = . }}{{ else }}{{ with .Summary }}{{ $desc = . | plainify | truncate 155 }}{{ else }}{{ $desc = site.Params.description }}{{ end }}{{ end }}{{ end -}}
+<title>{{ if .IsHome }}MagicAF — Open-Source Rust AI Framework by Intracav{{ else }}{{ .Title }} — MagicAF{{ end }}</title>
+<meta name="description" content="{{ $desc }}">
+{{- with .Params.keywords }}
+<meta name="keywords" content="{{ delimit . ", " }}">
+{{- end }}
+<link rel="canonical" href="{{ .Permalink }}">
+<link rel="alternate" type="text/plain" href="/llms.txt">
+
+{{- /* Thin-page control: paginated section lists are crawlable but not indexable.
+       (Taxonomy and term kinds are disabled entirely in hugo.yaml.) */ -}}
+{{- if in (slice "term" "taxonomy") .Kind }}
+<meta name="robots" content="noindex, follow">
+{{- else if and (eq .Kind "section") .Paginator (gt .Paginator.PageNumber 1) }}
+<meta name="robots" content="noindex, follow">
+{{- end }}
+
+<!-- Fonts (self-hosted variable woff2; @font-face rules live in main.css) -->
+<link rel="preload" href="/fonts/Nunito-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/CormorantGaramond-var.woff2" as="font" type="font/woff2" crossorigin>
+
+<!-- Favicon -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+<!-- Styles -->
+{{ $css := (slice (resources.Get "css/main.css") (resources.Get "css/chroma.css")) | resources.Concat "css/bundle.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+{{- if strings.HasPrefix .RelPermalink "/docs/lumen-ui/" }}
+{{ $mockups := resources.Get "css/lumen-mockups.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $mockups.RelPermalink }}" integrity="{{ $mockups.Data.Integrity }}">
+{{- end }}
+
+<!-- Theme: respect saved preference, fall back to system -->
+<script>
+  (function() {
+    var t = localStorage.getItem('theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#EDE4D5">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0D0C0C">
+
+{{ partial "templates/opengraph.html" . }}
+{{ partial "templates/twitter_cards.html" . }}
+
+<!-- RSS -->
+{{- with .OutputFormats.Get "rss" }}
+<link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .Permalink }}">
+{{- end }}
+
+{{ partial "jsonld.html" . }}
+
+<meta name="deployment-model" content="On-Premises, Air-Gapped, Self-Hosted">

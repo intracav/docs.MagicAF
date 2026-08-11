@@ -5,8 +5,6 @@ weight: 4
 tags: [lumen-ui, api, node, model]
 categories: [api-reference]
 difficulty: intermediate
-estimated_reading_time: "4 min"
-last_reviewed: "2026-03-17"
 ---
 
 `LumenNode` is the core data model representing a parsed component. It holds the component type, props, children, and provides typed accessors for reading prop values.

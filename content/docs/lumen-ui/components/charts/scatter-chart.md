@@ -5,8 +5,6 @@ weight: 6
 tags: [lumen-ui, scatter-chart, charts]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 ScatterChart plots individual data points on a two-dimensional plane, revealing relationships, clusters, and outliers between two continuous variables. Supports multiple series for comparing distinct populations or groups side by side.

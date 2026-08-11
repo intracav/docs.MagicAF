@@ -1,0 +1,52 @@
+{{ define "main" }}
+<div class="content-body">
+  {{ partial "breadcrumbs.html" . }}
+
+  <div class="page-header">
+    <h1>{{ .Title }}</h1>
+    {{ with or .Params.lead .Description }}<p class="lead">{{ . }}</p>{{ end }}
+    {{ if or .Params.difficulty .Params.status (not .Lastmod.IsZero) }}
+    <div class="page-badges">
+      {{ with .Params.difficulty }}<span class="badge badge--{{ . }}">{{ . | title }}</span>{{ end }}
+      {{ with .Params.status }}<span class="status-badge status-{{ . }}">{{ replace . "-" " " | title }}</span>{{ end }}
+      {{ if not .Lastmod.IsZero }}<span class="page-updated">Updated {{ .Lastmod.Format "Jan 2, 2006" }}</span>{{ end }}
+    </div>
+    {{ end }}
+  </div>
+
+  {{ if gt (len .Fragments.Identifiers) 2 }}
+  <details class="page-toc">
+    <summary>On this page</summary>
+    {{ .TableOfContents }}
+  </details>
+  {{ end }}
+
+  <div class="page-content">
+    {{ .Content }}
+  </div>
+
+  {{/* Prev/next within the section. Hugo orders pages by weight ascending;
+       .NextInSection points toward the front of that list (lower weight),
+       .PrevInSection toward the back — so they map to Previous/Next reading order. */}}
+  {{ $prev := .NextInSection }}
+  {{ $next := .PrevInSection }}
+  {{ if or $prev $next }}
+  <nav class="page-nav">
+    {{ with $prev }}
+      <a href="{{ .RelPermalink }}">
+        <div class="nav-label">&larr; Previous</div>
+        <div class="nav-title">{{ .Title }}</div>
+      </a>
+    {{ else }}
+      <div></div>
+    {{ end }}
+    {{ with $next }}
+      <a href="{{ .RelPermalink }}" class="next">
+        <div class="nav-label">Next &rarr;</div>
+        <div class="nav-title">{{ .Title }}</div>
+      </a>
+    {{ end }}
+  </nav>
+  {{ end }}
+</div>
+{{ end }}

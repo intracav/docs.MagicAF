@@ -2,12 +2,10 @@
 title: "Compliance"
 description: "API reference for GDPR right-to-erasure workflows — entity deletion, verification, cache purging, and audit trail generation."
 weight: 11
-tags: [api, compliance, gdpr, right-to-erasure, data-deletion, hipaa]
+tags: [api, compliance, gdpr, right-to-erasure, data-deletion]
 categories: [reference]
 difficulty: intermediate
 prerequisites: [/docs/api-reference/core/vector-store/, /docs/api-reference/core/observability/]
-estimated_reading_time: "8 min"
-last_reviewed: "2026-03-10"
 ---
 
 MagicAF provides first-class GDPR right-to-erasure support through the `GdprService`, which orchestrates vector deletion, post-deletion verification, cache purging, and audit logging.

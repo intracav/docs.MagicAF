@@ -6,8 +6,6 @@ tags: [api, vector-store, qdrant, in-memory, search]
 categories: [reference]
 difficulty: intermediate
 prerequisites: [/docs/core-concepts/traits-and-interfaces/]
-estimated_reading_time: "10 min"
-last_reviewed: "2026-02-12"
 ---
 
 ## Trait Definition

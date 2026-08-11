@@ -5,8 +5,6 @@ weight: 8
 tags: [lumen-ui, sparkline, charts]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 Sparkline renders a minimal trend line from a flat array of numbers. It has no axes, labels, or gridlines — just the shape of the data. Designed to be embedded inline alongside text, stats, or inside table cells where a full chart would be too heavy but the trend direction is valuable context.

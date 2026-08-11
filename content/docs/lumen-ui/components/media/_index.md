@@ -5,8 +5,6 @@ weight: 6
 tags: [lumen-ui, media, components]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "2 min"
-last_reviewed: "2026-03-17"
 ---
 
 Media components handle visual and file-based content within Lumen UI artifacts. Use them to display diagnostic images, attach downloadable files, embed PDF documents, or render external HTML previews. They are commonly composed inside layout components like `Card` or `Grid` to build clinical reports and patient-facing summaries.

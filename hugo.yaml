@@ -1,18 +1,24 @@
 baseURL: "https://magicaf.intracav.ai/"
 languageCode: "en-us"
 title: "MagicAF"
-theme: "PaperMod"
 
 enableRobotsTXT: true
-enableGitInfo: false
+enableGitInfo: true
 buildDrafts: false
 buildFuture: false
 buildExpired: false
 enableEmoji: true
 
-taxonomies:
-  tag: tags
-  category: categories
+# No taxonomy or term pages — they were 276 thin pages with no inbound value.
+# tags/categories frontmatter remains in content as inert metadata.
+disableKinds:
+  - taxonomy
+  - term
+
+# Dates come from git history; frontmatter dates win only if explicitly set.
+frontmatter:
+  date: [":git", "date", "publishDate"]
+  lastmod: [":git", "lastmod", "date"]
 
 # Sitemap configuration for SEO
 sitemap:
@@ -28,59 +34,18 @@ outputs:
   home:
     - HTML
     - RSS
-    - JSON
+    - JSON # slim Fuse.js search index — layouts/_default/index.json
 
 params:
-  env: production
-  title: "MagicAF"
-  description: "Defense-grade, HIPAA-compliant AI toolkit for secure, air-gapped deployments. Production-ready Rust framework for RAG pipelines, NLP analysis, embeddings, vector search, and LLM orchestration. Designed for SIPR/NIPR, classified, and healthcare environments."
-  keywords: [magicaf, rust, rag, embeddings, vector-search, llm, on-premises, air-gapped, framework, sdk, defense-grade, healthcare-grade, HIPAA-compliant, SIPR, NIPR, classified, secure AI, airgapped AI, secure LLM, on-premises AI, NLP toolkit, RAG framework, secure vector search, defense AI, healthcare AI, secure embeddings, air-gapped deployment, classified AI, secure NLP, local AI, self-hosted AI, Intracav]
+  description: "Open-source Rust AI framework for RAG pipelines, NLP, embeddings, vector search, and LLM orchestration — built to run air-gapped with zero cloud dependencies, for environments where data cannot leave the network."
+  keywords: [magicaf, rust, rag, embeddings, vector-search, llm, on-premises, air-gapped, framework, sdk, secure AI, airgapped AI, secure LLM, on-premises AI, NLP toolkit, RAG framework, secure vector search, secure embeddings, air-gapped deployment, secure NLP, local AI, self-hosted AI, Intracav]
   author: "MagicAF Contributors"
 
-  defaultTheme: auto
-  disableThemeToggle: false
-  ShowReadingTime: true
-  ShowShareButtons: false
-  ShowPostNavLinks: true
-  ShowBreadCrumbs: true
-  ShowCodeCopyButtons: true
-  ShowWordCount: false
-  ShowRssButtonInSectionTermList: false
-  UseHugoToc: true
-  disableSpecial1stPost: true
-  disableScrollToTop: false
-  hidemeta: true
-  hideSummary: false
-  showtoc: true
-  tocopen: true
-
-  assets:
-    favicon: "/favicon.ico"
-    disableHLJS: true
-
-  label:
-    text: "MagicAF"
-    icon: ""
-    iconHeight: 35
-
-  homeInfoParams:
-    Title: "MagicAF Documentation"
-    Content: >
-      Defense-grade, HIPAA-compliant AI toolkit for secure, air-gapped deployments.
-      Production-ready Rust framework for RAG pipelines, NLP analysis, embeddings,
-      vector search, and LLM orchestration. Designed for SIPR/NIPR, classified,
-      and healthcare environments with zero cloud dependencies.
-      An [Intracav](https://intracav.ai/) framework.
-
-  socialIcons:
-    - name: github
-      url: "https://github.com/magicaf/magicaf"
-  
-  # Social media configuration for Open Graph and Twitter Cards
+  # Social metadata for Open Graph and Twitter Cards
   social:
     twitter: "intracav"
-  
-  # Default Open Graph image (1200x630 recommended)
+
+  # Default Open Graph image (1200x630)
   ogImage: "/og-image.png"
 
   fuseOpts:
@@ -89,20 +54,24 @@ params:
     location: 0
     distance: 1000
     threshold: 0.4
-    minMatchCharLength: 0
-    keys: ["title", "permalink", "summary", "content"]
+    minMatchCharLength: 1
+    limit: 15
+    keys: ["title", "summary"]
 
 markup:
   goldmark:
     renderer:
-      unsafe: true
+      unsafe: true # Lumen UI pages embed raw component-mockup HTML
   highlight:
-    noClasses: false
+    noClasses: false # class-based highlighting; palette in assets/css/chroma.css
     anchorLineNos: true
     codeFences: true
     guessSyntax: true
     lineNos: false
     style: dracula
+  tableOfContents:
+    startLevel: 2
+    endLevel: 3
 
 menu:
   main:
@@ -118,6 +87,10 @@ menu:
       name: Tutorials
       url: /docs/tutorials/
       weight: 12
+    - identifier: menu-lumen-ui
+      name: Lumen UI
+      url: /docs/lumen-ui/
+      weight: 15
     - identifier: api
       name: API Reference
       url: /docs/api-reference/
@@ -126,14 +99,6 @@ menu:
       name: Examples
       url: /docs/examples/
       weight: 30
-    - identifier: menu-lumen-ui
-      name: Lumen UI
-      url: /docs/lumen-ui/
-      weight: 15
-    - identifier: search
-      name: Search
-      url: /search/
-      weight: 35
     - identifier: github
       name: ""
       url: "https://github.com/magicaf/magicaf"

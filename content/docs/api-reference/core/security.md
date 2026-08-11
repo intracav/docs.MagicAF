@@ -1,13 +1,11 @@
 ---
 title: "Security"
-description: "API reference for prompt injection detection, PII redaction, LLM response validation, and FIPS mode — defense-grade security primitives."
+description: "API reference for prompt injection detection, PII redaction, LLM response validation, and FIPS mode assertion."
 weight: 10
-tags: [api, security, prompt-injection, pii, response-guard, fips, hipaa]
+tags: [api, security, prompt-injection, pii, response-guard, fips]
 categories: [reference]
 difficulty: intermediate
 prerequisites: [/docs/core-concepts/architecture/]
-estimated_reading_time: "14 min"
-last_reviewed: "2026-03-10"
 ---
 
 MagicAF includes four security primitives that protect the RAG pipeline at every stage: input filtering, output validation, log sanitization, and cryptographic compliance.
@@ -245,7 +243,7 @@ guard.check(response, Some("You are a helpful assistant."))?;
 
 ## FIPS Mode
 
-Assert that the runtime environment has FIPS 140-2 validated cryptography enabled. Used for deployments in regulated environments (DoD, HIPAA, FedRAMP).
+Assert that the runtime environment has FIPS 140-2 validated cryptography enabled. Used for deployments in regulated environments that mandate FIPS-validated cryptography.
 
 ### `assert_fips_mode`
 

@@ -7,8 +7,6 @@ categories: [concept]
 difficulty: intermediate
 prerequisites:
   - /docs/lumen-ui/core-concepts/rendering/
-estimated_reading_time: "6 min"
-last_reviewed: "2026-03-17"
 ---
 
 Lumen UI is designed for streaming-first rendering. LLMs emit tokens one at a time, which means the parser frequently receives incomplete input. Rather than waiting for the full response, Lumen renders progressively — building up the UI as tokens arrive.

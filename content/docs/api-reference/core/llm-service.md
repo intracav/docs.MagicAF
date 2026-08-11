@@ -6,8 +6,6 @@ tags: [api, llm, chat-completion, openai-compatible, anthropic, tool-calling, st
 categories: [reference]
 difficulty: intermediate
 prerequisites: [/docs/core-concepts/traits-and-interfaces/]
-estimated_reading_time: "12 min"
-last_reviewed: "2026-03-10"
 ---
 
 ## Trait Definition

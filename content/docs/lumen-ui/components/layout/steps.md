@@ -5,8 +5,6 @@ weight: 6
 tags: [lumen-ui, component, layout]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 Steps renders a numbered progress indicator for multi-stage workflows. Each step displays a title, an optional description, and a status (pending, active, completed, or error). Use Steps to show where a patient is in a clinical pathway, the progress of a prior authorization request, or the stages of a diagnostic workup.

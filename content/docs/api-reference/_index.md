@@ -1,11 +1,11 @@
 ---
 title: "API Reference"
-description: "Complete API reference for defense-grade AI toolkit. Every trait, struct, configuration option, and error type for secure, air-gapped AI deployments."
+description: "Complete API reference for the MagicAF Rust framework. Every trait, struct, configuration option, and error type across the core services and NLP pipelines."
 weight: 4
-keywords: [API reference, secure AI API, defense-grade API, HIPAA-compliant API, air-gapped API, NLP pipelines]
+keywords: [API reference, MagicAF API, Rust AI API, air-gapped AI, NLP pipelines]
 ---
 
-This section documents every public type in the MagicAF framework, Intracav's defense-grade AI toolkit. Use it as a reference while building.
+This section documents every public type in the MagicAF framework. Use it as a reference while building.
 
 ---
 

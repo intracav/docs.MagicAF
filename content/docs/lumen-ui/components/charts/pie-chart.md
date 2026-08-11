@@ -5,8 +5,6 @@ weight: 4
 tags: [lumen-ui, pie-chart, charts]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 PieChart renders categorical data as proportional segments of a circle. Set `donut=true` to render as a donut chart with a hollow center. Best used when showing how parts relate to a whole — referral distributions, diagnosis breakdowns, resource allocation.

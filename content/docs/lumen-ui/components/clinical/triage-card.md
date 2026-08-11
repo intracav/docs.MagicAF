@@ -5,8 +5,6 @@ weight: 1
 tags: [lumen-ui, triage-card, clinical]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 TriageCard renders an Emergency Severity Index (ESI) triage assessment with a prominent acuity level badge, chief complaint, expected wait time, and recommended action. Each ESI level (1-5) is color-coded to match standard triage conventions, making it immediately scannable in clinical workflows.

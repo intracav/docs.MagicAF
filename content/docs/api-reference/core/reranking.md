@@ -6,8 +6,6 @@ tags: [api, reranking, cross-encoder, search-quality, rag]
 categories: [reference]
 difficulty: intermediate
 prerequisites: [/docs/api-reference/core/rag-workflow/]
-estimated_reading_time: "7 min"
-last_reviewed: "2026-03-10"
 ---
 
 Rerankers improve RAG pipeline quality by re-scoring vector search results with a more powerful model. MagicAF ships two implementations: a simple score threshold filter and an HTTP-based cross-encoder reranker.

@@ -5,8 +5,6 @@ weight: 15
 tags: [lumen-ui, clinical-trials, clinical]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 ClinicalTrials renders search results from ClinicalTrials.gov as a list of trial cards. Each card displays the NCT identifier, recruitment status (color-coded), trial phase, title, sponsoring organization, and summary. An optional header can provide context about the search query.

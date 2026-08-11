@@ -5,8 +5,6 @@ weight: 4
 tags: [lumen-ui, surfaces, chat, agent, workflow, integration]
 categories: [guide]
 difficulty: intermediate
-estimated_reading_time: "6 min"
-last_reviewed: "2026-03-17"
 ---
 
 Lumen UI components appear in five distinct surfaces across the application. Each surface has a slightly different integration pattern, but all use the same `LumenParser` + `LumenRenderer` pipeline.

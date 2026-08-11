@@ -5,8 +5,6 @@ weight: 5
 tags: [lumen-ui, slider, forms]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 Slider renders a draggable track for selecting a numeric value within a defined range. It is well suited for pain scores, dosage adjustments, and any continuous or stepped numeric input where a visual position conveys magnitude. When the user releases the slider, it dispatches a `submitForm` action with the field's `id` and the selected numeric `value`.

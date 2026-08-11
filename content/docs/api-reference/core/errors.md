@@ -6,8 +6,6 @@ tags: [api, errors, error-codes, ffi, result-type, retryable]
 categories: [reference]
 difficulty: intermediate
 prerequisites: [/docs/core-concepts/architecture/]
-estimated_reading_time: "8 min"
-last_reviewed: "2026-03-10"
 ---
 
 All MagicAF operations return `Result<T, MagicError>`. The error type is designed for both Rust-native `?` propagation and FFI-friendly numeric codes.

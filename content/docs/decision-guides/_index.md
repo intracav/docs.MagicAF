@@ -4,10 +4,9 @@ description: "Trade-off analysis and decision frameworks for engineers evaluatin
 weight: 2.7
 tags: [decisions, evaluation, trade-offs, architecture]
 categories: [guide]
-last_reviewed: "2026-02-12"
 ---
 
-Decision guides answer **"why" and "when"** questions — the trade-off analysis that engineers need when evaluating MagicAF for their organization or choosing between implementation options.
+Some choices are cheap to reverse — a config flag, a default adapter. Others harden into infrastructure: the models you standardize on, the adapters your domain logic grows around, the deployment topology you commit hardware to. Decision guides exist for the expensive ones. They answer **"why" and "when"** questions — the trade-off analysis engineers need when evaluating MagicAF for their organization or choosing between implementation options. Tutorials and guides show you how; these pages help you decide what, before the choice gets expensive.
 
 ---
 

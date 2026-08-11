@@ -5,8 +5,6 @@ weight: 3
 tags: [lumen-ui, area-chart, charts]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 AreaChart renders one or more data series as lines with filled regions beneath them. It shares the same data shape as LineChart but adds visual emphasis to the magnitude of values. Supports stacked mode for part-to-whole comparisons over time.

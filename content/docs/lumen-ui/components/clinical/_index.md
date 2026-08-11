@@ -5,8 +5,6 @@ weight: 5
 tags: [lumen-ui, clinical, healthcare]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "2 min"
-last_reviewed: "2026-03-17"
 ---
 
 Clinical components render structured healthcare data into purpose-built cards, panels, and interactive widgets. Each component is designed around a specific clinical workflow — from ESI triage assessment to renal dose adjustment — and includes appropriate disclaimers, color-coded severity indicators, and collapsible detail sections.

@@ -5,8 +5,6 @@ weight: 7
 tags: [lumen-ui, component, layout]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 Section creates a titled block of content with an optional description and optional collapse behavior. Unlike Card, which provides a visual container with borders and padding, Section is a lighter-weight organizational element — it adds a heading and optional description without introducing a new visual boundary. Use Section to divide long-form content into scannable segments within a card or page.

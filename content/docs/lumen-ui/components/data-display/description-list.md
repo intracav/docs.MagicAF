@@ -5,8 +5,6 @@ weight: 9
 tags: [lumen-ui, description-list, data-display]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 The `DescriptionList` component renders term-description pairs in a vertical list with a fixed-width term column and an expanding description column. When bordered, items are separated by dividers and alternate rows have a subtle muted background. It is well-suited for structured clinical data like diagnosis summaries, coding details, and configuration panels.

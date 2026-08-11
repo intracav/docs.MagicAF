@@ -5,8 +5,6 @@ weight: 3
 tags: [lumen-ui, checkbox, forms]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 Checkbox renders a binary toggle with an adjacent label. It is used for consent confirmations, boolean preferences, and multi-select scenarios where each option is independent. When toggled, Checkbox dispatches a `toggleState` action with the field's `id` and the new boolean `value`.

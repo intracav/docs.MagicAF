@@ -5,8 +5,6 @@ weight: 5
 tags: [lumen-ui, api, theme, colors, typography]
 categories: [api-reference]
 difficulty: intermediate
-estimated_reading_time: "5 min"
-last_reviewed: "2026-03-17"
 ---
 
 `LumenThemeData` is the composite theme object that controls the visual appearance of all Lumen UI components.

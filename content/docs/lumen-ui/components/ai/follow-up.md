@@ -5,8 +5,6 @@ weight: 4
 tags: [lumen-ui, follow-up, ai]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 The `FollowUp` component renders a horizontal row of suggestion buttons that the user can tap to send a follow-up message. The agent generates these suggestions to guide the conversation toward useful next steps. Use it at the end of an agent response to surface relevant follow-up questions or actions.

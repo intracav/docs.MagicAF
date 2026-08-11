@@ -1,0 +1,3 @@
+{{- $tabs := .Parent.Store.Get "tabs" | default slice -}}
+{{- $tabs = $tabs | append (dict "name" (.Get "name") "content" (.Inner | markdownify)) -}}
+{{- .Parent.Store.Set "tabs" $tabs -}}

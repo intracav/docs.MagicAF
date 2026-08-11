@@ -5,8 +5,6 @@ weight: 1
 tags: [lumen-ui, component, layout]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 The Card is the most common layout component in Lumen UI. It provides a bordered, padded container that groups related content under an optional title and description. Use cards to visually separate distinct sections of information — lab panels, patient summaries, clinical notes, or any discrete content block.

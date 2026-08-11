@@ -5,8 +5,6 @@ weight: 5
 tags: [lumen-ui, html-embed, media]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 The `HtmlEmbed` component displays a preview card for HTML content. It can reference an external URL or contain inline HTML. For security, inline HTML is rendered as a sanitized preview rather than raw injection. Use it for patient portal links, generated reports, or external web content references.

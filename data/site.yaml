@@ -1,0 +1,22 @@
+# Single source of truth for counts and catalog facts quoted in templates
+# and content. Update numbers HERE ONLY — never hardcode them in prose.
+#
+# Verification sources:
+#   lumen_ui.components  — count of pages under content/docs/lumen-ui/components/ (excluding _index.md)
+#   lumen_ui.categories  — count of directories under content/docs/lumen-ui/components/
+#   lumen_ui.clinical    — count of pages under content/docs/lumen-ui/components/clinical/ (excluding _index.md)
+stats:
+  crates: 4
+  lumen_ui_components: 71
+  lumen_ui_categories: 8
+  lumen_ui_clinical: 20
+
+crates:
+  - name: magicaf-core
+    purpose: Traits, DTOs, config, error types, RAG engine, adapter interfaces, in-memory vector store
+  - name: magicaf-qdrant
+    purpose: Qdrant vector store implementation (REST API)
+  - name: magicaf-local-llm
+    purpose: OpenAI-compatible local LLM client
+  - name: magicaf-nlp
+    purpose: NLP pipelines (NER, sentiment, translation, QA, and more) — all run in-process

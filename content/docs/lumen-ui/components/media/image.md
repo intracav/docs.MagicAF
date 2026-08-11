@@ -5,8 +5,6 @@ weight: 1
 tags: [lumen-ui, image, media]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 The `Image` component renders a single image from a URL with optional caption text, explicit dimensions, and rounded corners. Use it to display diagnostic images, photos, charts, or any visual content within an artifact.

@@ -5,8 +5,6 @@ weight: 8
 tags: [lumen-ui, text-area, forms]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 TextArea renders a multi-line text input for collecting longer-form content — clinical notes, assessment narratives, procedure descriptions, or free-text comments. It supports configurable height via the `rows` prop. When the user submits or blurs the field, TextArea dispatches a `submitForm` action with the field's `id` and current `value`.

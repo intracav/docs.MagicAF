@@ -6,8 +6,6 @@ tags: [api, streaming, tool-calling, function-calling, anthropic, gateway, multi
 categories: [reference]
 difficulty: advanced
 prerequisites: [/docs/api-reference/core/llm-service/]
-estimated_reading_time: "14 min"
-last_reviewed: "2026-03-10"
 ---
 
 MagicAF supports streaming chat completions and tool calling (function calling) across multiple LLM providers through a unified API. The `LlmGateway` automatically translates between OpenAI and Anthropic wire formats.

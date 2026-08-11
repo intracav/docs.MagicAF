@@ -7,8 +7,6 @@ categories: [reference]
 difficulty: advanced
 prerequisites:
   - /docs/lumen-ui/core-concepts/dsl-syntax/
-estimated_reading_time: "10 min"
-last_reviewed: "2026-03-17"
 ---
 
 This page defines the formal grammar and parsing rules for the Lumen DSL. It is intended as a reference for implementors and for understanding edge cases.

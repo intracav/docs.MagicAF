@@ -5,8 +5,6 @@ weight: 8
 tags: [lumen-ui, fhir-patient, clinical]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 FhirPatient renders an aggregated patient summary from FHIR EHR data. The card displays a patient header with avatar initial, name, date of birth, and gender, followed by contact information and collapsible sections for active conditions, medications, allergies, recent encounters, and observations. Each section shows an item count and is initially collapsed to keep the overview compact.

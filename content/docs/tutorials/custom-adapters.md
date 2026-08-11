@@ -8,8 +8,6 @@ difficulty: intermediate
 prerequisites:
   - /docs/tutorials/your-first-rag-pipeline/
   - /docs/core-concepts/traits-and-interfaces/
-estimated_reading_time: "25 min"
-last_reviewed: "2026-02-12"
 ---
 
 {{< difficulty "intermediate" >}}

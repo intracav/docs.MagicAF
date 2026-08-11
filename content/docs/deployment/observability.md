@@ -6,8 +6,6 @@ tags: [deployment, logging, tracing, metrics, health-checks]
 categories: [deployment]
 difficulty: intermediate
 prerequisites: [/docs/getting-started/quickstart/]
-estimated_reading_time: "7 min"
-last_reviewed: "2026-02-12"
 ---
 
 MagicAF provides built-in observability through structured logging, health checks, and tracing instrumentation.

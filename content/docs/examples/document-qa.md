@@ -6,8 +6,6 @@ tags: [example, qa, json, custom-adapters]
 categories: [example]
 difficulty: intermediate
 prerequisites: [/docs/guides/building-adapters/, /docs/guides/structured-output/]
-estimated_reading_time: "8 min"
-last_reviewed: "2026-02-12"
 ---
 
 Imagine you are building a support tool for a team of engineers who need quick, citable answers from a large collection of technical documents. Raw text answers are not enough — the engineers need to know which sources the answer came from and how confident the system is. They want structured, parseable results they can integrate into their existing dashboards.

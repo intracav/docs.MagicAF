@@ -5,8 +5,6 @@ weight: 3
 tags: [lumen-ui, badge, feedback]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 Badge renders a compact, inline label for tagging, categorizing, or indicating status. Badges are typically used inside cards, tables, or stacks to annotate items with short labels — severity levels, medication classes, order statuses, or diagnosis codes.

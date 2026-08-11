@@ -5,8 +5,6 @@ weight: 4
 tags: [lumen-ui, progress, feedback]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 Progress renders a horizontal bar that fills proportionally to a given value, visualizing completion or capacity. Use it for treatment progress, protocol adherence rates, task completion, or any metric expressed as a percentage of a known total.

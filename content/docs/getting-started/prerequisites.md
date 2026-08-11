@@ -6,8 +6,6 @@ tags: [setup, rust, docker, infrastructure]
 categories: [guide]
 difficulty: beginner
 prerequisites: []
-estimated_reading_time: "5 min"
-last_reviewed: "2026-02-12"
 ---
 
 MagicAF requires three local services and a Rust toolchain. All services communicate over HTTP — no cloud accounts, no vendor SDKs.

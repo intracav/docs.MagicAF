@@ -5,8 +5,6 @@ weight: 4
 tags: [lumen-ui, lab-ranges, clinical]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 LabRanges renders lab reference ranges as individual test cards, each showing the test name, unit badge, demographic-specific ranges (adult, male, female, pediatric), and optional clinical notes. The component is typically populated from the `lab_reference_ranges` MCP tool and supports displaying multiple tests in a vertical stack.

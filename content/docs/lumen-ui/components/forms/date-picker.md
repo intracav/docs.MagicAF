@@ -5,8 +5,6 @@ weight: 6
 tags: [lumen-ui, date-picker, forms]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 DatePicker renders a date input field that lets the user select a calendar date. The selected value is always formatted as an ISO 8601 date string (`YYYY-MM-DD`). When the date changes, DatePicker dispatches a `submitForm` action with the field's `id` and the formatted date `value`.

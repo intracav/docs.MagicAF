@@ -1,6 +1,6 @@
 # MagicAF
 
-> MagicAF is the open-source Rust AI/ML/NLP framework by **Intracav**. It provides the foundational building blocks for AI-powered systems — embeddings, vector search, LLM orchestration, RAG pipelines, and a full NLP toolkit — with zero cloud dependencies. Healthcare-grade (HIPAA-conscious) and air-gapped-capable: designed for on-premises, classified (SIPR/NIPR), and hospital environments. It is the framework underneath Lumen, Intracav's clinical AI platform, and this site also documents **Lumen UI**, the component DSL that renders Lumen's AI-generated interfaces.
+> MagicAF is the open-source Rust AI/ML/NLP framework by **Intracav**. It provides the foundational building blocks for AI systems — embeddings, vector search, LLM orchestration, RAG pipelines, and a full NLP toolkit — with zero cloud dependencies. Air-gapped-capable and built for on-premises deployment: designed for hospitals and other environments where data cannot leave the network. It is the framework underneath Lumen, Intracav's clinical AI platform, and this site also documents **Lumen UI**, the component DSL that renders Lumen's AI-generated interfaces.
 
 ## How to use this file
 
@@ -87,7 +87,7 @@ This is the structured index of magicaf.intracav.ai for AI agents — Claude, Ch
 
 ## Lumen UI
 
-- [Lumen UI](https://magicaf.intracav.ai/docs/lumen-ui/): a declarative component DSL for AI-generated user interfaces — 72 production-ready components across 8 categories, a streaming-resilient parser, and a dynamic prompt system. It is the rendering layer of Lumen, Intracav's clinical AI assistant. End-user product docs live at https://docs.intracav.ai.
+- [Lumen UI](https://magicaf.intracav.ai/docs/lumen-ui/): a declarative component DSL for AI-generated user interfaces — 71 production-ready components across 8 categories, a streaming-resilient parser, and a dynamic prompt system. It is the rendering layer of Lumen, Intracav's clinical AI assistant. End-user product docs live at https://docs.intracav.ai.
 - [Introduction](https://magicaf.intracav.ai/docs/lumen-ui/introduction/) and [Quick Start](https://magicaf.intracav.ai/docs/lumen-ui/quick-start/).
 - [Core Concepts](https://magicaf.intracav.ai/docs/lumen-ui/core-concepts/): the DSL, parsing, and rendering model.
 - [Components](https://magicaf.intracav.ai/docs/lumen-ui/components/): the full catalog, by category:

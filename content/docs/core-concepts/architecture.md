@@ -1,18 +1,18 @@
 ---
 title: "Architecture"
-description: "MagicAF's secure, three-layer architecture for defense-grade AI systems. Designed for air-gapped, HIPAA-compliant deployments with complete separation of concerns."
+description: "MagicAF's three-layer architecture — how strict trait boundaries keep domain logic in adapters and make the same code portable from a laptop to an isolated network."
 weight: 1
-keywords: [architecture, secure architecture, defense-grade architecture, air-gapped architecture, HIPAA-compliant architecture]
+keywords: [architecture, three-layer architecture, trait boundaries, Rust framework design, air-gapped architecture]
 tags: [architecture, layers, traits, separation-of-concerns]
 categories: [concept]
 difficulty: intermediate
 prerequisites:
   - /docs/getting-started/quickstart/
-estimated_reading_time: "7 min"
-last_reviewed: "2026-02-12"
 ---
 
-MagicAF follows a strict three-layer architecture, reflecting Intracav's commitment to clean separation of concerns in regulated environments. Each layer has a single responsibility, and layers communicate only through well-defined trait boundaries.
+You've inherited the codebase where SQL lives in the request handlers and business rules hide in a stored procedure — and you know what it costs: every infrastructure change becomes a domain change, and every domain change becomes a deployment risk. MagicAF is structured so that never happens to your RAG stack. The framework enforces a **strict three-layer architecture** — each layer has a single responsibility, and layers communicate only through well-defined trait boundaries. Those boundaries are where the framework's decisions end and yours begin: everything above the trait is your code; everything below it is swappable.
+
+If you're evaluating whether MagicAF fits your system — or working out where your own code will live inside it — this page is the map. By the end you'll know what each layer owns, why the boundaries sit where they do, and which seams you're expected to implement.
 
 ## Layer Model
 
@@ -42,7 +42,7 @@ MagicAF follows a strict three-layer architecture, reflecting Intracav's commitm
 
 MagicAF separates concerns into three layers for a specific reason: **in regulated environments, you need to swap components without changing business logic**.
 
-Consider a defense lab that certifies their RAG pipeline for use on a classified network. Six months later, they need to replace Qdrant with Milvus because of a new infrastructure mandate. With MagicAF's architecture, they implement the `VectorStore` trait for Milvus and change one line in the builder — the adapters, orchestration logic, and all tests remain untouched.
+Consider a defense lab that certifies their RAG pipeline for use on an isolated network. Six months later, they need to replace Qdrant with Milvus because of a new infrastructure mandate. With MagicAF's architecture, they implement the `VectorStore` trait for Milvus and change one line in the builder — the adapters, orchestration logic, and all tests remain untouched.
 
 The same principle applies to healthcare: a hospital might start with vLLM on a GPU server, then move to Ollama on CPU-only hardware when deploying to a satellite clinic. The `LlmService` implementation changes; the prompt engineering, evidence formatting, and result parsing stay identical.
 

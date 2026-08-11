@@ -1,17 +1,15 @@
 ---
 title: "Air-Gapped Setup"
-description: "Deploy MagicAF in fully disconnected, classified, and defense-grade environments. Complete guide for SIPR/NIPR, HIPAA-compliant, and air-gapped AI deployments with zero internet dependencies."
+description: "Deploy MagicAF in fully disconnected environments with zero internet dependencies — dependency vendoring, offline model transfer, and verification for isolated networks."
 weight: 2
-keywords: [air-gapped, airgapped, classified deployment, SIPR, NIPR, defense-grade, HIPAA-compliant, offline AI, disconnected AI, secure deployment]
-tags: [deployment, air-gapped, offline, cargo-vendor, classified]
+keywords: [air-gapped, airgapped, offline AI, disconnected AI, isolated network deployment, cargo vendor, secure deployment]
+tags: [deployment, air-gapped, offline, cargo-vendor]
 categories: [deployment]
 difficulty: advanced
 prerequisites: [/docs/deployment/docker/]
-estimated_reading_time: "7 min"
-last_reviewed: "2026-02-12"
 ---
 
-MagicAF is designed for air-gapped environments from the ground up — a hallmark of Intracav's approach to secure AI. Every service runs locally, and all dependencies can be vendored for offline use. For more information about MagicAF's security architecture and compliance features, see the [About page](/about/).
+MagicAF is designed for air-gapped environments from the ground up. Every service runs locally, and all dependencies can be vendored for offline use. For the broader security architecture, see the [security guide](/docs/deployment/security/).
 
 ## Overview
 

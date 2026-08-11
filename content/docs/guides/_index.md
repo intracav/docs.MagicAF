@@ -4,7 +4,7 @@ description: "Step-by-step tutorials for building with MagicAF."
 weight: 3
 ---
 
-Practical guides that walk you through common development tasks with MagicAF.
+You're mid-build and need exactly one thing — a custom adapter, typed JSON out of the LLM, a test that doesn't need a live model server. Guides are for that moment: each one walks a single task from start to working code, step by step. Unlike [Tutorials](/docs/tutorials/), which teach the framework by building projects in order, guides are independent — pick the one that matches your task and go.
 
 ---
 

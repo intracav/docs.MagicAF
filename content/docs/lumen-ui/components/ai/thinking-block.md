@@ -5,8 +5,6 @@ weight: 3
 tags: [lumen-ui, thinking-block, ai]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 The `ThinkingBlock` component renders a collapsible section containing an AI agent's internal reasoning or chain-of-thought. It starts collapsed by default, allowing users to expand it when they want transparency into how the agent reached its conclusions. This is particularly valuable in clinical settings where auditability of reasoning matters.

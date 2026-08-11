@@ -5,8 +5,6 @@ weight: 3
 tags: [lumen-ui, file-card, media]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 The `FileCard` component renders a compact card representing a file attachment. It displays the file name, type icon, human-readable size, and an optional download URL. Use it for lab reports, discharge summaries, consent forms, or any downloadable document reference.

@@ -5,8 +5,6 @@ weight: 2
 tags: [lumen-ui, tool-result, ai]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 The `ToolResult` component provides a labeled wrapper around tool output. It shows the originating tool name, a status indicator, and an optional summary line. The actual result content is rendered as children — any Lumen UI component can be nested inside. Use it to give structure and provenance to data returned by agent tool calls.

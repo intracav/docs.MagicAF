@@ -7,8 +7,6 @@ categories: [concept]
 difficulty: intermediate
 prerequisites:
   - /docs/lumen-ui/core-concepts/dsl-syntax/
-estimated_reading_time: "8 min"
-last_reviewed: "2026-03-17"
 ---
 
 Rendering in Lumen UI is the process of converting a `LumenNode` tree (produced by the parser) into Flutter widgets. This page covers the four pieces that make it work: the **Component Registry**, the **Renderer**, the **Render Context**, and **Error Boundaries**.

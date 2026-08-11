@@ -5,8 +5,6 @@ weight: 8
 tags: [lumen-ui, timeline, data-display]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 The `Timeline` component renders a vertical sequence of events with colored dots, connecting lines, optional dates, and descriptions. Each event can be assigned a variant that controls its dot color, making it suitable for patient histories, treatment plans, workflow progress, and audit trails.

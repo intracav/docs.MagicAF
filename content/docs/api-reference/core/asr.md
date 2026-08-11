@@ -6,8 +6,6 @@ tags: [api, asr, speech-to-text, whisper, voice-activity-detection, audio]
 categories: [reference]
 difficulty: intermediate
 prerequisites: [/docs/core-concepts/architecture/]
-estimated_reading_time: "10 min"
-last_reviewed: "2026-03-10"
 ---
 
 MagicAF provides an abstract `AsrService` trait for speech-to-text, a `WhisperAsrService` implementation for Whisper-compatible endpoints, and a `VadProcessor` for client-side voice activity detection.

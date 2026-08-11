@@ -5,8 +5,6 @@ weight: 13
 tags: [lumen-ui, adverse-events, clinical]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 AdverseEvents renders FDA Adverse Event Reporting System (FAERS) data for a given drug. The header displays the drug name and total report count. Serious outcome badges (deaths, hospitalizations, life-threatening events) are shown below the header. A horizontal bar chart visualizes the top adverse reactions by count, rendered inside a collapsible section.

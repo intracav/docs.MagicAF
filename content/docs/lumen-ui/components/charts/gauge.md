@@ -5,8 +5,6 @@ weight: 7
 tags: [lumen-ui, gauge, charts]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 Gauge renders a semi-circular arc representing a single value within a defined range. Configurable thresholds allow color-coded zones — normal, warning, and critical — making it ideal for vital signs, compliance scores, and real-time metrics where the relationship between the current value and acceptable bounds matters.

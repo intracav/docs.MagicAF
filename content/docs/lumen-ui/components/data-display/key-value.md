@@ -5,8 +5,6 @@ weight: 2
 tags: [lumen-ui, key-value, data-display]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 The `KeyValue` component renders a list of label-value pairs. It supports two layout modes: `stacked` (label above value) and `inline` (label and value side by side), with an optional divider between items. Commonly used for patient demographics, encounter details, and configuration summaries.

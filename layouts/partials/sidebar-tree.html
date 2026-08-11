@@ -1,0 +1,15 @@
+{{- $current := .current -}}
+{{- range .section.Pages.ByWeight }}
+{{- if .IsSection }}
+<div class="sidebar-subsection">
+  <a class="sidebar-link sidebar-sublink{{ if eq . $current }} active{{ end }}" href="{{ .RelPermalink }}"{{ if eq . $current }} aria-current="page"{{ end }}>{{ .Title }}</a>
+  {{- /* Expand only the branch containing the current page — Lumen UI alone
+         holds 100+ pages, a fully expanded tree would swamp the sidebar */ -}}
+  {{- if strings.HasPrefix $current.RelPermalink .RelPermalink }}
+  {{ partial "sidebar-tree.html" (dict "section" . "current" $current) }}
+  {{- end }}
+</div>
+{{- else }}
+<a class="sidebar-link{{ if eq . $current }} active{{ end }}" href="{{ .RelPermalink }}"{{ if eq . $current }} aria-current="page"{{ end }}>{{ .Title }}</a>
+{{- end }}
+{{- end }}

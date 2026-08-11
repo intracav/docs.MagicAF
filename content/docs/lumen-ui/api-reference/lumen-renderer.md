@@ -5,8 +5,6 @@ weight: 2
 tags: [lumen-ui, api, renderer, widget]
 categories: [api-reference]
 difficulty: intermediate
-estimated_reading_time: "4 min"
-last_reviewed: "2026-03-17"
 ---
 
 `LumenRenderer` is a `StatelessWidget` that renders a list of `LumenNode` objects into Flutter widgets using the `ComponentRegistry`.

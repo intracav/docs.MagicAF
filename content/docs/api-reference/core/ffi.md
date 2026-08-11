@@ -6,8 +6,6 @@ tags: [api, ffi, c-bindings, python, swift, java]
 categories: [reference]
 difficulty: advanced
 prerequisites: [/docs/api-reference/core/errors/]
-estimated_reading_time: "5 min"
-last_reviewed: "2026-02-12"
 ---
 
 MagicAF's public API is designed with future FFI (Foreign Function Interface) bindings in mind. While bindings are not yet shipped, the architecture choices make them straightforward to implement.

@@ -5,8 +5,6 @@ weight: 10
 tags: [lumen-ui, renal-dose, clinical]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 RenalDose renders renal dose adjustment guidance for a specific drug based on estimated creatinine clearance and CKD staging. The hero section displays the drug name, calculated CrCl value, and CKD stage badge (color-coded by severity). It includes patient parameters, FDA dosing guidance in a collapsible section, and the calculation formula in a code block.

@@ -6,8 +6,6 @@ tags: [api, cache, embeddings, lru, performance, gdpr]
 categories: [reference]
 difficulty: beginner
 prerequisites: [/docs/api-reference/core/embedding-service/]
-estimated_reading_time: "6 min"
-last_reviewed: "2026-03-10"
 ---
 
 `CachedEmbeddingService` wraps any `EmbeddingService` with an LRU cache, eliminating redundant embedding calls for repeated text. It implements both `EmbeddingService` and `CacheService` for GDPR integration.

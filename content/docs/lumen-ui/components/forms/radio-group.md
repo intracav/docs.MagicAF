@@ -5,8 +5,6 @@ weight: 4
 tags: [lumen-ui, radio-group, forms]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 RadioGroup renders a set of mutually exclusive radio buttons under a shared label. Exactly one option can be selected at a time. When the selection changes, RadioGroup dispatches a `submitForm` action with the group's `id` and the selected `value`.

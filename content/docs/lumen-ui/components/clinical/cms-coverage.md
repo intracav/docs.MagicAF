@@ -5,8 +5,6 @@ weight: 19
 tags: [lumen-ui, cms-coverage, clinical]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 CmsCoverage renders CMS (Centers for Medicare & Medicaid Services) coverage policy determinations. The header displays the policy title, identifier, and a color-coded coverage status badge (Covered = green, Not Covered = red, Conditional = amber). Detail sections provide coverage criteria, limitations, and documentation requirements. The component is typically populated from the `cms_coverage_lookup` MCP tool.

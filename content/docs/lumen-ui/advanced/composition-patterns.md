@@ -5,8 +5,6 @@ weight: 2
 tags: [lumen-ui, patterns, composition, dashboard, layout]
 categories: [guide]
 difficulty: intermediate
-estimated_reading_time: "8 min"
-last_reviewed: "2026-03-17"
 ---
 
 Lumen UI components are designed to compose. This page shows proven patterns for building complex layouts from simple building blocks.

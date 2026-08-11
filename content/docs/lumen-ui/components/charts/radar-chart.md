@@ -5,8 +5,6 @@ weight: 5
 tags: [lumen-ui, radar-chart, charts]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 RadarChart (also known as a spider chart) plots multiple variables on axes radiating from a shared center, connecting values to form a polygon. It is effective for comparing two or more profiles across the same set of dimensions — baseline vs. follow-up assessments, treatment outcomes, or multi-domain scoring rubrics.

@@ -6,8 +6,6 @@ tags: [api, configuration, environment-variables, json, toml, tls, resilience]
 categories: [reference]
 difficulty: beginner
 prerequisites: [/docs/getting-started/installation/]
-estimated_reading_time: "12 min"
-last_reviewed: "2026-03-10"
 ---
 
 All configuration structs derive `Serialize` and `Deserialize`, so they can be loaded from JSON, TOML, YAML files, or environment variables.

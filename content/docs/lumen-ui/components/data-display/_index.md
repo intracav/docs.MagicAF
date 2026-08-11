@@ -5,8 +5,6 @@ weight: 2
 tags: [lumen-ui, data-display, components]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "2 min"
-last_reviewed: "2026-03-17"
 ---
 
 The Data Display category contains 9 components for rendering structured information — from tabular data and key-value pairs to syntax-highlighted code and vertical timelines. These are the primary building blocks for presenting clinical results, patient records, and analytical output.

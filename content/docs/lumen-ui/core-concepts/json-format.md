@@ -7,8 +7,6 @@ categories: [concept]
 difficulty: intermediate
 prerequisites:
   - /docs/lumen-ui/core-concepts/dsl-syntax/
-estimated_reading_time: "6 min"
-last_reviewed: "2026-03-17"
 ---
 
 Lumen UI accepts component trees in JSON as an alternative to the DSL. The parser auto-detects the format — if the input starts with `{` or `[`, JSON parsing is used.

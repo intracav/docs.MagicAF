@@ -5,8 +5,6 @@ weight: 6
 tags: [lumen-ui, differential-dx, clinical]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 DifferentialDx renders a ranked list of differential diagnoses for a given chief complaint. Each diagnosis card displays its name, likelihood badge (color-coded), optional ICD-10 code, supporting evidence, and recommended workup. The component supports both structured diagnosis arrays and plain text content as a fallback.

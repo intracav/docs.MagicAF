@@ -1,0 +1,37 @@
+{{- $current := . -}}
+{{- $docs := site.GetPage "/docs" -}}
+{{- $lumen := site.GetPage "/docs/lumen-ui" -}}
+{{- /* The section directly under /docs that contains the current page */ -}}
+{{- $branch := "" -}}
+{{- if and .IsSection (eq .Parent $docs) }}{{ $branch = . }}
+{{- else }}
+  {{- range .Ancestors }}{{ if and .IsSection .Parent (eq .Parent $docs) }}{{ $branch = . }}{{ end }}{{ end }}
+{{- end -}}
+<aside class="sidebar">
+  <nav aria-label="Documentation">
+    <div class="sidebar-section sidebar-switcher">
+      <div class="sidebar-heading">Framework</div>
+      <a class="sidebar-link sidebar-section-link{{ if eq $current $docs }} current-section{{ end }}" href="{{ $docs.RelPermalink }}">Overview</a>
+      {{- range $docs.Sections.ByWeight }}
+      {{- if ne . $lumen }}
+      <a class="sidebar-link sidebar-section-link{{ if eq . $branch }} current-section{{ end }}" href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{- end }}
+      {{- end }}
+      {{- range $docs.RegularPages.ByWeight }}
+      <a class="sidebar-link sidebar-section-link{{ if eq . $current }} current-section{{ end }}" href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{- end }}
+      {{- with $lumen }}
+      <div class="sidebar-heading">Lumen UI</div>
+      <a class="sidebar-link sidebar-section-link{{ if eq . $branch }} current-section{{ end }}" href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{- end }}
+    </div>
+
+    {{- if $branch }}
+    <div class="sidebar-section sidebar-pages">
+      <div class="sidebar-heading">{{ $branch.Title }}</div>
+      <a class="sidebar-link{{ if eq $branch $current }} active{{ end }}" href="{{ $branch.RelPermalink }}"{{ if eq $branch $current }} aria-current="page"{{ end }}>Overview</a>
+      {{ partial "sidebar-tree.html" (dict "section" $branch "current" $current) }}
+    </div>
+    {{- end }}
+  </nav>
+</aside>

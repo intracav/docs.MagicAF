@@ -49,13 +49,8 @@
 {{- else if site.Params.ogImage }}
   {{- $ogImage = site.Params.ogImage | absURL }}
 {{- else }}
-  {{- $images := partial "templates/_funcs/get-page-images" . }}
-  {{- with index $images 0 }}
-    {{- $ogImage = .Permalink }}
-  {{- else }}
-    {{- /* Default fallback image */ -}}
-    {{- $ogImage = "/og-image.png" | absURL }}
-  {{- end }}
+  {{- /* Default fallback image */ -}}
+  {{- $ogImage = "/og-image.png" | absURL }}
 {{- end }}
 
 {{- if $ogImage }}

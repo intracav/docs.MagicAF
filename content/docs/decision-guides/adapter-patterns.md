@@ -8,13 +8,13 @@ difficulty: intermediate
 prerequisites:
   - /docs/core-concepts/traits-and-interfaces/
   - /docs/guides/building-adapters/
-estimated_reading_time: "10 min"
-last_reviewed: "2026-02-12"
 ---
 
 {{< difficulty "intermediate" >}}
 
-MagicAF's three adapter traits — `EvidenceFormatter`, `PromptBuilder`, and `ResultParser` — are where your domain logic lives. This guide helps you decide **when** to customize each one and shows **patterns** that work well (and anti-patterns to avoid).
+You have worked with frameworks that offer two options: accept their opinions or fork them. MagicAF's answer to that is its three **adapter traits** — `EvidenceFormatter`, `PromptBuilder`, and `ResultParser` — the extension points where your domain logic lives without touching framework internals. Each one is a seam the pipeline was designed to be cut at.
+
+This guide is for engineers who have a working pipeline on the defaults and are deciding what to customize next. You will leave knowing which trait to implement first, the signals that tell you it is time, and the patterns (and anti-patterns) for each. The position up front: **default to the built-in adapters, and when output quality forces your hand, customize `PromptBuilder` and `ResultParser` together — structured output is the most common reason to leave the defaults, and it requires both.** Customize `EvidenceFormatter` only when the evidence itself is the problem.
 
 ## The Default Path
 
@@ -30,9 +30,13 @@ Move to custom adapters when:
 - You need **audit trails** or **compliance logging**
 - The prompt requires **few-shot examples** or complex instructions
 
+None of these triggers is "it feels unpolished." Each one is a concrete requirement the defaults cannot meet. Until you hit one, stay put.
+
 ---
 
 ## EvidenceFormatter
+
+The formatter decides what the LLM sees. Bad evidence in, bad answer out — and no prompt fixes evidence that was never retrieved, was duplicated, or lacks attribution.
 
 ### When to Customize
 
@@ -96,6 +100,8 @@ The evidence formatter runs **before** the LLM call. Do not call external servic
 ---
 
 ## PromptBuilder
+
+The prompt builder is where instructions live, and it is the highest-leverage adapter of the three: a one-line schema instruction here changes the shape of every response downstream.
 
 ### When to Customize
 
@@ -182,6 +188,8 @@ Extremely detailed system prompts eat into your context window. Keep instruction
 
 ## ResultParser
 
+The parser is the boundary between LLM output and your type system. Everything downstream of it gets to assume valid data — which means the parser is where you stop trusting the model and start enforcing your schema.
+
 ### When to Customize
 
 | Signal | Default OK? | Custom Needed? |
@@ -241,7 +249,7 @@ Err(MagicError::SerializationError { message, source })
 
 ---
 
-## Cost/Benefit Summary
+## Which Adapter First
 
 | Adapter | Customization Effort | Impact on Quality | When Worth It |
 |---------|---------------------|-------------------|---------------|
@@ -249,4 +257,25 @@ Err(MagicError::SerializationError { message, source })
 | `PromptBuilder` | Low–Medium | High | When you need structured output or domain-specific instructions |
 | `ResultParser` | Medium | High | When you need typed, validated results |
 
-**Start with defaults, then customize one adapter at a time.** Measure the impact before adding more complexity.
+{{< card-grid >}}
+{{< decision-card title="EvidenceFormatter" tint="blue" >}}
+- The LLM cites irrelevant or duplicate evidence
+- Your domain requires source attribution or metadata labels
+- Retrieved chunks overflow the context window
+- Vector similarity alone ranks results poorly
+{{< /decision-card >}}
+{{< decision-card title="PromptBuilder" tint="green" >}}
+- You need JSON or otherwise structured output
+- Different query types need different prompt templates
+- Few-shot examples are required for output consistency
+- Regulatory requirements dictate prompt content
+{{< /decision-card >}}
+{{< decision-card title="ResultParser" tint="green" >}}
+- Output must land in typed Rust structs
+- The LLM wraps JSON in markdown fences or prose
+- Fields need validation, normalization, or clamping
+- Downstream systems expect guaranteed value ranges
+{{< /decision-card >}}
+{{< /card-grid >}}
+
+**Start with defaults, then customize one adapter at a time.** Measure the impact before adding more complexity. The traits will still be there when you need them — that is the point of the design.

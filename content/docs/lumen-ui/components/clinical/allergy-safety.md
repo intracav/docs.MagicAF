@@ -5,8 +5,6 @@ weight: 12
 tags: [lumen-ui, allergy-safety, clinical]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 AllergySafety renders a cross-reactivity safety assessment between a proposed drug and a known allergen. The header displays the drug name with a risk level badge (color-coded from green/safe to red/contraindicated), the type of prior reaction, and a clinical recommendation. Detail sections provide additional context such as cross-reactivity rates and alternative medications.

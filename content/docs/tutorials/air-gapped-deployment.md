@@ -8,8 +8,6 @@ difficulty: advanced
 prerequisites:
   - /docs/tutorials/custom-adapters/
   - /docs/deployment/docker/
-estimated_reading_time: "20 min"
-last_reviewed: "2026-02-12"
 ---
 
 {{< difficulty "advanced" >}}

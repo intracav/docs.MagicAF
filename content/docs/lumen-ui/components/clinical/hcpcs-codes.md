@@ -5,8 +5,6 @@ weight: 18
 tags: [lumen-ui, hcpcs-codes, clinical]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 HcpcsCodes renders a list of HCPCS (Healthcare Common Procedure Coding System) or CPT codes with color-coded code badges and selectable descriptions. Each code is displayed with an amber left border and a monospace code badge, making it easy to scan and reference. The component is typically populated from the `hcpcs_lookup` MCP tool.

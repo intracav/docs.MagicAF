@@ -1,0 +1,142 @@
+{{ define "main" }}
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-badge">
+    <span>&#10022;</span> Open-Source Rust Framework
+  </div>
+  <h1>Own the whole AI stack.<br><span class="gradient-text">No cloud required.</span></h1>
+  <p class="hero-subtitle">MagicAF gives you RAG pipelines, embeddings, vector search, and NLP as composable Rust services &mdash; built to run entirely inside your network, including networks with no internet at all.</p>
+  <div class="hero-actions">
+    <a href="/docs/getting-started/quickstart/" class="btn btn-primary">Build your first pipeline <span>&rarr;</span></a>
+    <a href="/docs/api-reference/" class="btn btn-secondary">Browse the API</a>
+  </div>
+
+  {{ with site.Data.site.stats }}
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="hero-stat-num">{{ .crates }}</span><span class="hero-stat-label">Rust crates</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">{{ .lumen_ui_components }}</span><span class="hero-stat-label">Lumen UI components</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">0</span><span class="hero-stat-label">cloud dependencies</span></div>
+  </div>
+  {{ end }}
+</section>
+
+<!-- Doors -->
+<section class="section reveal audience-doors">
+  <div class="category-grid stagger-children">
+    <a href="/docs/" class="category-card audience-door tint-accent">
+      <div class="category-icon" style="background: var(--tint-soft); color: var(--tint);">&#9881;</div>
+      <div>
+        <h3>The Framework</h3>
+        <p>Architecture, RAG pipelines, adapters, deployment. Start here if you're evaluating or integrating MagicAF.</p>
+        <span class="card-arrow">Read the docs <span>&rarr;</span></span>
+      </div>
+    </a>
+    <a href="/docs/lumen-ui/" class="category-card audience-door tint-blue">
+      <div class="category-icon" style="background: var(--tint-soft); color: var(--tint);">&#9635;</div>
+      <div>
+        <h3>Lumen UI</h3>
+        <p>The component DSL that lets an LLM describe an interface and have it render live &mdash; {{ site.Data.site.stats.lumen_ui_components }} components across {{ site.Data.site.stats.lumen_ui_categories }} categories.</p>
+        <span class="card-arrow">Explore components <span>&rarr;</span></span>
+      </div>
+    </a>
+    <a href="/docs/api-reference/" class="category-card audience-door tint-green">
+      <div class="category-icon" style="background: var(--tint-soft); color: var(--tint);">&#9636;</div>
+      <div>
+        <h3>API Reference</h3>
+        <p>Every trait, struct, configuration option, and error type &mdash; core services and NLP pipelines.</p>
+        <span class="card-arrow">Look it up <span>&rarr;</span></span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<div class="home-sections">
+
+  <!-- Code-forward: the whole pipeline -->
+  <section class="section reveal">
+    <span class="section-label">The Whole Pipeline, One Builder</span>
+    <h2 class="section-title">Embed, search, and answer &mdash; locally.</h2>
+    <p class="section-desc">Point MagicAF at your local embedding server, vector store, and LLM. Every endpoint is yours; nothing leaves your network.</p>
+    <div class="home-code">
+{{ highlight `use magicaf_core::prelude::*;
+use magicaf_local_llm::LocalLlmService;
+use magicaf_qdrant::QdrantVectorStore;
+
+let workflow = RAGWorkflow::builder()
+    .embedding_service(embedder)   // http://localhost:8080
+    .vector_store(store)           // http://localhost:6333
+    .llm_service(llm)              // http://localhost:8000/v1
+    .evidence_formatter(DefaultEvidenceFormatter)
+    .prompt_builder(DefaultPromptBuilder::new())
+    .result_parser(RawResultParser)
+    .collection("my_docs")
+    .top_k(5)
+    .build()?;
+
+let result = workflow.run("What is MagicAF?", None).await?;
+println!("{}", result.result);` "rust" }}
+    </div>
+    <div class="section-actions">
+      <a href="/docs/getting-started/quickstart/" class="btn btn-secondary">See the full quickstart <span>&rarr;</span></a>
+    </div>
+  </section>
+
+  <!-- What's in the box -->
+  <section class="section reveal">
+    <span class="section-label">What's In The Box</span>
+    <h2 class="section-title">Four crates, one workspace.</h2>
+    <p class="section-desc">A small, versioned public surface: domain logic lives in adapters you write, not in the framework. Distributed as source &mdash; vendor it, audit it, build it offline.</p>
+    <div class="card-grid stagger-children">
+      {{ range site.Data.site.crates }}
+      <div class="guide-card">
+        <h3><code>{{ .name }}</code></h3>
+        <p>{{ .purpose }}</p>
+      </div>
+      {{ end }}
+    </div>
+  </section>
+
+  <!-- Air-gapped capability -->
+  <section class="section reveal">
+    <span class="section-label">Built For Rooms Without Internet</span>
+    <h2 class="section-title">Air-gapped is the default, not an afterthought.</h2>
+    <p class="section-desc">Every service assumes a local endpoint. Models, dependencies, and data all live on your side of the wall &mdash; for hospitals, labs, and networks where data cannot leave the building.</p>
+    <div class="card-grid stagger-children">
+      <div class="guide-card tint-accent">
+        <h3>No outbound calls</h3>
+        <p>All processing happens against endpoints you configure. There is no telemetry, no phone-home, no cloud SDK in the dependency tree.</p>
+      </div>
+      <div class="guide-card tint-green">
+        <h3>Vendorable dependencies</h3>
+        <p>Every dependency can be vendored for offline builds. The <a href="/docs/deployment/air-gapped/">air-gapped deployment guide</a> walks through the whole procedure.</p>
+      </div>
+      <div class="guide-card tint-blue">
+        <h3>Secrets stay secret</h3>
+        <p>API keys and sensitive configuration are never serialized or logged. See the <a href="/docs/deployment/security/">security guide</a> for the hardening checklist.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lumen UI teaser -->
+  <section class="section reveal">
+    <span class="section-label">The Interface Layer</span>
+    <h2 class="section-title">Lumen UI: interfaces an LLM can write.</h2>
+    <p class="section-desc">Lumen UI is the component DSL underneath <a href="https://lumen.intracav.ai" rel="noopener noreferrer" target="_blank">Lumen</a>, Intracav's clinical AI platform. A model streams a compact description; the renderer turns it into charts, forms, timelines, and {{ site.Data.site.stats.lumen_ui_clinical }} clinical components &mdash; live, as the tokens arrive.</p>
+    <div class="section-actions">
+      <a href="/docs/lumen-ui/" class="btn btn-secondary">Explore Lumen UI <span>&rarr;</span></a>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section reveal home-cta">
+    <span class="section-label">Get Started</span>
+    <h2 class="section-title">From zero to a working pipeline in one sitting.</h2>
+    <p class="section-desc">Install the workspace, start the local services, and run your first retrieval-augmented query.</p>
+    <div class="section-actions">
+      <a href="/docs/getting-started/" class="btn btn-primary">Getting started <span>&rarr;</span></a>
+      <a href="https://github.com/magicaf/magicaf" class="btn btn-secondary" rel="noopener noreferrer" target="_blank">View the source</a>
+    </div>
+  </section>
+
+</div>
+{{ end }}

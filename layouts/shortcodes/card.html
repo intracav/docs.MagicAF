@@ -1,0 +1,18 @@
+{{- $tint := .Get "tint" | default "accent" -}}
+{{- $href := .Get "href" -}}
+{{- if $href -}}
+<a href="{{ $href }}" class="guide-card tint-{{ $tint }}">
+  {{ with .Get "icon" }}<span class="card-icon" style="background: var(--tint-soft); color: var(--tint);">{{ . | safeHTML }}</span>{{ end }}
+  <h3>{{ .Get "title" }}</h3>
+  {{ with .Inner }}<p>{{ . | markdownify }}</p>{{ end }}
+  {{ with .Get "prompt" }}<div class="card-prompt">&ldquo;{{ . }}&rdquo;</div>{{ end }}
+  <span class="card-arrow">{{ .Get "label" | default "Read more" }} <span>&rarr;</span></span>
+</a>
+{{- else -}}
+<div class="guide-card tint-{{ $tint }}">
+  {{ with .Get "icon" }}<span class="card-icon" style="background: var(--tint-soft); color: var(--tint);">{{ . | safeHTML }}</span>{{ end }}
+  <h3>{{ .Get "title" }}</h3>
+  {{ with .Inner }}<p>{{ . | markdownify }}</p>{{ end }}
+  {{ with .Get "prompt" }}<div class="card-prompt">&ldquo;{{ . }}&rdquo;</div>{{ end }}
+</div>
+{{- end -}}

@@ -31,18 +31,23 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.146.0
+      HUGO_VERSION: 0.154.5
     steps:
       - name: Install Hugo CLI
         run: |
           wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
           && sudo dpkg -i ${{ runner.temp }}/hugo.deb
-      - name: Install Dart Sass
-        run: sudo snap install dart-sass
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: recursive
+          # Full history so enableGitInfo yields real lastmod dates
+          fetch-depth: 0
+      - name: Guard against unverifiable compliance claims
+        run: |
+          ! grep -rniE 'hipaa-compliant|hipaa compliant|soc 2|iso 27001|sipr|nipr|defense-grade' \
+            content/ hugo.yaml layouts/ static/llms.txt --exclude-dir=.well-known \
+            | grep -v 'deployment/security.md' \
+            || (echo '::error::Unverified compliance claim found (see lines above)'; exit 1)
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5

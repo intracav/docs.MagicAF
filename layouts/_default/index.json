@@ -1,0 +1,15 @@
+{{- /* Slim search index for the Fuse.js modal.
+     One entry per regular page: title, permalink, section label, and a short
+     plain-text summary (description preferred). Keep this lean — the whole
+     file is fetched by the browser on first search. */ -}}
+{{- $index := slice -}}
+{{- range site.RegularPages -}}
+{{- if not .Params.searchHidden -}}
+{{- $summary := or .Description (.Plain | truncate 240) | plainify | chomp -}}
+{{- $section := "" -}}
+{{- with .FirstSection -}}{{- if not .IsHome -}}{{- $section = .Title -}}{{- end -}}{{- end -}}
+{{- if strings.HasPrefix .RelPermalink "/docs/lumen-ui/" -}}{{- $section = "Lumen UI" -}}{{- end -}}
+{{- $index = $index | append (dict "title" .Title "permalink" .Permalink "section" $section "summary" $summary) -}}
+{{- end -}}
+{{- end -}}
+{{- $index | jsonify -}}

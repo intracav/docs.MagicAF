@@ -5,8 +5,6 @@ weight: 10
 tags: [lumen-ui, component, layout]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 SplitView divides its content area into two side-by-side panes with a configurable width ratio. The first child occupies the left pane and the second child occupies the right pane. Use SplitView for master-detail layouts, side-by-side comparisons, or any situation where two content areas should share horizontal space at a specific proportion.

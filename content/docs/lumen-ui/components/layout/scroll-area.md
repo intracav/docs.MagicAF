@@ -5,8 +5,6 @@ weight: 9
 tags: [lumen-ui, component, layout]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 ScrollArea wraps its children in a scrollable container with a configurable maximum height. When content exceeds the specified height, a scrollbar appears and the container becomes independently scrollable. Use ScrollArea to constrain long content — large tables, lengthy lab results, or verbose notes — to a fixed region without forcing the entire artifact to grow unbounded.

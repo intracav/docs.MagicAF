@@ -6,8 +6,6 @@ tags: [api, rag, workflow, builder, pipeline]
 categories: [reference]
 difficulty: intermediate
 prerequisites: [/docs/core-concepts/rag-pipeline/]
-estimated_reading_time: "8 min"
-last_reviewed: "2026-02-12"
 ---
 
 ## Overview

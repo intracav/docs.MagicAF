@@ -5,8 +5,6 @@ weight: 20
 tags: [lumen-ui, checklist, clinical]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 Checklist renders an interactive list of toggleable items with a progress bar and completion counter. Items can be organized under section headers for logical grouping. Checked items display with a green checkbox, strikethrough text, and muted color. The progress bar updates in real-time as items are toggled. State changes dispatch a `toggleState` action for external tracking.

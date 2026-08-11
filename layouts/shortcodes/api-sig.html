@@ -1,0 +1,6 @@
+{{- /* API signature block: a scannable mono header for a fn/trait/struct.
+       Usage: {{< api-sig kind="fn" name="assert_fips_mode" sig="pub fn assert_fips_mode() -> Result<(), SecurityError>" >}} */ -}}
+<div class="method-sig" id="{{ .Get "name" | urlize }}">
+  {{- with .Get "kind" }}<span class="method-sig-kind">{{ . }}</span>{{ end }}
+  <code>{{ .Get "sig" | default (.Get "name") }}</code>
+</div>

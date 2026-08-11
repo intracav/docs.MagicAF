@@ -1,18 +1,18 @@
 ---
 title: "RAG Pipeline"
-description: "How the six-step Retrieval-Augmented Generation pipeline works in secure, air-gapped environments. Defense-grade RAG for HIPAA-compliant and classified deployments."
+description: "How MagicAF's six-step Retrieval-Augmented Generation pipeline works — embed, retrieve, format, prompt, generate, parse — entirely on services you run yourself."
 weight: 2
-keywords: [RAG pipeline, secure RAG, air-gapped RAG, defense-grade RAG, HIPAA-compliant RAG, retrieval-augmented generation]
+keywords: [RAG pipeline, retrieval-augmented generation, local RAG, air-gapped RAG, Rust RAG]
 tags: [rag, pipeline, orchestration, workflow]
 categories: [concept]
 difficulty: intermediate
 prerequisites:
   - /docs/core-concepts/architecture/
-estimated_reading_time: "8 min"
-last_reviewed: "2026-02-12"
 ---
 
-The `RAGWorkflow` engine executes a deterministic six-step pipeline every time you call `.run()`. Each step is handled by a pluggable component.
+When someone asks how an unfamiliar module works, you don't answer from memory — you grep the codebase, open the file, and read the actual implementation before you say a word. **Retrieval-augmented generation** — RAG — imposes that same discipline on a language model: before it generates anything, it retrieves the relevant documents, so the answer is grounded in evidence sitting in front of the model rather than whatever its weights happen to recall.
+
+MagicAF makes the discipline mechanical. The `RAGWorkflow` engine executes a deterministic six-step pipeline every time you call `.run()` — and every step runs on services you host yourself. Each step is handled by a pluggable component. This page walks through all six, the result type you get back, and how the pipeline fails when a step breaks — by the end you'll know exactly what happens between your query string and your typed result.
 
 ## Pipeline Overview
 
@@ -156,3 +156,5 @@ Every pipeline step returns `Result<T, MagicError>`. If any step fails, the pipe
 | Build prompt | `MagicError::AdapterError` |
 | LLM call | `MagicError::LlmError` or `MagicError::HttpError` |
 | Parse result | `MagicError::SerializationError` or `MagicError::AdapterError` |
+
+No step fails silently. The variant tells you which seam broke.

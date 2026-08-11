@@ -4,7 +4,7 @@ description: "Working code examples for common MagicAF use cases."
 weight: 6
 ---
 
-Complete, runnable examples that demonstrate real-world usage patterns. Each example shows a different level of customization.
+Sometimes you don't want a walkthrough — you want working code you can read, run, and rip parts out of. That's what this section is: complete, runnable examples demonstrating real-world usage patterns, each at a different level of customization. If you'd rather be taught, start with the [Tutorials](/docs/tutorials/); if you need one task done, use the [Guides](/docs/guides/). Come here when the code itself is the documentation you're after.
 
 ---
 

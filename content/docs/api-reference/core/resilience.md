@@ -6,8 +6,6 @@ tags: [api, resilience, retry, circuit-breaker, rate-limiter, fault-tolerance]
 categories: [reference]
 difficulty: intermediate
 prerequisites: [/docs/core-concepts/architecture/]
-estimated_reading_time: "12 min"
-last_reviewed: "2026-03-10"
 ---
 
 MagicAF ships three composable resilience primitives used by every service client (embeddings, vector store, LLM, ASR). Each is configured per-service and emits OpenTelemetry metrics.

@@ -5,8 +5,6 @@ weight: 2
 tags: [lumen-ui, select, forms]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 Select renders a dropdown menu that lets the user choose one value from a predefined list. Options can be provided as simple strings or as `{label, value}` objects when the display text differs from the underlying value. When the selection changes, Select dispatches a `submitForm` action with the field's `id` and selected `value`.

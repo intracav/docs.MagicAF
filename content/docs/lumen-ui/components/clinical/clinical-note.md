@@ -5,8 +5,6 @@ weight: 7
 tags: [lumen-ui, clinical-note, clinical]
 categories: [component]
 difficulty: beginner
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 ClinicalNote renders structured clinical documentation with section highlighting. It supports SOAP notes, H&P reports, discharge summaries, and progress notes. When sections are provided, each is rendered as a collapsible panel with a color-coded accent based on the SOAP convention (Subjective = blurple, Objective = green, Assessment = amber, Plan = blue). Metadata badges show the note type, date, and provider.

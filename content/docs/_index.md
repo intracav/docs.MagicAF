@@ -1,72 +1,71 @@
 ---
 title: "Documentation"
-description: "Defense-grade, HIPAA-compliant AI toolkit documentation. Build secure RAG pipelines, NLP analysis, and AI-powered systems for air-gapped, classified, and healthcare environments."
+description: "MagicAF documentation — install the framework, understand the architecture, make the big decisions, and ship a local-first AI system."
 weight: 1
-keywords: [defense-grade AI, healthcare-grade AI, HIPAA-compliant, secure AI, air-gapped AI, RAG framework, NLP toolkit]
+keywords: [MagicAF documentation, Rust AI framework, RAG framework, air-gapped AI, NLP toolkit]
+hideAutoGrid: true
 ---
 
-MagicAF is a modular, production-grade Rust framework — built by [Intracav](https://intracav.ai/) — that provides the foundational building blocks for AI-powered systems: **embeddings**, **vector search**, **LLM orchestration**, and **RAG workflows**.
+MagicAF is a modular, production-grade Rust framework — built by [Intracav](https://intracav.ai/) — that provides the foundational building blocks for AI systems: **embeddings**, **vector search**, **LLM orchestration**, and **RAG workflows**.
 
-It is designed from the ground up for **air-gapped, on-premises environments** — no cloud dependencies, no vendor lock-in. MagicAF is a [defense-grade, HIPAA-compliant AI toolkit](/about/) suitable for classified, healthcare, and regulated deployments.
+It is designed from the ground up for **air-gapped, on-premises environments** — no cloud dependencies, no vendor lock-in — and is used in healthcare and other settings [where data cannot leave the network](/about/).
 
----
+The docs follow the path you'll actually take: get it running, understand how it thinks, make the decisions that are expensive to reverse, then build and ship.
 
-<div class="card-grid">
-<div class="card">
+## Start here
 
-### [Getting Started →](/docs/getting-started/)
-Install MagicAF, set up local services, and run your first RAG pipeline in under 5 minutes.
+{{< card-grid >}}
+{{< card title="Getting Started" href="/docs/getting-started/" tint="accent" label="Install and run" >}}
+Install MagicAF, set up local services, and run your first RAG pipeline in one sitting.
+{{< /card >}}
+{{< card title="Learning Paths" href="/docs/learning-paths/" tint="green" label="Pick a route" >}}
+Guided routes through these docs by role — developer, evaluator, or operator.
+{{< /card >}}
+{{< /card-grid >}}
 
-</div>
-<div class="card">
+## Understand it
 
-### [Core Concepts →](/docs/core-concepts/)
-Understand the architecture, layered design, and trait-based extensibility model.
+{{< card-grid >}}
+{{< card title="Core Concepts" href="/docs/core-concepts/" tint="accent" label="Learn the model" >}}
+The three-layer architecture, the RAG pipeline, and the trait system that keeps your domain logic out of the framework.
+{{< /card >}}
+{{< card title="Decision Guides" href="/docs/decision-guides/" tint="blue" label="Weigh the options" >}}
+The three decisions that are expensive to reverse: which models, which adapter pattern, which deployment shape.
+{{< /card >}}
+{{< /card-grid >}}
 
-</div>
-<div class="card">
+## Build with it
 
-### [Tutorials →](/docs/tutorials/)
-Guided, narrative walkthroughs that teach MagicAF concepts through hands-on projects.
+{{< card-grid >}}
+{{< card title="Tutorials" href="/docs/tutorials/" tint="green" label="Follow along" >}}
+Narrative walkthroughs that build something real — from a first pipeline to a clinical RAG system.
+{{< /card >}}
+{{< card title="Guides" href="/docs/guides/" tint="accent" label="Get it done" >}}
+Task-focused how-tos: custom adapters, structured output, testing.
+{{< /card >}}
+{{< card title="Examples" href="/docs/examples/" tint="blue" label="Read the code" >}}
+Working code for minimal RAG, document Q&A, and multi-source analysis.
+{{< /card >}}
+{{< /card-grid >}}
 
-</div>
-<div class="card">
+## Ship it
 
-### [Guides →](/docs/guides/)
-Step-by-step how-to references for building custom adapters, structured output parsing, and more.
+{{< card-grid >}}
+{{< card title="Deployment" href="/docs/deployment/" tint="accent" label="Go to production" >}}
+Docker Compose, air-gapped setup, edge and mobile targets, observability, scaling, and security hardening.
+{{< /card >}}
+{{< card title="API Reference" href="/docs/api-reference/" tint="blue" label="Look it up" >}}
+Every trait, struct, configuration option, and error type — core services and NLP pipelines.
+{{< /card >}}
+{{< /card-grid >}}
 
-</div>
-<div class="card">
+## The interface layer
 
-### [Decision Guides →](/docs/decision-guides/)
-Trade-off analysis for choosing models, adapter patterns, and deployment strategies.
-
-</div>
-<div class="card">
-
-### [API Reference →](/docs/api-reference/)
-Complete reference for core services and NLP pipelines — every trait, struct, configuration option, and error type.
-
-</div>
-<div class="card">
-
-### [Deployment →](/docs/deployment/)
-Docker Compose, air-gapped setup, edge/mobile deployment, observability, and scaling.
-
-</div>
-<div class="card">
-
-### [Examples →](/docs/examples/)
-Working code for minimal RAG, document Q&A, and multi-source analysis pipelines.
-
-</div>
-<div class="card">
-
-### [Lumen UI →](/docs/lumen-ui/)
-Component DSL for AI-generated user interfaces — 72 components, streaming parser, and dynamic LLM integration.
-
-</div>
-</div>
+{{< card-grid >}}
+{{< card title="Lumen UI" href="/docs/lumen-ui/" tint="blue" label="Explore components" >}}
+The component DSL for AI-generated interfaces — {{< stat "lumen_ui_components" >}} components across {{< stat "lumen_ui_categories" >}} categories, a streaming parser, and LLM integration.
+{{< /card >}}
+{{< /card-grid >}}
 
 ---
 

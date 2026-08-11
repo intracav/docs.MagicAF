@@ -6,8 +6,6 @@ tags: [api, adapters, evidence-formatter, prompt-builder, result-parser]
 categories: [reference]
 difficulty: intermediate
 prerequisites: [/docs/core-concepts/traits-and-interfaces/]
-estimated_reading_time: "7 min"
-last_reviewed: "2026-02-12"
 ---
 
 Adapter traits are the extension seam where your domain logic plugs into the RAG pipeline. MagicAF ships default implementations for rapid prototyping.

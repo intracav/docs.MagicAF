@@ -6,8 +6,6 @@ tags: [deployment, docker, compose, gpu, infrastructure]
 categories: [deployment]
 difficulty: beginner
 prerequisites: [/docs/getting-started/prerequisites/]
-estimated_reading_time: "6 min"
-last_reviewed: "2026-02-12"
 ---
 
 A MagicAF deployment requires three local services. Here's a reference Docker Compose configuration that starts all of them.

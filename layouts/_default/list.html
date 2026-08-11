@@ -1,0 +1,27 @@
+{{ define "main" }}
+<div class="content-body">
+  {{ partial "breadcrumbs.html" . }}
+
+  <div class="page-header">
+    <h1>{{ .Title }}</h1>
+    {{ with or .Params.lead .Description }}<p class="lead">{{ . }}</p>{{ end }}
+  </div>
+
+  <div class="page-content">
+  {{ .Content }}
+  </div>
+
+  {{ if and .Pages (not .Params.hideAutoGrid) }}
+  <div class="card-grid stagger-children">
+    {{ range $i, $page := .Pages.ByWeight }}
+    <a href="{{ .RelPermalink }}" class="guide-card">
+      <span class="card-number">{{ if .Params.step }}Step {{ .Params.step }}{{ else }}{{ add $i 1 }}{{ end }}</span>
+      <h3>{{ .Title }}</h3>
+      <p>{{ with .Description }}{{ . }}{{ else }}{{ .Params.lead }}{{ end }}</p>
+      <span class="card-arrow">Read more <span>&rarr;</span></span>
+    </a>
+    {{ end }}
+  </div>
+  {{ end }}
+</div>
+{{ end }}

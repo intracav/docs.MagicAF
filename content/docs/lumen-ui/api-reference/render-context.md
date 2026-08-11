@@ -5,8 +5,6 @@ weight: 6
 tags: [lumen-ui, api, context, actions]
 categories: [api-reference]
 difficulty: intermediate
-estimated_reading_time: "3 min"
-last_reviewed: "2026-03-17"
 ---
 
 `LumenRenderContext` is the context object passed through the rendering tree. It carries the action dispatch callback, streaming state, and current nesting depth.
