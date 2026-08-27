@@ -452,6 +452,43 @@ hr {
   color: var(--text);
 }
 
+/* Mobile nav panel. The burger toggles `.open` on .header-nav; without these
+   rules the class toggled but the menu stayed display:none, so the button did
+   nothing on every page that has no sidebar (home, /about/, 404). */
+.header-nav.open {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  right: 0;
+  z-index: 200;
+  margin-left: 0;
+  padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom, 0px));
+  background: var(--bg);
+  border-bottom: 1px solid var(--border-lt);
+  box-shadow: var(--shadow-md);
+  max-height: calc(100vh - var(--header-h));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.header-nav.open a {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  /* 44px minimum touch target */
+  min-height: 44px;
+  padding: 0.6rem 0.875rem;
+  font-size: 0.95rem;
+  border-radius: var(--r-sm);
+}
+
+/* Site menu mirrored into the sidebar: on docs pages the burger opens the
+   sidebar, so without this the main menu is unreachable on mobile entirely. */
+.sidebar-site-nav { display: none; }
+
 /* ---------- Sidebar ---------- */
 .sidebar {
   position: fixed;
@@ -1308,9 +1345,12 @@ kbd {
 @media (max-width: 1024px) {
   .sidebar { display: none; }
   .sidebar.open { display: block; z-index: 200; }
+  .sidebar-site-nav { display: block; }
   .main-content { margin-left: 0; }
   .site-footer { margin-left: 0; }
   .mobile-menu-btn { display: block; }
+  /* Nav collapses exactly where the burger appears — never both at once. */
+  .header-nav { display: none; }
   .hero h1 { font-size: 2.2rem; }
   .feature-highlight { grid-template-columns: 1fr; }
   .feature-highlight.reverse { direction: ltr; }
@@ -1327,7 +1367,6 @@ kbd {
   .card-grid { grid-template-columns: 1fr; }
   .page-nav { flex-direction: column; }
   .page-nav .next { text-align: left; }
-  .header-nav { display: none; }
 }
 
 /* ---------- Home-specific: No sidebar ---------- */

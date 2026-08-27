@@ -79,18 +79,39 @@ function initMobileMenu() {
   const sidebar = document.querySelector('.sidebar');
   const nav = document.querySelector('.header-nav');
   if (!btn) return;
+  // Docs pages get the section sidebar; everywhere else the header nav, which
+  // is styled as a dropdown by .header-nav.open.
   const target = sidebar || nav;
   if (!target) return;
+
+  const setOpen = (open) => {
+    target.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  };
+
   btn.addEventListener('click', (e) => {
     e.stopPropagation();
-    const open = target.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    setOpen(!target.classList.contains('open'));
   });
+
   document.addEventListener('click', (e) => {
-    if (target.classList.contains('open') && !target.contains(e.target) && e.target !== btn) {
-      target.classList.remove('open');
-      btn.setAttribute('aria-expanded', 'false');
+    // btn.contains, not e.target !== btn: the button wraps an <svg>, so a tap
+    // reports the svg (or its <path>) as the target and never the button.
+    if (target.classList.contains('open') && !target.contains(e.target) && !btn.contains(e.target)) {
+      setOpen(false);
     }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && target.classList.contains('open')) {
+      setOpen(false);
+      btn.focus();
+    }
+  });
+
+  // Following a link leaves the panel open behind the next page's paint.
+  target.addEventListener('click', (e) => {
+    if (e.target.closest('a')) setOpen(false);
   });
 }
 

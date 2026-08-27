@@ -8,6 +8,18 @@
   {{- range .Ancestors }}{{ if and .IsSection .Parent (eq .Parent $docs) }}{{ $branch = . }}{{ end }}{{ end }}
 {{- end -}}
 <aside class="sidebar">
+  {{- /* Mobile only (see .sidebar-site-nav in main.css): on docs pages the
+         burger opens this sidebar rather than the header nav, so the top-level
+         site menu is mirrored here to stay reachable on small screens. */ -}}
+  <nav class="sidebar-section sidebar-site-nav" aria-label="Site">
+    <div class="sidebar-heading">Site</div>
+    {{- range site.Menus.main }}
+    <a class="sidebar-link" href="{{ .URL }}"{{ if strings.HasPrefix .URL "http" }} rel="noopener noreferrer" target="_blank"{{ end }}>
+      {{- if .Name }}{{ .Name }}{{ else if eq .Identifier "github" }}GitHub{{ end -}}
+    </a>
+    {{- end }}
+  </nav>
+
   <nav aria-label="Documentation">
     <div class="sidebar-section sidebar-switcher">
       <div class="sidebar-heading">Framework</div>
