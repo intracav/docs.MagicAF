@@ -17,7 +17,9 @@ done
 [[ $fail -eq 0 ]] || exit 1
 
 tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
-SITE=$(grep -o '<loc>[^<]*</loc>' "$PUB/sitemap.xml" | head -1 | sed -e 's|<loc>||' -e 's|</loc>||' -e 's|/$||')
+# grep -m1 rather than `grep | head -1`: head closing the pipe early sends
+# SIGPIPE to grep, which pipefail turns into a build failure.
+SITE=$(grep -m1 -o '<loc>[^<]*</loc>' "$PUB/sitemap.xml" | sed -e 's|<loc>||' -e 's|</loc>||' -e 's|/$||')
 grep -o '<loc>[^<]*</loc>' "$PUB/sitemap.xml" | sed -e 's|<loc>||' -e 's|</loc>||' | sort -u > "$tmp/sitemap"
 grep -oE '\(https://[^)]+\)' "$PUB/llms.txt" | tr -d '()' | sort -u > "$tmp/llms"
 grep '^- Canonical URL: ' "$PUB/llms-full.txt" | sed 's|^- Canonical URL: ||' | sort -u > "$tmp/full"
