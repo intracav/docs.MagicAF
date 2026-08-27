@@ -1,4 +1,4 @@
-.PHONY: setup serve serve-prod build build-to clean check claims-check stats help
+.PHONY: setup serve serve-prod build build-to clean check claims-check llm-check stats help
 
 # Fully custom Hugo site — no theme, no submodules. Requires Hugo extended ≥ 0.154.5.
 
@@ -41,10 +41,14 @@ check:
 
 ## Guard against unverifiable compliance claims (matches lumen-docs CI pattern)
 claims-check:
-	@! grep -rniE 'hipaa-compliant|hipaa compliant|soc 2|iso 27001|sipr|nipr|defense-grade' content/ hugo.yaml layouts/ static/llms.txt \
+	@! grep -rniE 'hipaa-compliant|hipaa compliant|soc 2|iso 27001|sipr|nipr|defense-grade' content/ hugo.yaml layouts/ \
 		--exclude-dir=.well-known | grep -v 'deployment/security.md' \
 		|| (echo "✗ Unverified compliance claim found (see lines above)"; exit 1)
 	@echo "✓ No unverified compliance claims."
+
+## Verify the LLM-facing mirrors (llms.txt, llms-full.txt, per-page .md)
+llm-check: build
+	@./scripts/llm-check.sh public
 
 ## Show site statistics
 stats:

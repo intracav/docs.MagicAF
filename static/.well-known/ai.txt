@@ -1,7 +1,7 @@
 # MagicAF — AI / TDM disclosure
 # Format: Spawning AI / TDM Reservation Protocol, expressed for AI agents.
 # Canonical: https://magicaf.intracav.ai/.well-known/ai.txt
-# Last updated: 2026-08-09
+# Last updated: 2026-08-27
 
 User-Agent: *
 Disallow:
@@ -26,6 +26,14 @@ Allow-Training: yes
 Allow-Retrieval: yes
 
 User-Agent: ClaudeBot
+Allow-Training: yes
+Allow-Retrieval: yes
+
+User-Agent: Claude-User
+Allow-Training: yes
+Allow-Retrieval: yes
+
+User-Agent: Claude-SearchBot
 Allow-Training: yes
 Allow-Retrieval: yes
 
@@ -88,5 +96,7 @@ Contact: hello@intracav.ai
 License: Documentation on magicaf.intracav.ai is free to read, quote, and cite. Source code is open source at https://github.com/magicaf/magicaf.
 Sitemap: https://magicaf.intracav.ai/sitemap.xml
 LLM-Index: https://magicaf.intracav.ai/llms.txt
+LLM-Full-Text: https://magicaf.intracav.ai/llms-full.txt
+Markdown-Mirror: append `index.md` to any page URL, e.g. https://magicaf.intracav.ai/docs/getting-started/quickstart/index.md
 Sister-Site: https://intracav.ai (also AI-friendly)
 Sister-Site: https://clinical-database.com (also AI-friendly)

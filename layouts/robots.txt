@@ -69,6 +69,13 @@ Allow: /
 User-agent: ClaudeBot
 Allow: /
 
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+# Retired Anthropic tokens, kept for older matchers.
 User-agent: Claude-Web
 Allow: /
 
@@ -113,6 +120,45 @@ Allow: /
 
 User-agent: MistralAI-User
 Allow: /
+
+User-agent: Google-CloudVertexBot
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: AI2Bot
+Allow: /
+
+User-agent: Kagibot
+Allow: /
+
+User-agent: Timpibot
+Allow: /
+
+User-agent: Omgilibot
+Allow: /
+
+User-agent: Webzio-Extended
+Allow: /
+
+User-agent: PanguBot
+Allow: /
+
+User-agent: SemrushBot-OCOB
+Allow: /
+
+# ───────────────────────────────────────────────
+# Machine-readable mirrors for AI agents
+# ───────────────────────────────────────────────
+# /llms.txt        — index of every page with a one-line description
+# /llms-full.txt   — the entire documentation corpus in one Markdown file
+# <page>index.md   — any page as clean Markdown, e.g.
+#                    https://magicaf.intracav.ai/docs/getting-started/quickstart/index.md
+# /.well-known/ai.txt — AI/TDM usage policy (training and retrieval permitted)
 
 # ───────────────────────────────────────────────
 # Sitemaps

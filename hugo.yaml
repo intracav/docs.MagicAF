@@ -30,11 +30,43 @@ minify:
   disableXML: true
   minifyOutput: true
 
+outputFormats:
+  # Per-page Markdown mirror: /docs/foo/index.md alongside /docs/foo/
+  markdown:
+    mediaType: text/markdown
+    baseName: index
+    isPlainText: true
+    permalinkable: false
+  # Generated /llms.txt — the curated AI index (replaces the old static file
+  # so it can never drift from content again).
+  llms:
+    mediaType: text/plain
+    baseName: llms
+    isPlainText: true
+    permalinkable: false
+    notAlternative: true
+  # Generated /llms-full.txt — every page's full text in one document.
+  llmsfull:
+    mediaType: text/plain
+    baseName: llms-full
+    isPlainText: true
+    permalinkable: false
+    notAlternative: true
+
 outputs:
   home:
     - HTML
     - RSS
     - JSON # slim Fuse.js search index — layouts/_default/index.json
+    - llms # /llms.txt          — layouts/index.llms.txt
+    - llmsfull # /llms-full.txt — layouts/index.llmsfull.txt
+    - markdown # /index.md
+  page:
+    - HTML
+    - markdown
+  section:
+    - HTML
+    - markdown
 
 params:
   description: "Open-source Rust AI framework for RAG pipelines, NLP, embeddings, vector search, and LLM orchestration — built to run air-gapped with zero cloud dependencies, for environments where data cannot leave the network."

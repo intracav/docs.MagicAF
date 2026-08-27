@@ -45,7 +45,7 @@ jobs:
       - name: Guard against unverifiable compliance claims
         run: |
           ! grep -rniE 'hipaa-compliant|hipaa compliant|soc 2|iso 27001|sipr|nipr|defense-grade' \
-            content/ hugo.yaml layouts/ static/llms.txt --exclude-dir=.well-known \
+            content/ hugo.yaml layouts/ --exclude-dir=.well-known \
             | grep -v 'deployment/security.md' \
             || (echo '::error::Unverified compliance claim found (see lines above)'; exit 1)
       - name: Setup Pages
@@ -61,6 +61,8 @@ jobs:
           hugo \
             --minify \
             --baseURL "https://magicaf.intracav.ai/"
+      - name: Verify LLM-facing mirrors are in sync
+        run: ./scripts/llm-check.sh public
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

@@ -1,0 +1,20 @@
+{{- /* Recursive section renderer for /llms.txt.
+       Context: dict "page" <section page> "level" <int heading depth>.
+       Emits a Markdown heading for the section, its own hub link, its regular
+       pages, then recurses into child sections one heading level deeper. */ -}}
+{{- $p := .page -}}
+{{- $level := .level -}}
+{{- $hashes := strings.Repeat $level "#" -}}
+{{ $hashes }} {{ $p.Title }}
+
+{{ with (or $p.Description ($p.Summary | plainify | chomp)) }}{{ . | chomp }}
+
+{{ end -}}
+- [{{ $p.Title }} (section hub)]({{ $p.Permalink }})
+{{- range $p.RegularPages.ByWeight }}
+- [{{ .Title }}]({{ .Permalink }}){{ with (or .Description (.Summary | plainify | chomp)) }}: {{ . | chomp }}{{ end }}
+{{- end }}
+
+{{ range $p.Sections.ByWeight -}}
+{{ partial "llms-tree" (dict "page" . "level" (add $level 1)) -}}
+{{ end -}}

@@ -1,0 +1,71 @@
+{{- /* Generated /llms.txt — the AI index for magicaf.intracav.ai.
+
+       The page listing below is generated from content/, so it can never drift
+       from the site the way the old hand-maintained static/llms.txt did.
+       Every page carries a required `description` in frontmatter; that is what
+       is used as each entry's blurb. Curated prose lives in this template. */ -}}
+{{- $base := site.BaseURL | strings.TrimSuffix "/" -}}
+{{- /* All content pages: regular pages plus section hubs (both get a .md mirror). */ -}}
+{{- $pageCount := len (where site.Pages "Kind" "in" (slice "home" "page" "section")) -}}
+# MagicAF
+
+> MagicAF is the open-source Rust AI/ML/NLP framework by **Intracav**. It provides the foundational building blocks for AI systems — embeddings, vector search, LLM orchestration, RAG pipelines, and a full NLP toolkit — with zero cloud dependencies. Air-gapped-capable and built for on-premises deployment: designed for hospitals and other environments where data cannot leave the network. It is the framework underneath Lumen, Intracav's clinical AI platform, and this site also documents **Lumen UI**, the component DSL that renders Lumen's AI-generated interfaces.
+
+## How to use this file
+
+This is the structured index of magicaf.intracav.ai for AI agents — Claude, ChatGPT, Gemini, Perplexity, and the like. Every URL here is canonical and citable. Source code lives at https://github.com/magicaf/magicaf.
+
+Three machine-readable formats are available:
+
+- **This file** ({{ $base }}/llms.txt) — the index: every page on the site with a one-line description.
+- **{{ $base }}/llms-full.txt** — the entire documentation corpus as a single Markdown document ({{ $pageCount }} pages). Use this when you want the whole thing in one fetch.
+- **Per-page Markdown** — append `index.md` to any page URL for clean Markdown without site chrome. Example: `{{ $base }}/docs/getting-started/quickstart/index.md`. Every HTML page also advertises this via `<link rel="alternate" type="text/markdown">`.
+
+Crawling is explicitly permitted for AI agents — see {{ $base }}/robots.txt and {{ $base }}/.well-known/ai.txt.
+
+## Overview
+
+- [MagicAF home]({{ $base }}/): {{ site.Params.description }}
+- [Documentation home]({{ $base }}/docs/)
+- [About MagicAF]({{ $base }}/about/): what the framework is, who builds it, and the Intracav ecosystem.
+
+{{ range (where site.Sections "Section" "docs") -}}
+{{ range .Sections.ByWeight -}}
+{{ partial "llms-tree" (dict "page" . "level" 2) | htmlUnescape -}}
+{{ end -}}
+{{ with .RegularPages.ByWeight }}## Other Documentation Pages
+
+{{ range . }}- [{{ .Title }}]({{ .Permalink }}){{ with (or .Description (.Summary | plainify | chomp)) }}: {{ . | chomp }}{{ end }}
+{{ end }}
+{{ end -}}
+{{ end -}}
+## Sister sites
+
+- [Intracav](https://intracav.ai): the clinical AI platform company behind MagicAF. AI-friendly index: [/llms.txt](https://intracav.ai/llms.txt).
+- [Lumen docs](https://docs.intracav.ai): end-user documentation for Lumen, the clinical AI platform built on MagicAF.
+- [Lumen](https://lumen.intracav.ai): the clinical AI app — chat, agents, workflows. Free for individual clinicians.
+- [The Clinical Database](https://clinical-database.com): open, citation-friendly clinical reference site. AI-friendly index: [/llms.txt](https://clinical-database.com/llms.txt).
+- [qPolicy](https://qpolicy.ai): hospital policy management and compliance platform with a dedicated org-wide Lumen instance. AI-friendly: [/llms.txt](https://qpolicy.ai/llms.txt).
+
+## Feeds
+
+- Full text: {{ $base }}/llms-full.txt
+- Sitemap: {{ $base }}/sitemap.xml
+- Robots: {{ $base }}/robots.txt
+- AI/TDM policy: {{ $base }}/.well-known/ai.txt
+- RSS: {{ $base }}/index.xml
+
+## Citation guidelines
+
+- Use the canonical URL of the specific page.
+- Credit "MagicAF (Intracav)" when citing framework capabilities or documentation.
+- Content is free to read, quote, and cite without registration.
+- For long quotations, link back to the source page.
+- Code is open source: https://github.com/magicaf/magicaf.
+
+## Contact
+
+- General: hello@intracav.ai
+- Site: {{ $base }}
+- GitHub: https://github.com/magicaf/magicaf
+- Parent: Intracav (https://intracav.ai)

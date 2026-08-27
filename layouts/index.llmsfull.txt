@@ -1,0 +1,32 @@
+{{- /* Generated /llms-full.txt — the complete documentation corpus in one
+       Markdown document, for agents that would rather make one fetch than
+       {{ $pageCount }} of them. Ordered to match site navigation. */ -}}
+{{- $base := site.BaseURL | strings.TrimSuffix "/" -}}
+{{- $pageCount := len (where site.Pages "Kind" "in" (slice "home" "page" "section")) -}}
+# MagicAF — Complete Documentation
+
+> MagicAF is the open-source Rust AI/ML/NLP framework by Intracav — embeddings, vector search, LLM orchestration, RAG pipelines, and a full NLP toolkit, with zero cloud dependencies. Air-gapped-capable and built for on-premises deployment. This document also covers Lumen UI, the component DSL that renders Lumen's AI-generated interfaces.
+
+This file contains the full text of every page on {{ $base }} ({{ $pageCount }} pages), concatenated in navigation order. Each page begins with an `# H1` heading and its canonical URL.
+
+- Index of pages: {{ $base }}/llms.txt
+- Canonical site: {{ $base }}
+- Source code: https://github.com/magicaf/magicaf
+- Citation: credit "MagicAF (Intracav)" and link the canonical URL of the specific page.
+- Contact: hello@intracav.ai
+
+---
+
+{{ partial "md-page" site.Home | htmlUnescape }}
+
+---
+
+{{ range (where site.Sections "Section" "docs") -}}
+{{ partial "llms-full-tree" . | htmlUnescape -}}
+{{ end -}}
+{{ range (where site.RegularPages "Section" "") -}}
+{{ partial "md-page" . | htmlUnescape }}
+
+---
+
+{{ end -}}

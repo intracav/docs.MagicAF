@@ -8,7 +8,13 @@
 <meta name="keywords" content="{{ delimit . ", " }}">
 {{- end }}
 <link rel="canonical" href="{{ .Permalink }}">
-<link rel="alternate" type="text/plain" href="/llms.txt">
+{{- /* Machine-readable mirrors for AI agents: the per-page Markdown twin,
+       the site index, and the full corpus. */ -}}
+{{- with .OutputFormats.Get "markdown" }}
+<link rel="alternate" type="text/markdown" href="{{ .RelPermalink }}" title="This page as Markdown">
+{{- end }}
+<link rel="alternate" type="text/plain" href="/llms.txt" title="LLM index">
+<link rel="alternate" type="text/plain" href="/llms-full.txt" title="Full documentation corpus">
 
 {{- /* Thin-page control: paginated section lists are crawlable but not indexable.
        (Taxonomy and term kinds are disabled entirely in hugo.yaml.) */ -}}

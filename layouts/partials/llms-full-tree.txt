@@ -1,0 +1,17 @@
+{{- /* Recursive full-text renderer for /llms-full.txt.
+       Context: the section page. Emits the section hub, then each of its
+       regular pages, then recurses into child sections — so the corpus reads
+       in the same order as the site navigation. */ -}}
+{{ partial "md-page" . }}
+
+---
+
+{{ range .RegularPages.ByWeight -}}
+{{ partial "md-page" . }}
+
+---
+
+{{ end -}}
+{{ range .Sections.ByWeight -}}
+{{ partial "llms-full-tree" . -}}
+{{ end -}}

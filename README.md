@@ -9,9 +9,13 @@ make serve   # dev server at :1313
 make build   # production build
 make check   # build and surface errors/warnings
 make claims-check  # grep guard against unverifiable compliance claims
+make llm-check     # verify the LLM-facing mirrors are complete and in sync
 ```
 
-Deploys automatically to GitHub Pages on push to `main` (`.github/workflows/hugo.yml`).
+Deploys automatically to GitHub Pages on push to `main` (`.github/workflows/hugo.yml`),
+served through Cloudflare. See **[DEPLOYMENT.md](DEPLOYMENT.md)** for the deploy
+path, the AI-crawler endpoints the site publishes, and the Cloudflare settings
+that currently block them.
 
 ## Layout
 
@@ -24,7 +28,12 @@ Deploys automatically to GitHub Pages on push to `main` (`.github/workflows/hugo
 | `assets/js/main.js` | Theme toggle, reveal, tabs, code copy, sidebar, scroll |
 | `assets/js/search-modal.js` | Fuse.js search modal (⌘K); index built by `layouts/_default/index.json` |
 | `data/site.yaml` | **Single source of truth for counts** (component totals, crate list). Never hardcode these numbers in prose — use `{{</* stat "key" */>}}`. |
-| `static/llms.txt`, `static/.well-known/` | AI-crawler index files — keep in sync with content moves |
+| `layouts/index.llms.txt` | Generates `/llms.txt` — the AI index. Page list is **generated from content**, so it cannot drift. Curated prose lives in the template. |
+| `layouts/index.llmsfull.txt` | Generates `/llms-full.txt` — every page's full text in one Markdown file |
+| `layouts/_default/single.md`, `list.md` | Per-page Markdown mirrors at `<page>/index.md`, advertised via `<link rel="alternate">` |
+| `layouts/partials/md-page.txt` | Shared Markdown body for the mirrors and `llms-full.txt` |
+| `static/.well-known/` | `ai.txt` (AI/TDM policy) and `security.txt` |
+| `scripts/llm-check.sh` | CI guard: llms.txt/llms-full.txt/`.md` coverage, dangling links, entity leakage |
 
 ## Frontmatter contract
 

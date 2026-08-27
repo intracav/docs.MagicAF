@@ -9,6 +9,9 @@ embeddings, vector search, LLM orchestration, RAG pipelines, and NLP
 tooling with zero cloud dependencies, for healthcare and air-gapped
 environments.
 
+Full text (all pages, one file): https://magicaf.intracav.ai/llms-full.txt
+Per-page Markdown: append `index.md` to any page URL.
+
 Sitemap: https://magicaf.intracav.ai/sitemap.xml
 Contact: hello@intracav.ai
 GitHub: https://github.com/magicaf/magicaf

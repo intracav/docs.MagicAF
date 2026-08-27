@@ -1,0 +1,34 @@
+{{- /* Shared body for the per-page Markdown mirror (.md output format) and for
+       each entry in /llms-full.txt. Emits a small YAML-ish header followed by
+       the page's raw Markdown, so an agent gets structure (headings, code
+       fences, links) rather than de-chromed HTML.
+
+       Called with the page as the context. */ -}}
+{{- $desc := or .Description (.Summary | plainify | chomp) -}}
+# {{ .Title }}
+
+{{ with $desc }}> {{ . | chomp }}
+
+{{ end -}}
+- Canonical URL: {{ .Permalink }}
+{{- with .Params.categories }}
+- Category: {{ delimit . ", " }}
+{{- end }}
+{{- with .Params.difficulty }}
+- Difficulty: {{ . }}
+{{- end }}
+{{- with .Params.prerequisites }}
+- Prerequisites: {{ range $i, $p := . }}{{ if $i }}, {{ end }}{{ $.Site.BaseURL | strings.TrimSuffix "/" }}{{ $p }}{{ end }}
+{{- end }}
+{{- $trail := slice }}
+{{- range .Ancestors.Reverse }}{{ $trail = $trail | append (or .Title site.Title) }}{{ end }}
+{{- with $trail }}
+- Breadcrumb: {{ delimit . " > " }} > {{ $.Title }}
+{{- end }}
+{{- if not .Lastmod.IsZero }}
+- Last modified: {{ .Lastmod.Format "2006-01-02" }}
+{{- end }}
+
+---
+
+{{ .RawContent | chomp }}
