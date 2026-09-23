@@ -117,6 +117,10 @@ pub trait LlmService: Send + Sync {
 
 **You might implement this for:** gRPC model servers, in-process inference (llama.cpp bindings), or custom APIs.
 
+{{< callout type="info" title="Planned: DecisionService" >}}
+The design for [MagicAF Reflex](/docs/reflex/) adds a fourth infrastructure trait, `DecisionService`, for small calibrated decision models that answer typed questions with an explicit abstain instead of generating text. It is not in `magicaf-core` yet. See [Running Reflex in Other Runtimes](/docs/reflex/other-runtimes/#lumen_server-rust).
+{{< /callout >}}
+
 ---
 
 ## Adapter Traits

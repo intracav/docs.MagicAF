@@ -35,6 +35,10 @@ Temporal-cut items, a hash commitment over the held-out set, product-mode evalua
 {{< /card >}}
 {{< /card-grid >}}
 
+## Beside the models
+
+Not every decision in Lumen needs an LLM. [MagicAF Reflex](/docs/reflex/) is a small on-device decision model that answers typed questions with calibrated probabilities and an explicit abstain. In the Lumen browser extension, it decides whether a request is a page command the device can run itself, or one for the cloud agent. It is in development, in internal builds only.
+
 ## Why no exam scores
 
 Public medical exam questions are in the training data of every large model, and an exam score measures a model with none of the retrieval, citation, or abstention a clinician actually depends on. Lumen is evaluated as a whole system on held-out questions whose answers rest on evidence published after model training. The full protocol, including its statistical plan and an honest account of what the harness enforces in code versus by procedure, is written up in the [Lumen-Bench technical report](https://intracav.ai/research/lumen-bench). For the landscape of public medical benchmarks and what each can and cannot see, read [Medical LLM benchmarks](https://intracav.ai/medical-llm-benchmarks).

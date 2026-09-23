@@ -65,6 +65,9 @@ Every trait, struct, configuration option, and error type — core services and 
 {{< card title="Lumen Models" href="/docs/lumen-models/" tint="accent" label="Sirona and Brigid" >}}
 How Lumen serves its clinical model family, LMN Sirona and LMN Brigid, on MagicAF, and how it evaluates a clinical RAG system so the score cannot be memorized.
 {{< /card >}}
+{{< card title="MagicAF Reflex" href="/docs/reflex/" tint="blue" label="Calibrated decisions" >}}
+A small on-device decision model: typed questions, calibrated answers, an explicit abstain, and authority earned rung by rung. In development.
+{{< /card >}}
 {{< /card-grid >}}
 
 ## The interface layer
