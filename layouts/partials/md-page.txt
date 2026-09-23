@@ -31,4 +31,10 @@
 
 ---
 
-{{ .RawContent | chomp }}
+{{- /* RawContent keeps shortcodes verbatim; resolve {{< stat "key" >}} to its
+       value from data/site.yaml so mirrors carry the number, not the markup. */ -}}
+{{- $body := .RawContent -}}
+{{- range $k, $v := site.Data.site.stats -}}
+{{- $body = replace $body (printf "{{< stat %q >}}" $k) (string $v) -}}
+{{- end }}
+{{ $body | chomp }}
