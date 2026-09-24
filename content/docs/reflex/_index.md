@@ -9,8 +9,8 @@ categories: [concept]
 difficulty: intermediate
 ---
 
-{{< callout type="warning" title="Status: in development, internal builds only" >}}
-MagicAF Reflex is not released. The contract, backends, runtime, calibration tooling and evaluation harness described in this section exist and are tested, on an unmerged development branch. The model itself is still being trained and selected, so these pages publish **no accuracy figures yet**. The only consumer today is an internal build of the Lumen browser extension. Anything marked **planned** or **design** has not been built.
+{{< callout type="warning" title="Status: internal builds only, off by default" >}}
+MagicAF Reflex is not released. The contract, backends, runtime, calibration tooling and evaluation harness are merged into the Lumen browser extension's source, and a first model, **{{< stat "reflex_model_name" >}}**, has been selected, calibrated and pinned. It ships only in internal builds, where every rung of authority is off by default. The extension itself has not launched. Anything marked **planned** or **design** has not been built. The [results](/docs/reflex/evaluation/#results) are measured on synthetic data, not on clinician traffic.
 {{< /callout >}}
 
 You have probably written this code already: an `if` in front of an LLM call that decides whether the call is needed at all. Is this request something we can handle locally? Is this tool call dangerous? Does the answer need the page? You usually write that `if` as a regex, and it degrades the way regexes do. Or you ask the LLM itself, which gives you an answer, but no calibrated probability and no clean way to say *I don't know*.
@@ -79,11 +79,23 @@ Four lessons from public Jev material shaped the design:
 - **The choice competes, the yes/no verifies.** `section` picks a target, and `commit_risk` independently checks the picked target.
 - **Stay in bounds.** [Published guidance](https://flaviocopes.com/jev/) notes that Jev does not count reliably, and struggles with arithmetic, indirection (a property of a property), and double negatives. Reflex questions are restricted to things you can see in the text; everything else is `cloud`.
 
-## Budgets
+## Budgets and measured runtime
 
-The design sets three performance budgets for the browser runtime, and the end-to-end test asserts all three on every run: a warm decision at p95 ≤ 50 ms, a cold start ≤ 1.5 s, and a model package ≤ 30 MB. These are targets that a candidate model must meet to be selected. They are not measurements.
+The design sets three performance budgets for the browser runtime, and the end-to-end test asserts all three on every run: a warm decision at p95 ≤ 50 ms, a cold start ≤ 1.5 s, and a model package ≤ 30 MB.
 
-[NEEDS: measured latency, cold start, package size, and memory for the selected model, with hardware, browser, and date]
+{{< stat "reflex_model_name" >}}, as measured on 2026-09-23 on an Apple M1 with 8 GB of RAM, in Playwright-managed headless Chromium 149 running the internal build with one WebAssembly thread, over 100 warm calls on a page with 16 candidate sections:
+
+| Measure | Result | Budget |
+|---|---|---|
+| Cold start (load, verify, and instantiate everything) | 0.37 s | ≤ 1.5 s |
+| Warm decision, inside the worker | p50 3.2 ms, p95 4.6 ms | — |
+| Warm decision, background round trip | p50 4.1 ms, p95 6.4 ms | p95 ≤ 50 ms |
+| Package | 28.6 MB | ≤ 30 MB |
+| Memory: growth of the extension renderer's physical footprint while the model is loaded | about 177 MB | reported |
+
+The package breaks down into the onnxruntime-web WebAssembly binary (14.2 MB), the int8 encoder (11.3 MB), the fp32 heads (2.4 MB), the vocabulary (0.23 MB), and license notices (0.35 MB). The runtime, not the model, dominates both the package and the memory. The memory is released when the offscreen document that hosts the model closes, after 5 idle minutes.
+
+These are single-machine measurements from a development environment, not guarantees.
 
 ## The pages in this section
 

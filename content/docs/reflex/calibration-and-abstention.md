@@ -30,7 +30,14 @@ A calibration report records the NLL and the ECE of each head before and after f
 
 For a consumer that reads one question at a time, each key gets a **selective threshold**, `abstain_below[key]`. The backend abstains, with `below_threshold`, when an answer's confidence falls below it.
 
-The threshold is the **smallest** confidence `t` such that the one-sided 95% Clopper–Pearson upper bound on the error rate **among answers with confidence ≥ t** is at most α = 2%. Candidate thresholds are tested from the most confident answer downward, and the search **stops at the first failure**. This is a fixed-sequence test: because the hypotheses are tested in a fixed order and testing stops at the first rejection, no multiplicity correction is needed. A threshold is considered only once it covers at least 30 answers. If even the most confident group fails, the threshold is set above 1, and the question always abstains.
+The threshold is the **smallest** confidence `t` such that the one-sided 95% Clopper–Pearson upper bound on the error rate **among answers with confidence ≥ t** is at most α = 2%. It is found by **fixed-sequence testing** (Learn-then-Test) over a grid of coverage counts that is fixed **before** any errors are looked at:
+
+- The first test point covers k₀ = max(⌈0.1·n⌉, n₀) answers, where n₀ is the smallest count that could certify α with zero errors (149 for α = 2%). Starting lower would test points that no outcome could pass, and the sequence would stop immediately. Starting at 10% coverage means one early error cannot end the sequence before it has the power to pass.
+- Each following point adds 1% of n.
+- A threshold at the k-th most confident answer covers every answer tied with it, so each test point extends to the end of its tie group.
+- Testing **stops at the first failure**. Because the hypotheses are tested in a fixed order and testing stops at the first rejection, no multiplicity correction is needed.
+
+If even the first point fails, or there are fewer than k₀ answers, the threshold is set above 1 and the question always abstains.
 
 ## Step 3: veto thresholds with a bounded recall cost
 
@@ -91,4 +98,35 @@ Two consequences are worth knowing by heart:
 
 ## Results
 
-[NEEDS: the calibration report for the selected model: per-head ECE and NLL before and after, the fitted temperatures and Platt parameters, `abstain_below` per key, the veto τ values with their recall-cost bounds, and λ with its coverage and bounds, including the conformal-risk-control comparison. Include the model and calibration ids.]
+{{< stat "reflex_model_name" >}}, fitted on 2026-09-23 on the frozen calibration split ({{< stat "reflex_calibration_rows" >}} requests) through the deployed int8 pipeline.
+
+**Scaling.** The raw model was markedly overconfident: every temperature is well above 1.
+
+| Head | Fitted | ECE before | ECE after |
+|---|---|---|---|
+| `intent` | T = 2.71 | .063 | .015 |
+| `section` | T = 3.39 | .075 | .012 |
+| `clinical` | T = 3.88 | .038 | .010 |
+| `route` | Platt a = 0.280, b = 0.180 | .058 | .010 |
+| `commit_risk` | T = 3.12 | .011 | .006 |
+
+The mean NLL fell from 0.456 to 0.267 for `intent`, and from 0.909 to 0.366 for `section`.
+
+**Per-question abstention** (selective error, 95% upper bound ≤ 2%): `intent` abstains below 0.911, `route` below 0.929, `clinical` below 0.970, and `commit_risk` below 0.544. `section` could not certify 2% at any coverage, so it always abstains for single-question consumers. The lane is unaffected, because it reads `section`'s probabilities against its own certified thresholds ([above](#why-lane-policies-ignore-the-abstain-flag)).
+
+**Veto thresholds** (recall cost, 95% upper bound ≤ 2% of the 253 correct rules acts in the calibration split):
+
+| Signal | τ | Recall cost | 95% upper bound |
+|---|---|---|---|
+| `clinical` | 0.5 | 0 of 253 | 1.2% |
+| `commit_risk` of the target | 0.5 | 1 of 253 | 1.9% |
+| `route = cloud` | 0.6 | 1 of 253 | 1.9% |
+
+**λ for rung 3: 0.940.**
+
+- The overall constraint was the binding one. At λ = 0.940, the model acts on 124 of 3,000 requests (4.1% coverage), with 20 wrong acts, for a 95% upper bound of 0.97% (α = 1%). It acts on 0 of 1,400 must-defer requests, for a 95% upper bound of 0.21%.
+- The must-defer constraint on its own would have allowed λ = 0.840.
+- For comparison, conformal risk control would choose λ = 0.935, with 156 acts.
+- All 20 wrong acts above λ were argument-extraction errors made by the shared deterministic grammar, not model errors. The model picked the right command, but the grammar kept a polite suffix in a find query ("phosphorus thx"), or read "all the way up" as `up` rather than `top`.
+
+How these thresholds hold up on the untouched test split is on [Evaluation Harness](/docs/reflex/evaluation/#results).

@@ -108,8 +108,83 @@ These three numbers feed the [hard gate](/docs/reflex/promotion-ladder/#the-hard
 
 ## Results
 
-{{< callout type="info" title="Pending" >}}
-The model is still being trained and selected, so no results are published yet. Numbers from in-progress runs are deliberately left out.
-{{< /callout >}}
+Eval run of 2026-09-23 for {{< stat "reflex_model_name" >}} 0.1.0, with its calibration, on the frozen sets. The data hashes match `FROZEN.json`. The `rules` backend is the approved decider; `needle` is the earlier uncalibrated generative baseline. The calibration split was used only for fitting, so every number below comes from data the fit never saw.
 
-[NEEDS: for the selected model, the eval report id and date; the model, calibration, and dataset hashes; per-question metrics on test and adversarial; the lane-policy table (command accuracy, must-defer acts with the 95% UB, and wrong acts) for rules, rules_plus_veto, two_key, and model_decides on test, adversarial, and legacy; and the rules baseline on the same sets for comparison]
+### Per question (test split)
+
+Accuracy is *effective*: an abstained answer counts as its safe default.
+
+| Question | Backend | Accuracy | ECE | Brier | AUROC |
+|---|---|---|---|---|---|
+| `route` | rules (0/1) | .683 | .317 | — | .500 |
+| | needle | .582 | .380 | .789 | .491 |
+| | **{{< stat "reflex_model_name" >}}** | **.834** | **.005** | **.102** | **.884** |
+| `intent` | rules | .584 | .416 | — | .500 |
+| | needle | .510 | .474 | .958 | .482 |
+| | **{{< stat "reflex_model_name" >}}** | **.834** | **.018** | **.132** | **.900** |
+| `section` | rules | .787 | .213 | — | .500 |
+| | needle | .791 | .204 | .411 | .539 |
+| | {{< stat "reflex_model_name" >}} | .745 (always abstains) | .012 | .112 | .894 |
+| `clinical` | rules (derived) | .782 | .218 | — | .740 |
+| | {{< stat "reflex_model_name" >}} | .677 (abstains below p .970) | **.010** | **.037** | **.976** |
+| `commit_risk` | rules (derived) | .942 | .058 | — | .957 |
+| | **{{< stat "reflex_model_name" >}}** | **.989** (unseen labels: .972) | **.007** | **.011** | **1.000** |
+
+How to read this table:
+
+- **The rules' probabilities carry no ranking information.** They are 0 or 1, so their AUROC is .500 by construction.
+- **Needle's confidence carries no information about correctness either.** Its AUROC is about 0.5, and its ECE is 0.38–0.47.
+- **{{< stat "reflex_model_name" >}}'s calibration held on the test split.** Its ECE is .005–.018 on every question.
+- **Two of its accuracies look low because it abstains, not because it is wrong.** For `section` and `clinical`, abstention sends the answer to the safe default. `section` could not certify its selective threshold at all, and `clinical` abstains below p = .970. The lane reads their probabilities instead, and their AUROC (.894 and .976) is what the lane uses.
+- **Coverage at the per-question thresholds:** `route` 72%, `intent` 76%, `clinical` 63%, `commit_risk` 100%.
+- **On held-out vocabulary it generalises better than the rules.** On the 2,582 test rows that use held-out vocabulary, its `route` accuracy is .829, against the rules' .651. On the 418 rows with seen phrasing, it is .868 against .880.
+
+### Lane policies (test split)
+
+The test split has 1,242 commands and {{< stat "reflex_test_must_defer" >}} must-defer requests.
+
+| Policy | Commands exactly right | Must-defer acts | 95% UB | Wrong acts |
+|---|---|---|---|---|
+| rules (today) | 241 (19.4%) | 25 | 2.4% | 126 |
+| needle, at its own argmax | 269 | 74 | 6.3% | 274 |
+| {{< stat "reflex_model_name" >}}, at argmax (no threshold) | 616 (49.6%) | 24 | 2.4% | 194 |
+| **rung 1: rules + veto** | **237 (19.1%)** | **12** | **1.4%** | **104** |
+| rung 2: strict two-key | 225 (18.1%) | 8 | 1.0% | 79 |
+| rung 3: model decides at λ = 0.940 | 86 (6.9%) | **0** | **0.21%** | 13 |
+
+On the hand-written adversarial set (86 commands, 142 must-defer) and the legacy corpus (24 commands, 178 must-defer):
+
+| Policy | Adversarial: commands, must-defer acts | Legacy: commands, must-defer acts |
+|---|---|---|
+| rules | 59, 6 | 24, 0 |
+| rules + veto | 57, 1 | 23, 0 (wrong acts fall from 2 to 0) |
+| strict two-key | 57, 1 | 22, 0 |
+| model decides | 3, 0 | 6, 0 |
+| needle, at argmax | 52, 35 | 14, 18 |
+
+What the tables show:
+
+- **The veto halves the rules' must-defer acts at almost no cost.** On test it takes them from 25 to 12, and costs 4 of 1,242 commands. On the adversarial set, it takes them from 6 to 1.
+- **The rules' command recall is low on held-out vocabulary**, at 19.4%. The rules also act on 25 must-defer test requests, such as find-shaped clinical questions ("search for red flags") and "discharge the patient" matched to a Discharge tab. These are findings about the rules. They are reported, not quietly patched, because the rules are the approved behaviour and changing them needs an owner decision.
+- **Rung 3 is safe but narrow.** It made no must-defer acts on any set. Its low command coverage comes mostly from argument extraction, not from the model. The shared deterministic grammar builds find and scroll arguments, and it cannot parse held-out find and scroll verbs: 312 of the 1,269 calibration commands get no action at all.
+
+### The hard gate
+
+| Requirement | Status |
+|---|---|
+| Zero must-defer acts without the second key, with a meaningful bound | **Met on test:** 0 of 1,428, 95% UB 0.21%. Adversarial: 0 of 142 (UB 2.1%). Legacy: 0 of 178. |
+| Command exact-action accuracy ≥ 97% | **Not met:** 6.9% on test. |
+| Owner approval | Not given. |
+
+So [rung 3](/docs/reflex/promotion-ladder/#rung-3-model-decides) stays compiled out. The binding constraint is argument extraction and held-out phrasing, not the safety bound.
+
+### Speed in the eval
+
+In Node, through onnxruntime-web, {{< stat "reflex_model_name" >}} answers in p50 5.0 ms and p95 15.8 ms per request on the test split. The needle baseline answers in p50 694 ms and p95 2.9 s under the same load. The browser measurements are on the [overview](/docs/reflex/#budgets-and-measured-runtime).
+
+### What is not verified
+
+- Everything above is on synthetic data. There is no evidence yet from real clinician traffic; rung 0 exists to gather it.
+- There has been no run against a real EHR sandbox, and none in Edge.
+- The browser measurements come from Playwright-managed Chromium, because branded Google Chrome 137 and later ignores `--load-extension`.
+- The labels and the adversarial set were written by engineers, and have not been reviewed by a clinician.

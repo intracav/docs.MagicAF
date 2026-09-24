@@ -88,4 +88,13 @@ Before rung 3 can be compiled in, all of the following must hold:
 
 These are bounds on the synthetic distribution. Real traffic needs its own shadow evidence first, and that is what rung 0 exists to collect.
 
-[NEEDS: the current status of each rung, which the owner updates as rungs are enabled. As of this writing, every rung is off by default and rung 3 is compiled out.]
+## Current status
+
+As of the 2026-09-23 results, for {{< stat "reflex_model_name" >}}:
+
+| Rung | Status |
+|---|---|
+| 0 · Shadow | Off by default. Internal builds only. |
+| 1 · Veto | Off by default. On the frozen test split, it halves the rules' must-defer acts (25 to 12) at a cost of 4 of 1,242 commands. |
+| 2 · Strict two-key | Off by default. It adds no recall, and gains little over the veto: 8 must-defer acts instead of 12, at a cost of 12 more commands. |
+| 3 · Model decides | Compiled out. The safety half of the gate is met, but the command half is not: 6.9% against the 97% bar. See [the hard gate results](/docs/reflex/evaluation/#the-hard-gate). |

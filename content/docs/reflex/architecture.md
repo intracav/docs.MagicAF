@@ -82,9 +82,20 @@ Each head is a two-layer MLP (Linear → GELU → Linear) over the encoder's mea
 - **`section_mask` is inside the graph.** The label list holds the section candidates first (mask 1), then any extra subjects that are asked only `commit_risk` (mask 0). Masked labels take no section probability and count as no route evidence, but they still get a commit logit. Because this lives inside the ONNX graph, every runtime handles commit-only labels and the no-candidate case identically.
 - **Training** sums the cross-entropy losses of the five heads, with `commit_risk` weighted 0.5. A distillation loss is available so that a smaller encoder can learn from a larger teacher.
 
-**The encoder.** Every candidate encoder is a small, openly licensed (Apache-2.0 or MIT) BERT-family model that shares the uncased BERT WordPiece vocabulary of 30,522 tokens. They are evaluated on the frozen sets and chosen in this order: the safety bound first, then command accuracy, then latency and size. A character n-gram logistic regression is trained as a reference baseline. It never ships; its job is to show whether a transformer earns its place.
+**The encoder.** Every candidate encoder was a small, openly licensed (Apache-2.0 or MIT) BERT-family model sharing the uncased BERT WordPiece vocabulary of 30,522 tokens. Candidates were compared on the development split and chosen in this order: the safety bound first, then command accuracy, then latency and size. A character n-gram logistic regression was trained as a reference baseline. It never ships; its job is to show whether a transformer earns its place.
 
-[NEEDS: the selected encoder, its size, and the reason it was selected, once the owner decides whether to name it here]
+**The selected model: {{< stat "reflex_model_name" >}}.** It pairs a compact encoder with the heads above, fine-tuned on the synthetic training data and **distilled** from a larger encoder that was itself fine-tuned on the same data. Development-split accuracy, with the int8 export where one exists:
+
+| Candidate | intent | clinical | route | section | Outcome |
+|---|---|---|---|---|---|
+| Character n-gram logistic regression (reference) | .890 | .954 | .769 | — | not shipped: it cannot see the page |
+| Compact encoder, fine-tuned | .914 | .967 | .914 | .889 | runner-up |
+| **Compact encoder, distilled ({{< stat "reflex_model_name" >}})** | **.932** | **.975** | **.921** | **.903** | **selected** |
+| Larger encoder, fine-tuned (fp32; the distillation teacher) | .955 | .981 | .922 | .917 | not shipped: about 41 MB packaged, over the 30 MB budget |
+
+The larger encoders score slightly higher, but they cannot fit the package budget, because the onnxruntime-web WebAssembly binary alone is 14.2 MB. So they serve as teachers. Distillation recovers most of the gap. The selected artifact is an 11.3 MB int8 encoder plus 2.4 MB of fp32 heads. On the development split, its int8 graph agrees with fp32 on 98.6–99.7% of argmax answers per head, and its accuracy is within ±0.3 points.
+
+It is **English only**, and `section` is its weakest head on label wordings it has not seen. Its measured calibration is on [Calibration and Abstention](/docs/reflex/calibration-and-abstention/#results), and its evaluation is on [Evaluation Harness](/docs/reflex/evaluation/#results).
 
 ## The two ONNX graphs
 
@@ -135,7 +146,7 @@ A Python script writes fixtures with the real `transformers` tokenizer, and a un
 In the browser extension, inference runs in a dedicated worker spawned by the extension's offscreen document. It exists in internal builds only (see [Privacy and Supply Chain](/docs/reflex/privacy-and-supply-chain/)).
 
 - **Every file is verified before use.** The worker fetches the manifest, then every runtime and model file, all from the extension's own packaged origin. It checks each one's SHA-256 against the pin **before** executing or loading it. A missing pin or a mismatch fails closed with `integrity`.
-- **onnxruntime-web on WebAssembly with SIMD.** The worker sets one thread, no proxy worker, and no `blob:` URLs. The runtime script is imported from the same packaged URL whose bytes were just verified, because the extension's content security policy forbids evaluating verified bytes from a `blob:` URL. Sessions run with full graph optimization, and with the CPU memory arena and memory-pattern planning turned off.
+- **onnxruntime-web (pinned at 1.30.0) on WebAssembly with SIMD.** The worker sets one thread, no proxy worker, and no `blob:` URLs. The runtime script is imported from the same packaged URL whose bytes were just verified, because the extension's content security policy forbids evaluating verified bytes from a `blob:` URL. Sessions run with full graph optimization, and with the CPU memory arena and memory-pattern planning turned off.
 - **A failed load does not wedge the worker.** The next request retries the load. After the runtime is instantiated, the worker drops its reference to the WebAssembly binary.
 - **Protocol.** `{ id, type: 'magicaf', request }` returns `{ id, ok: true, response, policy }`; `{ id, type: 'magicaf_warm' }` loads the model ahead of time. A failure returns `{ id, ok: false, code }`. The reply also carries the calibration's thresholds (`policy`), so the lane's policies always use the thresholds certified for the loaded model.
 

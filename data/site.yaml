@@ -6,11 +6,15 @@
 #   lumen_ui.categories  — count of directories under content/docs/lumen-ui/components/
 #   lumen_ui.clinical    — count of pages under content/docs/lumen-ui/components/clinical/ (excluding _index.md)
 #   reflex_*             — MagicAF Reflex frozen eval sets: `rows` per file in
-#                          ml/magicaf-reflex/data/frozen/FROZEN.json (lumen-extension,
-#                          branch feat/magicaf-reflex @ fe5eb4c). must_defer counts are
+#                          ml/magicaf-reflex/data/frozen/FROZEN.json (lumen-extension
+#                          main, merged 2b82df2). must_defer counts are
 #                          rows with "must_defer": true in calibration.jsonl / test.jsonl.
 #                          reflex_page_command_keys = keys in reflex.page_command.json.
 #                          A re-freeze changes these: update them here, nowhere else.
+#   reflex_model_name    — PUBLIC name of the selected Reflex model (owner decision
+#                          2026-09-24: do not name the encoders; the family is being
+#                          rebranded, so the name lives here and nowhere else).
+#                          Internal artifact: model.json / MODEL_CARD.md, 0.1.0.
 stats:
   crates: 4
   lumen_ui_components: 71
@@ -24,6 +28,7 @@ stats:
   reflex_calibration_must_defer: "1,400"
   reflex_test_must_defer: "1,428"
   reflex_page_command_keys: 5
+  reflex_model_name: "Reflex_01"
 
 crates:
   - name: magicaf-core

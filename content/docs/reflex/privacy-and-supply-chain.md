@@ -45,7 +45,7 @@ The same rule applies earlier, when the files are vendored:
 - `pnpm magicaf:vendor` copies or fetches each pinned file, verifies it, and never keeps a file that does not match its pin.
 - Pinning refuses a calibration that was fitted on a different encoder: the calibration's `model_sha256` must equal the encoder's hash.
 - A retrain produces new artifacts with new hashes. Pins are re-pointed only by an explicit, reviewed step, never silently.
-- The onnxruntime-web version is pinned, and its files are hashed like the model's.
+- The onnxruntime-web version is pinned (1.30.0), and its files are hashed like the model's. The current manifest pins 11 files: the runtime's three files, its two license texts, the two graphs, the vocabulary, `model.json`, `calibration.json`, and the model license.
 
 The pattern follows `magicaf-asr-onnx` in the MagicAF framework, which hashes each model file with SHA-256 at load time and fails closed before the file reaches the native runtime.
 
@@ -66,6 +66,8 @@ It never stores request text, page labels, page content, or identifiers. A unit 
 
 The eval report follows the same rule: it identifies rows by id and never holds request text (see [the report](/docs/reflex/evaluation/#the-report)).
 
+Internal builds also have an **inspector**: a panel view that draws, for one request, the rules' verdict, the model's calibrated probabilities against the real thresholds, and each veto check. It is display-only. A trace lives in the panel's memory, is never stored or sent anywhere, never enters the shadow statistics, and an end-to-end test checks that it is not persisted.
+
 ## Internal builds only
 
 The model, its runtime, and the offscreen document ship **only in internal Chrome and Edge builds**. Inclusion is opt-in at build time, so no packaging path can ship the model by accident. Every other build keeps the extension's pre-Reflex posture, including every store build and every Safari build:
@@ -83,6 +85,4 @@ The posture test runs against the manifests that each build actually produced. F
 
 ## Licenses
 
-The runtime and every candidate encoder are under permissive licenses (MIT or Apache-2.0). Vendoring fetches the onnxruntime `LICENSE` and `ThirdPartyNotices` at the pinned release, pins them in the manifest, and ships them next to the runtime. The model artifact carries its license text as `LICENSE-model.txt`. The design also calls for keeping an attribution line, and for marking modifications (fine-tuning, quantisation) in a model card.
-
-[NEEDS: link to the published model card and third-party notices, if the owner decides to publish them]
+The runtime and every candidate encoder are under permissive licenses (MIT or Apache-2.0). Vendoring fetches the onnxruntime `LICENSE` and `ThirdPartyNotices` at the pinned release, pins them in the manifest, and ships them next to the runtime. The model artifact carries its license text as `LICENSE-model.txt`, and a model card in the source records the base models, the training data, and the modifications: fine-tuning, distillation, and int8 quantisation.
