@@ -124,6 +124,9 @@ Zero network, proven in an end-to-end test; fail-closed SHA-256 on every runtime
 {{< card title="Other Runtimes" href="/docs/reflex/other-runtimes/" tint="blue" label="Design" >}}
 The planned Flutter (Dart FFI) and Rust (`magicaf-reflex-onnx`) ports, and the rule that each one must pass the same parity fixtures.
 {{< /card >}}
+{{< card title="On-Device Scorer (v2)" href="/docs/reflex/on-device-scorer/" tint="accent" label="Reference" >}}
+`magicaf-reflex`: the Lumen Hospital sim's fitted v2 scorer in Rust, WASM and Swift, bit-exact with the TypeScript scorer, with a Core ML backend that never drives replay.
+{{< /card >}}
 {{< card title="Adding a Question" href="/docs/reflex/adding-a-question/" tint="green" label="Guide" >}}
 Add a key to a question set, teach the backends to answer it, and get it calibrated and evaluated, following the real code paths.
 {{< /card >}}
