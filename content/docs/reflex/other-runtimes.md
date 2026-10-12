@@ -12,7 +12,7 @@ prerequisites:
 ---
 
 {{< callout type="warning" title="Design only: none of this is built" >}}
-Everything on this page is design. There is no `magicaf-reflex-onnx` crate, no `DecisionService` trait in `magicaf-core`, no Dart port, and no server-side question set yet. The browser extension's TypeScript implementation is the only one that exists.
+Everything on this page is design. There is no `magicaf-reflex-onnx` crate and no Dart ONNX port yet. What does exist beyond the browser extension's TypeScript implementation (as of 2026-10-12): the `DecisionService` trait in `magicaf-core::decision` (abstaining is an answer, never an error; `Answer`, `AbstainReason`, `verify_evidence`, `check_record`), the server-side question sets `lumen.app_command@1.0.0` / `lumen.app_ground@1.0.0` answered by `lumen_server` over TEI embeddings (shadow), and a pure-Dart port of the page-command RULES lane, grounding and executor in the Lumen app (no model on device).
 {{< /callout >}}
 
 The point of a language-neutral contract and a two-graph ONNX artifact is that the model you calibrated and evaluated can run unchanged somewhere else. The design names two more runtimes: the Lumen Flutter app and `lumen_server`. Both use **the same artifacts** and **the same contract JSON**:

@@ -12,7 +12,7 @@ prerequisites:
 ---
 
 {{< callout type="warning" title="Status: built and tested, not yet in a shipping app" >}}
-`magicaf-reflex` is on a feature branch of MagicAF. Its WASM build is what the Lumen Hospital sim scores with; the Swift package is built and tested but not yet wired into the Lumen Hospital Apple app. This is a different model from the extension's BERT-based Reflex described elsewhere in this section: a fitted linear scorer over named game features, with no text.
+`magicaf-reflex` is on MagicAF `main`. Its WASM build is what the Lumen Hospital sim scores with; the Swift package is built and tested but not yet wired into the Lumen Hospital Apple app. This is a different model from the extension's BERT-based Reflex described elsewhere in this section: a fitted linear scorer over named game features, with no text.
 {{< /callout >}}
 
 `magicaf-reflex` is **Reflex v2**, the scorer Lumen Hospital's simulated staff and operations decide with, as a Rust crate with no async runtime and no networking in its default build. It loads the sim's own model file (`reflex-local-v2.json`) and answers a decision with **the same bits** as the sim's TypeScript scorer, then writes the answer as a `reflex.decision_record/v1`.
