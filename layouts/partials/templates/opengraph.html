@@ -68,10 +68,17 @@
   {{- end }}
 {{- end }}
 
-{{- with .Params.videos }}
-  {{- range . | first 6 }}
+{{- $videos := .Params.videos }}
+{{- if $videos }}
+  {{- range $videos | first 6 }}
     <meta property="og:video" content="{{ . | absURL }}">
   {{- end }}
+{{- else }}
+  <meta property="og:video" content="https://magicaf.intracav.ai/og/magicaf.mp4">
+  <meta property="og:video:secure_url" content="https://magicaf.intracav.ai/og/magicaf.mp4">
+  <meta property="og:video:type" content="video/mp4">
+  <meta property="og:video:width" content="1200">
+  <meta property="og:video:height" content="630">
 {{- end }}
 
 {{- range .GetTerms "series" }}
