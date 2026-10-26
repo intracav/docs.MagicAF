@@ -12,6 +12,8 @@ prerequisites:
 ---
 
 {{< callout type="warning" title="Status: built and tested, not yet in a shipping app" >}}
+**Renamed 2026-10-26:** this crate was documented as "Reflex v2"; that name now belongs to the System One model family ([Reflex v2](/docs/reflex/reflex-v2/)). The crate `magicaf-reflex`, its formats and this page's measurements are unchanged.
+
 `magicaf-reflex` is on MagicAF `main`. Its WASM build is what the Lumen Hospital sim scores with; the Swift package is built and tested but not yet wired into the Lumen Hospital Apple app. This is a different model from the extension's BERT-based Reflex described elsewhere in this section: a fitted linear scorer over named game features, with no text.
 {{< /callout >}}
 

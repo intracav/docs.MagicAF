@@ -11,8 +11,8 @@ prerequisites:
   - /docs/reflex/architecture/
 ---
 
-{{< callout type="warning" title="Design only: none of this is built" >}}
-Everything on this page is design. There is no `magicaf-reflex-onnx` crate and no Dart ONNX port yet. What does exist beyond the browser extension's TypeScript implementation (as of 2026-10-12): the `DecisionService` trait in `magicaf-core::decision` (abstaining is an answer, never an error; `Answer`, `AbstainReason`, `verify_evidence`, `check_record`), the server-side question sets `lumen.app_command@1.0.0` / `lumen.app_ground@1.0.0` answered by `lumen_server` over TEI embeddings (shadow), and a pure-Dart port of the page-command RULES lane, grounding and executor in the Lumen app (no model on device).
+{{< callout type="warning" title="Partly built (2026-10-26): the Rust crate exists for Reflex Core; the Reflex_01 port and the Dart runtime do not ship yet" >}}
+Since 2026-10-26 `magicaf-reflex-onnx` exists in the MagicAF workspace and serves **Reflex Core** artifacts (see [Reflex v2](/docs/reflex/reflex-v2/)) as a `DecisionService`, with the fail-closed integrity, the `link-ort` feature gating and the error-code mapping described below; the Reflex_01 two-graph port into the same crate is in progress and the Dart ONNX runtime is not built. The rest of this page is the design it follows. What does exist beyond the browser extension's TypeScript implementation (as of 2026-10-12): the `DecisionService` trait in `magicaf-core::decision` (abstaining is an answer, never an error; `Answer`, `AbstainReason`, `verify_evidence`, `check_record`), the server-side question sets `lumen.app_command@1.0.0` / `lumen.app_ground@1.0.0` answered by `lumen_server` over TEI embeddings (shadow), and a pure-Dart port of the page-command RULES lane, grounding and executor in the Lumen app (no model on device).
 {{< /callout >}}
 
 The point of a language-neutral contract and a two-graph ONNX artifact is that the model you calibrated and evaluated can run unchanged somewhere else. The design names two more runtimes: the Lumen Flutter app and `lumen_server`. Both use **the same artifacts** and **the same contract JSON**:
@@ -49,7 +49,7 @@ A new crate in the MagicAF workspace, **`magicaf-reflex-onnx`**, following the f
 
 The server use cases are the [planned question sets](/docs/reflex/question-sets/#planned-sets): gating a proposed tool call (`lumen.tool_risk`) and routing between a small and a frontier model (`lumen.route`), both *before* an LLM call is made. The model runs where the data already is, so no additional data leaves the server.
 
-The design does not yet say how the contract's error codes (1001–2004, carried in the response) map to `MagicError` variants. The Rust crate will have to decide that.
+The error codes (1001–2004, carried in the response) map to `MagicError::ReflexInvalidRequest` … `ReflexBackendError` (`error_code()` 26001–26104) with `reflex_wire_code()` / `from_reflex_wire_code()` converting both ways (MagicAF ADR-003).
 
 ## Rollout across runtimes
 

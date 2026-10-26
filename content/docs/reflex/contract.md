@@ -183,6 +183,10 @@ A backend never throws on a well-formed request. A failure comes back as a respo
 
 The shared envelope that every backend runs through (`runBackend` in `backend.ts`) does the work: it validates the request, resolves the question set, times the call, turns an engine exception into the mapped error, and replaces answers to unsupported keys with `abstain: unsupported`.
 
+## Wire v2 (revision 2)
+
+This page describes **v1**, the wire the browser extension's lane speaks. The Jev-shaped **v2** wire (`magicaf.reflex.request/v2`: one `state` plus a *map* of typed questions with optional free-text `instructions` and `criteria`) is what the extension's engine, the Lumen app, the hospital sim, `magicaf-core::decision::systemone` and `reflex-serve` speak; its revision 2 (2026-10-26) adds `certified` / `calibration_scope` / `answer_confidence`, array states and two abstain reasons. See [Reflex v2](/docs/reflex/reflex-v2/#contract-v2-revision-2-adr-003). Every v1 backend still answers v1 requests identically.
+
 ## Four things are versioned independently
 
 | Thing | Identifier | Changes when |
