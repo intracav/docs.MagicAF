@@ -8,23 +8,14 @@ You're mid-build and need exactly one thing — a custom adapter, typed JSON out
 
 ---
 
-<div class="card-grid">
-<div class="card">
-
-### [Building Adapters →](/docs/guides/building-adapters/)
+{{< card-grid >}}
+{{< card title="Building Adapters" href="/docs/guides/building-adapters/" >}}
 Create custom EvidenceFormatter, PromptBuilder, and ResultParser implementations.
-
-</div>
-<div class="card">
-
-### [Structured Output →](/docs/guides/structured-output/)
+{{< /card >}}
+{{< card title="Structured Output" href="/docs/guides/structured-output/" >}}
 Get typed JSON responses from the LLM using `JsonResultParser<T>`.
-
-</div>
-<div class="card">
-
-### [Testing →](/docs/guides/testing/)
+{{< /card >}}
+{{< card title="Testing" href="/docs/guides/testing/" >}}
 Unit test your adapters and workflows using mock services.
-
-</div>
-</div>
+{{< /card >}}
+{{< /card-grid >}}

@@ -10,23 +10,14 @@ Some choices are cheap to reverse — a config flag, a default adapter. Others h
 
 ---
 
-<div class="card-grid">
-<div class="card">
-
-### [Choosing Models →](/docs/decision-guides/choosing-models/)
+{{< card-grid >}}
+{{< card title="Choosing Models" href="/docs/decision-guides/choosing-models/" >}}
 Compare embedding models, LLMs, and quantization strategies for local deployment.
-
-</div>
-<div class="card">
-
-### [Adapter Patterns →](/docs/decision-guides/adapter-patterns/)
+{{< /card >}}
+{{< card title="Adapter Patterns" href="/docs/decision-guides/adapter-patterns/" >}}
 When to customize each adapter trait, and common patterns and anti-patterns.
-
-</div>
-<div class="card">
-
-### [Deployment Strategy →](/docs/decision-guides/deployment-strategy/)
+{{< /card >}}
+{{< card title="Deployment Strategy" href="/docs/decision-guides/deployment-strategy/" >}}
 Decision tree for Docker, GPU, air-gapped, and edge deployments.
-
-</div>
-</div>
+{{< /card >}}
+{{< /card-grid >}}

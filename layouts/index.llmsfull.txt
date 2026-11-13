@@ -5,13 +5,13 @@
 {{- $pageCount := len (where site.Pages "Kind" "in" (slice "home" "page" "section")) -}}
 # MagicAF — Complete Documentation
 
-> MagicAF is the open-source Rust AI/ML/NLP framework by Intracav — embeddings, vector search, LLM orchestration, RAG pipelines, and a full NLP toolkit, with zero cloud dependencies. Air-gapped-capable and built for on-premises deployment. This document also covers Lumen UI, the component DSL that renders Lumen's AI-generated interfaces.
+> MagicAF is the Rust AI/ML/NLP framework by Intracav — retrieval pipelines, agents and tools, document ingest, model routing, NLP, and on-device decisions across {{ len site.Data.crates.crates }} crates, with no required cloud services. Air-gapped-capable and built for on-premises deployment. This document also covers Lumen UI, the component DSL that renders Lumen's AI-generated interfaces.
 
 This file contains the full text of every page on {{ $base }} ({{ $pageCount }} pages), concatenated in navigation order. Each page begins with an `# H1` heading and its canonical URL.
 
 - Index of pages: {{ $base }}/llms.txt
 - Canonical site: {{ $base }}
-- Source code: https://github.com/magicaf/magicaf
+- Source access: by request — hello@intracav.ai
 - Citation: credit "MagicAF (Intracav)" and link the canonical URL of the specific page.
 - Contact: hello@intracav.ai
 

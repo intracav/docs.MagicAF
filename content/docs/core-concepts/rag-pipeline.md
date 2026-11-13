@@ -1,160 +1,90 @@
 ---
-title: "RAG Pipeline"
-description: "How MagicAF's six-step Retrieval-Augmented Generation pipeline works — embed, retrieve, format, prompt, generate, parse — entirely on services you run yourself."
+title: "The RAG Pipeline"
+description: "What RAGWorkflow does between your question and your typed result — every stage, its defaults, how filters and generation settings apply, and how each stage fails."
 weight: 2
-keywords: [RAG pipeline, retrieval-augmented generation, local RAG, air-gapped RAG, Rust RAG]
-tags: [rag, pipeline, orchestration, workflow]
+keywords: [RAG pipeline, retrieval-augmented generation, RAGWorkflow, Rust RAG, local RAG]
+tags: [rag, pipeline, retrieval, generation]
 categories: [concept]
 difficulty: intermediate
-prerequisites:
-  - /docs/core-concepts/architecture/
 ---
 
-When someone asks how an unfamiliar module works, you don't answer from memory — you grep the codebase, open the file, and read the actual implementation before you say a word. **Retrieval-augmented generation** — RAG — imposes that same discipline on a language model: before it generates anything, it retrieves the relevant documents, so the answer is grounded in evidence sitting in front of the model rather than whatever its weights happen to recall.
+A language model answers from what it was trained on unless you give it something better. Retrieval-augmented generation gives it something better: before the model speaks, retrieve the passages that bear on the question, put them in front of it, and ask it to answer from them.
 
-MagicAF makes the discipline mechanical. The `RAGWorkflow` engine executes a deterministic six-step pipeline every time you call `.run()` — and every step runs on services you host yourself. Each step is handled by a pluggable component. This page walks through all six, the result type you get back, and how the pipeline fails when a step breaks — by the end you'll know exactly what happens between your query string and your typed result.
+`RAGWorkflow` makes that a fixed, inspectable sequence. Every call to `run` executes the same stages in the same order, each stage is a trait you can replace, and every stage runs on services you host.
 
-## Pipeline Overview
+## The stages
 
-```
-Query → [Embed] → [Search] → [Format] → [Build Prompt] → [LLM] → [Parse] → Result<T>
-```
+Solid stages always run. Dashed stages run when you add them to the builder.
 
-## Step-by-Step Breakdown
+{{< rag-pipeline >}}
 
-### Step 1 — Embed the Query
+Before the embed, retrieve, and generate stages — each a network call — the workflow checks whether shutdown has been signaled and stops with `MagicError::Shutdown` if so.
 
-```rust
-let query_vector = embedding_service.embed_single(query).await?;
-```
+## Each stage in detail
 
-The user's question is converted into a dense vector using the configured `EmbeddingService`. This vector represents the semantic meaning of the query.
+**Guard.** A `PromptGuard` scans the question for prompt-injection patterns. Depending on its configuration it rejects the request with `PromptInjectionDetected` or passes on a sanitized copy; either way the decision is audited.
 
-### Step 2 — Search the Vector Store
+**Embed.** `EmbeddingService::embed_single` turns the question into a vector. It must use the same model that embedded your documents — vectors from different models are not comparable.
 
-```rust
-let results = vector_store.search(collection, query_vector, top_k, filter).await?;
-```
+**Retrieve.** `VectorStore::search` returns the `top_k` nearest passages (default **10**), restricted by the optional filter you pass to `run`. If you set `min_score`, passages below it are dropped. An empty result is not an error: the model is called with an empty evidence block, and a well-written prompt tells it to say so.
 
-The query vector is used to find the `top_k` most similar documents in the vector store. Results include a similarity score and the original JSON payload.
+**Rerank.** A `Reranker` reorders the passages — `CrossEncoderReranker` by a cross-encoder's score, `ScoreThresholdReranker` by filtering and sorting on the existing score. See [Reranking](/docs/api-reference/core/reranking/).
 
-If `min_score` is configured, results below the threshold are filtered out.
+**Format.** Your `EvidenceFormatter` decides what the model sees of each passage: which payload fields, in what order, with what labels. This is the single biggest lever on answer quality and citation.
 
-### Step 3 — Format Evidence
+**Prompt.** Your `PromptBuilder` combines evidence and question into the user message.
 
-```rust
-let evidence = evidence_formatter.format_evidence(&results).await?;
-```
+**Generate.** The workflow sends a chat request: a system message if `GenerationConfig.system_prompt` is set, then the prompt as the user message, with the configured temperature (default 0.1), top-p (0.95), max tokens (2048), and stop sequences.
 
-The `EvidenceFormatter` converts raw search results into a text block that the LLM can reason over. This is where you can:
+**Check.** A `ResponseGuard` validates the raw reply — size limits and, if configured, required structure — before anything parses it.
 
-- **Filter** irrelevant results
-- **Re-rank** by domain-specific criteria
-- **Annotate** with source metadata
-- **Deduplicate** overlapping content
+**Parse.** Your `ResultParser<T>` turns the reply into `T`.
 
-### Step 4 — Build the Prompt
+**Audit.** If an `AuditLogger` is set, every run emits an event — on success and on every failure — with a hash of the query rather than its text, and the run's duration is recorded as `rag_pipeline_duration_seconds`.
 
-```rust
-let prompt = prompt_builder.build_prompt(query, &evidence).await?;
-```
+## Two places for instructions
 
-The `PromptBuilder` assembles the final prompt from the user query and formatted evidence. This is where prompt engineering lives:
+`DefaultPromptBuilder::new().with_system("…")` puts your instruction at the top of the **user** message, before the `<context>` block. `GenerationConfig { system_prompt: Some("…"), .. }` sends it as a separate **system** message. Most instruction-tuned models weight the system role more heavily; use it for rules the model must follow, and the prompt for task framing.
 
-- System instructions
-- Output format directives (JSON schema, etc.)
-- Few-shot examples
-- Domain-specific context
-
-### Step 5 — Invoke the LLM
-
-```rust
-let chat_response = llm_service.chat(chat_request).await?;
-```
-
-The assembled prompt is sent to the LLM as an OpenAI-compatible chat completion request. Generation parameters (temperature, top_p, max_tokens, stop sequences) are controlled via `GenerationConfig`.
-
-### Step 6 — Parse the Result
-
-```rust
-let result = result_parser.parse_result(&raw_llm_output).await?;
-```
-
-The `ResultParser` converts the raw LLM text into your domain type `T`. Options include:
-
-- `RawResultParser` → returns `String`
-- `JsonResultParser<T>` → deserializes JSON
-- **Custom parser** → regex extraction, validation, multi-field parsing
-
-## Return Type
-
-Every pipeline execution returns a `RAGResult<T>`:
+## What you get back
 
 ```rust
 pub struct RAGResult<T> {
-    /// The domain-typed result produced by the ResultParser.
-    pub result: T,
-
-    /// Number of evidence items retrieved from the vector store.
-    pub evidence_count: usize,
-
-    /// The raw text returned by the LLM (before parsing).
-    pub raw_llm_output: String,
-
-    /// Token usage reported by the LLM, if available.
-    pub usage: Option<Usage>,
+    pub result: T,                 // what your ResultParser produced
+    pub evidence_count: usize,     // passages that reached the model
+    pub raw_llm_output: String,    // the reply before parsing
+    pub usage: Option<Usage>,      // token counts, if the server reported them
 }
 ```
 
-This gives you both the parsed result and full observability metadata.
-
-## Configuration
-
-The pipeline is configured through the builder:
-
-```rust
-let workflow = RAGWorkflow::builder()
-    .embedding_service(embedder)       // Required
-    .vector_store(store)               // Required
-    .llm_service(llm)                  // Required
-    .evidence_formatter(my_formatter)  // Required
-    .prompt_builder(my_prompt)         // Required
-    .result_parser(my_parser)          // Required
-    .collection("my_collection")       // Required — vector store collection name
-    .top_k(10)                         // Optional — default: 10
-    .min_score(0.5)                    // Optional — minimum similarity threshold
-    .generation_config(gen_config)     // Optional — LLM generation parameters
-    .build()?;
-```
+Keep `raw_llm_output` when a parse fails or an answer looks wrong: it shows exactly what the model said.
 
 ## Filters
 
-Pass backend-specific filters to narrow the vector search:
+The second argument to `run` is passed to the vector store as-is:
 
 ```rust
 let filter = serde_json::json!({
-    "must": [{
-        "key": "category",
-        "match": { "value": "technical" }
-    }]
+    "must": [{ "key": "department", "match": { "value": "cardiology" } }]
 });
-
-let result = workflow.run("What is MagicAF?", Some(filter)).await?;
+let result = workflow.run("What is the escalation policy?", Some(filter)).await?;
 ```
 
-Filter format depends on your vector store backend (e.g., Qdrant filter syntax).
+With `QdrantVectorStore` this is [Qdrant filter syntax](https://qdrant.tech/documentation/concepts/filtering/). `InMemoryVectorStore` supports the common subset — `must`, `must_not`, and `should`, nested groups, and `match` conditions on a `value` or `any` list — and treats any condition shape it does not understand as not matching, so an unsupported filter can never widen a search to the whole collection. Use filters for access control as well as relevance: a passage the filter excludes never reaches the model.
 
-## Error Handling
+## How it fails
 
-Every pipeline step returns `Result<T, MagicError>`. If any step fails, the pipeline short-circuits with the appropriate error variant:
+Every stage returns `Result<_, MagicError>`, and the first failure ends the run. Nothing fails silently, and the variant tells you which stage broke.
 
-| Step | Error Variant |
-|------|--------------|
-| Embed | `MagicError::EmbeddingError` or `MagicError::HttpError` |
-| Search | `MagicError::VectorStoreError` or `MagicError::HttpError` |
-| Format | `MagicError::AdapterError` |
-| Build prompt | `MagicError::AdapterError` |
-| LLM call | `MagicError::LlmError` or `MagicError::HttpError` |
-| Parse result | `MagicError::SerializationError` or `MagicError::AdapterError` |
+| Stage | Typical errors |
+|---|---|
+| Any | `Shutdown` |
+| Guard | `PromptInjectionDetected` |
+| Embed | `EmbeddingError`, `HttpError`, `Timeout`, `CircuitOpen`, `RateLimitExceeded` |
+| Retrieve | `VectorStoreError`, `HttpError`, `Timeout`, `CircuitOpen` |
+| Rerank, format, prompt | `AdapterError` |
+| Generate | `LlmError`, `HttpError`, `Throttled`, `Timeout`, `CircuitOpen` |
+| Check | `ResponseTooLarge`, `ResponseSchemaViolation` |
+| Parse | `SerializationError`, `AdapterError` |
 
-No step fails silently. The variant tells you which seam broke.
+Transient failures — timeouts, 429s, 5xx responses — are retried inside each service according to its `RetryConfig` before they surface here. `MagicError::is_retryable()` tells you whether retrying the whole run might help. The full list, with numeric codes, is in [Errors](/docs/api-reference/core/errors/).

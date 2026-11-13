@@ -1,0 +1,21 @@
+{{- /* The full crate catalog grouped by layer, from data/crates.yaml. */ -}}
+{{- $crates := site.Data.crates.crates -}}
+{{- range site.Data.crates.layers }}
+{{- $layer := . }}
+{{- $in := where $crates "layer" $layer.id }}
+{{- if $in }}
+<section class="crate-layer">
+  <h3 id="layer-{{ $layer.id }}">{{ $layer.name }}</h3>
+  <p class="crate-layer__blurb">{{ $layer.blurb }}</p>
+  <div class="crate-list">
+  {{- range $in }}
+    {{- $page := site.GetPage (printf "/docs/crates/%s" .name) }}
+    <a class="crate-row" href="{{ with $page }}{{ .RelPermalink }}{{ else }}{{ with .docs }}{{ . }}{{ else }}#{{ end }}{{ end }}">
+      <span class="crate-row__head"><code>{{ .name }}</code>{{ partial "crates/status-plain.html" .status }}</span>
+      <span class="crate-row__summary">{{ .summary }}</span>
+    </a>
+  {{- end }}
+  </div>
+</section>
+{{- end }}
+{{- end }}

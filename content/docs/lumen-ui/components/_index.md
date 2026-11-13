@@ -1,10 +1,10 @@
 ---
 title: "Component Reference"
-description: "Complete reference for all 72 Lumen UI components — props, examples, and usage guidance across 8 categories."
+description: "Reference for every documented Lumen UI component — props, DSL and JSON examples, and usage guidance, by category."
 weight: 4
 ---
 
-Lumen UI ships 72 production-ready components organized into 8 categories. Each component has a typed schema, DSL and JSON examples, and composition patterns.
+These pages cover {{< stat "lumen_ui_components" >}} components in {{< stat "lumen_ui_categories" >}} categories. Each has its props, DSL and JSON examples, and composition guidance. The full wire vocabulary — {{< stat "ui_component_types" >}} types, including tool-emitted `system` and `interactive` types — is on the [`magicaf-ui` page](/docs/crates/magicaf-ui/#component-types).
 
 ---
 
@@ -17,7 +17,7 @@ Lumen UI ships 72 production-ready components organized into 8 categories. Each 
       <span class="lumen-demo__dot"></span>
       <span class="lumen-demo__dot"></span>
       <span class="lumen-demo__dot"></span>
-      <span class="lumen-demo__bar-title">Lumen UI — 72 Components</span>
+      <span class="lumen-demo__bar-title">Lumen UI — Components</span>
     </div>
     <div class="lumen-demo__content lm">
       <!-- Row 1: Stats + Chart -->

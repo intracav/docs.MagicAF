@@ -1,6 +1,6 @@
 # MagicAF Documentation
 
-Source for [magicaf.intracav.ai](https://magicaf.intracav.ai) — documentation for **MagicAF**, Intracav's open-source Rust AI/ML/NLP framework, and **Lumen UI**, the component DSL that renders Lumen's AI-generated interfaces.
+Source for [magicaf.intracav.ai](https://magicaf.intracav.ai) — documentation for **MagicAF**, Intracav's Rust AI/ML/NLP framework, and **Lumen UI**, the component DSL that renders Lumen's AI-generated interfaces.
 
 Fully custom Hugo site — **no theme**. Requires Hugo extended **0.154.5+**.
 

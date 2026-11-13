@@ -5,6 +5,14 @@ weight: 9
 keywords: [POS tagging, part of speech, Penn Treebank, grammatical analysis, BERT]
 ---
 
+{{< callout type="warning" title="Current behavior" >}}
+- The model is MobileBERT (about 100 MB).
+- `PosConfig` is ignored: the pipeline always uses its default model and picks CUDA when available, CPU otherwise.
+
+See [current limits](/docs/api-reference/nlp/#current-limits) for what applies to every pipeline.
+{{< /callout >}}
+
+
 Part-of-Speech (POS) tagging assigns a **grammatical category** — noun, verb, adjective, adverb, etc. — to every word in the input text. This is a foundational NLP task used for syntactic analysis, text preprocessing, and linguistic feature extraction.
 
 ---
@@ -17,16 +25,16 @@ Part-of-Speech (POS) tagging assigns a **grammatical category** — noun, verb, 
 
 ### When to Use
 
-- ✅ You need grammatical analysis of text (syntactic parsing, dependency analysis)
-- ✅ You're building text preprocessing pipelines that need POS features
-- ✅ You want to filter words by grammatical role (e.g. extract all nouns or verbs)
-- ✅ You're doing linguistic research or annotation
+- You need grammatical analysis of text (syntactic parsing, dependency analysis)
+- You're building text preprocessing pipelines that need POS features
+- You want to filter words by grammatical role (e.g. extract all nouns or verbs)
+- You're doing linguistic research or annotation
 
 ### When Not to Use
 
-- ❌ You need named entity types (person, location, etc.) — use NER
-- ❌ You need semantic meaning or topic classification — use zero-shot classification
-- ❌ You need POS tagging for non-English text (default model is English only)
+- You need named entity types (person, location, etc.) — use NER
+- You need semantic meaning or topic classification — use zero-shot classification
+- You need POS tagging for non-English text (default model is English only)
 
 ---
 
@@ -286,7 +294,7 @@ for (label, count) in sorted.iter().take(10) {
 
 ## Performance
 
-- **Model size:** ~1.3GB (BERT)
+- **Model size:** about 100 MB (MobileBERT)
 - **Inference speed:** ~50–150ms per text on CPU
 - **Memory:** ~2–3GB RAM
 - **Batch processing:** Efficient for multiple texts

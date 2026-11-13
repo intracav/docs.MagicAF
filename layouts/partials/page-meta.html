@@ -1,0 +1,11 @@
+{{- /* Page footer meta: last updated (from git) and an edit link into the
+       public docs repo. Never shown on generated pages without a file. */ -}}
+{{- with .File }}
+<div class="page-meta">
+  {{- if not $.Lastmod.IsZero }}
+  <span class="page-meta__updated">Last updated {{ $.Lastmod.Format "January 2, 2006" }}</span>
+  {{- end }}
+  <a class="page-meta__edit" href="{{ site.Params.editURL }}{{ .Path }}" rel="noopener noreferrer" target="_blank">Edit this page</a>
+  <a class="page-meta__issue" href="{{ site.Params.issueURL }}?title={{ printf "Docs: %s" $.Title | urlquery }}&amp;body={{ printf "Page: %s\n\n" $.Permalink | urlquery }}" rel="noopener noreferrer" target="_blank">Report an issue</a>
+</div>
+{{- end }}

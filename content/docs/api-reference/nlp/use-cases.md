@@ -69,7 +69,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     ];
 
     let all_entities = pipeline.predict(
-        &texts.iter().map(|s| s.as_str()).collect::<Vec<_>>()
+        &texts
     ).await?;
 
     for (i, entities) in all_entities.iter().enumerate() {
@@ -87,15 +87,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         if !persons.is_empty() {
             println!("  Persons: {}", 
-                     persons.iter().map(|e| &e.word).collect::<Vec<_>>().join(", "));
+                     persons.iter().map(|e| e.word.as_str()).collect::<Vec<_>>().join(", "));
         }
         if !locations.is_empty() {
             println!("  Locations: {}", 
-                     locations.iter().map(|e| &e.word).collect::<Vec<_>>().join(", "));
+                     locations.iter().map(|e| e.word.as_str()).collect::<Vec<_>>().join(", "));
         }
         if !orgs.is_empty() {
             println!("  Organizations: {}", 
-                     orgs.iter().map(|e| &e.word).collect::<Vec<_>>().join(", "));
+                     orgs.iter().map(|e| e.word.as_str()).collect::<Vec<_>>().join(", "));
         }
         println!();
     }
@@ -126,17 +126,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     ];
 
     let results = pipeline.predict(
-        &reviews.iter().map(|s| s.as_str()).collect::<Vec<_>>()
+        &reviews
     ).await?;
 
     println!("Sentiment Analysis Results:\n");
     for (i, result) in results.iter().enumerate() {
-        let emoji = match result.polarity {
-            SentimentPolarity::Positive => "😊",
-            SentimentPolarity::Negative => "😞",
+        let marker = match result.polarity {
+            SentimentPolarity::Positive => "+",
+            SentimentPolarity::Negative => "-",
         };
-        println!("{} Review {}: {} (confidence: {:.2}%)",
-                 emoji, i + 1, result.polarity, result.score * 100.0);
+        println!("{} Review {}: {:?} (confidence: {:.2}%)",
+                 marker, i + 1, result.polarity, result.score * 100.0);
     }
 
     let positive_count = results.iter()
@@ -178,7 +178,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     for lang in languages {
         println!("\nTranslating to {:?}:", lang);
         let results = pipeline.translate(
-            &texts.iter().map(|s| s.as_str()).collect::<Vec<_>>(),
+            &texts,
             None,
             Some(lang),
         ).await?;
@@ -257,8 +257,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let categories = vec!["politics", "sports", "science", "technology", "entertainment"];
 
     let results = pipeline.classify(
-        &texts.iter().map(|s| s.as_str()).collect::<Vec<_>>(),
-        &categories.iter().map(|s| s.as_str()).collect::<Vec<_>>(),
+        &texts,
+        &categories,
         None,
         128,
     ).await?;
@@ -266,7 +266,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     for (i, classifications) in results.iter().enumerate() {
         println!("Text: {}", texts[i]);
         println!("Top categories:");
-        for (j, result) in classifications.iter().take(3).enumerate() {
+        // Results follow label order; sort to get the top categories.
+        let mut ranked: Vec<_> = classifications.iter().collect();
+        ranked.sort_by(|a, b| b.score.total_cmp(&a.score));
+        for (j, result) in ranked.iter().take(3).enumerate() {
             println!("  {}. {} ({:.2}%)", 
                      j + 1, result.label, result.score * 100.0);
         }
@@ -305,7 +308,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     ];
 
     let results = pipeline.extract(
-        &documents.iter().map(|s| s.as_str()).collect::<Vec<_>>()
+        &documents
     ).await?;
 
     for (i, keywords) in results.iter().enumerate() {
@@ -380,10 +383,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let pipeline = NerPipeline::new(NerConfig::default()).await?;
 
     // Large batch of texts
-    let texts: Vec<&str> = (0..100)
+    let owned: Vec<String> = (0..100)
         .map(|i| format!("Document {}: This is sample text with entities.", i))
-        .map(|s| Box::leak(s.into_boxed_str()))
         .collect();
+    let texts: Vec<&str> = owned.iter().map(String::as_str).collect();
 
     // Process all at once (more efficient than individual calls)
     let all_entities = pipeline.predict(&texts).await?;

@@ -1,133 +1,75 @@
 ---
 title: "Architecture"
-description: "MagicAF's three-layer architecture — how strict trait boundaries keep domain logic in adapters and make the same code portable from a laptop to an isolated network."
+description: "How MagicAF is put together: service traits at the bottom, composable engines in the middle, your domain code on top — and the crates that implement each layer."
 weight: 1
-keywords: [architecture, three-layer architecture, trait boundaries, Rust framework design, air-gapped architecture]
+keywords: [architecture, trait boundaries, Rust framework design, air-gapped architecture, crate map]
 tags: [architecture, layers, traits, separation-of-concerns]
 categories: [concept]
 difficulty: intermediate
-prerequisites:
-  - /docs/getting-started/quickstart/
 ---
 
-You've inherited the codebase where SQL lives in the request handlers and business rules hide in a stored procedure — and you know what it costs: every infrastructure change becomes a domain change, and every domain change becomes a deployment risk. MagicAF is structured so that never happens to your RAG stack. The framework enforces a **strict three-layer architecture** — each layer has a single responsibility, and layers communicate only through well-defined trait boundaries. Those boundaries are where the framework's decisions end and yours begin: everything above the trait is your code; everything below it is swappable.
+MagicAF is built on one rule: **every capability is a trait, and nothing above a trait knows what implements it.** An embedding model, a vector database, a language model, a speech engine, a calibrated decision model — each is an interface in `magicaf-core`. The engines that compose them, and the domain code you write, depend only on those interfaces.
 
-If you're evaluating whether MagicAF fits your system — or working out where your own code will live inside it — this page is the map. By the end you'll know what each layer owns, why the boundaries sit where they do, and which seams you're expected to implement.
+That rule is what lets the same application run against a GPU cluster in one deployment and a CPU-only box on an isolated network in another: you change which implementation you construct, not the code that uses it.
 
-## Layer Model
+## The crates, by layer
 
-```
-┌───────────────────────────────────────────────────┐
-│              Domain Applications                  │
-│   (your business logic, adapters, result types)   │
-└──────────────────────┬────────────────────────────┘
-                       │
-┌──────────────────────▼────────────────────────────┐
-│           3 · Adapter Layer                       │
-│   EvidenceFormatter · PromptBuilder · ResultParser│
-└──────────────────────┬────────────────────────────┘
-                       │
-┌──────────────────────▼────────────────────────────┐
-│           2 · Orchestration Layer                 │
-│              RAGWorkflow<S, V, L, …>              │
-└──────────────────────┬────────────────────────────┘
-                       │
-┌──────────────────────▼────────────────────────────┐
-│           1 · Infrastructure Layer                │
-│   EmbeddingService · VectorStore · LlmService     │
-└───────────────────────────────────────────────────┘
-```
+{{< crate-map >}}
 
-## Why This Architecture?
+Read the map from the bottom. **Foundation** crates define the traits and ship the reference implementations. Everything above builds on them. The [crate catalog](/docs/crates/) explains each status.
 
-MagicAF separates concerns into three layers for a specific reason: **in regulated environments, you need to swap components without changing business logic**.
+## Service traits
 
-Consider a defense lab that certifies their RAG pipeline for use on an isolated network. Six months later, they need to replace Qdrant with Milvus because of a new infrastructure mandate. With MagicAF's architecture, they implement the `VectorStore` trait for Milvus and change one line in the builder — the adapters, orchestration logic, and all tests remain untouched.
+These are the seams between MagicAF and the systems it talks to. All are async, `Send + Sync`, and defined in `magicaf-core`.
 
-The same principle applies to healthcare: a hospital might start with vLLM on a GPU server, then move to Ollama on CPU-only hardware when deploying to a satellite clinic. The `LlmService` implementation changes; the prompt engineering, evidence formatting, and result parsing stay identical.
+| Trait | Capability | Implementations |
+|---|---|---|
+| `EmbeddingService` | Text → vectors | `LocalEmbeddingService` (any OpenAI-compatible `/v1/embeddings`), `CachedEmbeddingService` (wraps another with a cache) |
+| `VectorStore` | Index, search, filter, scroll, delete | `QdrantVectorStore` ([`magicaf-qdrant`](/docs/crates/magicaf-qdrant/)), `InMemoryVectorStore` |
+| `LlmService` | Chat completion, streaming, tool calls | `LocalLlmService` (OpenAI-compatible), `AnthropicLlmService`, `LlmGateway`, `FallbackGateway` ([`magicaf-local-llm`](/docs/crates/magicaf-local-llm/)) |
+| `AsrService` / `StreamingAsrService` | Speech → text | `WhisperAsrService`; `OnnxStreamingAsrEngine` ([`magicaf-asr-onnx`](/docs/crates/magicaf-asr-onnx/)) |
+| `TtsService` | Text → speech | `KokoroTtsService`, `DeepgramTtsService` |
+| `DecisionService` | Calibrated answers to typed questions | Reflex runtimes ([`magicaf-reflex-onnx`](/docs/crates/magicaf-reflex-onnx/)) |
+| `Reranker` | Reorder retrieved passages | `CrossEncoderReranker`, `ScoreThresholdReranker` |
+| `CacheService` | Key-value cache for embeddings | Your implementation |
+| `TokenBudget` | Reserve and record token spend | `NoopTokenBudget`, or yours |
+| `AuditLogger` | Receive audit events | `TracingAuditLogger`, or yours |
 
-This is not theoretical flexibility. It is a concrete engineering requirement in environments where:
+Each service also takes the same configuration vocabulary — timeouts, retry with backoff, a circuit breaker, a rate limiter, TLS, and a connection pool — and reports failures through one error enum with stable numeric codes. See [Traits and interfaces](/docs/core-concepts/traits-and-interfaces/).
 
-- **Certification is expensive** — changing business logic triggers re-certification, but swapping infrastructure does not
-- **Vendor lock-in is unacceptable** — government contracts often prohibit dependency on a single vendor
-- **Hardware varies across sites** — the same codebase deploys to GPU servers, CPU workstations, and edge devices
-- **Testing must be comprehensive** — mock implementations slot into the same trait boundaries, enabling full pipeline testing without live services
+## Engines
 
-## Layer 1 — Infrastructure
+Engines compose services into behavior. They are generic over the traits, so they work with any implementation.
 
-The infrastructure layer provides the fundamental AI primitives. Each primitive is defined as an async trait.
+| Engine | Crate | Composes |
+|---|---|---|
+| `RAGWorkflow` | `magicaf-core` | Embeddings, a vector store, an LLM, and three adapters into a retrieval pipeline |
+| `run_turn` | [`magicaf-agent`](/docs/crates/magicaf-agent/) | A model provider and a tool executor into an agent turn, recorded in a session log |
+| `RoutingPolicy` | [`magicaf-routing`](/docs/crates/magicaf-routing/) | A model catalog and request features into a routing decision |
 
-| Module | Trait | Purpose |
-|--------|-------|---------|
-| `embeddings` | `EmbeddingService` | Produce dense vectors from text |
-| `vector_store` | `VectorStore` | Index, search, and delete vectors with JSON payloads |
-| `llm` | `LlmService` | Chat completion and text generation via OpenAI-compatible API |
+### The retrieval pipeline
 
-Concrete implementations ship in separate crates:
+`RAGWorkflow` runs a fixed sequence. Solid stages are required; dashed ones run when you add them to the builder.
 
-| Implementation | Crate | Backend |
-|---------------|-------|---------|
-| `LocalEmbeddingService` | `magicaf-core` | Any OpenAI-compatible `/v1/embeddings` endpoint |
-| `QdrantVectorStore` | `magicaf-qdrant` | Qdrant (REST API) |
-| `InMemoryVectorStore` | `magicaf-core` | In-process brute-force search (no external deps) |
-| `LocalLlmService` | `magicaf-local-llm` | Any OpenAI-compatible `/v1/chat/completions` endpoint |
+{{< rag-pipeline >}}
 
-## Layer 2 — Orchestration
+Before every network call the workflow checks for a shutdown signal, so a draining process does not start new work. [The RAG pipeline](/docs/core-concepts/rag-pipeline/) covers each stage in depth.
 
-`RAGWorkflow` is the pipeline engine. It is fully generic over all service and adapter traits:
+## Your code: adapters
 
-```rust
-pub struct RAGWorkflow<S, V, L, EF, PB, RP, T>
-where
-    S: EmbeddingService,
-    V: VectorStore,
-    L: LlmService,
-    EF: EvidenceFormatter,
-    PB: PromptBuilder,
-    RP: ResultParser<T>,
-    T: Send,
-```
+Three traits are where a retrieval application becomes *yours*:
 
-The workflow executes a fixed six-step pipeline:
+| Trait | Decides | Default |
+|---|---|---|
+| `EvidenceFormatter` | What the model sees of each retrieved passage | `DefaultEvidenceFormatter` — pretty-printed payloads with scores |
+| `PromptBuilder` | How evidence and question are put to the model | `DefaultPromptBuilder` — evidence in a `<context>` block, then the question |
+| `ResultParser<T>` | What type you get back | `RawResultParser` (a `String`), `JsonResultParser<T>` (any `Deserialize` type) |
 
-1. **Embed** the query → `EmbeddingService::embed_single`
-2. **Search** the vector store → `VectorStore::search`
-3. **Format** evidence → `EvidenceFormatter::format_evidence`
-4. **Build** the prompt → `PromptBuilder::build_prompt`
-5. **Invoke** the LLM → `LlmService::chat`
-6. **Parse** the result → `ResultParser::parse_result`
+The defaults are enough to get a pipeline running. Production systems usually replace all three — see [Building adapters](/docs/guides/building-adapters/) and [Adapter patterns](/docs/decision-guides/adapter-patterns/).
 
-## Layer 3 — Adapters
+## Why the boundaries sit here
 
-Three traits form the domain extension seam. This is where **your** application-specific logic lives.
-
-| Trait | Injected at Step | Domain Responsibility |
-|-------|------------------|-----------------------|
-| `EvidenceFormatter` | 3 | Convert search results → text block for the LLM |
-| `PromptBuilder` | 4 | Assemble system + evidence + query → prompt |
-| `ResultParser<T>` | 6 | Parse raw LLM text → typed domain result |
-
-Default implementations ship in `magicaf-core` for rapid prototyping:
-
-- `DefaultEvidenceFormatter` — pretty-prints JSON payloads
-- `DefaultPromptBuilder` — wraps evidence in `<context>` tags
-- `RawResultParser` — returns the raw LLM output as `String`
-- `JsonResultParser<T>` — deserializes JSON into any `T: DeserializeOwned`
-
-## Crate Dependency Graph
-
-```
-magicaf-core  (traits, DTOs, RAG engine, adapters, config, errors)
-     ↑                  ↑
-magicaf-qdrant     magicaf-local-llm
-(VectorStore impl)  (LlmService impl)
-```
-
-Both implementation crates depend **only** on `magicaf-core`. Downstream applications depend on all three.
-
-## Guiding Principles
-
-1. **Separation of concerns.** Infrastructure is independent of orchestration, which is independent of domain logic.
-2. **Trait-driven extensibility.** Every major component is accessed through a trait — swapping implementations is a one-line config change.
-3. **DTO-based public surface.** Request/response types are plain structs with `Serialize`/`Deserialize`, easy to expose over FFI or serialize to JSON.
-4. **Error codes for FFI.** Every `MagicError` variant maps to a stable numeric code, enabling clean error propagation across language boundaries.
+- **Infrastructure changes should not touch domain code.** Moving from vLLM on a GPU server to Ollama on a CPU workstation is a different `LlmService`; your formatter, prompt, and parser do not change, and neither do their tests.
+- **Every boundary is a test seam.** Because each service is a trait, a test can replace the network with an in-memory fake and still run the whole pipeline — see [Testing](/docs/guides/testing/).
+- **No vendor in the dependency tree by default.** The reference implementations speak open protocols (OpenAI-compatible HTTP, Qdrant REST), and anything that calls a hosted service — `AnthropicLlmService`, Deepgram, the browser crate's search helpers — is something you construct deliberately.
+- **Flat data at the edges.** Requests and responses are plain `Serialize`/`Deserialize` structs and errors carry numeric codes, so the surface can cross a process or language boundary — as it already does in [`magicaf-mobile`](/docs/crates/magicaf-mobile/) and the Reflex C ABI.

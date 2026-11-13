@@ -69,9 +69,12 @@ outputs:
     - markdown
 
 params:
-  description: "Open-source Rust AI framework for RAG pipelines, NLP, embeddings, vector search, and LLM orchestration — built to run air-gapped with zero cloud dependencies, for environments where data cannot leave the network."
+  description: "Rust AI framework for RAG pipelines, NLP, embeddings, vector search, and LLM orchestration — built to run air-gapped with zero cloud dependencies, for environments where data cannot leave the network."
   keywords: [magicaf, rust, rag, embeddings, vector-search, llm, on-premises, air-gapped, framework, sdk, secure AI, airgapped AI, secure LLM, on-premises AI, NLP toolkit, RAG framework, secure vector search, secure embeddings, air-gapped deployment, secure NLP, local AI, self-hosted AI, Intracav]
   author: "MagicAF Contributors"
+  # Docs repo is public; the framework repo is not (see data/site.yaml access).
+  editURL: "https://github.com/intracav/docs.MagicAF/edit/main/content/"
+  issueURL: "https://github.com/intracav/docs.MagicAF/issues/new"
 
   # Social metadata for Open Graph and Twitter Cards
   social:
@@ -107,21 +110,13 @@ markup:
 
 menu:
   main:
-    - identifier: about
-      name: About
-      url: /about/
-      weight: 5
     - identifier: docs
-      name: Documentation
+      name: Docs
       url: /docs/
       weight: 10
-    - identifier: menu-tutorials
-      name: Tutorials
-      url: /docs/tutorials/
-      weight: 12
-    - identifier: menu-lumen-ui
-      name: Lumen UI
-      url: /docs/lumen-ui/
+    - identifier: crates
+      name: Crates
+      url: /docs/crates/
       weight: 15
     - identifier: api
       name: API Reference
@@ -131,9 +126,11 @@ menu:
       name: Examples
       url: /docs/examples/
       weight: 30
-    - identifier: github
-      name: ""
-      url: "https://github.com/magicaf/magicaf"
+    - identifier: menu-lumen-ui
+      name: Lumen UI
+      url: /docs/lumen-ui/
+      weight: 35
+    - identifier: lumen-docs
+      name: Lumen docs
+      url: "https://docs.intracav.ai/"
       weight: 40
-      params:
-        external: true

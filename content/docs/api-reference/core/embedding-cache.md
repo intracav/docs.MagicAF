@@ -48,7 +48,7 @@ Wraps `inner` with an LRU cache. The cache key is the SHA-256 hash of the input 
 
 **`EmbeddingService`** — cache-aware:
 - `embed(&[String])` — returns cached vectors for cache hits, calls `inner.embed()` only for misses
-- `embed_single(&str)` — single-text convenience, uses the same cache
+- `embed_single(&str)` — cached separately, under a `q:` key prefix, and computed by `inner.embed_single`. Some services embed a query differently from a passage (asymmetric retrieval), so a passage vector never answers a query lookup or the reverse.
 - `health_check()` — delegates to `inner.health_check()`
 
 **`CacheService`** — for GDPR integration:
@@ -59,7 +59,7 @@ Wraps `inner` with an LRU cache. The cache key is the SHA-256 hash of the input 
 - **Key:** SHA-256 hash of input text (not the raw text)
 - **Eviction:** LRU — least recently used entries evicted when `max_entries` is reached
 - **Expiry:** Entries older than `ttl_secs` are treated as misses on read (lazy expiration)
-- **Thread safety:** `Arc<RwLock<LruCache>>` — concurrent reads, exclusive writes
+- **Thread safety:** the LRU sits behind an async `RwLock`. Because an LRU lookup updates recency, lookups take the write lock too, so cache access is serialized; the embedding calls themselves run outside the lock.
 
 ---
 
@@ -67,6 +67,7 @@ Wraps `inner` with an LRU cache. The cache key is the SHA-256 hash of the input 
 
 ```rust
 use magicaf_core::embeddings::cache::{CachedEmbeddingService, EmbeddingCacheConfig};
+use magicaf_core::embeddings::{EmbeddingService, LocalEmbeddingService};
 
 let inner = LocalEmbeddingService::new(embedding_config)?;
 

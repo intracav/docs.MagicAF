@@ -5,6 +5,15 @@ weight: 8
 keywords: [text generation, GPT-2, GPT-Neo, language model, auto-regressive, beam search, top-k, top-p, nucleus sampling]
 ---
 
+{{< callout type="warning" title="Current behavior" >}}
+- Defaults: `max_length` 64, `top_p` 0.95. Only `max_length` is an `Option`; set the other fields to plain values, not `Some(...)`.
+- `ModelSource::Local` is not applied.
+- If inference fails, `generate` returns `Ok` with an empty list.
+
+See [current limits](/docs/api-reference/nlp/#current-limits) for what applies to every pipeline.
+{{< /callout >}}
+
+
 The text generation pipeline performs **auto-regressive language generation** entirely in-process using GPT-2 or GPT-Neo. Given a prompt, it generates a continuation — with full control over decoding parameters like temperature, beam search, top-k, and top-p sampling.
 
 ---
@@ -17,16 +26,16 @@ The text generation pipeline performs **auto-regressive language generation** en
 
 ### When to Use
 
-- ✅ You need in-process text generation with no external server
-- ✅ You want fine-grained control over decoding (beam search, top-k, top-p)
-- ✅ You're deploying to air-gapped or edge environments
-- ✅ You need lightweight, fast generation for short-form content
+- You need in-process text generation with no external server
+- You want fine-grained control over decoding (beam search, top-k, top-p)
+- You're deploying to air-gapped or edge environments
+- You need lightweight, fast generation for short-form content
 
 ### When Not to Use
 
-- ❌ You need long, high-quality, instruction-following text (use `LlmService::generate` with a 7B+ LLM)
-- ❌ You need factual accuracy or knowledge beyond GPT-2's training data
-- ❌ You need chat-style interaction with history (use the [Dialogue pipeline](/docs/api-reference/nlp/dialogue/))
+- You need long, high-quality, instruction-following text (use `LlmService::generate` with a 7B+ LLM)
+- You need factual accuracy or knowledge beyond GPT-2's training data
+- You need chat-style interaction with history (use the [Dialogue pipeline](/docs/api-reference/nlp/dialogue/))
 
 ### How This Differs from `LlmService::generate`
 

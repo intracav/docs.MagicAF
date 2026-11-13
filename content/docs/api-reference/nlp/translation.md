@@ -1,11 +1,20 @@
 ---
 title: "Translation"
-description: "Translate text between 25+ languages using neural machine translation models. Supports Marian (fast, pair-specific) and M2M100 (100+ languages)."
+description: "Translate text between 25+ languages using neural machine translation models. Supports Marian (fast, pair-specific) and M2M100 (25 languages)."
 weight: 5
 keywords: [translation, machine translation, Marian, M2M100, multilingual, NMT]
 ---
 
-Neural machine translation converts text from one language to another using pre-trained transformer models. MagicAF supports two model families: **Marian** for fast, high-quality pair-specific translation, and **M2M100** for direct translation between 100+ languages.
+{{< callout type="warning" title="Current behavior" >}}
+- Supports the 25 languages in the `Language` enum. Pairs without a dedicated Marian model fall back to M2M100 rather than returning an error.
+- `ModelSource::Local` is not applied; models load through the rust-bert cache.
+- If inference fails, `translate` returns `Ok` with an empty list. Check for empty output.
+
+See [current limits](/docs/api-reference/nlp/#current-limits) for what applies to every pipeline.
+{{< /callout >}}
+
+
+Neural machine translation converts text from one language to another using pre-trained transformer models. MagicAF supports two model families: **Marian** for fast, high-quality pair-specific translation, and **M2M100** for direct translation between 25 languages.
 
 ---
 
@@ -14,20 +23,20 @@ Neural machine translation converts text from one language to another using pre-
 **Module:** `magicaf_nlp::translation`
 **Default Model:** Marian-based neural machine translation
 **Task:** Translate text between languages
-**Supported Languages:** 25 listed + 75+ via M2M100
+**Supported Languages:** 25 listed + 25 via M2M100
 
 ### When to Use
 
-- ✅ You need to translate text between supported languages
-- ✅ You want in-process translation with no external API calls
-- ✅ You need batch translation of multiple texts
-- ✅ You're building multilingual document processing pipelines
+- You need to translate text between supported languages
+- You want in-process translation with no external API calls
+- You need batch translation of multiple texts
+- You're building multilingual document processing pipelines
 
 ### When Not to Use
 
-- ❌ You need real-time streaming translation (model loads once, then translates in batches)
-- ❌ You need translation for extremely low-resource languages not in the supported set
-- ❌ You need translation with domain-specific terminology preservation (consider fine-tuned models)
+- You need real-time streaming translation (model loads once, then translates in batches)
+- You need translation for extremely low-resource languages not in the supported set
+- You need translation with domain-specific terminology preservation (consider fine-tuned models)
 
 ---
 

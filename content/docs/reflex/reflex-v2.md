@@ -11,11 +11,13 @@ prerequisites:
   - /docs/reflex/contract/
 ---
 
-{{< callout type="warning" title="Status 2026-10-26: runtime and contract built and tested; NO trained Reflex Core exists yet" >}}
+{{< callout type="warning" title="Status 2026-10-29: a first Reflex Core is trained and running in shadow; no key is certified" >}}
 Everything on this page that says *proven* has a committed report behind it (paths below, in the MagicAF
-repository). **No Reflex Core model has been trained, calibrated or shipped.** The runtime is exercised with
-a random-weight parity fixture and with the published Laya checkpoint; the training job is a reviewed bundle
-awaiting a GPU host. Reflex_02 does not exist. Nothing here holds authority above shadow anywhere.
+repository). A first Reflex Core, version `1.0.0-rc1`, was trained, exported, and calibrated on 2026-10-28
+and runs in production **in shadow** — it is consulted and logged, and decides nothing. Its calibration
+file lists every key as certified, but on held-out test data only `route` meets the target, so **no key is
+treated as certified**. The int8 build of this model changed too many answers to ship; only fp32 is
+deployed. Reflex_02 does not exist. Nothing here holds authority above shadow anywhere.
 {{< /callout >}}
 
 ## Naming
@@ -65,10 +67,12 @@ sees) has its own fixture that all three plus Python reproduce.
 
 ## What is not done
 
-- **Training.** Stage 1 + RLCD code exists and ran end to end on a random mini encoder (pipeline proof
-  only). Candidates A (Laya-initialised) and B (ModernBERT-large, our data only) are job bundles for a
-  GPU host (`ml/reflex_core/jobs/`); no host was available. No quality number for Reflex Core exists.
-- **Certification** of any keyed set on a shipped artifact; **Reflex_02**; the Dart ONNX runtime; the
+- **A certifiable Core.** Candidate B (ModernBERT-large, our data only) was trained to `1.0.0-rc1` and is in
+  shadow. Its calibration split was drawn from training vocabulary, so the certification it reports does not
+  hold on held-out data; a recalibration on held-out rows is needed before any key can be certified.
+  Candidate A (Laya-initialised) has not been trained. Results are in `docs/reflex/v2/LOG.md`.
+- **A usable int8 build** of the trained Core.
+- **Certification** of any keyed set on a shipped artifact; **Reflex_02**; a pure-Dart ONNX runtime (Dart uses the Rust C ABI); the
   rung-3 argument-extraction prototype (ADR-008); the ADR-010 air-gap gate table (built, not measured).
 - **Teacher labels.** The cached teacher pipeline exists; no frontier-model call has been made.
 

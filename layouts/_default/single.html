@@ -1,21 +1,22 @@
 {{ define "main" }}
+{{- $hasToc := gt (len .Fragments.Identifiers) 2 }}
+<div class="doc-layout{{ if $hasToc }} has-toc{{ end }}">
 <div class="content-body">
   {{ partial "breadcrumbs.html" . }}
 
   <div class="page-header">
     <h1>{{ .Title }}</h1>
     {{ with or .Params.lead .Description }}<p class="lead">{{ . }}</p>{{ end }}
-    {{ if or .Params.difficulty .Params.status (not .Lastmod.IsZero) }}
+    {{ if or .Params.difficulty .Params.status }}
     <div class="page-badges">
       {{ with .Params.difficulty }}<span class="badge badge--{{ . }}">{{ . | title }}</span>{{ end }}
       {{ with .Params.status }}<span class="status-badge status-{{ . }}">{{ replace . "-" " " | title }}</span>{{ end }}
-      {{ if not .Lastmod.IsZero }}<span class="page-updated">Updated {{ .Lastmod.Format "Jan 2, 2006" }}</span>{{ end }}
     </div>
     {{ end }}
   </div>
 
   {{ if gt (len .Fragments.Identifiers) 2 }}
-  <details class="page-toc">
+  <details class="page-toc page-toc--inline">
     <summary>On this page</summary>
     {{ .TableOfContents }}
   </details>
@@ -24,6 +25,8 @@
   <div class="page-content">
     {{ .Content }}
   </div>
+
+  {{ partial "page-meta.html" . }}
 
   {{/* Prev/next within the section. Hugo orders pages by weight ascending;
        .NextInSection points toward the front of that list (lower weight),
@@ -48,5 +51,14 @@
     {{ end }}
   </nav>
   {{ end }}
+</div>
+{{ if $hasToc }}
+<aside class="toc-rail" aria-label="On this page">
+  <div class="toc-rail__inner">
+    <div class="toc-rail__heading">On this page</div>
+    {{ .TableOfContents }}
+  </div>
+</aside>
+{{ end }}
 </div>
 {{ end }}

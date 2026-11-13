@@ -1,0 +1,27 @@
+{{- /* Fact panel for a crate page, rendered from data/crates.yaml.
+       Usage: {{< crate-header "magicaf-agent" >}} */ -}}
+{{- $c := partial "crates/lookup.html" (.Get 0) -}}
+{{- $layer := dict -}}
+{{- range site.Data.crates.layers }}{{ if eq .id $c.layer }}{{ $layer = . }}{{ end }}{{ end -}}
+<div class="crate-panel">
+  <div class="crate-panel__row crate-panel__title">
+    <code class="crate-panel__name">{{ $c.name }}</code>
+    {{ partial "crates/status.html" $c.status }}
+    <span class="crate-panel__layer">{{ $layer.name }}</span>
+  </div>
+  <dl class="crate-panel__facts">
+    <div><dt>Add it</dt><dd><code>{{ $c.name }} = { git = "{{ site.Data.site.access.repo_ssh }}" }</code></dd></div>
+    <div><dt>Depends on</dt><dd>{{ with $c.depends }}{{ range $i, $d := . }}{{ if $i }}, {{ end }}{{ $name := index (split $d " ") 0 }}<a href="/docs/crates/{{ $name }}/"><code>{{ $name }}</code></a>{{ with findRE `\(.*\)` $d }} <span class="muted">{{ index . 0 }}</span>{{ end }}{{ end }}{{ else }}No other MagicAF crate{{ end }}</dd></div>
+    <div><dt>Runtime needs</dt><dd>{{ $c.runtime | markdownify }}</dd></div>
+  </dl>
+  {{- with $c.features }}
+  <table class="crate-panel__features">
+    <thead><tr><th>Feature</th><th>Default</th><th>Enables</th></tr></thead>
+    <tbody>
+    {{- range . }}
+      <tr><td><code>{{ .name }}</code></td><td>{{ if .default }}on{{ else }}off{{ end }}</td><td>{{ .enables | markdownify }}</td></tr>
+    {{- end }}
+    </tbody>
+  </table>
+  {{- end }}
+</div>

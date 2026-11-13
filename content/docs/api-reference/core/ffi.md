@@ -8,7 +8,7 @@ difficulty: advanced
 prerequisites: [/docs/api-reference/core/errors/]
 ---
 
-MagicAF's public API is designed with future FFI (Foreign Function Interface) bindings in mind. While bindings are not yet shipped, the architecture choices make them straightforward to implement.
+MagicAF's public API is designed to cross language boundaries: flat data types, `serde` everywhere, and numeric error codes. Three bindings already ship — [`magicaf-mobile`](/docs/crates/magicaf-mobile/) through `flutter_rust_bridge`, [`magicaf-reflex`](/docs/crates/magicaf-reflex/) as a Swift package through UniFFI, and [`magicaf-reflex-onnx`](/docs/crates/magicaf-reflex-onnx/)'s flat C ABI. There is no general-purpose binding for the RAG workflow; this page describes how to build one.
 
 ## Design Decisions
 
@@ -30,7 +30,7 @@ pub struct SearchResult {
 `MagicError::error_code()` returns a `u32` that can be passed across an FFI boundary. The human-readable message is available via `Display`.
 
 ```rust
-let code: u32 = error.error_code(); // 1000, 2000, ..., 9000
+let code: u32 = error.error_code(); // 1000 – 26104; see Errors for the full table
 let message: String = error.to_string();
 ```
 
@@ -82,3 +82,4 @@ Each binding wraps the opaque handle pattern and translates `MagicError` codes i
 | `7000` | `SerializationError` | JSON / serde |
 | `8000` | `HealthCheckFailed` | Service health |
 | `9000` | `Internal` | Unexpected errors |
+| `10000`+ | Resilience, guards, speech, auth, database, tools, artifacts, server, budget, Reflex | See [Errors](/docs/api-reference/core/errors/#variants-and-codes) |

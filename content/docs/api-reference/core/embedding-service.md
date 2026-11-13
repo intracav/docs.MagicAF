@@ -129,13 +129,11 @@ impl LocalEmbeddingService {
 use magicaf_core::config::EmbeddingConfig;
 use magicaf_core::embeddings::{EmbeddingService, LocalEmbeddingService};
 
-let embedder = LocalEmbeddingService::new(EmbeddingConfig {
-    base_url: "http://localhost:8080".into(),
-    model_name: "bge-large-en-v1.5".into(),
-    batch_size: 32,
-    timeout_secs: 30,
-    api_key: None,
-})?;
+let config: EmbeddingConfig = serde_json::from_value(serde_json::json!({
+    "base_url": "http://localhost:8080",
+    "model_name": "bge-large-en-v1.5"
+}))?;
+let embedder = LocalEmbeddingService::new(config)?;
 
 // Single embedding
 let vector = embedder.embed_single("Hello, world!").await?;

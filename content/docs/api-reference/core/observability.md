@@ -8,7 +8,7 @@ difficulty: intermediate
 prerequisites: [/docs/core-concepts/architecture/]
 ---
 
-MagicAF provides structured audit logging and OpenTelemetry-based metrics throughout all service clients. Every significant operation (RAG query, health check, GDPR deletion) produces auditable events, and all HTTP calls emit latency histograms and counters.
+MagicAF provides structured audit events, OpenTelemetry metrics exported in Prometheus format, and JSON logging helpers. `RAGWorkflow` runs and GDPR deletions emit audit events; service clients record latency, token, retry, and resilience metrics.
 
 **Modules:** `magicaf_core::audit`, `magicaf_core::metrics`, `magicaf_core::telemetry`
 
@@ -29,8 +29,16 @@ pub enum AuditEventType {
         collections_cleared: usize,
         collections_failed: usize,
     },
+    // Authentication events, for hosts using magicaf-auth
+    AuthLogin { provider: String, user_id: String },
+    AuthLogout { user_id: String },
+    AuthFailed { provider: String, reason: String },
+    AuthRoleChange { user_id: String, old_role: String, new_role: String, changed_by: String },
+    AuthMfaVerified { user_id: String, method: String },
 }
 ```
+
+Serialized with `"type"` as the tag in `snake_case` — for example `{"type": "rag_query"}`. MagicAF itself emits `RagQuery` (from `RAGWorkflow`) and `GdprDeletion` (from `GdprService`). The other variants are for your host to emit — `HealthCheck` and `ServiceStartup`/`ServiceShutdown` at the obvious points, the `Auth*` events from your login flow.
 
 ### `AuditOutcome`
 
@@ -143,20 +151,28 @@ pub fn metrics_handler(registry: &prometheus::Registry) -> String
 
 Renders all collected metrics as Prometheus text format, suitable for a `/metrics` HTTP endpoint.
 
-### Built-in Metrics
+### Built-in metrics
 
-All service clients automatically emit these metrics:
+Instruments are created on the global meter provider, so they appear once you call `init_metrics` (or `init_logging_with_metrics`). Names are exactly as exported to Prometheus.
 
-| Metric | Type | Labels | Source |
-|--------|------|--------|--------|
-| `magicaf.retry.count` | Counter | `operation` | `retry.rs` |
-| `magicaf.circuit_breaker.state` | Gauge | `service` | `circuit_breaker.rs` |
-| `magicaf.rate_limiter.active` | UpDownCounter | `service` | `rate_limiter.rs` |
-| `magicaf.prompt_guard.detections` | Counter | — | `prompt_guard.rs` |
-| `magicaf.llm.duration_seconds` | Histogram | `service` | LLM clients |
-| `magicaf.llm.tokens_total` | Counter | `service` | LLM clients |
-| `magicaf.vector_store.search_seconds` | Histogram | `service` | Qdrant client |
-| `magicaf.vector_store.index_seconds` | Histogram | `service` | Qdrant client |
+| Metric | Type | Labels | Recorded by |
+|---|---|---|---|
+| `rag_pipeline_duration_seconds` | Histogram | `collection` | `RAGWorkflow::run` |
+| `embedding_request_duration_seconds` | Histogram | `model`, `status` | `LocalEmbeddingService` |
+| `embedding_requests_total` | Counter | `model`, `status` | `LocalEmbeddingService` |
+| `vector_search_duration_seconds` | Histogram | `collection` | `QdrantVectorStore` |
+| `vector_index_duration_seconds` | Histogram | `collection` | `QdrantVectorStore` |
+| `llm_request_duration_seconds` | Histogram | `model`, `type` | `LocalLlmService` |
+| `llm_tokens_total` | Counter | `model`, `provider`, `type` (`prompt` / `completion`) | LLM clients |
+| `llm_stream_first_byte_seconds` | Histogram | `model`, `provider`, `outcome` | Streaming calls with `chat_stream_timed` |
+| `llm_stream_ttft_seconds` | Histogram | `model`, `provider`, `first` (text or thinking) | Streaming calls with `chat_stream_timed` |
+| `llm_stream_duration_seconds` | Histogram | `model`, `provider`, `outcome` | Streaming calls with `chat_stream_timed` |
+| `anthropic_request_duration_seconds` | Histogram | `model`, `type` | `AnthropicLlmService` |
+| `anthropic_tokens_total` | Counter | `model`, `type` | `AnthropicLlmService` |
+| `retry_attempts_total` | Counter | `service`, `attempt` | Retry wrapper |
+| `circuit_breaker_state` | Gauge | `service` | Circuit breaker (0 closed, 1 open, 2 half-open) |
+| `rate_limiter_active_requests` | Up-down counter | `service` | Rate limiter |
+| `prompt_injection_detections_total` | Counter | `policy` | `PromptGuard` |
 
 ### Example: Exposing Metrics
 
@@ -175,18 +191,23 @@ let app = Router::new()
 
 ---
 
-## Telemetry Initialization
+## Logging initialization
 
-The `telemetry` module provides helpers for initializing `tracing` subscribers with structured output.
+`magicaf_core::telemetry` sets up `tracing` with JSON output, filtered by `RUST_LOG` (default `info`). Each function installs the global subscriber, so call one, once, at startup.
+
+| Function | Installs |
+|---|---|
+| `init_logging()` | JSON logs to stderr |
+| `init_logging_with_pii_filter()` | JSON logs with email addresses, US Social Security numbers, card numbers, and IPv4 addresses replaced by `[EMAIL]`, `[SSN]`, `[CARD]`, and `[IP]` before they are written. Pattern-based, so treat it as a safety net, not a guarantee |
+| `init_logging_with_metrics() -> prometheus::Registry` | `init_logging()` plus `init_metrics()`; mount the returned registry at `/metrics` |
 
 ```rust
-use magicaf_core::telemetry::init_tracing;
+use magicaf_core::metrics::metrics_handler;
+use magicaf_core::telemetry::init_logging_with_metrics;
 
-// Initialize with JSON-formatted structured logging
-init_tracing();
+let registry = init_logging_with_metrics();
+// later, in your /metrics handler:
+let body = metrics_handler(&registry);
 ```
 
-This sets up a `tracing_subscriber` with:
-- JSON-formatted output for SIEM ingestion
-- PII redaction layer (when combined with `PiiMakeWriter`)
-- Timestamp and span context fields
+To send traces to an OpenTelemetry collector, build your own subscriber with a `tracing-opentelemetry` layer instead of calling these helpers; MagicAF's spans and events flow through whatever subscriber you install.

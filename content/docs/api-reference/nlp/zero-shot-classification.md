@@ -5,6 +5,15 @@ weight: 4
 keywords: [zero-shot classification, text classification, BART, MNLI, natural language inference]
 ---
 
+{{< callout type="warning" title="Current behavior" >}}
+- Scores come back in the order of the labels you passed, not sorted — sort them yourself to find the best label.
+- Scores are independent per label (multi-label), so they do not sum to 1.
+- `ModelSource::Local` is not applied, and inference failures return an empty result.
+
+See [current limits](/docs/api-reference/nlp/#current-limits) for what applies to every pipeline.
+{{< /callout >}}
+
+
 Zero-shot classification lets you categorise text into **arbitrary labels** without any task-specific fine-tuning. Simply provide candidate labels at inference time and the model predicts which best describe each input — powered by natural language inference.
 
 ---
@@ -17,16 +26,16 @@ Zero-shot classification lets you categorise text into **arbitrary labels** with
 
 ### When to Use
 
-- ✅ Your categories may change at runtime — no retraining needed
-- ✅ You need multi-label classification (text can match multiple labels)
-- ✅ You don't have labelled training data for your specific task
-- ✅ You want flexible topic detection, intent classification, or content routing
+- Your categories may change at runtime — no retraining needed
+- You need multi-label classification (text can match multiple labels)
+- You don't have labelled training data for your specific task
+- You want flexible topic detection, intent classification, or content routing
 
 ### When Not to Use
 
-- ❌ You only need binary positive/negative classification (use sentiment analysis — faster)
-- ❌ You have a large labelled dataset and want maximum accuracy (fine-tune a dedicated model)
-- ❌ You need token-level classification like NER (use the NER pipeline)
+- You only need binary positive/negative classification (use sentiment analysis — faster)
+- You have a large labelled dataset and want maximum accuracy (fine-tune a dedicated model)
+- You need token-level classification like NER (use the NER pipeline)
 
 ---
 
@@ -105,7 +114,7 @@ Classifies texts against a set of candidate labels.
 - `hypothesis_template: Option<Box<dyn Fn(&str) -> String + Send + 'static>>` — optional custom template for generating hypotheses (see [Custom Templates](#custom-hypothesis-templates) below)
 - `max_length: usize` — maximum token length for the combined premise + hypothesis
 
-**Returns:** One `Vec<ClassificationResult>` per input text. Each inner vec contains one result per label, sorted by descending score.
+**Returns:** One `Vec<ClassificationResult>` per input text. Each inner vec contains one result per label, in the order the labels were given.
 
 ```rust
 let results = pipeline.classify(
@@ -242,7 +251,7 @@ Zero-shot classification uses **natural language inference (NLI)**:
 
 1. For each input text and each candidate label, the model constructs a hypothesis (e.g. `"This example is about politics."`)
 2. The NLI model predicts whether the input text **entails** the hypothesis
-3. Entailment scores are normalised across all labels to produce probabilities
+3. Each label's entailment score is computed independently (multi-label), so scores do not sum to 1
 
 This approach works because the MNLI-trained model has learned general textual entailment, which transfers to arbitrary classification tasks.
 

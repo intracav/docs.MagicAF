@@ -86,7 +86,7 @@ pub async fn run(
 ) -> Result<RAGResult<T>>
 ```
 
-Execute the full six-step RAG pipeline.
+Execute the full RAG pipeline — see [the stages](/docs/core-concepts/rag-pipeline/#the-stages).
 
 | Parameter | Type | Description |
 |-----------|------|-------------|

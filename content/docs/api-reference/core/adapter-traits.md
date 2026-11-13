@@ -145,6 +145,8 @@ let parser = JsonResultParser::<MyResult>::new();
 // ResultParser<MyResult>
 ```
 
+It calls `serde_json::from_str` on the whole reply, with no stripping of Markdown code fences or surrounding prose. If your model adds either, write a parser that extracts the JSON first — [Structured output](/docs/guides/structured-output/) has one.
+
 **Errors:** Returns `MagicError::SerializationError` if JSON parsing fails.
 
 ---

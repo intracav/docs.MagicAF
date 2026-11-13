@@ -1,0 +1,26 @@
+{{- /* A layered map of every crate, from data/crates.yaml. Layers are drawn
+       bottom-up (foundation at the bottom), the way dependencies stack.
+       Each chip links to its crate page and carries its status. */ -}}
+{{- $crates := site.Data.crates.crates -}}
+{{- $layers := site.Data.crates.layers -}}
+<figure class="crate-map" aria-label="MagicAF crates by layer">
+  {{- range $i := seq (len $layers) }}
+  {{- $layer := index $layers (sub (len $layers) $i) }}
+  {{- $in := where $crates "layer" $layer.id }}
+  <div class="crate-map__layer crate-map__layer--{{ $layer.id }}">
+    <div class="crate-map__label">{{ $layer.name }}</div>
+    <div class="crate-map__chips">
+      {{- range $in }}
+      <a class="crate-chip crate-chip--{{ .status }}" href="/docs/crates/{{ .name }}/" title="{{ .summary }}">{{ strings.TrimPrefix "magicaf-" .name }}</a>
+      {{- end }}
+    </div>
+  </div>
+  {{- end }}
+  <figcaption>
+    <span class="crate-chip crate-chip--stable">stable</span>
+    <span class="crate-chip crate-chip--preview">preview</span>
+    <span class="crate-chip crate-chip--experimental">experimental</span>
+    <span class="crate-chip crate-chip--reference">reference</span>
+    <span class="crate-map__note">Names omit the <code>magicaf-</code> prefix. Lower layers are depended on by higher ones.</span>
+  </figcaption>
+</figure>

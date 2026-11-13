@@ -1,13 +1,13 @@
 ---
 title: "About MagicAF"
-description: "What MagicAF is, the problem it solves, and where it fits: an open-source Rust framework for running RAG, NLP, and LLM orchestration entirely inside your own network."
+description: "What MagicAF is, the problem it solves, and where it fits: a Rust framework for running RAG, NLP, and LLM orchestration entirely inside your own network."
 weight: 0
-keywords: [MagicAF, Rust AI framework, air-gapped AI, on-premises AI, self-hosted AI, open-source AI framework, Intracav]
+keywords: [MagicAF, Rust AI framework, air-gapped AI, on-premises AI, self-hosted AI, Intracav]
 ---
 
 Most AI frameworks assume the internet is one `await` away: models live behind a vendor's API, telemetry flows home, and even the build step wants the network. That assumption breaks in exactly the places AI could matter most — hospital networks, research labs, government enclaves, any room where the data is not allowed to leave.
 
-MagicAF starts from the opposite assumption. It is an **open-source Rust framework** that gives you the building blocks of an AI system — embeddings, vector search, RAG pipelines, LLM orchestration, and a full NLP toolkit — as composable services you point at endpoints *you* run. If your machine can reach `localhost`, MagicAF works. The internet is optional.
+MagicAF starts from the opposite assumption. It is a **Rust framework** that gives you the building blocks of an AI system — embeddings, vector search, RAG pipelines, LLM orchestration, and a full NLP toolkit — as composable services you point at endpoints *you* run. If your machine can reach `localhost`, MagicAF works. The internet is optional.
 
 **Who this page is for:** engineers deciding whether to build on MagicAF, and the people they need to convince. By the end you'll know what's in the framework, what it deliberately refuses to do, and where to start.
 
@@ -65,4 +65,4 @@ MagicAF is built by [Intracav](https://intracav.ai/), the clinical AI infrastruc
 
 ## Getting started
 
-Start with the [Quickstart](/docs/getting-started/quickstart/) — a complete RAG pipeline in under 50 lines — or go straight to [air-gapped deployment](/docs/deployment/air-gapped/) if you're evaluating for an isolated network. The source lives at [github.com/magicaf/magicaf](https://github.com/magicaf/magicaf).
+Start with the [Quickstart](/docs/getting-started/quickstart/) — a complete RAG pipeline in under 50 lines — or go straight to [air-gapped deployment](/docs/deployment/air-gapped/) if you're evaluating for an isolated network. The MagicAF source is private; [request access](/docs/getting-started/installation/#access) to build against it.

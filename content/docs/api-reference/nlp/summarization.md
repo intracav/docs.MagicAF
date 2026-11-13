@@ -5,6 +5,15 @@ weight: 6
 keywords: [summarization, abstractive summary, BART, CNN/DailyMail, text condensation]
 ---
 
+{{< callout type="warning" title="Current behavior" >}}
+- Defaults: `min_length` 56, `max_length` 142, `num_beams` 3, `length_penalty` 1.0.
+- `ModelSource::Local` is not applied; the model loads through the rust-bert cache.
+- If inference fails, `summarize` returns `Ok` with an empty list.
+
+See [current limits](/docs/api-reference/nlp/#current-limits) for what applies to every pipeline.
+{{< /callout >}}
+
+
 Abstractive summarization condenses long documents into concise summaries while **preserving key information**. Unlike extractive methods that copy sentences, this pipeline generates new, fluent text that captures the essence of the input.
 
 ---
@@ -17,16 +26,16 @@ Abstractive summarization condenses long documents into concise summaries while 
 
 ### When to Use
 
-- ✅ You need to condense long articles, reports, or documents
-- ✅ You want fluent, human-readable summaries (not extracted sentences)
-- ✅ You need configurable summary length and quality trade-offs
-- ✅ You want zero external service dependencies
+- You need to condense long articles, reports, or documents
+- You want fluent, human-readable summaries (not extracted sentences)
+- You need configurable summary length and quality trade-offs
+- You want zero external service dependencies
 
 ### When Not to Use
 
-- ❌ You need extractive summaries (exact sentences from the original text)
-- ❌ You need summaries of very short text (< 50 words) — the text is already short
-- ❌ You need multi-document summarization with cross-reference (summarize each document, then combine)
+- You need extractive summaries (exact sentences from the original text)
+- You need summaries of very short text (< 50 words) — the text is already short
+- You need multi-document summarization with cross-reference (summarize each document, then combine)
 
 ---
 

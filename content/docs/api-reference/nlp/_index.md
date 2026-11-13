@@ -1,182 +1,92 @@
 ---
 title: "NLP Pipelines"
-description: "Production-grade NLP pipelines that run entirely in-process — no external API servers required. Extract entities, analyze sentiment, translate text, answer questions, and more."
+description: "In-process transformer pipelines from magicaf-nlp — question answering, entities, sentiment, translation, summarization and more — what each one does today, what it needs, and its current limits."
 weight: 2
-keywords: [NLP, natural language processing, in-process inference, transformer models, NER, sentiment analysis, question answering, translation, summarization]
+keywords: [NLP, natural language processing, in-process inference, transformer models, NER, sentiment analysis, question answering, translation, summarization, rust-bert]
 ---
 
-MagicAF NLP — powered by Intracav — provides **production-grade NLP pipelines** that run entirely in-process, with no external API servers required. Each pipeline loads a pre-trained transformer model and performs inference directly, making it ideal for air-gapped, on-premises, and edge deployments.
+{{< crate-header "magicaf-nlp" >}}
 
----
+`magicaf-nlp` runs task-specific transformer models inside your process, through [rust-bert](https://github.com/guillaume-be/rust-bert) and libtorch. It suits work a general LLM is too slow or too heavy for — tagging entities in every document you ingest, scoring sentiment in bulk, pulling an exact answer span from a passage — with no inference server to run.
 
-## What's Included
+## Pipelines
 
-| Pipeline | Module | Default Model | Task |
-|----------|--------|---------------|------|
-| **Question Answering** | [`qa`](/docs/api-reference/nlp/question-answering/) | DistilBERT / SQuAD | Extract answer spans from context |
-| **Translation** | [`translation`](/docs/api-reference/nlp/translation/) | Marian / M2M100 | Translate between 100+ languages |
-| **Summarization** | [`summarization`](/docs/api-reference/nlp/summarization/) | BART-large-CNN | Abstractive text summarization |
-| **Dialogue** | [`dialogue`](/docs/api-reference/nlp/dialogue/) | DialoGPT | Multi-turn conversation |
-| **Text Generation** | [`generation`](/docs/api-reference/nlp/text-generation/) | GPT-2 | Auto-regressive language generation |
-| **Zero-Shot Classification** | [`zero_shot`](/docs/api-reference/nlp/zero-shot-classification/) | BART-MNLI | Classify into arbitrary labels |
-| **Sentiment Analysis** | [`sentiment`](/docs/api-reference/nlp/sentiment-analysis/) | DistilBERT / SST-2 | Positive/negative prediction |
-| **Named Entity Recognition** | [`ner`](/docs/api-reference/nlp/named-entity-recognition/) | BERT / CoNLL-03 | Extract persons, locations, orgs |
-| **Keyword Extraction** | [`keywords`](/docs/api-reference/nlp/keyword-extraction/) | Sentence embeddings | Key terms from documents |
-| **POS Tagging** | [`pos`](/docs/api-reference/nlp/pos-tagging/) | BERT / Penn Treebank | Grammatical category tagging |
-| **Masked Language Model** | [`masked_lm`](/docs/api-reference/nlp/masked-language-model/) | BERT base | Fill-in-the-blank prediction |
+| Pipeline | Model | Task |
+|---|---|---|
+| [Question answering](/docs/api-reference/nlp/question-answering/) | DistilBERT (SQuAD) | Extract an answer span from a passage |
+| [Named entities](/docs/api-reference/nlp/named-entity-recognition/) | BERT (CoNLL-03), English | Tag people, places, organizations, miscellany — word by word |
+| [Sentiment](/docs/api-reference/nlp/sentiment-analysis/) | DistilBERT (SST-2) | Positive or negative, with a score |
+| [Zero-shot classification](/docs/api-reference/nlp/zero-shot-classification/) | BART (MNLI) | Score text against labels you supply |
+| [Summarization](/docs/api-reference/nlp/summarization/) | BART (CNN/DailyMail) | Abstractive summaries |
+| [Translation](/docs/api-reference/nlp/translation/) | Marian, falling back to M2M100 | 25 languages |
+| [Text generation](/docs/api-reference/nlp/text-generation/) | GPT-2 | Continue a prompt |
+| [Dialogue](/docs/api-reference/nlp/dialogue/) | DialoGPT | Short conversational replies |
+| [Keyword extraction](/docs/api-reference/nlp/keyword-extraction/) | all-MiniLM-L6-v2 | Single-word keywords ranked by similarity to the text |
+| [Part-of-speech tagging](/docs/api-reference/nlp/pos-tagging/) | MobileBERT (Penn Treebank) | A grammatical tag per word |
+| [Masked language model](/docs/api-reference/nlp/masked-language-model/) | BERT base, uncased | Fill in `[MASK]` tokens |
 
----
+Every pipeline runs its model on a dedicated thread — libtorch tensors cannot move between threads — and exposes an async API. Pipelines are `Send + Sync`; calls to one pipeline are processed one at a time.
 
-## How NLP Pipelines Differ from Core Services
+## Current limits
 
-MagicAF Core provides [`LlmService`](/docs/api-reference/core/llm-service/) and [`EmbeddingService`](/docs/api-reference/core/embedding-service/), which are **HTTP clients** that talk to external inference servers (vLLM, llama.cpp, etc.).
+`magicaf-nlp` is a {{< crate-status "preview" >}} crate. Plan around these behaviors of the current source; each pipeline's page notes the ones that affect it.
 
-The NLP pipelines in `magicaf-nlp` are fundamentally different:
+- **Errors can look like empty results.** Translation, summarization, text generation, zero-shot classification, keyword extraction, masked language modeling, and dialogue return `Ok` with an empty result when inference fails. Treat an empty result as a possible failure, not as "nothing found".
+- **Local model directories are honored only by question answering.** `ModelSource::Local` is used by `QaConfig`; every other pipeline loads its default model through rust-bert's cache, and `ModelSource::Remote` is not used anywhere.
+- **Some settings are not applied.** `KeywordConfig` and `PosConfig` are ignored entirely (both pipelines use their defaults and pick the device automatically), and `DialogueConfig.max_history` is not read.
+- **Named-entity recognition is English, per word.** Multi-word names come back as separate entities.
 
-| Aspect | Core Services | NLP Pipelines |
-|--------|---------------|---------------|
-| **Runtime** | External HTTP server | In-process model inference |
-| **Dependencies** | `reqwest` (HTTP client) | `libtorch` or ONNX Runtime |
-| **Model size** | Server runs any size model | Optimized smaller models (DistilBERT, BART, GPT-2) |
-| **Task** | General chat/embedding | Specialized NLP (NER, POS, QA, etc.) |
-| **Deployment** | Need a running server | Just need model files on disk |
+## What it needs
 
-**When to use NLP pipelines:**
-- You need specialized NLP tasks (NER, POS, sentiment, extractive QA)
-- You want zero external service dependencies
-- You're deploying to edge/embedded systems
-- You need the model to start with your application
-
-**When to use Core services:**
-- You need a powerful generative LLM (7B+ parameters)
-- You want to share one model server across multiple applications
-- You're doing RAG with the full pipeline
-
----
-
-## Architecture: Async-Safe Model Threads
-
-Transformer model tensors are `!Send` (they're bound to the thread that created them). Each pipeline spawns a **dedicated OS thread** that owns the model for its entire lifetime. Async callers dispatch work via channels and await results through oneshot channels.
-
-```
-┌──────────────────┐         ┌─────────────────────────┐
-│ Async Task       │         │ Model Thread (dedicated) │
-│                  │         │                         │
-│ pipeline.predict ├──tx───▸ │ model.predict(&input)   │
-│                  │         │        │                │
-│ ◂──reply_rx──────┤         │  ◂─────┘                │
-└──────────────────┘         └─────────────────────────┘
-```
-
-This means:
-- Pipelines are fully **async-safe** (`Send + Sync`)
-- Multiple async tasks can call the same pipeline concurrently
-- Predictions are serialized per model (one at a time on the model thread)
-- When the pipeline struct is dropped, the model thread exits cleanly
-
----
-
-## Feature Flags
-
-| Feature | Effect |
-|---------|--------|
-| *(default)* | Exports config types and DTOs only — no native deps |
-| `models` | Enables pipeline constructors (requires **libtorch**) |
-| `onnx` | Like `models` but uses **ONNX Runtime** instead |
+| | |
+|---|---|
+| Feature | `models` — without it the crate exports only `config::{ModelSource, Device}` |
+| Native library | libtorch **2.4.0** (the version `tch` 0.17 binds to). If `LIBTORCH` is unset, the build downloads it — set it for offline builds. |
+| Model files | Downloaded on first use into `~/.cache/.rustbert`, or the directory in `RUSTBERT_CACHE` |
+| `onnx` feature | Adds rust-bert's ONNX Runtime support. It does **not** remove the libtorch requirement. Point `ORT_LIB_LOCATION` at the ONNX Runtime *directory*. |
 
 ```toml
-# Cargo.toml — default (config/DTO types only, zero native deps)
-magicaf-nlp = { path = "../magicaf-nlp" }
-
-# Cargo.toml — full pipeline support
-magicaf-nlp = { path = "../magicaf-nlp", features = ["models"] }
-
-# Cargo.toml — ONNX Runtime backend (lighter, more portable)
-magicaf-nlp = { path = "../magicaf-nlp", features = ["onnx"] }
+magicaf-nlp = { git = "ssh://git@github.com/intracav/MagicAF.git", features = ["models"] }
 ```
 
----
+If you enable `onnx` from outside the MagicAF workspace, also copy the workspace's `[patch.crates-io]` entry for `ort` into your `Cargo.toml`; the version rust-bert asks for has been yanked from crates.io.
 
-## Quick Start
+## Offline use
+
+Because most pipelines load through rust-bert's cache rather than `ModelSource::Local`, prepare an offline host by warming the cache: on a connected machine, set `RUSTBERT_CACHE` to an empty directory, construct each pipeline you need once, then copy that directory to the same `RUSTBERT_CACHE` path on the isolated host.
+
+## Example
 
 ```rust
 use magicaf_nlp::prelude::*;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // Sentiment analysis
     let sentiment = SentimentPipeline::new(SentimentConfig::default()).await?;
-    let results = sentiment.predict(&["I love Rust!", "This is terrible."]).await?;
-    for r in &results {
+    for r in sentiment.predict(&["I love Rust!", "This is terrible."]).await? {
         println!("{:?}: {:.4}", r.polarity, r.score);
     }
 
-    // Named Entity Recognition
     let ner = NerPipeline::new(NerConfig::default()).await?;
     let entities = ner.predict(&["Amy lives in Paris."]).await?;
     for e in &entities[0] {
         println!("{}: {} ({:.4})", e.label, e.word, e.score);
     }
-
     Ok(())
 }
 ```
 
-See the [Quick Start Guide](/docs/api-reference/nlp/quickstart/) for detailed setup instructions.
-
----
-
-## Native Dependencies
-
-This crate requires **one** of (only when the `models` feature is enabled):
-
-- **libtorch** (default with `models`) — install via `pip install torch` or download from [PyTorch](https://pytorch.org), then set `LIBTORCH=/path/to/libtorch`.
-- **ONNX Runtime** (feature `onnx`) — lighter, more portable. Enable with `features = ["onnx"]` in your `Cargo.toml`.
-
-See [Setup & Configuration](/docs/api-reference/nlp/setup/) for detailed installation instructions.
-
----
-
-## Air-Gapped Deployment
-
-All pipelines support loading models from local files via [`ModelSource::Local`](/docs/api-reference/nlp/configuration/#model-source). Pre-download model files on an internet-connected machine, transfer them to the target, and point the config at the directory:
-
-```rust
-use magicaf_nlp::config::{ModelSource, Device};
-
-let source = ModelSource::Local {
-    model_dir: "/opt/magicaf/models/ner-bert-conll03".into(),
-};
-let device = Device::Cpu;
-```
-
-See [Air-Gapped Deployment](/docs/deployment/air-gapped/) for complete instructions.
-
----
-
-<div class="card-grid">
-<div class="card">
-
-### [Quick Start →](/docs/api-reference/nlp/quickstart/)
+{{< card-grid >}}
+{{< card title="Quick Start" href="/docs/api-reference/nlp/quickstart/" >}}
 Get up and running with your first NLP pipeline in minutes.
-
-</div>
-<div class="card">
-
-### [Setup & Configuration →](/docs/api-reference/nlp/setup/)
+{{< /card >}}
+{{< card title="Setup & Configuration" href="/docs/api-reference/nlp/setup/" >}}
 Install native dependencies, configure models, and set up for air-gapped deployments.
-
-</div>
-<div class="card">
-
-### [Pipelines →](/docs/api-reference/nlp/pipelines/)
+{{< /card >}}
+{{< card title="Pipelines" href="/docs/api-reference/nlp/pipelines/" >}}
 Complete reference for all available NLP pipelines.
-
-</div>
-<div class="card">
-
-### [Use Cases & Examples →](/docs/api-reference/nlp/use-cases/)
+{{< /card >}}
+{{< card title="Use Cases & Examples" href="/docs/api-reference/nlp/use-cases/" >}}
 Working code examples for common NLP tasks.
-
-</div>
-</div>
+{{< /card >}}
+{{< /card-grid >}}

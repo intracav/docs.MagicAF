@@ -1,11 +1,13 @@
 ---
 title: "API Reference"
-description: "Complete API reference for the MagicAF Rust framework. Every trait, struct, configuration option, and error type across the core services and NLP pipelines."
+description: "Reference for MagicAF's foundation crates — the service traits, DTOs, configuration, errors, resilience, security, and observability in magicaf-core and magicaf-local-llm — plus the NLP and mobile APIs."
 weight: 4
 keywords: [API reference, MagicAF API, Rust AI API, air-gapped AI, NLP pipelines]
 ---
 
-This section documents every public type in the MagicAF framework. Use it as a reference while building.
+This section is the reference for the foundation crates — `magicaf-core`, `magicaf-local-llm`, and `magicaf-qdrant` — and for the NLP and mobile APIs. Each other crate is documented on its own [crate page](/docs/crates/), with its key types and a compiled example.
+
+For signature-level detail on anything here, `cargo doc --open` in a checkout of the MagicAF repository builds the complete rustdoc; the workspace builds its docs with warnings denied.
 
 ---
 
@@ -13,110 +15,59 @@ This section documents every public type in the MagicAF framework. Use it as a r
 
 Traits, DTOs, configuration, and error types from the `magicaf_core` crate.
 
-<div class="card-grid">
-<div class="card">
-
-### [EmbeddingService →](/docs/api-reference/core/embedding-service/)
+{{< card-grid >}}
+{{< card title="EmbeddingService" href="/docs/api-reference/core/embedding-service/" >}}
 Trait and types for dense vector embedding generation.
-
-</div>
-<div class="card">
-
-### [VectorStore →](/docs/api-reference/core/vector-store/)
+{{< /card >}}
+{{< card title="VectorStore" href="/docs/api-reference/core/vector-store/" >}}
 Trait and types for vector database operations.
-
-</div>
-<div class="card">
-
-### [LlmService →](/docs/api-reference/core/llm-service/)
+{{< /card >}}
+{{< card title="LlmService" href="/docs/api-reference/core/llm-service/" >}}
 Trait and OpenAI-compatible DTOs for language model inference.
-
-</div>
-<div class="card">
-
-### [RAGWorkflow →](/docs/api-reference/core/rag-workflow/)
+{{< /card >}}
+{{< card title="RAGWorkflow" href="/docs/api-reference/core/rag-workflow/" >}}
 The pipeline engine — builder, execution, and result types.
-
-</div>
-<div class="card">
-
-### [Adapter Traits →](/docs/api-reference/core/adapter-traits/)
+{{< /card >}}
+{{< card title="Adapter Traits" href="/docs/api-reference/core/adapter-traits/" >}}
 EvidenceFormatter, PromptBuilder, ResultParser, and default implementations.
-
-</div>
-<div class="card">
-
-### [Configuration →](/docs/api-reference/core/configuration/)
+{{< /card >}}
+{{< card title="Configuration" href="/docs/api-reference/core/configuration/" >}}
 All configuration structs and their fields.
-
-</div>
-<div class="card">
-
-### [Errors →](/docs/api-reference/core/errors/)
+{{< /card >}}
+{{< card title="Errors" href="/docs/api-reference/core/errors/" >}}
 MagicError variants, error codes, and helper constructors.
-
-</div>
-<div class="card">
-
-### [FFI →](/docs/api-reference/core/ffi/)
+{{< /card >}}
+{{< card title="FFI" href="/docs/api-reference/core/ffi/" >}}
 FFI preparation, error codes, and language binding strategy.
-
-</div>
-<div class="card">
-
-### [Resilience →](/docs/api-reference/core/resilience/)
+{{< /card >}}
+{{< card title="Resilience" href="/docs/api-reference/core/resilience/" >}}
 Retry, circuit breaker, and rate limiter.
-
-</div>
-<div class="card">
-
-### [Security →](/docs/api-reference/core/security/)
+{{< /card >}}
+{{< card title="Security" href="/docs/api-reference/core/security/" >}}
 Prompt guard, PII redaction, response validation, FIPS.
-
-</div>
-<div class="card">
-
-### [Compliance →](/docs/api-reference/core/compliance/)
+{{< /card >}}
+{{< card title="Compliance" href="/docs/api-reference/core/compliance/" >}}
 GDPR right-to-erasure workflows.
-
-</div>
-<div class="card">
-
-### [Observability →](/docs/api-reference/core/observability/)
+{{< /card >}}
+{{< card title="Observability" href="/docs/api-reference/core/observability/" >}}
 Audit logging and OpenTelemetry metrics.
-
-</div>
-<div class="card">
-
-### [Health & Shutdown →](/docs/api-reference/core/health-shutdown/)
+{{< /card >}}
+{{< card title="Health & Shutdown" href="/docs/api-reference/core/health-shutdown/" >}}
 Startup health gates and graceful shutdown.
-
-</div>
-<div class="card">
-
-### [Embedding Cache →](/docs/api-reference/core/embedding-cache/)
+{{< /card >}}
+{{< card title="Embedding Cache" href="/docs/api-reference/core/embedding-cache/" >}}
 LRU cache with TTL for embedding vectors.
-
-</div>
-<div class="card">
-
-### [Reranking →](/docs/api-reference/core/reranking/)
+{{< /card >}}
+{{< card title="Reranking" href="/docs/api-reference/core/reranking/" >}}
 Cross-encoder and threshold reranking for RAG.
-
-</div>
-<div class="card">
-
-### [Streaming & Tool Calling →](/docs/api-reference/core/streaming/)
+{{< /card >}}
+{{< card title="Streaming & Tool Calling" href="/docs/api-reference/core/streaming/" >}}
 SSE streaming, function calling, multi-provider gateway.
-
-</div>
-<div class="card">
-
-### [Speech-to-Text (ASR) →](/docs/api-reference/core/asr/)
+{{< /card >}}
+{{< card title="Speech-to-Text (ASR)" href="/docs/api-reference/core/asr/" >}}
 AsrService, Whisper, and Voice Activity Detection.
-
-</div>
-</div>
+{{< /card >}}
+{{< /card-grid >}}
 
 ---
 
@@ -124,104 +75,56 @@ AsrService, Whisper, and Voice Activity Detection.
 
 Production-grade NLP pipelines from the `magicaf_nlp` crate — all run in-process with no external services.
 
-<div class="card-grid">
-<div class="card">
-
-### [Overview →](/docs/api-reference/nlp/)
+{{< card-grid >}}
+{{< card title="Overview" href="/docs/api-reference/nlp/" >}}
 Architecture, feature flags, and how NLP pipelines differ from core services.
-
-</div>
-<div class="card">
-
-### [Quick Start →](/docs/api-reference/nlp/quickstart/)
+{{< /card >}}
+{{< card title="Quick Start" href="/docs/api-reference/nlp/quickstart/" >}}
 Get up and running with your first NLP pipeline in minutes.
-
-</div>
-<div class="card">
-
-### [Setup & Configuration →](/docs/api-reference/nlp/setup/)
+{{< /card >}}
+{{< card title="Setup & Configuration" href="/docs/api-reference/nlp/setup/" >}}
 Install native dependencies, configure models, and set up for air-gapped deployments.
-
-</div>
-<div class="card">
-
-### [Pipelines →](/docs/api-reference/nlp/pipelines/)
+{{< /card >}}
+{{< card title="Pipelines" href="/docs/api-reference/nlp/pipelines/" >}}
 Complete reference for all available NLP pipelines.
-
-</div>
-<div class="card">
-
-### [Question Answering →](/docs/api-reference/nlp/question-answering/)
+{{< /card >}}
+{{< card title="Question Answering" href="/docs/api-reference/nlp/question-answering/" >}}
 Extract answer spans from context with DistilBERT / SQuAD.
-
-</div>
-<div class="card">
-
-### [Named Entity Recognition →](/docs/api-reference/nlp/named-entity-recognition/)
+{{< /card >}}
+{{< card title="Named Entity Recognition" href="/docs/api-reference/nlp/named-entity-recognition/" >}}
 Extract persons, locations, and organizations with BERT / CoNLL-03.
-
-</div>
-<div class="card">
-
-### [Sentiment Analysis →](/docs/api-reference/nlp/sentiment-analysis/)
+{{< /card >}}
+{{< card title="Sentiment Analysis" href="/docs/api-reference/nlp/sentiment-analysis/" >}}
 Positive/negative prediction with DistilBERT / SST-2.
-
-</div>
-<div class="card">
-
-### [Zero-Shot Classification →](/docs/api-reference/nlp/zero-shot-classification/)
+{{< /card >}}
+{{< card title="Zero-Shot Classification" href="/docs/api-reference/nlp/zero-shot-classification/" >}}
 Classify into arbitrary labels with BART-MNLI.
-
-</div>
-<div class="card">
-
-### [Translation →](/docs/api-reference/nlp/translation/)
+{{< /card >}}
+{{< card title="Translation" href="/docs/api-reference/nlp/translation/" >}}
 Translate between 100+ languages with Marian / M2M100.
-
-</div>
-<div class="card">
-
-### [Summarization →](/docs/api-reference/nlp/summarization/)
+{{< /card >}}
+{{< card title="Summarization" href="/docs/api-reference/nlp/summarization/" >}}
 Abstractive text summarization with BART-large-CNN.
-
-</div>
-<div class="card">
-
-### [Dialogue →](/docs/api-reference/nlp/dialogue/)
+{{< /card >}}
+{{< card title="Dialogue" href="/docs/api-reference/nlp/dialogue/" >}}
 Multi-turn conversation with DialoGPT.
-
-</div>
-<div class="card">
-
-### [Text Generation →](/docs/api-reference/nlp/text-generation/)
+{{< /card >}}
+{{< card title="Text Generation" href="/docs/api-reference/nlp/text-generation/" >}}
 Auto-regressive language generation with GPT-2.
-
-</div>
-<div class="card">
-
-### [Keyword Extraction →](/docs/api-reference/nlp/keyword-extraction/)
+{{< /card >}}
+{{< card title="Keyword Extraction" href="/docs/api-reference/nlp/keyword-extraction/" >}}
 Key terms from documents using sentence embeddings.
-
-</div>
-<div class="card">
-
-### [POS Tagging →](/docs/api-reference/nlp/pos-tagging/)
+{{< /card >}}
+{{< card title="POS Tagging" href="/docs/api-reference/nlp/pos-tagging/" >}}
 Grammatical category tagging with BERT / Penn Treebank.
-
-</div>
-<div class="card">
-
-### [Masked Language Model →](/docs/api-reference/nlp/masked-language-model/)
+{{< /card >}}
+{{< card title="Masked Language Model" href="/docs/api-reference/nlp/masked-language-model/" >}}
 Fill-in-the-blank prediction with BERT base.
-
-</div>
-<div class="card">
-
-### [Use Cases & Examples →](/docs/api-reference/nlp/use-cases/)
+{{< /card >}}
+{{< card title="Use Cases & Examples" href="/docs/api-reference/nlp/use-cases/" >}}
 Working code examples for common NLP tasks.
-
-</div>
-</div>
+{{< /card >}}
+{{< /card-grid >}}
 
 ---
 
@@ -229,14 +132,11 @@ Working code examples for common NLP tasks.
 
 On-device text intelligence for Flutter mobile clients from the `magicaf_mobile` crate.
 
-<div class="card-grid">
-<div class="card">
-
-### [Mobile API →](/docs/api-reference/mobile/)
+{{< card-grid >}}
+{{< card title="Mobile API" href="/docs/api-reference/mobile/" >}}
 Keyword extraction, prompt injection detection, audio utilities, and Flutter bindings.
-
-</div>
-</div>
+{{< /card >}}
+{{< /card-grid >}}
 
 ---
 
@@ -253,11 +153,13 @@ cargo doc --workspace --no-deps --open
 ```
 magicaf_core
 ├── adapters        # Extension traits + defaults
-├── asr             # AsrService trait + Voice Activity Detection
+├── asr             # AsrService, StreamingAsrService, voice activity detection
 ├── audit           # Structured audit logging
+├── cancel          # CancelToken for cooperative cancellation
 ├── circuit_breaker # Circuit breaker state machine
 ├── compliance      # GDPR right-to-erasure workflows
 ├── config          # Configuration structs
+├── decision        # DecisionService, decision records, the Reflex wire contract
 ├── embeddings      # EmbeddingService trait + LocalEmbeddingService + cache
 ├── errors          # MagicError enum + Result alias
 ├── health          # Startup health gates
@@ -269,6 +171,8 @@ magicaf_core
 ├── security        # Prompt guard, PII filter, response guard, FIPS
 ├── shutdown        # Graceful shutdown primitives
 ├── telemetry       # Tracing initialization helpers
+├── token_budget    # TokenBudget trait for token spend limits
+├── tts             # TtsService trait
 ├── vector_store    # VectorStore trait + InMemoryVectorStore
 └── prelude         # Convenience re-exports
 
@@ -284,8 +188,12 @@ magicaf_qdrant
 magicaf_local_llm
 ├── LocalLlmService     # OpenAI-compatible LLM client
 ├── AnthropicLlmService # Anthropic Messages API client
-├── LlmGateway          # Multi-provider router
-└── WhisperAsrService   # Whisper-compatible ASR client
+├── LlmGateway          # Multi-provider router with token budgets and JSON mode
+├── FallbackGateway     # Failover across gateways, each with a circuit breaker
+├── StreamTiming        # Time-to-first-token and duration for streams
+├── WhisperAsrService   # Whisper-compatible ASR client
+├── KokoroTtsService    # Local text-to-speech client
+└── DeepgramTtsService  # Hosted text-to-speech client
 
 magicaf_mobile
 ├── extract_keywords    # Keyword extraction

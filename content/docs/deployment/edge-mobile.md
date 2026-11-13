@@ -1,136 +1,71 @@
 ---
 title: "Edge & Mobile"
-description: "Deploy MagicAF on resource-constrained devices — phones, tablets, embedded systems, and edge servers."
+description: "What runs on the device and what stays on a server: model-free helpers and calibrated decisions on phones, speech and in-process retrieval at the edge, and the boundaries between them."
 weight: 3
-tags: [deployment, edge, mobile, onnx, coreml, in-memory]
+tags: [deployment, edge, mobile, flutter, swift, in-memory]
 categories: [deployment]
 difficulty: advanced
-prerequisites: [/docs/core-concepts/traits-and-interfaces/]
+prerequisites: [/docs/core-concepts/architecture/]
 ---
 
-MagicAF supports deployment on resource-constrained devices where running Qdrant and a full LLM server is impractical.
+A phone or a small edge box cannot host an LLM server and a vector database the way a data center can, so an edge deployment is a decision about what moves onto the device. MagicAF gives you four pieces that run there today, and a clean trait boundary for anything else.
 
-## Architecture
+## What runs on the device
 
-```
-┌───────────────────────────────────────────────────────────┐
-│                    Edge Device                            │
-│                                                           │
-│  ┌──────────────┐  ┌─────────────────────┐               │
-│  │  On-Device    │  │ InMemoryVectorStore │               │
-│  │  Embedding    │  │  (magicaf-core)     │               │
-│  │  (ONNX/CoreML)│  │                     │               │
-│  └──────┬───────┘  └──────────┬──────────┘               │
-│         └──────┬──────────────┘                           │
-│         ┌──────▼──────┐                                   │
-│         │ RAGWorkflow │  ← Full MagicAF orchestration     │
-│         └──────┬──────┘                                   │
-│         ┌──────▼──────┐                                   │
-│         │  Remote LLM │  ← When network available         │
-│         │  or Cached   │                                  │
-│         └─────────────┘                                   │
-└───────────────────────────────────────────────────────────┘
-```
+| Need | Use | Runs on | Status |
+|---|---|---|---|
+| Text helpers on every keystroke — titles, keywords, readability, jargon, voice activity | [`magicaf-mobile`](/docs/crates/magicaf-mobile/) | iOS, Android, macOS through Flutter | {{< crate-status "stable" >}} |
+| Small calibrated decisions, with abstention | [`magicaf-reflex`](/docs/crates/magicaf-reflex/) | Swift package (iOS 17, macOS 14), WebAssembly, Rust | {{< crate-status "preview" >}} |
+| Streaming speech recognition | [`magicaf-asr-onnx`](/docs/crates/magicaf-asr-onnx/) | Anywhere sherpa-onnx builds | {{< crate-status "experimental" >}} |
+| Retrieval without a database server | `InMemoryVectorStore` in [`magicaf-core`](/docs/crates/magicaf-core/) | Any Rust target with `std` | {{< crate-status "stable" >}} |
 
-## Component Availability
+Generation is the piece that usually stays off the device: the LLM runs on a server the device reaches over the network, or the feature degrades to retrieval-only results when offline.
 
-| Component | Server Deployment | Edge Deployment |
-|-----------|------------------|-----------------|
-| Vector Store | Qdrant (`magicaf-qdrant`) | `InMemoryVectorStore` (in `magicaf-core`) |
-| Embeddings | llama.cpp / TEI server | On-device (ONNX, CoreML, TFLite) |
-| LLM | vLLM / llama.cpp | Omitted, or remote when online |
-| Persistence | Qdrant handles it | `InMemoryVectorStore::save()` / `load()` |
+## Mobile apps (Flutter)
 
-## `InMemoryVectorStore`
+`magicaf-mobile` is built to be called synchronously from Dart through `flutter_rust_bridge`, with no model download and no async runtime. Depend on it with `default-features = false` — the default `guard` feature pulls in the full `magicaf-core` dependency tree (about 52 MB on iOS). The [crate page](/docs/crates/magicaf-mobile/#calling-it-from-flutter) shows the wrapper-crate pattern that shipping apps use.
 
-The zero-dependency vector store that ships with `magicaf-core`:
+## On-device decisions (Swift, WebAssembly)
+
+`magicaf-reflex` has no async runtime, no networking by default, and no dependency on `magicaf-core`, which keeps it small enough for an app binary. It ships as a Swift package with Core ML heads, and as WebAssembly for browser use. See [the on-device scorer](/docs/reflex/on-device-scorer/).
+
+## Retrieval at the edge
+
+`InMemoryVectorStore` implements the same `VectorStore` trait as Qdrant, so a `RAGWorkflow` built for a server runs unchanged on an edge box with the store swapped:
 
 ```rust
-use magicaf_core::prelude::*;
+use std::path::Path;
+use magicaf_core::vector_store::{InMemoryVectorStore, VectorStore};
 
-// Create a new store
+// Build once on a connected machine…
 let store = InMemoryVectorStore::new();
-store.ensure_collection("docs", 1024).await?;
-store.index("docs", embeddings, payloads).await?;
+store.ensure_collection("docs", 384).await?;
+store.index("docs", vectors, payloads).await?;
+store.save(Path::new("docs.store.json"))?;
 
-let results = store.search("docs", query_vec, 5, None).await?;
-
-// Persist to disk
-store.save(Path::new("store.json"))?;
-
-// Load on next startup
-let store = InMemoryVectorStore::load(Path::new("store.json"))?;
+// …ship the file, and load it on the device.
+let store = InMemoryVectorStore::load(Path::new("docs.store.json"))?;
 ```
 
-### Performance Characteristics
+Search is an exact, brute-force cosine scan — no index to tune, and results identical to a full comparison. Measured with the repository's benchmark (`cargo bench -p magicaf-benches --bench in_memory_search`), 384-dimensional vectors, top 10, on an Apple M1, measured on 2026-11-13 with Criterion's quick mode on a machine doing other work — treat the figures as upper bounds:
 
-| Points | Search Latency | Memory (1024-dim) |
-|--------|----------------|-------------------|
-| 1,000 | < 1ms | ~10 MB |
-| 10,000 | ~5ms | ~100 MB |
-| 100,000 | ~50ms | ~1 GB |
+| Points | Search, top 10 | Vector memory (384-dim `f32`) |
+|---|---|---|
+| 1,000 | 0.6 ms | 1.5 MB |
+| 10,000 | 8.8 ms | 15 MB |
+| 100,000 | 120 ms | 150 MB |
 
-## Edge Embedding Strategies
+Payloads add to memory on top of the vectors.
 
-### Option A — On-Device ONNX Runtime
+Latency grows linearly with the number of points: the store is comfortable into the tens of thousands of vectors for interactive use, workable at 100,000 for batch use, and beyond that Qdrant is the right tool.
 
-Implement the `EmbeddingService` trait using ONNX Runtime for fully offline embeddings:
+### Embeddings on the device
 
-```rust
-use magicaf_core::prelude::*;
-use async_trait::async_trait;
+MagicAF does not ship an on-device embedding model. The query still has to be embedded with the same model that built the store, so you have two options:
 
-pub struct OnnxEmbeddingService {
-    session: ort::Session,
-}
+- **Embed on a small server** — a CPU text-embeddings-inference container with `bge-small-en-v1.5` (384 dimensions) runs comfortably on an edge box, and `LocalEmbeddingService` talks to it as usual.
+- **Implement `EmbeddingService` over a local runtime** — wrap ONNX Runtime, Core ML, or another runtime in a type that implements the three-method trait. Everything downstream is unchanged.
 
-#[async_trait]
-impl EmbeddingService for OnnxEmbeddingService {
-    async fn embed(&self, inputs: &[String]) -> Result<Vec<Vec<f32>>> {
-        // Tokenize + run ONNX inference
-        // Runs entirely on-device, no network required
-        todo!("Implement with ort crate")
-    }
+## Retrieval without generation
 
-    async fn embed_single(&self, input: &str) -> Result<Vec<f32>> {
-        let results = self.embed(&[input.to_string()]).await?;
-        results.into_iter().next()
-            .ok_or_else(|| MagicError::embedding("empty"))
-    }
-
-    async fn health_check(&self) -> Result<()> {
-        Ok(()) // Always healthy — local
-    }
-}
-```
-
-### Option B — Apple CoreML (iOS/macOS)
-
-Wrap a CoreML `.mlmodel` behind the `EmbeddingService` trait via FFI. The MagicAF FFI surface is designed for this pattern.
-
-### Option C — Local llama.cpp
-
-For devices with 4GB+ RAM, run llama.cpp as a subprocess for embeddings only.
-
-## Offline Workflow
-
-1. **Pre-index on a server** — run the full MagicAF stack and index your documents
-2. **Export the store** — `InMemoryVectorStore::save("portable_store.json")`
-3. **Bundle with app** — ship the JSON file with your mobile app
-4. **Load on device** — `InMemoryVectorStore::load("portable_store.json")`
-
-## Edge RAG Without LLM
-
-On mobile, you may not need (or be able to run) an LLM:
-
-- **Retrieval-only** — use embedding + vector store to find relevant documents, display directly
-- **Remote LLM fallback** — call a remote server when network is available
-- **Cached responses** — pre-compute LLM responses for common queries
-
-## Platform Notes
-
-| Platform | Embeddings | Vector Store | Notes |
-|----------|-----------|-------------|-------|
-| **iOS (Swift)** | CoreML `.mlmodel` | `InMemoryVectorStore` via C FFI | Bundle store in app bundle |
-| **Android (Kotlin)** | ONNX Runtime Mobile / TFLite | `InMemoryVectorStore` via JNI | Store in internal storage |
-| **Linux Edge (RPi, Jetson)** | llama.cpp on ARM64 | Qdrant or InMemory | Full stack possible with 8GB+ RAM |
+When there is no LLM to call, skip the workflow and return passages directly: embed the question, call `store.search(...)`, and show the top results with their source fields. Users get grounded results offline, and generation resumes when a server is reachable.

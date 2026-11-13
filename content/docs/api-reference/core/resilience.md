@@ -1,6 +1,6 @@
 ---
 title: "Resilience"
-description: "API reference for retry with exponential backoff, circuit breaker, and rate limiter — production-grade fault tolerance for all MagicAF services."
+description: "API reference for retry with exponential backoff, circuit breaker, and rate limiter — the fault tolerance built into every MagicAF service client."
 weight: 9
 tags: [api, resilience, retry, circuit-breaker, rate-limiter, fault-tolerance]
 categories: [reference]
@@ -48,12 +48,13 @@ pub async fn retry_with_backoff<F, Fut, T>(
 ) -> Result<T>
 where
     F: Fn() -> Fut + Send,
-    Fut: Future<Output = Result<T>>,
+    Fut: Future<Output = Result<T>> + Send,
+    T: Send,
 ```
 
 Executes `f` up to `max_attempts` times. Only retries on retryable errors (see [`MagicError::is_retryable`](/docs/api-reference/core/errors/)).
 
-**OTel metric:** Increments `magicaf.retry.count` counter on each retry attempt.
+**Metric:** increments `retry_attempts_total{service, attempt}` on each retry.
 
 ### `compute_delay`
 
@@ -139,7 +140,9 @@ where
     Fut: Future<Output = Result<T>>,
 ```
 
-**OTel metric:** Reports `magicaf.circuit_breaker.state` gauge (0=Closed, 1=Open, 2=HalfOpen).
+**Metric:** records `circuit_breaker_state{service}` — 0 closed, 1 open, 2 half-open.
+
+For work that does not fit a closure, drive the breaker by hand: `try_acquire()` asks whether a call may proceed, then report the outcome with `record_success()` or `record_failure()`. `call_counting(f, counts)` is `call` with a predicate deciding which errors count as failures — useful when, say, a 404 means the request was wrong rather than the service down.
 
 ### State Transitions
 
@@ -210,7 +213,7 @@ pub async fn acquire(&self) -> Result<RateLimitPermit>
 
 An RAII guard. When dropped, the semaphore slot is released and the OTel counter is decremented.
 
-**OTel metric:** Reports `magicaf.rate_limiter.active` up-down counter.
+**Metric:** `rate_limiter_active_requests{service}`, an up-down counter of requests holding a permit.
 
 ### Example
 
@@ -256,4 +259,11 @@ let config = LlmConfig {
 };
 ```
 
-No manual wiring needed — the service handles retry → circuit breaker → rate limiter orchestration automatically.
+No manual wiring is needed. Each request is wrapped in this order, outermost first:
+
+1. **Rate limiter** — wait for a permit (up to `queue_timeout_ms`), or fail with `RateLimitExceeded`.
+2. **Timeout** — `request_timeout_secs` bounds the *entire* sequence below, including every retry and backoff delay. Raise it if you raise `max_attempts`.
+3. **Circuit breaker** — fail fast with `CircuitOpen` while open. The breaker sees the outcome of the whole retry sequence, so one request that exhausts its retries counts as one failure.
+4. **Retry** — retryable errors (see [Errors](/docs/api-reference/core/errors/#retryable-errors)) are retried with exponential backoff and jitter.
+
+The cross-encoder reranker is the exception: it makes a single request with a timeout and no retry or circuit breaker.

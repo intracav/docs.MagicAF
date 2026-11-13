@@ -65,12 +65,16 @@ function initSidebarActive() {
       link.setAttribute('aria-current', 'page');
     }
   });
+  // Header: only the longest matching prefix lights up (/docs/crates/ must
+  // not also highlight /docs/).
+  let best = null;
   document.querySelectorAll('.header-nav a').forEach((link) => {
     const href = link.getAttribute('href');
-    if (href && !href.startsWith('http') && path.startsWith(normalize(href)) && href !== '/') {
-      link.classList.add('active');
+    if (href && !href.startsWith('http') && href !== '/' && path.startsWith(normalize(href))) {
+      if (!best || normalize(href).length > normalize(best.getAttribute('href')).length) best = link;
     }
   });
+  if (best) best.classList.add('active');
 }
 
 /* ---------- Mobile Menu ---------- */
@@ -215,3 +219,25 @@ function initKbdHint() {
     el.textContent = isMac ? '⌘' : 'Ctrl';
   });
 }
+
+/* ---------- TOC rail scrollspy ---------- */
+function initTocSpy() {
+  const links = Array.from(document.querySelectorAll('.toc-rail a[href^="#"]'));
+  if (!links.length || !('IntersectionObserver' in window)) return;
+  const byId = new Map(links.map((a) => [decodeURIComponent(a.getAttribute('href').slice(1)), a]));
+  const heads = Array.from(byId.keys()).map((id) => document.getElementById(id)).filter(Boolean);
+  const visible = new Set();
+  const setActive = () => {
+    // Topmost visible heading wins; if none visible, keep the last one passed.
+    let target = heads.find((h) => visible.has(h));
+    if (!target) target = heads.filter((h) => h.getBoundingClientRect().top < 120).pop();
+    links.forEach((a) => a.classList.remove('is-active'));
+    if (target) byId.get(target.id).classList.add('is-active');
+  };
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => (e.isIntersecting ? visible.add(e.target) : visible.delete(e.target)));
+    setActive();
+  }, { rootMargin: '-72px 0px -65% 0px' });
+  heads.forEach((h) => io.observe(h));
+}
+initTocSpy();

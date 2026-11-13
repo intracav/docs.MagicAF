@@ -35,23 +35,20 @@ Retrieval-Augmented Generation (RAG) solves a fundamental problem: LLMs are powe
 
 Here is the flow:
 
+```text
+Your question
+   │
+   ├─ Embed ........ convert the question to a vector
+   ├─ Retrieve ..... find the most similar documents in the vector store
+   ├─ Format ....... arrange those documents into an evidence block
+   ├─ Prompt ....... combine evidence and question into a prompt
+   ├─ Generate ..... send the prompt to the language model
+   └─ Parse ........ turn the reply into your result type
+   │
+Your answer, grounded in the documents you indexed
 ```
-Your Question
-     ↓
-[1. Embed] → Convert question to a vector
-     ↓
-[2. Search] → Find similar documents in the vector store
-     ↓
-[3. Format] → Arrange the documents into a text block
-     ↓
-[4. Build Prompt] → Combine documents + question into a prompt
-     ↓
-[5. LLM] → Send to the language model
-     ↓
-[6. Parse] → Extract the answer
-     ↓
-Your Answer (grounded in real documents)
-```
+
+Optional stages — a prompt-injection guard, a reranker, a response guard — slot in around these when you add them. This tutorial uses none.
 
 MagicAF makes each of these steps **pluggable** — you can swap any component without touching the others. But for this tutorial, we will use the defaults for everything.
 
@@ -66,6 +63,7 @@ use magicaf_core::prelude::*;
 use magicaf_core::embeddings::LocalEmbeddingService;
 use magicaf_local_llm::LocalLlmService;
 use magicaf_qdrant::QdrantVectorStore;
+use serde_json::json;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
@@ -78,7 +76,7 @@ async fn main() -> anyhow::Result<()> {
     println!("=== Your First RAG Pipeline ===\n");
 ```
 
-**Why structured logging?** In production environments — especially classified and healthcare systems — you need a complete audit trail. Starting with structured logs from day one builds the right habit.
+**Why structured logging?** In production, and especially in regulated environments, you need a record of what each request did. Starting with structured logs from day one builds the right habit.
 
 ## Step 2 — Configure the Three Services
 
@@ -86,31 +84,28 @@ MagicAF connects to three local HTTP services. Each one handles a different part
 
 ```rust
     // The embedding service converts text → vectors
-    let embedder = LocalEmbeddingService::new(EmbeddingConfig {
-        base_url: "http://localhost:8080".into(),
-        model_name: "bge-large-en-v1.5".into(),
-        batch_size: 32,
-        timeout_secs: 30,
-        api_key: None,
-    })?;
+    let embedder = LocalEmbeddingService::new(serde_json::from_value(json!({
+        "base_url": "http://localhost:8080",
+        "model_name": "bge-large-en-v1.5"
+    }))?)?;
 
     // The vector store indexes and searches those vectors
-    let store = QdrantVectorStore::new(VectorStoreConfig {
-        base_url: "http://localhost:6333".into(),
-        api_key: None,
-        timeout_secs: 30,
-    }).await?;
+    let store = QdrantVectorStore::new(serde_json::from_value(json!({
+        "base_url": "http://localhost:6333"
+    }))?)
+    .await?;
 
     // The LLM generates answers from retrieved context
     let llm = LocalLlmService::new(LlmConfig {
         base_url: "http://localhost:8000/v1".into(),
         model_name: "mistral-7b".into(),
-        api_key: None,
-        timeout_secs: 120,
+        ..Default::default()
     })?;
 ```
 
-**Why three separate services?** MagicAF's architecture separates infrastructure from logic. This means you can swap Qdrant for Milvus, or swap vLLM for Ollama, without changing any application code. In regulated environments, this separation lets you certify each component independently.
+Each config needs only an endpoint and, for embeddings and the LLM, a model name. Everything else — connect and request timeouts, retry with backoff, a circuit breaker, rate limiting, TLS, connection pooling — has a default you can override later. `EmbeddingConfig` and `VectorStoreConfig` are built by deserializing because all their optional fields default through serde; `LlmConfig` also implements `Default`.
+
+**Why three separate services?** MagicAF's architecture separates infrastructure from logic. This means you can swap Qdrant for Milvus, or swap vLLM for Ollama, without changing any application code. It also lets you scale, update, and audit each service on its own.
 
 ## Step 3 — Index Some Documents
 
@@ -167,7 +162,7 @@ Now wire everything together into a `RAGWorkflow`:
         .build()?;
 ```
 
-**Why a builder pattern?** Every component is required — the builder ensures you cannot accidentally forget one. The `top_k(3)` setting means the vector store will return the 3 most similar documents to your query.
+**Why a builder?** Six components are required — the embedder, store, LLM, formatter, prompt builder, and parser — and `build()` returns an error if one is missing. Everything else (`top_k`, `min_score`, guards, a reranker, an audit logger) is optional. The `top_k(3)` setting means the vector store will return the 3 most similar documents to your query.
 
 ## Step 5 — Run a Query
 
@@ -205,7 +200,7 @@ When you called `workflow.run("What is MagicAF?", None)`, here is exactly what h
 | 1 | `LocalEmbeddingService` | Your question was sent to the embedding server and converted into a 1024-dim vector |
 | 2 | `QdrantVectorStore` | That vector was compared against all indexed documents; the 3 closest were returned |
 | 3 | `DefaultEvidenceFormatter` | The 3 search results were formatted into a text block with scores |
-| 4 | `DefaultPromptBuilder` | The evidence + your question were assembled into a prompt wrapped in `<context>` tags |
+| 4 | `DefaultPromptBuilder` | The evidence was placed in a `<context>` block, followed by your question |
 | 5 | `LocalLlmService` | The prompt was sent to Mistral-7B, which generated an answer |
 | 6 | `RawResultParser` | The raw text was returned as-is (no parsing needed for strings) |
 

@@ -10,7 +10,7 @@ prerequisites: [/docs/core-concepts/architecture/]
 
 MagicAF provides an abstract `AsrService` trait for speech-to-text, a `WhisperAsrService` implementation for Whisper-compatible endpoints, and a `VadProcessor` for client-side voice activity detection.
 
-**Modules:** `magicaf_core::asr`, `magicaf_local_llm::whisper`
+**Modules:** `magicaf_core::asr`; the Whisper client is `magicaf_local_llm::WhisperAsrService`
 
 ---
 
@@ -32,7 +32,7 @@ pub struct AsrConfig {
     pub language: Option<String>,           // BCP-47 tag (e.g., "en", "fr")
     pub specialty: Option<String>,          // Domain hint (e.g., "clinical", "legal")
     pub vocabulary_hints: Vec<String>,      // Domain-specific terms to bias recognition
-    pub audio_format: String,               // default: "wav"
+    pub audio_format: String,               // default: "" — set it explicitly
 }
 ```
 
@@ -41,7 +41,7 @@ pub struct AsrConfig {
 | `language` | `Option<String>` | `None` | BCP-47 language tag (auto-detected if omitted) |
 | `specialty` | `Option<String>` | `None` | Domain hint for specialized vocabulary |
 | `vocabulary_hints` | `Vec<String>` | `[]` | Terms to bias the recognition model toward |
-| `audio_format` | `String` | `"wav"` | Audio format of the input bytes |
+| `audio_format` | `String` | `""` | Audio format of the input bytes, such as `"wav"`. The default is empty, so set it. |
 
 ### `AsrResult`
 
@@ -123,7 +123,7 @@ pub fn new(config: AsrEndpointConfig) -> Result<Self>
 
 Sends a `multipart/form-data` POST to `{base_url}/audio/transcriptions` with:
 - `file` — audio bytes
-- `model` — `"whisper-1"` (or server-configured)
+- `model` — always `"whisper-1"`; servers that host other models typically ignore it
 - `response_format` — `"verbose_json"` (includes segments and timestamps)
 - `language` — optional BCP-47 tag
 - `prompt` — vocabulary hints joined as a biasing prompt

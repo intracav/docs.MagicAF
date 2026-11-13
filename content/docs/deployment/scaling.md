@@ -1,6 +1,6 @@
 ---
 title: "Scaling"
-description: "Horizontal scaling strategies for each MagicAF component."
+description: "Scale each tier independently: embedding and LLM servers behind load balancers, Qdrant in distributed mode, and stateless application instances — plus the per-process limits that matter when you do."
 weight: 5
 tags: [deployment, scaling, horizontal, load-balancing, qdrant-cluster]
 categories: [deployment]
@@ -8,77 +8,44 @@ difficulty: advanced
 prerequisites: [/docs/deployment/docker/]
 ---
 
-MagicAF applications are stateless by design. Every component can be scaled independently.
+A MagicAF application holds no conversation or index state of its own — the vector store holds the index, and the model servers hold the models — so each tier scales on its own terms.
 
-## Scaling Strategy
+| Tier | How it scales | Usually the bottleneck when |
+|---|---|---|
+| LLM server | More GPUs per node (vLLM tensor parallelism), more nodes behind a load balancer | Almost always — generation dominates request time |
+| Embedding server | Replicas behind a load balancer | Bulk indexing, or very high query rates |
+| Qdrant | Distributed mode: sharding and replication | Collections in the tens of millions of vectors, or heavy filtering |
+| Your application | More instances | Rarely — it mostly waits on the network |
 
-| Component | Strategy | Notes |
-|-----------|----------|-------|
-| **Embedding** | Horizontal: N replicas behind a load balancer | CPU or GPU instances |
-| **Qdrant** | Distributed mode (built-in clustering) | Sharding + replication |
-| **LLM** | Horizontal: multiple GPU nodes behind a load balancer | vLLM supports tensor parallelism |
-| **Application** | Horizontal: stateless, scale freely | Each instance gets its own `RAGWorkflow` |
+## Model servers
 
-## Embedding Service Scaling
+MagicAF connects to one URL per service, so put a load balancer (nginx, HAProxy, Envoy, or a Kubernetes Service) in front of a pool of identical replicas and point `base_url` at it. vLLM batches concurrent requests on each node; scale out when time to first token (`llm_stream_ttft_seconds`) climbs under load. For a model too large for one GPU, raise `--tensor-parallel-size` — `LLM_GPU_COUNT` in the compose file — before adding nodes.
 
-Embedding is typically the most CPU/GPU-bound operation. Scale by running multiple replicas:
+Every replica behind one URL must serve the **same model under the same name**, and every embedding replica the same embedding model, or results will be inconsistent.
 
-```yaml
-services:
-  embedding:
-    image: ghcr.io/huggingface/text-embeddings-inference:1.2
-    deploy:
-      replicas: 3
-    # ...
-```
+## Qdrant
 
-Use a load balancer (nginx, HAProxy, or service mesh) in front. MagicAF connects to a single URL, so point `EMBEDDING_URL` at the load balancer.
+Qdrant runs as a cluster with built-in sharding and replication; follow [Qdrant's distributed deployment guide](https://qdrant.tech/documentation/guides/distributed_deployment/). MagicAF talks to any node over REST and needs no changes. For large collections, `recreate_with_quantization` creates a collection with scalar or binary quantization to cut memory.
 
-## Qdrant Scaling
+## Application instances
 
-Qdrant supports distributed mode with built-in sharding and replication:
-
-```bash
-# Start a Qdrant cluster
-docker compose up -d qdrant-node-1 qdrant-node-2 qdrant-node-3
-```
-
-See the [Qdrant distributed deployment docs](https://qdrant.tech/documentation/guides/distributed_deployment/) for cluster configuration.
-
-## LLM Scaling
-
-For high-throughput deployments:
-
-- **vLLM**: Supports tensor parallelism across multiple GPUs on a single node
-- **Multiple nodes**: Run separate vLLM instances and load balance
-- **Batching**: vLLM automatically batches concurrent requests for efficiency
-
-```yaml
-services:
-  llm:
-    image: vllm/vllm-openai:latest
-    deploy:
-      replicas: 2
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
-```
-
-## Application Scaling
-
-MagicAF applications are stateless — each instance constructs its own `RAGWorkflow` with the same configuration:
+Build one `RAGWorkflow` per process at startup and share it across requests — it is `Send + Sync`, and `run` takes `&self`:
 
 ```rust
-// Each application instance creates its own workflow
-let workflow = RAGWorkflow::builder()
-    .embedding_service(LocalEmbeddingService::new(config)?)
-    .vector_store(QdrantVectorStore::new(vector_config).await?)
-    .llm_service(LocalLlmService::new(llm_config)?)
-    // ...
-    .build()?;
+let workflow = std::sync::Arc::new(build_workflow().await?);
+// clone the Arc into each request handler
 ```
 
-Scale horizontally with your orchestrator of choice (Kubernetes, Docker Swarm, systemd, etc.).
+## Per-process limits
+
+Each service client enforces its own resilience limits, configured per service. They apply **per process**: ten instances, each with the default limit of 10 concurrent requests, can send 100 at once.
+
+| Setting | Where | Use it to |
+|---|---|---|
+| `rate_limit` | Every service config | Cap concurrent requests from this process, protecting a shared server |
+| `circuit_breaker` | Every service config | Stop calling a failing service for a cool-down period |
+| `retry` | Every service config | Retry transient failures with exponential backoff |
+| `connection_pool` | Every service config | Bound idle connections and their lifetime |
+| `parallel_batches` | `EmbeddingConfig` | Send several embedding batches at once during bulk indexing |
+
+Size the per-process limits so that *instances × limit* stays within what each server can absorb. [Resilience](/docs/api-reference/core/resilience/) documents every field.

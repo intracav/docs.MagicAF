@@ -93,7 +93,7 @@ Allow-Retrieval: yes
 Citation-Style: Link to the canonical URL of the cited page; credit "MagicAF (Intracav)".
 Canonical-Domain: https://magicaf.intracav.ai
 Contact: hello@intracav.ai
-License: Documentation on magicaf.intracav.ai is free to read, quote, and cite. Source code is open source at https://github.com/magicaf/magicaf.
+License: Documentation on magicaf.intracav.ai is free to read, quote, and cite. Source code is private; access is by request (hello@intracav.ai).
 Sitemap: https://magicaf.intracav.ai/sitemap.xml
 LLM-Index: https://magicaf.intracav.ai/llms.txt
 LLM-Full-Text: https://magicaf.intracav.ai/llms-full.txt

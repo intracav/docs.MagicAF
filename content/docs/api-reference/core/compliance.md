@@ -85,7 +85,7 @@ pub async fn delete(&self, req: GdprDeletionRequest) -> Result<GdprDeletionRepor
 Executes the full deletion workflow:
 
 1. **Delete** — calls `VectorStore::delete_by_entity(entity_id)` for each collection
-2. **Verify** — searches with a zero vector to confirm no results match the entity
+2. **Verify** — counts points still tagged with the entity (`count_by_filter` on `entity_id`). A collection the store cannot count is reported as failed before deletion is attempted, so the backend must implement `count_by_filter` — `QdrantVectorStore` and `InMemoryVectorStore` both do.
 3. **Purge cache** — if `purge_cache` is true and a `CacheService` is attached, clears the embedding cache
 4. **Audit** — if an `AuditLogger` is attached, emits a `GdprDeletion` audit event
 
@@ -140,4 +140,4 @@ AuditEventType::GdprDeletion {
 }
 ```
 
-This provides a tamper-evident record for compliance audits.
+Store these events somewhere append-only if you need them as evidence; the event itself carries no signature or hash chain.

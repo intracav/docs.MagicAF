@@ -57,3 +57,4 @@ coverage/
 
 # Miscellaneous
 *.orig
+.playwright-mcp/

@@ -24,6 +24,7 @@ pub enum MagicError {
     ConfigError             { message: String },
     AdapterError            { message: String, source: Option<Box<dyn Error + Send + Sync>> },
     HttpError               { message: String, status_code: Option<u16>, source: Option<...> },
+    Throttled               { message: String, status_code: u16, retry_after_ms: Option<u64> },
     SerializationError      { message: String, source: Option<Box<dyn Error + Send + Sync>> },
     HealthCheckFailed       { service: String },
     Internal                { message: String, source: Option<Box<dyn Error + Send + Sync>> },
@@ -37,34 +38,39 @@ pub enum MagicError {
     AsrError                { message: String, source: Option<Box<dyn Error + Send + Sync>> },
     AsrEmptyAudio,
     FipsNotActive           { detail: String },
+    // … plus speech, auth, database, tool, artifact, server, budget,
+    //     and Reflex variants — all listed in the table below
 }
 ```
 
-### Variants
+### Variants and codes
 
-| Variant | Code | When |
-|---------|------|------|
-| `EmbeddingError` | `1000` | Embedding service returned an error or was unreachable |
-| `VectorStoreError` | `2000` | Vector store returned an error or was unreachable |
-| `LlmError` | `3000` | LLM service returned an error or was unreachable |
-| `ConfigError` | `4000` | Configuration value was missing or invalid |
-| `AdapterError` | `5000` | An adapter (formatter, builder, parser) failed |
-| `HttpError` | `6000` | An HTTP request failed |
-| `SerializationError` | `7000` | Serialization or deserialization failed |
-| `HealthCheckFailed` | `8000` | A health check failed against an upstream service |
-| `Internal` | `9000` | Unexpected internal error |
-| `CircuitOpen` | `10000` | Circuit breaker is open — service calls are blocked |
-| `Shutdown` | `11000` | Operation rejected because the system is shutting down |
-| `RateLimitExceeded` | `12000` | Concurrency limit reached — could not acquire a permit |
-| `PromptInjectionDetected` | `13000` | Prompt guard blocked a suspicious query |
-| `Timeout` | `14000` | Operation timed out with `operation` name and `elapsed_ms` |
-| `ResponseTooLarge` | `15000` | LLM response exceeded `max_output_length` |
-| `ResponseSchemaViolation` | `16000` | LLM response failed JSON schema validation |
-| `AsrError` | `17000` | Speech-to-text service error |
-| `AsrEmptyAudio` | `18000` | Transcription attempted with empty audio |
-| `FipsNotActive` | `19000` | FIPS mode required but not active on the system |
+Every variant maps to a stable numeric code through `error_code()`. Codes are grouped by area; a new variant gets a new code, and existing codes do not change.
 
----
+| Area | Variant | Code |
+|---|---|---|
+| Services | `EmbeddingError` · `VectorStoreError` · `LlmError` | 1000 · 2000 · 3000 |
+| Setup | `ConfigError` | 4000 |
+| Adapters | `AdapterError` | 5000 |
+| Transport | `HttpError` · `Throttled` | 6000 · 6001 |
+| Data | `SerializationError` | 7000 |
+| Health | `HealthCheckFailed` | 8000 |
+| Other | `Internal` | 9000 |
+| Resilience | `CircuitOpen` · `Shutdown` · `RateLimitExceeded` · `Timeout` | 10000 · 11000 · 12000 · 14000 |
+| Guards | `PromptInjectionDetected` · `ResponseTooLarge` · `ResponseSchemaViolation` | 13000 · 15000 · 16000 |
+| Speech | `AsrError` · `AsrEngineInit` · `AsrModelLoad` · `AsrModelIntegrity` · `AsrSessionClosed` · `AsrEmptyAudio` | 17000 · 17001 · 17002 · 17003 · 17004 · 18000 |
+| Speech synthesis | `TtsError` · `TtsEmptyText` | 17500 · 17501 |
+| Crypto | `FipsNotActive` | 19000 |
+| Auth ([`magicaf-auth`](/docs/crates/magicaf-auth/)) | `AuthenticationFailed` · `TokenExpired` · `TokenRevoked` · `InsufficientPermission` · `MfaRequired` · `CertificateInvalid` · `LdapBindFailed` | 20000 – 20006 |
+| Database ([`magicaf-db`](/docs/crates/magicaf-db/)) | `DatabaseError` · `RecordNotFound` · `DuplicateRecord` · `MigrationFailed` · `ConnectionPoolExhausted` | 21000 – 21004 |
+| Tools ([`magicaf-tools`](/docs/crates/magicaf-tools/)) | `ToolNotFound` · `ToolExecutionFailed` · `ToolTierRestricted` · `ToolInputValidation` | 22000 – 22003 |
+| Artifacts ([`magicaf-ui`](/docs/crates/magicaf-ui/)) | `InvalidArtifactType` · `ArtifactSchemaValidation` · `EnvelopeConstructionFailed` | 23000 – 23002 |
+| Server ([`magicaf-server`](/docs/crates/magicaf-server/)) | `RequestBodyTooLarge` · `SseConnectionFailed` · `BackgroundTaskFailed` | 24000 – 24002 |
+| Budgets | `BudgetExceeded` | 25000 |
+| Decisions ([Reflex](/docs/reflex/)) | `ReflexInvalidRequest` · `ReflexUnknownQuestionSet` · `ReflexUnknownKey` | 26001 – 26003 |
+| | `ReflexModelUnavailable` · `ReflexIntegrity` · `ReflexTimeout` · `ReflexBackendError` | 26101 – 26104 |
+
+Reflex errors also have wire codes for the `magicaf.reflex.response/v2` protocol (1001–1003 and 2001–2004): `reflex_wire_code()`, `reflex_wire_name()`, and `MagicError::from_reflex_wire_code(code, detail)` convert in both directions.
 
 ## Numeric Error Codes
 
@@ -87,20 +93,20 @@ match error.error_code() {
 
 ---
 
-## Helper Constructors
+## Helper constructors
 
-Convenient functions for creating errors without a source:
+Shorthand for creating errors without a source:
 
-```rust
-MagicError::embedding("Model not loaded")
-MagicError::vector_store("Collection not found")
-MagicError::llm("Empty response")
-MagicError::config("missing 'base_url' field")
-MagicError::adapter("Formatter produced empty output")
-MagicError::http("Connection refused", Some(502))
-MagicError::asr("Whisper endpoint unreachable")
-MagicError::internal("Unexpected state")
-```
+| Constructor | Produces |
+|---|---|
+| `embedding(msg)`, `vector_store(msg)`, `llm(msg)`, `config(msg)`, `adapter(msg)`, `asr(msg)`, `tts(msg)`, `internal(msg)` | The matching variant |
+| `http(msg, status_code: Option<u16>)` | `HttpError` |
+| `throttled(msg, status_code, retry_after: Option<&str>)` | `Throttled`, parsing a `Retry-After` header value |
+| `database(msg)`, `not_found(entity)` | `DatabaseError`, `RecordNotFound` |
+| `auth_failed(msg)`, `forbidden(detail)` | `AuthenticationFailed`, `InsufficientPermission` |
+| `tool_failed(name, message)` | `ToolExecutionFailed` |
+
+`retry_after_ms()` returns the server-requested delay carried by a `Throttled` error, if any.
 
 ---
 
@@ -170,9 +176,10 @@ pub fn is_retryable(&self) -> bool
 ```
 
 **Retryable conditions:**
-- `HttpError` with no status code (connection failures)
-- `HttpError` with status `429` (rate limited), `502`, `503`, or `504` (server errors)
-- `Timeout` errors
+- `HttpError` with no status code (the connection failed)
+- `HttpError` with status 429, 500, 502, 503, 504, or 529
+- `Throttled` — a 429, 503, or 529 from a streaming call, carrying any `Retry-After` delay
+- `Timeout` and `ReflexTimeout`
 
 All other error variants are considered non-retryable. The [retry infrastructure](/docs/api-reference/core/resilience/) uses this method to decide whether to attempt another call.
 
@@ -211,9 +218,9 @@ Err(MagicError::PromptInjectionDetected { detail }) => {
     eprintln!("Blocked: {detail}");
 }
 
-// LLM response exceeded length limit
+// LLM response exceeded the size limit (in bytes)
 Err(MagicError::ResponseTooLarge { actual, limit }) => {
-    eprintln!("Response {actual} chars exceeds limit of {limit}");
+    eprintln!("Response of {actual} bytes exceeds limit of {limit}");
 }
 
 // LLM response failed JSON schema validation

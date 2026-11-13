@@ -5,6 +5,13 @@ weight: 3
 keywords: [sentiment analysis, opinion mining, SST-2, DistilBERT, text classification]
 ---
 
+{{< callout type="warning" title="Current behavior" >}}
+- `ModelSource::Local` is not applied; the model loads through the rust-bert cache.
+
+See [current limits](/docs/api-reference/nlp/#current-limits) for what applies to every pipeline.
+{{< /callout >}}
+
+
 Sentiment analysis classifies text into **positive** or **negative** polarity with a confidence score. It runs entirely in-process using a lightweight DistilBERT model — no external API calls required.
 
 ---
@@ -17,16 +24,16 @@ Sentiment analysis classifies text into **positive** or **negative** polarity wi
 
 ### When to Use
 
-- ✅ You need to gauge opinion or tone in text
-- ✅ You're building feedback analysis or review processing pipelines
-- ✅ You want fast, lightweight binary sentiment classification
-- ✅ You need zero external service dependencies
+- You need to gauge opinion or tone in text
+- You're building feedback analysis or review processing pipelines
+- You want fast, lightweight binary sentiment classification
+- You need zero external service dependencies
 
 ### When Not to Use
 
-- ❌ You need fine-grained sentiment (neutral, mixed, or multi-class) — consider zero-shot classification
-- ❌ You need aspect-based sentiment (e.g. "food was great but service was poor")
-- ❌ You need emotion detection beyond positive/negative (e.g. joy, anger, fear)
+- You need fine-grained sentiment (neutral, mixed, or multi-class) — consider zero-shot classification
+- You need aspect-based sentiment (e.g. "food was great but service was poor")
+- You need emotion detection beyond positive/negative (e.g. joy, anger, fear)
 
 ---
 

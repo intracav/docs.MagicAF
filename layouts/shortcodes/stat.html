@@ -2,5 +2,7 @@
        Usage: {{< stat "lumen_ui_components" >}} */ -}}
 {{- $key := .Get 0 -}}
 {{- $val := index site.Data.site.stats $key -}}
+{{- /* Derived counts — computed from data so they cannot drift. */ -}}
+{{- if eq $key "crates" }}{{ $val = len site.Data.crates.crates }}{{ end -}}
 {{- if eq $val nil -}}{{- errorf "stat shortcode: unknown key %q (page %s)" $key .Page.Path -}}{{- end -}}
 {{- $val -}}

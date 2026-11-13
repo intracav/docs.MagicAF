@@ -1,0 +1,14 @@
+{{- /* The RAGWorkflow stage sequence, as implemented in magicaf-core rag/mod.rs.
+       Optional stages are drawn dashed. */ -}}
+<ol class="pipeline" aria-label="RAGWorkflow stages">
+  <li class="is-optional"><span class="stage">Guard<small>prompt_guard</small></span><span>Reject or sanitize prompt-injection attempts in the question.</span></li>
+  <li><span class="stage">Embed<small>EmbeddingService</small></span><span>Turn the question into a vector with <code>embed_single</code>.</span></li>
+  <li><span class="stage">Retrieve<small>VectorStore</small></span><span>Search the collection for the <code>top_k</code> nearest passages, then drop any below <code>min_score</code>.</span></li>
+  <li class="is-optional"><span class="stage">Rerank<small>Reranker</small></span><span>Reorder passages with a cross-encoder, or filter by score.</span></li>
+  <li><span class="stage">Format<small>EvidenceFormatter</small></span><span>Render passages into the evidence block the model will read.</span></li>
+  <li><span class="stage">Prompt<small>PromptBuilder</small></span><span>Combine evidence and question into the user message.</span></li>
+  <li><span class="stage">Generate<small>LlmService</small></span><span>Call the model with the prompt and <code>GenerationConfig</code>.</span></li>
+  <li class="is-optional"><span class="stage">Check<small>response_guard</small></span><span>Validate the raw reply's size and shape.</span></li>
+  <li><span class="stage">Parse<small>ResultParser&lt;T&gt;</small></span><span>Turn the reply into your result type.</span></li>
+  <li class="is-optional"><span class="stage">Audit<small>audit_logger</small></span><span>Emit an audit event, success or failure, and record <code>rag_pipeline_duration_seconds</code>.</span></li>
+</ol>

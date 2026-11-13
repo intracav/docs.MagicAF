@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 {{- $desc := "" -}}
 {{- with .Description }}{{ $desc = . }}{{ else }}{{ with .Params.lead }}{{ $desc = . }}{{ else }}{{ with .Summary }}{{ $desc = . | plainify | truncate 155 }}{{ else }}{{ $desc = site.Params.description }}{{ end }}{{ end }}{{ end -}}
-<title>{{ if .IsHome }}MagicAF — Open-Source Rust AI Framework by Intracav{{ else }}{{ .Title }} — MagicAF{{ end }}</title>
+<title>{{ if .IsHome }}MagicAF — The Rust Framework for Air-Gapped AI, by Intracav{{ else }}{{ .Title }} — MagicAF{{ end }}</title>
 <meta name="description" content="{{ $desc }}">
 {{- with .Params.keywords }}
 <meta name="keywords" content="{{ delimit . ", " }}">

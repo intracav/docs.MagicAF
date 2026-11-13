@@ -1,6 +1,6 @@
 # MagicAF — robots.txt
 # Allow all reputable crawlers; declare sitemap; allow AI crawlers
-# (open-source framework docs — we want to be indexed and cited in AI answers).
+# (framework docs — we want to be indexed and cited in AI answers).
 
 User-agent: *
 Disallow:

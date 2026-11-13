@@ -2,7 +2,7 @@
 title: "Tutorial: Air-Gapped Deployment"
 description: "Walk through a complete prepare-transfer-build-verify cycle for deploying MagicAF in a disconnected defense lab."
 weight: 3
-tags: [tutorial, air-gapped, deployment, advanced, defense, classified, offline]
+tags: [tutorial, air-gapped, deployment, advanced, offline]
 categories: [tutorial]
 difficulty: advanced
 prerequisites:
@@ -20,7 +20,7 @@ prerequisites:
 
 ## The Scenario
 
-You are an engineer at a defense research lab. Your team has built a MagicAF-based document analysis pipeline that works perfectly on your internet-connected development machine. Now you need to deploy it to a classified network with **zero internet access** — no package registries, no container registries, no model hubs.
+You are an engineer at a defense research lab. Your team has built a MagicAF-based document analysis pipeline that works perfectly on your internet-connected development machine. Now you need to deploy it to a isolated network with **zero internet access** — no package registries, no container registries, no model hubs.
 
 Everything that crosses the air gap must be transferred on approved physical media (USB drive, burned disc, or cross-domain solution). You need to prepare all artifacts on the connected side, transfer them, and verify the deployment on the disconnected side.
 
@@ -38,7 +38,8 @@ Cargo normally downloads crates from crates.io. In an air-gapped environment, th
 cd /path/to/your-magicaf-project
 
 # Download all crate dependencies into vendor/
-cargo vendor > .cargo/config.toml
+mkdir -p .cargo
+cargo vendor --locked > .cargo/config.toml
 ```
 
 This creates two things:
@@ -60,17 +61,17 @@ Your deployment needs three container images. Save them as tarballs:
 
 ```bash
 # Pull the exact versions you want
-docker pull qdrant/qdrant:v1.9.4
-docker pull ghcr.io/huggingface/text-embeddings-inference:1.2
-docker pull vllm/vllm-openai:latest
+docker pull qdrant/qdrant:v1.12.4
+docker pull ghcr.io/huggingface/text-embeddings-inference:cpu-1.5
+docker pull vllm/vllm-openai:<version>
 
 # Save as tarballs
-docker save qdrant/qdrant:v1.9.4 -o qdrant-v1.9.4.tar
-docker save ghcr.io/huggingface/text-embeddings-inference:1.2 -o tei-1.2.tar
-docker save vllm/vllm-openai:latest -o vllm-openai.tar
+docker save qdrant/qdrant:v1.12.4 -o qdrant-v1.12.4.tar
+docker save ghcr.io/huggingface/text-embeddings-inference:cpu-1.5 -o tei-cpu-1.5.tar
+docker save vllm/vllm-openai:<version> -o vllm-openai.tar
 ```
 
-**Why pin versions?** On a classified network, you cannot easily fix "latest tag changed and broke everything." Pin every image to a specific version or digest.
+**Why pin versions?** On an isolated network you cannot quickly fix "the `latest` tag changed and broke everything." Pin every image to a specific version or digest — including vLLM, which the repository's compose file leaves at `latest`. Replace `<version>` with the release you tested.
 
 ### 1.3 Download Models
 
@@ -95,7 +96,7 @@ wget https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF/resolve/main/
 
 ### 1.4 Compute Checksums
 
-Integrity verification is mandatory for classified transfers. Generate checksums for everything:
+Verify integrity for every transfer across the boundary. Generate checksums for everything:
 
 ```bash
 cd ./transfer
@@ -111,8 +112,8 @@ transfer/
 │   ├── your-magicaf-project/    # Full source including vendor/
 │   └── docker-compose.yml
 ├── images/
-│   ├── qdrant-v1.9.4.tar
-│   ├── tei-1.2.tar
+│   ├── qdrant-v1.12.4.tar
+│   ├── tei-cpu-1.5.tar
 │   └── vllm-openai.tar
 └── models/
     ├── embedding/
@@ -131,7 +132,7 @@ Transfer the package to the air-gapped host using your organization's approved c
 
 1. Copying to approved removable media
 2. Malware scanning at the transfer station
-3. Importing onto the classified network
+3. Importing onto the isolated network
 4. Verifying checksums on the other side
 
 ```bash
@@ -149,8 +150,8 @@ Every checksum must pass. If any file is corrupted, request a re-transfer before
 ### 3.1 Load Docker Images
 
 ```bash
-docker load -i images/qdrant-v1.9.4.tar
-docker load -i images/tei-1.2.tar
+docker load -i images/qdrant-v1.12.4.tar
+docker load -i images/tei-cpu-1.5.tar
 docker load -i images/vllm-openai.tar
 
 # Verify they loaded
@@ -175,14 +176,14 @@ Your `docker-compose.yml` should reference local model paths:
 version: "3.9"
 services:
   qdrant:
-    image: qdrant/qdrant:v1.9.4
+    image: qdrant/qdrant:v1.12.4
     ports:
       - "127.0.0.1:6333:6333"
     volumes:
       - qdrant_data:/qdrant/storage
 
   embedding:
-    image: ghcr.io/huggingface/text-embeddings-inference:1.2
+    image: ghcr.io/huggingface/text-embeddings-inference:cpu-1.5
     ports:
       - "127.0.0.1:8080:80"
     volumes:
@@ -190,7 +191,7 @@ services:
     command: --model-id /data --port 80
 
   llm:
-    image: vllm/vllm-openai:latest
+    image: vllm/vllm-openai:<version>
     ports:
       - "127.0.0.1:8000:8000"
     deploy:
@@ -233,12 +234,11 @@ This compiles your entire application and all dependencies from the local `vendo
 
 ```bash
 # Qdrant
-curl -s http://localhost:6333/healthz
-# Expected: {"title":"qdrant - vectorass engine","version":"1.9.4"}
+curl -sf http://localhost:6333/healthz && echo "qdrant ok"
+# Qdrant answers with a short plain-text message and HTTP 200
 
 # Embedding server
-curl -s http://localhost:8080/health
-# Expected: {"status":"ok"}
+curl -sf http://localhost:8080/health && echo "embeddings ok"
 
 # LLM server
 curl -s http://localhost:8000/v1/models
@@ -253,6 +253,8 @@ Add a health check to your application startup:
 // Verify all services before processing any data
 embedder.health_check().await
     .expect("Embedding service unreachable");
+store.health_check().await
+    .expect("Qdrant unreachable");
 llm.health_check().await
     .expect("LLM service unreachable");
 
@@ -315,6 +317,6 @@ Yes. Replace `docker` commands with `podman` equivalents. `podman load`, `podman
 
 ## Next Steps
 
-- **[Deployment: Security →](/docs/deployment/security/)** — hardening checklist for classified environments
+- **[Deployment: Security →](/docs/deployment/security/)** — hardening checklist for isolated network
 - **[Deployment: Observability →](/docs/deployment/observability/)** — set up logging and monitoring
 - **[Decision Guide: Deployment Strategy →](/docs/decision-guides/deployment-strategy/)** — compare deployment options

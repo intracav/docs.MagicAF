@@ -44,6 +44,26 @@ pub trait VectorStore: Send + Sync {
 
 **Module:** `magicaf_core::vector_store`
 
+The four methods above are required. The trait also provides six more with default implementations, so a minimal backend stays small and a full one can do more:
+
+| Method | Default behavior | `QdrantVectorStore` |
+|---|---|---|
+| `search_scoped(collection, vector, limit, filter)` | Calls `search` with the filter — use it where a filter is mandatory (tenant or user scoping) | Same |
+| `set_payload(collection, filter, payload)` | Does nothing and returns `Ok` | Merges `payload` into every matching point |
+| `delete_by_filter(collection, filter) -> u64` | Returns a `VectorStoreError` | Deletes matching points, returns the count |
+| `scroll_paginated(collection, filter, limit, offset) -> ScrollPage` | Returns a `VectorStoreError` | Pages through points with their vectors and payloads |
+| `count_by_filter(collection, filter) -> u64` | Returns a `VectorStoreError` | Counts matching points |
+| `recreate_with_quantization(collection, size, quantization)` | Returns a `VectorStoreError` | Drops and recreates the collection with scalar (int8), product, or binary quantization |
+
+```rust
+pub struct ScrollPage { pub points: Vec<ScrolledPoint>, pub next_offset: Option<String> }
+pub struct ScrolledPoint { pub id: String, pub vector: Vec<f32>, pub payload: serde_json::Value }
+pub struct QuantizationConfig { pub mode: QuantizationMode, pub always_ram: bool }
+pub enum QuantizationMode { Scalar, Product { compression_ratio: u32 }, Binary }
+```
+
+`InMemoryVectorStore` implements all of these except `recreate_with_quantization`. That method **deletes the collection's data**; re-index afterwards.
+
 ---
 
 ## Methods
@@ -167,11 +187,13 @@ impl QdrantVectorStore {
 use magicaf_core::config::VectorStoreConfig;
 use magicaf_qdrant::QdrantVectorStore;
 
-let store = QdrantVectorStore::new(VectorStoreConfig {
-    base_url: "http://localhost:6333".into(),
-    api_key: None,
-    timeout_secs: 30,
-}).await?;
+let config: VectorStoreConfig = serde_json::from_value(serde_json::json!({
+    "base_url": "http://localhost:6333"
+}))?;
+let store = QdrantVectorStore::new(config).await?;
+
+// QdrantVectorStore also has an inherent readiness check:
+store.health_check().await?;
 ```
 
 ### Qdrant Filter Syntax

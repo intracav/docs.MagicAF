@@ -23,19 +23,19 @@ Start here and follow the questions:
 Does the target host have internet access?
 ├── Yes → Do you have Docker?
 │   ├── Yes → DOCKER COMPOSE deployment
-│   └── No  → NATIVE deployment (cargo build + systemd)
+│   └── No  → NATIVE deployment (make -C deploy local-setup / local-start)
 │
 └── No (air-gapped) → Do you have Docker on the target?
     ├── Yes → AIR-GAPPED DOCKER deployment
     │         (vendor deps + save images + transfer)
     └── No  → AIR-GAPPED NATIVE deployment
-              (vendor deps + InMemoryVectorStore + llama.cpp subprocess)
+              (vendor deps + native Qdrant/llama.cpp binaries, or InMemoryVectorStore)
 
 Additional constraints:
 ├── GPU available? → Full LLM inference locally
 ├── No GPU?       → CPU inference (llama.cpp GGUF) or no LLM (retrieval-only)
 ├── < 4 GB RAM?   → EDGE deployment (InMemoryVectorStore + small model)
-└── Mobile?       → EDGE deployment (on-device embeddings, optional remote LLM)
+└── Mobile?       → EDGE deployment (magicaf-mobile on device; retrieval and LLM on a server)
 ```
 
 Notice what the tree asks about: network boundary first, ops tooling second, hardware third. It never asks what you would rather run.
@@ -69,21 +69,21 @@ The maintenance row is the one teams underweight. Docker Compose updates with on
 {{< /decision-card >}}
 {{< decision-card title="Native" tint="accent" >}}
 - Docker is unavailable or prohibited on the target
-- You need `cargo build` + systemd in a custom environment
+- You run native binaries — the repository's `deploy/local` scripts install and start Qdrant, llama.cpp, and the models — under your own process supervisor
 - You want Qdrant or InMemory as the vector store, your call
 - Your team is comfortable owning the process lifecycle
 {{< /decision-card >}}
 {{< decision-card title="Edge / Mobile" tint="accent" >}}
 - Less than 4 GB of RAM, or the target is a phone, tablet, or RPi
 - InMemoryVectorStore and a small model fit the workload
-- On-device embeddings with an optional remote LLM
+- On-device text helpers and speech; embeddings and generation over the network, or a small embedding server on the edge box
 - Retrieval-focused pipelines where a full LLM is optional
 {{< /decision-card >}}
 {{< /card-grid >}}
 
 ## Performance Expectations by Hardware Tier
 
-Set expectations before you deploy, not after. These numbers are what the hardware gives you — no configuration heroics change the tier you are in.
+Set expectations before you deploy, not after. The figures below are planning estimates for the model servers on each hardware tier — they are not benchmarks of MagicAF, which adds little beyond the network round trips. Measure on your own hardware before you commit to a sizing.
 
 ### Embedding Throughput
 

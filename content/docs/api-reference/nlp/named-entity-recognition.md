@@ -5,6 +5,16 @@ weight: 2
 keywords: [NER, named entity recognition, entity extraction, CoNLL-03, BERT]
 ---
 
+{{< callout type="warning" title="Current behavior" >}}
+- English only.
+- Entities are tagged per word: "New York" comes back as two `LOC` entities. Merge adjacent tokens with the same label if you need spans.
+- Offsets are byte offsets into the input string, not character offsets.
+- `ModelSource::Local` is not applied.
+
+See [current limits](/docs/api-reference/nlp/#current-limits) for what applies to every pipeline.
+{{< /callout >}}
+
+
 Named Entity Recognition (NER) identifies and classifies **named entities** — people, places, organisations, and other proper nouns — within unstructured text, returning each entity with its label, confidence score, and character offsets.
 
 ---
@@ -14,20 +24,20 @@ Named Entity Recognition (NER) identifies and classifies **named entities** — 
 **Module:** `magicaf_nlp::ner`
 **Default Model:** BERT cased large fine-tuned on CoNLL-03 (MDZ Digital Library, Bavarian State Library)
 **Task:** Extract named entities with type labels and character offsets
-**Supported Languages:** English, German, Spanish, Dutch
+**Supported Languages:** English
 
 ### When to Use
 
-- ✅ You need to extract people, places, and organisations from text
-- ✅ You need structured output with character offsets for downstream processing
-- ✅ You want zero external service dependencies
-- ✅ You're building entity-aware pipelines (search, knowledge graphs, compliance)
+- You need to extract people, places, and organisations from text
+- You need structured output with character offsets for downstream processing
+- You want zero external service dependencies
+- You're building entity-aware pipelines (search, knowledge graphs, compliance)
 
 ### When Not to Use
 
-- ❌ You need custom entity types beyond PER/LOC/ORG/MISC (consider zero-shot classification)
-- ❌ You need entity linking or disambiguation (NER gives labels, not knowledge base IDs)
-- ❌ You need relation extraction between entities (NER identifies entities, not relations)
+- You need custom entity types beyond PER/LOC/ORG/MISC (consider zero-shot classification)
+- You need entity linking or disambiguation (NER gives labels, not knowledge base IDs)
+- You need relation extraction between entities (NER identifies entities, not relations)
 
 ---
 
@@ -251,7 +261,7 @@ If expected entities are not detected, the model may not recognise uncommon name
 
 ```rust
 // Common names are well-recognised
-pipeline.predict(&["Amy lives in Paris."]).await?;  // ✅ Both detected
+pipeline.predict(&["Amy lives in Paris."]).await?;  // both detected
 
 // Rare or domain-specific names may be missed
 pipeline.predict(&["Xylophia lives in Kraznovia."]).await?;  // May miss unusual names

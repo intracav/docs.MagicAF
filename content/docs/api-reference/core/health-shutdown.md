@@ -55,7 +55,7 @@ pub struct HealthReport {
 /// Returns true if all services passed.
 pub fn all_healthy(&self) -> bool
 
-/// Returns Ok(()) if all healthy, or MagicError::HealthCheckFailed with details.
+/// Returns Ok(()) if all healthy, or MagicError::ConfigError naming the unhealthy services.
 pub fn into_result(self) -> Result<()>
 ```
 
@@ -85,19 +85,21 @@ pub async fn verify_all_with_attempts(
 ### Example
 
 ```rust
-use magicaf_core::health::{HealthGate, Named};
+use std::sync::Arc;
+use magicaf_core::embeddings::EmbeddingService;
+use magicaf_core::health::{HealthGate, Named, NamedHealthcheck};
+use magicaf_core::llm::LlmService;
 
-// Create named health checks
-let checks: Vec<Box<dyn NamedHealthcheck>> = vec![
-    Box::new(Named::new("embedding", || embedding_service.health_check())),
-    Box::new(Named::new("vector-store", || vector_store.health_check())),
-    Box::new(Named::new("llm", || llm_service.health_check())),
-];
+// Services are shared behind Arc so each closure can own a handle.
+let (e, s, l) = (embedder.clone(), store.clone(), llm.clone());
+let embedding = Named::new("embedding", move || { let e = e.clone(); async move { e.health_check().await } });
+let qdrant = Named::new("qdrant", move || { let s = s.clone(); async move { s.health_check().await } });
+let model = Named::new("llm", move || { let l = l.clone(); async move { l.health_check().await } });
 
-let refs: Vec<&dyn NamedHealthcheck> = checks.iter().map(|c| c.as_ref()).collect();
+let checks: [&dyn NamedHealthcheck; 3] = [&embedding, &qdrant, &model];
 
-// Verify all services with 5 attempts, 2-second delay
-let report = HealthGate::verify_all_with_attempts(&refs, 5, 2).await?;
+// 5 attempts per service, 2 seconds apart
+let report = HealthGate::verify_all_with_attempts(&checks, 5, 2).await?;
 println!("All healthy: {}", report.all_healthy());
 ```
 

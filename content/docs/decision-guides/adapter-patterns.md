@@ -27,7 +27,7 @@ Defaults are fine when:
 Move to custom adapters when:
 - You need **structured, typed output** (JSON → struct)
 - Evidence requires **domain-specific formatting** or filtering
-- You need **audit trails** or **compliance logging**
+- The prompt must enforce **citation** or a fixed answer format
 - The prompt requires **few-shot examples** or complex instructions
 
 None of these triggers is "it feels unpolished." Each one is a concrete requirement the defaults cannot meet. Until you hit one, stay put.
@@ -63,7 +63,7 @@ buf.push_str(&format!(
 
 ### Pattern: Re-Ranking by Domain Signal
 
-Sort results by a domain-specific field instead of pure vector similarity:
+For relevance reranking, use the builder's `.reranker(...)` stage — a cross-encoder or a score threshold — rather than the formatter. Reorder in the formatter only for a domain signal the reranker cannot see, such as priority or recency:
 
 ```rust
 let mut sorted = results.to_vec();

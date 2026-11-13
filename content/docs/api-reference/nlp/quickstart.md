@@ -11,9 +11,9 @@ This guide will get you running your first NLP pipeline in under 5 minutes.
 
 ## Prerequisites
 
-1. **Rust** (1.70+)
+1. **Rust** 1.91
 2. **Native dependency** (choose one):
-   - **libtorch** (default) — install via `pip install torch` or download from [PyTorch](https://pytorch.org)
+   - **libtorch 2.4.0** — install via `pip install torch==2.4.0` or download from [PyTorch](https://pytorch.org)
    - **ONNX Runtime** (lighter) — auto-downloaded by the `ort` crate
 
 ---
@@ -24,14 +24,14 @@ Add `magicaf-nlp` to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-magicaf-nlp = { path = "../magicaf-nlp", features = ["models"] }
+magicaf-nlp = { git = "ssh://git@github.com/intracav/MagicAF.git", features = ["models"] }
 tokio = { version = "1", features = ["full"] }
 ```
 
 For ONNX Runtime (lighter, recommended for edge):
 
 ```toml
-magicaf-nlp = { path = "../magicaf-nlp", features = ["onnx"] }
+magicaf-nlp = { git = "ssh://git@github.com/intracav/MagicAF.git", features = ["onnx"] }
 ```
 
 ---
@@ -59,7 +59,7 @@ export DYLD_LIBRARY_PATH=$LIBTORCH/lib:$DYLD_LIBRARY_PATH  # macOS
 
 ### Option B: ONNX Runtime
 
-No manual setup needed! The `ort` crate auto-downloads ONNX Runtime on first build. For air-gapped deployments, set `ORT_LIB_LOCATION`.
+The `onnx` feature still needs libtorch (above). Install ONNX Runtime yourself and set `ORT_LIB_LOCATION` to its library directory.
 
 ---
 
@@ -105,7 +105,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ```bash
 # Set LIBTORCH if using libtorch
-export LIBTORCH=$(python3 -c "import torch; print(torch.__path[0])")
+export LIBTORCH=$(python3 -c "import torch; print(torch.__path__[0])")
 export LD_LIBRARY_PATH=$LIBTORCH/lib:$LD_LIBRARY_PATH
 
 # Build

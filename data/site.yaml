@@ -16,8 +16,14 @@
 #                          rebranded, so the name lives here and nowhere else).
 #                          Internal artifact: model.json / MODEL_CARD.md, 0.1.0.
 stats:
-  crates: 4
-  lumen_ui_components: 71
+  lumen_ui_components: 72   # documented component pages on this site
+  # magicaf-ui wire vocabulary (ComponentType::all(), ArtifactType::all(),
+  # categories) — verified by running magicaf-ui at a421a75.
+  ui_component_types: 114
+  ui_categories: 10
+  ui_artifact_types: 45
+  ui_persistable_types: 38
+  research_methods: 50     # magicaf_research::methods().len() at a421a75
   lumen_ui_categories: 8
   lumen_ui_clinical: 20
   reflex_calibration_rows: "3,000"
@@ -30,12 +36,28 @@ stats:
   reflex_page_command_keys: 5
   reflex_model_name: "Reflex_01"
 
-crates:
-  - name: magicaf-core
-    purpose: Traits, DTOs, config, error types, RAG engine, adapter interfaces, in-memory vector store
-  - name: magicaf-qdrant
-    purpose: Qdrant vector store implementation (REST API)
-  - name: magicaf-local-llm
-    purpose: OpenAI-compatible local LLM client
-  - name: magicaf-nlp
-    purpose: NLP pipelines (NER, sentiment, translation, QA, and more) — all run in-process
+
+# Source access. The MagicAF repository is private (owner decision 2026-11-13):
+# no "open-source" framing, no public GitHub links; teams request access.
+access:
+  contact: hello@intracav.ai
+  repo_ssh: ssh://git@github.com/intracav/MagicAF.git   # Cargo needs the ssh:// form, not scp-style
+  repo_https: https://github.com/intracav/MagicAF
+
+# Docs sidebar: groups in order, each listing /docs paths (sections or pages).
+# A path whose page doesn't exist yet is skipped, so nav can lead content.
+nav:
+  - group: Start
+    items: [/docs/getting-started, /docs/learning-paths]
+  - group: Learn
+    items: [/docs/core-concepts, /docs/decision-guides]
+  - group: Build
+    items: [/docs/tutorials, /docs/guides, /docs/examples]
+  - group: Crates
+    items: [/docs/crates]
+  - group: Operate
+    items: [/docs/deployment]
+  - group: Reference
+    items: [/docs/api-reference, /docs/changelog]
+  - group: Built on MagicAF
+    items: [/docs/reflex, /docs/lumen-models, /docs/lumen-ui]

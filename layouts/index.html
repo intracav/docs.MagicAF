@@ -2,51 +2,19 @@
 <!-- Hero -->
 <section class="hero">
   <div class="hero-badge">
-    <span>&#10022;</span> Open-Source Rust Framework
+    <span>&#10022;</span> The Rust framework for AI inside your network
   </div>
   <h1>Own the whole AI stack.<br><span class="gradient-text">No cloud required.</span></h1>
-  <p class="hero-subtitle">MagicAF gives you RAG pipelines, embeddings, vector search, and NLP as composable Rust services &mdash; built to run entirely inside your network, including networks with no internet at all.</p>
+  <p class="hero-subtitle">Retrieval pipelines, agents and tools, document ingest, model routing, and on-device intelligence as composable Rust crates &mdash; built to run on infrastructure you control, including networks with no internet at all.</p>
   <div class="hero-actions">
     <a href="/docs/getting-started/quickstart/" class="btn btn-primary">Build your first pipeline <span>&rarr;</span></a>
-    <a href="/docs/api-reference/" class="btn btn-secondary">Browse the API</a>
+    <a href="/docs/crates/" class="btn btn-secondary">Browse the crates</a>
   </div>
 
-  {{ with site.Data.site.stats }}
   <div class="hero-stats">
-    <div class="hero-stat"><span class="hero-stat-num">{{ .crates }}</span><span class="hero-stat-label">Rust crates</span></div>
-    <div class="hero-stat"><span class="hero-stat-num">{{ .lumen_ui_components }}</span><span class="hero-stat-label">Lumen UI components</span></div>
-    <div class="hero-stat"><span class="hero-stat-num">0</span><span class="hero-stat-label">cloud dependencies</span></div>
-  </div>
-  {{ end }}
-</section>
-
-<!-- Doors -->
-<section class="section reveal audience-doors">
-  <div class="category-grid stagger-children">
-    <a href="/docs/" class="category-card audience-door tint-accent">
-      <div class="category-icon" style="background: var(--tint-soft); color: var(--tint);">&#9881;</div>
-      <div>
-        <h3>The Framework</h3>
-        <p>Architecture, RAG pipelines, adapters, deployment. Start here if you're evaluating or integrating MagicAF.</p>
-        <span class="card-arrow">Read the docs <span>&rarr;</span></span>
-      </div>
-    </a>
-    <a href="/docs/lumen-ui/" class="category-card audience-door tint-blue">
-      <div class="category-icon" style="background: var(--tint-soft); color: var(--tint);">&#9635;</div>
-      <div>
-        <h3>Lumen UI</h3>
-        <p>The component DSL that lets an LLM describe an interface and have it render live &mdash; {{ site.Data.site.stats.lumen_ui_components }} components across {{ site.Data.site.stats.lumen_ui_categories }} categories.</p>
-        <span class="card-arrow">Explore components <span>&rarr;</span></span>
-      </div>
-    </a>
-    <a href="/docs/api-reference/" class="category-card audience-door tint-green">
-      <div class="category-icon" style="background: var(--tint-soft); color: var(--tint);">&#9636;</div>
-      <div>
-        <h3>API Reference</h3>
-        <p>Every trait, struct, configuration option, and error type &mdash; core services and NLP pipelines.</p>
-        <span class="card-arrow">Look it up <span>&rarr;</span></span>
-      </div>
-    </a>
+    <div class="hero-stat"><span class="hero-stat-num">{{ len site.Data.crates.crates }}</span><span class="hero-stat-label">Rust crates</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">{{ site.Data.site.stats.ui_component_types }}</span><span class="hero-stat-label">artifact component types</span></div>
+    <div class="hero-stat"><span class="hero-stat-num">0</span><span class="hero-stat-label">required cloud services</span></div>
   </div>
 </section>
 
@@ -84,15 +52,14 @@ println!("{}", result.result);` "rust" }}
   <!-- What's in the box -->
   <section class="section reveal">
     <span class="section-label">What's In The Box</span>
-    <h2 class="section-title">Four crates, one workspace.</h2>
-    <p class="section-desc">A small, versioned public surface: domain logic lives in adapters you write, not in the framework. Distributed as source &mdash; vendor it, audit it, build it offline.</p>
-    <div class="card-grid stagger-children">
-      {{ range site.Data.site.crates }}
-      <div class="guide-card">
-        <h3><code>{{ .name }}</code></h3>
-        <p>{{ .purpose }}</p>
-      </div>
-      {{ end }}
+    <h2 class="section-title">{{ len site.Data.crates.crates }} crates, one workspace.</h2>
+    <p class="section-desc">Depend only on what you use. Every capability sits behind a trait, so each service is something you choose, host, and can replace.</p>
+    <div class="home-crate-map">
+      {{ partial "crate-map.html" . }}
+    </div>
+    <div class="section-actions">
+      <a href="/docs/crates/" class="btn btn-secondary">The crate catalog <span>&rarr;</span></a>
+      <a href="/docs/core-concepts/architecture/" class="btn btn-secondary">How it fits together <span>&rarr;</span></a>
     </div>
   </section>
 
@@ -100,30 +67,31 @@ println!("{}", result.result);` "rust" }}
   <section class="section reveal">
     <span class="section-label">Built For Rooms Without Internet</span>
     <h2 class="section-title">Air-gapped is the default, not an afterthought.</h2>
-    <p class="section-desc">Every service assumes a local endpoint. Models, dependencies, and data all live on your side of the wall &mdash; for hospitals, labs, and networks where data cannot leave the building.</p>
+    <p class="section-desc">The core services talk only to servers you run. Models, dependencies, and data can all live on your side of the wall &mdash; for hospitals, labs, and networks where data cannot leave the building.</p>
     <div class="card-grid stagger-children">
       <div class="guide-card tint-accent">
-        <h3>No outbound calls</h3>
-        <p>All processing happens against endpoints you configure. There is no telemetry, no phone-home, no cloud SDK in the dependency tree.</p>
+        <h3>Only the endpoints you configure</h3>
+        <p>No telemetry, no update check, no license server. The core services talk to embedding, vector, and model servers you run; anything that reaches a hosted API is something you construct on purpose.</p>
       </div>
       <div class="guide-card tint-green">
         <h3>Vendorable dependencies</h3>
-        <p>Every dependency can be vendored for offline builds. The <a href="/docs/deployment/air-gapped/">air-gapped deployment guide</a> walks through the whole procedure.</p>
+        <p><code>cargo vendor</code> captures every crate, MagicAF included, for an offline build. The <a href="/docs/deployment/air-gapped/">air-gapped guide</a> covers the toolchain, images, and model weights too.</p>
       </div>
       <div class="guide-card tint-blue">
         <h3>Secrets stay secret</h3>
-        <p>API keys and sensitive configuration are never serialized or logged. See the <a href="/docs/deployment/security/">security guide</a> for the hardening checklist.</p>
+        <p>API keys are <code>SecretString</code> values, never serialized or logged; audit events carry a hash of the query, not its text. See the <a href="/docs/deployment/security/">security guide</a>.</p>
       </div>
     </div>
   </section>
 
-  <!-- Lumen UI teaser -->
+  <!-- Built on MagicAF -->
   <section class="section reveal">
-    <span class="section-label">The Interface Layer</span>
-    <h2 class="section-title">Lumen UI: interfaces an LLM can write.</h2>
-    <p class="section-desc">Lumen UI is the component DSL underneath <a href="https://lumen.intracav.ai" rel="noopener noreferrer" target="_blank">Lumen</a>, Intracav's clinical AI platform. A model streams a compact description; the renderer turns it into charts, forms, timelines, and {{ site.Data.site.stats.lumen_ui_clinical }} clinical components &mdash; live, as the tokens arrive.</p>
+    <span class="section-label">Built On MagicAF</span>
+    <h2 class="section-title">Interfaces a model can write.</h2>
+    <p class="section-desc"><a href="https://docs.intracav.ai" rel="noopener noreferrer" target="_blank">Lumen</a>, Intracav's clinical assistant, runs on MagicAF. Its models describe charts, forms, timelines, and clinical cards in the <a href="/docs/crates/magicaf-ui/"><code>magicaf-ui</code></a> artifact format, and <a href="/docs/lumen-ui/">Lumen UI</a> renders them live as the tokens arrive.</p>
     <div class="section-actions">
       <a href="/docs/lumen-ui/" class="btn btn-secondary">Explore Lumen UI <span>&rarr;</span></a>
+      <a href="https://docs.intracav.ai/chat/artifacts/" class="btn btn-secondary" rel="noopener noreferrer" target="_blank">See artifacts in Lumen <span>&nearr;</span></a>
     </div>
   </section>
 
@@ -134,7 +102,7 @@ println!("{}", result.result);` "rust" }}
     <p class="section-desc">Install the workspace, start the local services, and run your first retrieval-augmented query.</p>
     <div class="section-actions">
       <a href="/docs/getting-started/" class="btn btn-primary">Getting started <span>&rarr;</span></a>
-      <a href="https://github.com/magicaf/magicaf" class="btn btn-secondary" rel="noopener noreferrer" target="_blank">View the source</a>
+      <a href="/docs/getting-started/installation/#access" class="btn btn-secondary">Request source access</a>
     </div>
   </section>
 

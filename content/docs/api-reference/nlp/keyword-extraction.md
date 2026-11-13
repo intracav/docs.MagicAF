@@ -1,32 +1,41 @@
 ---
 title: "Keyword Extraction"
-description: "Extract the most relevant keywords and keyphrases from documents using sentence embeddings, TF-IDF, and Maximal Marginal Relevance."
+description: "Extract the most relevant single-word keywords from documents by ranking words by sentence-embedding similarity to the text."
 weight: 8
-keywords: [keyword extraction, keyphrase extraction, TF-IDF, sentence embeddings, MMR]
+keywords: [keyword extraction, sentence embeddings, MiniLM]
 ---
 
-Keyword extraction identifies the **most relevant terms and phrases** from documents using a combination of sentence embeddings, n-gram candidate extraction, and Maximal Marginal Relevance (MMR) for diversity. It returns ranked keywords with relevance scores.
+{{< callout type="warning" title="Current behavior" >}}
+- The pipeline uses all-MiniLM-L6-v2 sentence embeddings and ranks single words by cosine similarity to the whole text. There is no TF-IDF or MMR stage, and no multi-word keyphrases.
+- `KeywordConfig` is ignored entirely, including its tuning fields and `device`.
+- If inference fails, `extract` returns `Ok` with an empty list.
+
+See [current limits](/docs/api-reference/nlp/#current-limits) for what applies to every pipeline.
+{{< /callout >}}
+
+
+Keyword extraction identifies the **most relevant words** in a document: it embeds the document and each candidate word with a sentence-embedding model and ranks candidates by cosine similarity to the document. It returns ranked keywords with relevance scores.
 
 ---
 
 ## Overview
 
 **Module:** `magicaf_nlp::keywords`
-**Default Model:** Sentence embeddings (all-MiniLM-L12-v2) + TF-IDF + MMR
+**Default Model:** all-MiniLM-L6-v2 sentence embeddings
 **Task:** Extract ranked keywords and keyphrases from documents
 
 ### When to Use
 
-- ✅ You need to extract key terms or topics from documents
-- ✅ You're building search indexes, tag generators, or topic models
-- ✅ You want configurable diversity to avoid redundant keywords
-- ✅ You need multi-word keyphrases (n-grams), not just single words
+- You need to extract key terms or topics from documents
+- You're building search indexes, tag generators, or topic models
+- You want configurable diversity to avoid redundant keywords
+- You need multi-word keyphrases (n-grams), not just single words
 
 ### When Not to Use
 
-- ❌ You need to classify text into predefined categories (use zero-shot classification)
-- ❌ You need named entities with type labels (use NER)
-- ❌ You need abstractive topic descriptions (use summarization)
+- You need to classify text into predefined categories (use zero-shot classification)
+- You need named entities with type labels (use NER)
+- You need abstractive topic descriptions (use summarization)
 
 ---
 
@@ -272,8 +281,8 @@ let config = KeywordConfig { diversity: 0.9, ..Default::default() };
 The extraction pipeline combines three techniques:
 
 1. **N-gram Candidate Generation:** Extracts all n-grams (up to `max_ngram_size`) from the input as candidates
-2. **Sentence Embeddings:** Encodes both the full document and each candidate using the all-MiniLM-L12-v2 model
-3. **Cosine Similarity + MMR:** Ranks candidates by cosine similarity to the document embedding, then applies Maximal Marginal Relevance to balance relevance with diversity
+2. **Sentence Embeddings:** Encodes both the full document and each candidate using the all-MiniLM-L6-v2 model
+3. **Cosine Similarity:** Ranks candidates by cosine similarity to the document embedding
 
 This produces keywords that are both **highly relevant** to the document and **diverse** in their coverage of topics.
 
@@ -281,7 +290,7 @@ This produces keywords that are both **highly relevant** to the document and **d
 
 ## Performance
 
-- **Model size:** ~90MB (all-MiniLM-L12-v2)
+- **Model size:** ~90MB (all-MiniLM-L6-v2)
 - **Inference speed:** ~50–200ms per document on CPU
 - **Memory:** ~300MB–500MB RAM
 - **Batch processing:** Efficient for multiple documents

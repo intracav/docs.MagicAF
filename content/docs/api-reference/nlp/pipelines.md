@@ -196,7 +196,7 @@ for r in &results {
 
 ### Supported Languages
 
-English, French, German, Spanish, Portuguese, Italian, Dutch, Russian, Chinese, Japanese, Korean, Arabic, Hindi, Turkish, Polish, Swedish, Czech, Romanian, Finnish, Vietnamese, Thai, Indonesian, Hebrew, Greek, Ukrainian, and 75+ more.
+English, French, German, Spanish, Portuguese, Italian, Dutch, Russian, Chinese, Japanese, Korean, Arabic, Hindi, Turkish, Polish, Swedish, Czech, Romanian, Finnish, Vietnamese, Thai, Indonesian, Hebrew, Greek, and Ukrainian — 25 in total.
 
 ### API
 
@@ -325,7 +325,7 @@ See [Text Generation →](/docs/api-reference/nlp/text-generation/) for complete
 ## Keyword Extraction
 
 **Module:** `magicaf_nlp::keywords`  
-**Default Model:** Sentence embeddings (all-MiniLM-L12-v2) + TF-IDF  
+**Default Model:** Sentence embeddings (all-MiniLM-L6-v2), cosine similarity  
 **Task:** Extract the most relevant keywords and keyphrases from documents
 
 ### Example

@@ -25,14 +25,14 @@ Every document you index and every query you run passes through the **embedding 
 |-------|-----------|------|------------|-------------|-------------|----------|
 | **BGE-large-en-v1.5** | 1024 | 1.3 GB | 64.2 | ~50 docs/s | ~500 docs/s | Best quality for English text |
 | **BGE-small-en-v1.5** | 384 | 130 MB | 62.2 | ~200 docs/s | ~2000 docs/s | Resource-constrained / edge |
-| **E5-large-v2** | 1024 | 1.3 GB | 62.4 | ~50 docs/s | ~500 docs/s | Multilingual or diverse domains |
+| **multilingual-e5-large** | 1024 | 2.2 GB | — | ~40 docs/s | ~400 docs/s | Corpora in more than one language |
 | **all-MiniLM-L6-v2** | 384 | 80 MB | 56.3 | ~400 docs/s | ~3000 docs/s | Ultra-lightweight, prototyping |
 
-*MTEB scores from the [MTEB leaderboard](https://huggingface.co/spaces/mteb/leaderboard). Speed estimates for batch size 32 on a single core / single GPU.*
+*MTEB scores from the [MTEB leaderboard](https://huggingface.co/spaces/mteb/leaderboard) at the time of writing; check it for current numbers. Speeds are rough planning estimates for batch size 32, not measurements.*
 
 ### The Call
 
-Default to **BGE-large-en-v1.5**. Retrieval quality compounds through the whole pipeline — a weaker embedding model hands the LLM worse evidence, and no amount of prompt engineering recovers what retrieval never found. Move down to BGE-small only when hardware forces you to; move sideways to E5 only when your corpus is genuinely multilingual.
+Default to **BGE-large-en-v1.5**. Retrieval quality compounds through the whole pipeline — a weaker embedding model hands the LLM worse evidence, and no amount of prompt engineering recovers what retrieval never found. Move down to BGE-small only when hardware forces you to; move sideways to multilingual-e5-large only when your corpus is genuinely multilingual — the BGE `-en` models are English-only.
 
 {{< card-grid >}}
 {{< decision-card title="BGE-large-en-v1.5" tint="green" >}}
@@ -46,9 +46,10 @@ Default to **BGE-large-en-v1.5**. Retrieval quality compounds through the whole 
 - Throughput matters more than marginal quality gains
 - Memory is constrained (384-dim vectors use 62% less storage than 1024-dim)
 {{< /decision-card >}}
-{{< decision-card title="E5-large-v2" tint="accent" >}}
-- Your corpus is multilingual
-- You need a single model for diverse text types
+{{< decision-card title="multilingual-e5-large" tint="accent" >}}
+- Your corpus spans languages
+- You need cross-lingual retrieval (a question in one language, documents in another)
+- Prefix queries with `query: ` and passages with `passage: `, as the model expects
 {{< /decision-card >}}
 {{< decision-card title="all-MiniLM-L6-v2" tint="accent" >}}
 - You are prototyping and want the fastest setup

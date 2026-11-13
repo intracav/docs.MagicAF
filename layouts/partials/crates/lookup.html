@@ -1,0 +1,6 @@
+{{- /* Return the data/crates.yaml entry whose name matches the argument. */ -}}
+{{- $want := . -}}
+{{- $hit := dict -}}
+{{- range site.Data.crates.crates }}{{ if eq .name $want }}{{ $hit = . }}{{ end }}{{ end -}}
+{{- if not $hit.name }}{{ errorf "crates/lookup: no crate %q in data/crates.yaml" $want }}{{ end -}}
+{{- return $hit -}}

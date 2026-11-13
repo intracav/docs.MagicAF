@@ -202,6 +202,39 @@ for (_, (id, name, args)) in &tool_calls {
 
 ---
 
+### Stream timing
+
+`chat_stream_timed` returns the stream together with a `StreamTiming` handle. It exists on `LocalLlmService`, `AnthropicLlmService`, `LlmGateway`, and `FallbackGateway`. Read `timing.snapshot()` after the stream ends — or after you drop it:
+
+| `StreamTimingSnapshot` field | Meaning |
+|---|---|
+| `first_byte` | Time until the provider's first bytes arrived |
+| `ttft`, `ttft_kind` | Time to the first visible output, and whether it was text, a tool call, or reasoning |
+| `total` | Time until the stream ended |
+| `outcome` | `Completed`, `Error`, or `Dropped` (you stopped reading) |
+| `usage` | The final token counts, if the provider sent them |
+
+The same measurements are recorded as `llm_stream_first_byte_seconds`, `llm_stream_ttft_seconds`, and `llm_stream_duration_seconds`. A stream that produces no bytes for 90 seconds is treated as stalled and ends with an error; change that with `with_stream_idle_timeout(Duration)`.
+
+## Failover across providers
+
+`FallbackGateway` wraps several `LlmGateway`s, each with its own circuit breaker, and tries them in turn:
+
+```rust
+use std::sync::Arc;
+use magicaf_local_llm::{FallbackGateway, FallbackProvider, FallbackStrategy};
+
+let gateway = FallbackGateway::new(
+    vec![
+        FallbackProvider::new("primary", Arc::new(primary), primary_breaker),
+        FallbackProvider::new("backup", Arc::new(backup), backup_breaker),
+    ],
+    FallbackStrategy::FailFast, // always try "primary" first
+);
+```
+
+A provider is skipped while its circuit is open, and the next one is tried when a call fails with a retryable or circuit-open error. Other errors — a bad request, say — are returned immediately, since another provider would fail the same way. `FailFast` always starts with the first provider; `RoundRobin` rotates the starting point to spread load across equivalent providers. `provider_names()` and `current_gateway()` report what is configured and which provider served the last call.
+
 ## Tool Calling (Function Calling)
 
 Define tools that the LLM can invoke, then handle the results in a tool-use loop.

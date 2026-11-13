@@ -5,6 +5,16 @@ weight: 7
 keywords: [dialogue, conversation, DialoGPT, chatbot, multi-turn, conversational AI]
 ---
 
+{{< callout type="warning" title="Current behavior" >}}
+- `DialogueConfig.max_history` is not read; history grows for the life of a conversation.
+- Run one conversation per pipeline at a time: a generation step consumes every conversation with a pending message.
+- `get_history` returns only the last user input, and `add_user_message` on an unknown conversation returns `Ok` without effect.
+- `ModelSource::Local` is not applied, and inference failures return empty replies.
+
+See [current limits](/docs/api-reference/nlp/#current-limits) for what applies to every pipeline.
+{{< /callout >}}
+
+
 The dialogue pipeline provides **multi-turn conversational AI** with built-in conversation state management. Each conversation tracks its own history, and the model generates contextually aware responses — all running in-process with no external API calls.
 
 ---
@@ -17,16 +27,16 @@ The dialogue pipeline provides **multi-turn conversational AI** with built-in co
 
 ### When to Use
 
-- ✅ You need an embedded conversational agent with no external dependencies
-- ✅ You want built-in conversation state tracking (no manual history management)
-- ✅ You're building air-gapped or offline chatbot applications
-- ✅ You need lightweight, fast conversation for simple Q&A or small talk
+- You need an embedded conversational agent with no external dependencies
+- You want built-in conversation state tracking (no manual history management)
+- You're building air-gapped or offline chatbot applications
+- You need lightweight, fast conversation for simple Q&A or small talk
 
 ### When Not to Use
 
-- ❌ You need powerful, instruction-following responses (use `LlmService::chat` with a full LLM)
-- ❌ You need domain-specific knowledge or factual accuracy (DialoGPT is a conversational model, not a knowledge base)
-- ❌ You need long-context conversations (history window is configurable but limited)
+- You need powerful, instruction-following responses (use `LlmService::chat` with a full LLM)
+- You need domain-specific knowledge or factual accuracy (DialoGPT is a conversational model, not a knowledge base)
+- You need long-context conversations (history window is configurable but limited)
 
 ### How This Differs from `LlmService::chat`
 

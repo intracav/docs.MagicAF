@@ -127,13 +127,14 @@ pub struct EmbeddingConfig {
 
 ### Example
 
+`EmbeddingConfig` has no `Default` — `base_url` and `model_name` have no sensible defaults — but every other field defaults through serde, so deserialize it:
+
 ```rust
-let config = EmbeddingConfig {
-    base_url: "http://localhost:8080".into(),
-    model_name: "bge-large-en-v1.5".into(),
-    batch_size: 64,
-    ..Default::default()
-};
+let config: EmbeddingConfig = serde_json::from_value(serde_json::json!({
+    "base_url": "http://localhost:8080",
+    "model_name": "bge-large-en-v1.5",
+    "batch_size": 64
+}))?;
 ```
 
 ### From JSON
@@ -361,18 +362,29 @@ let config: EmbeddingConfig = serde_json::from_str(&json_string)?;
 let config: LlmConfig = toml::from_str(&toml_string)?;
 ```
 
-## Loading from Environment Variables
+## Loading from environment variables
 
-A common pattern for production deployments:
+MagicAF reads no environment variables. If your deployment passes settings that way, read them into the config yourself:
 
 ```rust
-let config = EmbeddingConfig {
-    base_url: std::env::var("EMBEDDING_URL")
-        .unwrap_or_else(|_| "http://localhost:8080".into()),
-    model_name: std::env::var("EMBEDDING_MODEL")
-        .unwrap_or_else(|_| "bge-large-en-v1.5".into()),
-    batch_size: 32,
-    timeout_secs: 30,
-    api_key: std::env::var("EMBEDDING_API_KEY").ok(),
-};
+use secrecy::SecretString;
+
+let mut config: EmbeddingConfig = serde_json::from_value(serde_json::json!({
+    "base_url": std::env::var("EMBEDDING_URL").unwrap_or_else(|_| "http://localhost:8080".into()),
+    "model_name": std::env::var("EMBEDDING_MODEL").unwrap_or_else(|_| "bge-large-en-v1.5".into()),
+}))?;
+config.api_key = std::env::var("EMBEDDING_API_KEY").ok().map(SecretString::from);
 ```
+
+## Which configs implement `Default`
+
+| Config | `Default` | Build it with |
+|---|---|---|
+| `EmbeddingConfig`, `VectorStoreConfig`, `CrossEncoderConfig` | No | Deserialize, supplying at least `base_url` (and `model_name` where present) |
+| `LlmConfig`, `GenerationConfig`, `AsrEndpointConfig`, `TtsEndpointConfig`, `TlsConfig`, `ConnectionPoolConfig`, `RetryConfig`, `CircuitBreakerConfig`, `RateLimitConfig` | Yes | Struct update syntax: `LlmConfig { base_url, model_name, ..Default::default() }` |
+
+`LlmConfig::default()` leaves `base_url` and `model_name` empty; always set them.
+
+## Base URLs
+
+The embedding client appends `/v1/embeddings` to `base_url`, so give it the server root (`http://localhost:8080`). The LLM client appends `/chat/completions`, so include the API version in `base_url` (`http://localhost:8000/v1`).

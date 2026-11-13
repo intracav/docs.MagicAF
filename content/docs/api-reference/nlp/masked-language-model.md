@@ -5,6 +5,14 @@ weight: 10
 keywords: [masked language model, MLM, BERT, fill-in-the-blank, cloze task, word prediction]
 ---
 
+{{< callout type="warning" title="Current behavior" >}}
+- The model is always BERT-base-uncased; RoBERTa and `ModelSource::Local` are not reachable through the current config.
+- If inference fails, `predict` returns `Ok` with an empty list — check before indexing `[0]`.
+
+See [current limits](/docs/api-reference/nlp/#current-limits) for what applies to every pipeline.
+{{< /callout >}}
+
+
 Masked language modelling predicts the most likely word for each `[MASK]` token in the input, using the surrounding context. This is the core pre-training task of BERT-family models and is useful for fill-in-the-blank tasks, text augmentation, vocabulary assessment, and probing what a language model has learned.
 
 ---
@@ -17,16 +25,16 @@ Masked language modelling predicts the most likely word for each `[MASK]` token 
 
 ### When to Use
 
-- ✅ You need fill-in-the-blank word prediction
-- ✅ You're building vocabulary assessment or language learning tools
-- ✅ You want data augmentation by generating word alternatives
-- ✅ You're probing what a language model knows about word associations
+- You need fill-in-the-blank word prediction
+- You're building vocabulary assessment or language learning tools
+- You want data augmentation by generating word alternatives
+- You're probing what a language model knows about word associations
 
 ### When Not to Use
 
-- ❌ You need free-form text generation (use text generation or dialogue)
-- ❌ You need to classify text into categories (use sentiment or zero-shot classification)
-- ❌ You need to understand document meaning (use summarization or keyword extraction)
+- You need free-form text generation (use text generation or dialogue)
+- You need to classify text into categories (use sentiment or zero-shot classification)
+- You need to understand document meaning (use summarization or keyword extraction)
 
 ---
 

@@ -1,13 +1,22 @@
 ---
 title: "Lumen UI"
-description: "A component DSL for AI-generated user interfaces. 71 components across 8 categories, rendered from structured definitions in real time."
+description: "Lumen UI is Lumen's Flutter renderer for the magicaf-ui artifact contract — how models describe interfaces, how they stream and render, and a reference for every documented component."
 weight: 9
 keywords: [lumen ui, component dsl, ai-generated ui, generative ui, structured output, clinical components]
 ---
 
-You have watched an LLM stream markdown into a chat window and thought: this data deserves better than a bullet list. **Lumen UI** is the answer to that thought — a declarative component DSL and rendering engine where the LLM streams a compact component description and the renderer turns it into live, interactive Flutter UI as the tokens arrive. Not markdown that looks like a table. A real table. A real chart. A real triage card.
+You have watched a model stream markdown into a chat window and thought: this data deserves better than a bullet list. **Lumen UI** is how Lumen does better. The model describes an interface — a table, a chart, a drug card, a triage assessment — as a compact component tree, and Lumen renders it as live, interactive Flutter UI while the tokens are still arriving.
 
-It ships {{< stat "lumen_ui_components" >}} production-ready components across {{< stat "lumen_ui_categories" >}} categories, a streaming-resilient parser that renders incomplete trees mid-stream, and a dynamic prompt system that teaches any LLM how to use every component. It is the rendering layer behind [Intracav Lumen](https://intracav.ai/), the AI clinical assistant — which is why {{< stat "lumen_ui_clinical" >}} of its components are clinical-grade primitives like drug cards, lab ranges, and triage assessments. These pages document the component DSL itself; for end-user documentation of Lumen, the product these components render for, see the [Lumen docs](https://docs.intracav.ai).
+Two layers make that work:
+
+| Layer | What it is | Where it is documented |
+|---|---|---|
+| [`magicaf-ui`](/docs/crates/magicaf-ui/) | The contract, in Rust: {{< stat "ui_component_types" >}} component types in {{< stat "ui_categories" >}} categories, the `__lumen__` envelope, a JSON Schema for every component's props, and the catalog text given to models | The crate page |
+| **Lumen UI** | Lumen's implementation of that contract, in Flutter: the widgets, the theme, the streaming DSL parser, and the prompt that teaches a model the components | These pages |
+
+These pages document {{< stat "lumen_ui_components" >}} components across {{< stat "lumen_ui_categories" >}} categories — the ones a model composes directly — including {{< stat "lumen_ui_clinical" >}} clinical components such as drug cards, lab ranges, and triage assessments. The `system` and `interactive` types in the contract (web results, transcripts, app links, and similar) are emitted by tools rather than written by models, and are listed on the [`magicaf-ui` page](/docs/crates/magicaf-ui/#component-types).
+
+To see what these components look like to the people using Lumen, read [Artifacts in the Lumen docs](https://docs.intracav.ai/chat/artifacts/).
 
 ---
 

@@ -5,6 +5,14 @@ weight: 1
 keywords: [question answering, extractive QA, SQuAD, document Q&A]
 ---
 
+{{< callout type="warning" title="Current behavior" >}}
+- This is the one pipeline that honors `ModelSource::Local`; the architecture is always DistilBERT, so a local model must be a DistilBERT QA checkpoint.
+- `max_answer_len` limits the answer span the model may choose; it does not truncate a longer answer after the fact.
+
+See [current limits](/docs/api-reference/nlp/#current-limits) for what applies to every pipeline.
+{{< /callout >}}
+
+
 Extractive question answering finds the **exact span** of text within a context passage that best answers a question. Unlike RAG, this requires both a question and the context passage as input.
 
 ---
@@ -17,16 +25,16 @@ Extractive question answering finds the **exact span** of text within a context 
 
 ### When to Use
 
-- ✅ You have the source document/passage
-- ✅ You need precise, extractive answers (not generated)
-- ✅ You want zero external service dependencies
-- ✅ You're doing document Q&A on known texts
+- You have the source document/passage
+- You need precise, extractive answers (not generated)
+- You want zero external service dependencies
+- You're doing document Q&A on known texts
 
 ### When Not to Use
 
-- ❌ You need to search across multiple documents (use RAG)
-- ❌ You want free-form generated answers (use RAG with LLM)
-- ❌ You need answers that synthesize information (use RAG)
+- You need to search across multiple documents (use RAG)
+- You want free-form generated answers (use RAG with LLM)
+- You need answers that synthesize information (use RAG)
 
 ---
 

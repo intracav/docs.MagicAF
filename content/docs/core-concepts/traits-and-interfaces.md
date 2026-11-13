@@ -9,7 +9,7 @@ prerequisites:
   - /docs/core-concepts/architecture/
 ---
 
-You already put an interface in front of any dependency you don't want owning you — the repository trait in front of the database, the client trait in front of the third-party API. MagicAF applies the same rule to itself. Every major component is accessed through an **async trait**, and every trait can be implemented by your application. The traits are the framework's contract with you: six deliberately placed seams — three where infrastructure plugs in, three where your domain logic does. Everything behind a seam is replaceable; the seam itself stays stable.
+You already put an interface in front of any dependency you don't want owning you — the repository trait in front of the database, the client trait in front of the third-party API. MagicAF applies the same rule to itself. Every major component is accessed through an **async trait**, and every trait can be implemented by your application. The traits are the framework's contract with you: service traits where infrastructure plugs in, and adapter traits where your domain logic does. Everything behind a seam is replaceable; the seam itself stays stable.
 
 If you're working out what you can swap and what you'd be committing to, this page is the full contract — every trait, its methods, what ships in the box, and what you'd implement yourself.
 
@@ -17,7 +17,7 @@ If you're working out what you can swap and what you'd be committing to, this pa
 
 MagicAF uses Rust traits (interfaces) rather than concrete types for three engineering reasons:
 
-**Compile-time dispatch, zero runtime overhead.** `RAGWorkflow` is generic over all trait parameters. The Rust compiler resolves every method call at compile time through monomorphization — there are no virtual function tables, no dynamic dispatch, no boxing. Your production binary runs as fast as if every component were hardcoded.
+**Static types where it matters.** `RAGWorkflow` is generic over its services and adapters, so the compiler checks that every piece fits and resolves those calls without a vtable. Two kinds of overhead remain, both small next to a network round trip: `#[async_trait]` boxes each async call's future, and the optional stages — reranker and audit logger — are held as `Arc<dyn …>` so they can be shared and swapped at runtime.
 
 **Testability with mocks.** Every trait can be implemented by a mock struct. This means you can unit-test your adapters without running Qdrant, without loading an LLM, and without an embedding server. The test suite runs in milliseconds, not minutes.
 
@@ -51,49 +51,41 @@ pub trait EmbeddingService: Send + Sync {
 
 ### `VectorStore`
 
-Stores, searches, and manages dense vectors with JSON payloads.
+Stores, searches, and manages dense vectors with JSON payloads. Four methods are required; the rest have defaults, so a minimal backend stays small.
 
 ```rust
 #[async_trait]
 pub trait VectorStore: Send + Sync {
-    /// Index a batch of embeddings with payloads.
-    async fn index(
-        &self,
-        collection: &str,
-        embeddings: Vec<Vec<f32>>,
-        payloads: Vec<serde_json::Value>,
-    ) -> Result<()>;
+    // Required
+    async fn index(&self, collection: &str, embeddings: Vec<Vec<f32>>,
+                   payloads: Vec<serde_json::Value>) -> Result<()>;
+    async fn search(&self, collection: &str, query_vector: Vec<f32>, limit: usize,
+                    filter: Option<serde_json::Value>) -> Result<Vec<SearchResult>>;
+    async fn delete_by_entity(&self, collection: &str, entity_id: Uuid) -> Result<()>;
+    async fn ensure_collection(&self, collection: &str, vector_size: usize) -> Result<()>;
 
-    /// Nearest-neighbor search.
-    async fn search(
-        &self,
-        collection: &str,
-        query_vector: Vec<f32>,
-        limit: usize,
-        filter: Option<serde_json::Value>,
-    ) -> Result<Vec<SearchResult>>;
-
-    /// Delete all vectors for a given entity ID.
-    async fn delete_by_entity(
-        &self,
-        collection: &str,
-        entity_id: Uuid,
-    ) -> Result<()>;
-
-    /// Ensure a collection exists with the given vector dimensions.
-    async fn ensure_collection(
-        &self,
-        collection: &str,
-        vector_size: usize,
-    ) -> Result<()>;
+    // Provided
+    async fn search_scoped(&self, collection: &str, query_vector: Vec<f32>, limit: usize,
+                           filter: serde_json::Value) -> Result<Vec<SearchResult>>;
+    async fn set_payload(&self, collection: &str, filter: serde_json::Value,
+                         payload: serde_json::Value) -> Result<()>;
+    async fn delete_by_filter(&self, collection: &str, filter: serde_json::Value) -> Result<u64>;
+    async fn scroll_paginated(&self, collection: &str, filter: Option<serde_json::Value>,
+                              limit: usize, offset: Option<String>) -> Result<ScrollPage>;
+    async fn count_by_filter(&self, collection: &str,
+                             filter: Option<serde_json::Value>) -> Result<u64>;
+    async fn recreate_with_quantization(&self, collection: &str, vector_size: usize,
+                                        quantization: Option<QuantizationConfig>) -> Result<()>;
 }
 ```
 
+The provided methods behave differently when a backend does not override them: `search_scoped` calls `search` with the filter; `set_payload` does nothing and succeeds; `delete_by_filter`, `scroll_paginated`, `count_by_filter`, and `recreate_with_quantization` return a `VectorStoreError` saying the backend does not support them. `QdrantVectorStore` implements all of them.
+
 **Shipped implementations:**
 - `QdrantVectorStore` — Qdrant REST API
-- `InMemoryVectorStore` — zero-dependency, in-process store
+- `InMemoryVectorStore` — in-process, brute-force cosine search; can `save` to and `load` from a file
 
-**You might implement this for:** Milvus, Weaviate, pgvector, FAISS, or any custom backend.
+**You might implement this for:** pgvector, Milvus, Weaviate, OpenSearch, or any custom backend.
 
 ### `LlmService`
 
@@ -122,6 +114,22 @@ The design for [MagicAF Reflex](/docs/reflex/) adds a fourth infrastructure trai
 {{< /callout >}}
 
 ---
+
+## Other service traits
+
+| Trait | Methods | Shipped implementations |
+|---|---|---|
+| `DecisionService` | `id`, `version`, `supports(question_set, key)`, `decide(question, state) -> Answer`, `decide_many` | Reflex runtimes in [`magicaf-reflex-onnx`](/docs/crates/magicaf-reflex-onnx/) |
+| `AsrService` | Transcribe an audio buffer | `WhisperAsrService` |
+| `StreamingAsrService` | `open_session`, then `accept_pcm_i16` / `finalize_utterance` on the session | [`magicaf-asr-onnx`](/docs/crates/magicaf-asr-onnx/) |
+| `TtsService` | `synthesize`, `synthesize_stream` | `KokoroTtsService`, `DeepgramTtsService` |
+| `Reranker` | `rerank(query, results)` | `CrossEncoderReranker`, `ScoreThresholdReranker` |
+| `CacheService` | Get and put embedding vectors by key | — (bring your own; used by `CachedEmbeddingService`) |
+| `TokenBudget` | `acquire`, `record`, `release`, `usage` | `NoopTokenBudget` |
+| `AuditLogger` | Receive an `AuditEvent` | `TracingAuditLogger` |
+| `NamedHealthcheck` | A named readiness probe | Used by `HealthGate` |
+
+Call a `DecisionService` through the free functions `ask` and `ask_many` rather than directly: they return an `Unsupported` abstention for questions the backend does not support, check the answer's shape against the question, and record latency. [MagicAF Reflex](/docs/reflex/) explains the decision contract.
 
 ## Adapter Traits
 
@@ -162,11 +170,11 @@ pub trait ResultParser<T>: Send + Sync {
 
 ## Thread Safety
 
-All traits require `Send + Sync`, meaning implementations are safe for concurrent use across Tokio tasks. MagicAF is fully `tokio`-native and uses `#[async_trait]` throughout.
+Every service and adapter trait requires `Send + Sync`, so one instance can be shared across Tokio tasks — wrap it in an `Arc` and clone the handle. The exception is `StreamingAsrSession`, which is `Send` only: a session holds per-utterance decoder state and belongs to one task at a time. MagicAF is `tokio`-native and uses `#[async_trait]` throughout.
 
 ## Trait Composition
 
-The `RAGWorkflow` is generic over all traits. This means the compiler statically dispatches all calls — **zero runtime overhead** from the trait-based design:
+`RAGWorkflow` is generic over its services and adapters, so those calls are resolved at compile time:
 
 ```rust
 // All type parameters are resolved at compile time

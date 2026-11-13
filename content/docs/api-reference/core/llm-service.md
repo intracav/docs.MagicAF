@@ -209,6 +209,22 @@ pub struct ToolCallFunction {
 
 ---
 
+### Reasoning, images, and structured output
+
+Newer fields on the request and message types. All are optional, and each provider backend translates them into its own wire format.
+
+| Field | Type | Effect |
+|---|---|---|
+| `ChatRequest.thinking` | `Option<ThinkingConfig { budget_tokens }>` | Asks providers with native reasoning (Anthropic) for a thinking block before the answer, streamed separately. Others ignore it. |
+| `ChatRequest.response_format` | `Option<ResponseFormat>` | `JsonObject` or `JsonSchema { name, schema, strict }`. Sent verbatim to OpenAI-compatible servers; `AnthropicLlmService` emulates `JsonSchema` with a forced tool call, which cannot be combined with your own `tools`. |
+| `ChatMessage.images` | `Vec<ImageContent { media_type, data }>` | Base64 images on a `user` message. JPEG, PNG, GIF, or WebP, up to 5 MB decoded each; `ImageContent::validate` checks both without decoding. |
+| `ChatMessage.thinking_blocks` | `Option<Vec<ThinkingBlock>>` | Thinking blocks to send back to Anthropic, unmodified, when continuing a tool-use turn. |
+| `ChatMessage.cache_breakpoint` | `bool` | On a system message, marks the end of a prompt-cache prefix for Anthropic. OpenAI-compatible servers cache by prefix automatically, so it is not sent to them. |
+| `ChatMessage.is_error` | `Option<bool>` | Marks a tool result as an error; `ChatMessage::tool_error(id, text)` sets it. |
+| `Usage.prompt_cache_hit_tokens`, `prompt_cache_miss_tokens` | `Option<u32>` | Prompt-cache accounting, when the provider reports it. |
+
+`ChatResponse::has_tool_calls()` and `tool_calls()` look at the **first** choice only.
+
 ## Implementations
 
 ### `LocalLlmService`

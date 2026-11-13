@@ -163,6 +163,46 @@ println!("Summary: {}", result.result.summary);
 println!("Confidence: {:.0}%", result.result.confidence * 100.0);
 ```
 
+## Optional stages
+
+The three adapters decide what the model sees and what you get back. Four more stages are optional and plug into the same builder — add them when you need them:
+
+```rust
+use std::sync::Arc;
+use magicaf_core::audit::TracingAuditLogger;
+use magicaf_core::rag::reranker::ScoreThresholdReranker;
+use magicaf_core::security::prompt_guard::{PromptGuard, PromptGuardConfig};
+use magicaf_core::security::response_guard::{ResponseGuard, ResponseGuardConfig};
+
+let workflow = RAGWorkflow::builder()
+    .embedding_service(embedder)
+    .vector_store(InMemoryVectorStore::new())
+    .llm_service(llm)
+    .evidence_formatter(DefaultEvidenceFormatter)
+    .prompt_builder(DefaultPromptBuilder::new())
+    .result_parser(RawResultParser)
+    .collection("kb")
+    .top_k(8)
+    .min_score(0.3)                                             // drop weak matches
+    .prompt_guard(PromptGuard::new(PromptGuardConfig::default()))     // before embedding
+    .reranker(Arc::new(ScoreThresholdReranker { min_score: 0.5 }))  // after retrieval
+    .response_guard(ResponseGuard::new(ResponseGuardConfig::default())) // before parsing
+    .audit_logger(Arc::new(TracingAuditLogger))                 // every run, pass or fail
+    .build()?;
+```
+
+| Builder method | Runs | Does |
+|---|---|---|
+| `min_score(f32)` | After retrieval | Drops passages below a similarity score |
+| `prompt_guard(PromptGuard)` | First | Rejects or sanitizes prompt-injection attempts in the question |
+| `reranker(Arc<dyn Reranker>)` | After retrieval | Reorders (and for `ScoreThresholdReranker`, filters) passages |
+| `response_guard(ResponseGuard)` | After generation | Checks the raw reply's size and shape before your parser sees it |
+| `audit_logger(Arc<dyn AuditLogger>)` | End of every run | Emits an audit event, success or failure, with a hash of the query rather than the query |
+| `shutdown_receiver(..)` | Before each network call | Aborts in-flight runs cleanly on shutdown |
+| `generation_config(GenerationConfig)` | Generation | Temperature, max tokens, system prompt |
+
+See [Security](/docs/api-reference/core/security/) for guard configuration and [Reranking](/docs/api-reference/core/reranking/) for the cross-encoder reranker.
+
 ## Best Practices
 
 - **Keep adapters stateless** where possible — they're easier to test and share across workflows.

@@ -1,0 +1,272 @@
+# The MagicAF crate catalog — single source of truth for every crate fact
+# shown on the site (catalog table, crate page headers, home page count).
+#
+# Facts were read from the magicaf workspace (intracav/MagicAF, main @ a421a75,
+# 2026-11-11) — Cargo.toml, src/, tests/ — and examples were compiled against
+# it on toolchain 1.91.1. When the workspace changes, update THIS file.
+#
+# status:
+#   stable       — used in production by at least one product; API changes are
+#                  deliberate and noted in the changelog.
+#   preview      — works and is tested, but young or single-consumer; expect
+#                  breaking changes between minor versions.
+#   experimental — present in the workspace, no production consumer yet.
+#   reference    — a working assembly to learn from and adapt, not a supported
+#                  production deployable.
+# Status is the docs team's assessment from source evidence, pending owner review.
+#
+# layer: groups the catalog. Order of layers is the order in `layers` below.
+
+layers:
+  - id: foundation
+    name: Foundation
+    blurb: Traits, configuration, errors, and the RAG engine — plus the two reference service implementations.
+  - id: language
+    name: Language & decisions
+    blurb: In-process NLP, model routing, and calibrated on-device decision models.
+  - id: agents
+    name: Agents & tools
+    blurb: The agent loop, the tool registry, and the MCP client.
+  - id: ingest
+    name: Ingest
+    blurb: Polite fetching, document extraction and OCR, and headless rendering.
+  - id: data
+    name: Data, identity & knowledge
+    blurb: Persistence, authentication, and the knowledge-note engine.
+  - id: interface
+    name: Interface
+    blurb: The artifact wire format that MagicAF services emit and clients render.
+  - id: device
+    name: On-device
+    blurb: Lean helpers and speech recognition for mobile and desktop clients.
+  - id: domain
+    name: Domain
+    blurb: Domain capability libraries built on the same decide-don't-execute pattern.
+  - id: service
+    name: Deployable service
+    blurb: The HTTP server that assembles the crates into a running deployment.
+
+crates:
+  - name: magicaf-core
+    layer: foundation
+    status: stable
+    summary: The foundation — service traits (embeddings, vector store, LLM, decisions, ASR), DTOs, configuration, numeric error codes, the RAG workflow engine, an in-memory vector store, and security helpers.
+    features:
+      - { name: tls-rustls, default: true, enables: "TLS via rustls." }
+      - { name: fips, default: false, enables: "TLS via the system OpenSSL and a FIPS-mode check at startup. Needs a host OpenSSL that runs in FIPS mode; use with --no-default-features." }
+    depends: []
+    runtime: The endpoints you point it at.
+    docs: /docs/api-reference/core/
+
+  - name: magicaf-local-llm
+    layer: foundation
+    status: stable
+    summary: An LLM client for any OpenAI-compatible endpoint — vLLM, llama.cpp, Ollama, TGI — with streaming always on.
+    features:
+      - { name: tls-rustls, default: true, enables: "TLS via rustls." }
+      - { name: fips, default: false, enables: "TLS via the system OpenSSL (see magicaf-core)." }
+      - { name: streaming, default: true, enables: "Compatibility alias; streaming is always on." }
+    depends: [magicaf-core]
+    runtime: An OpenAI-compatible chat-completions server.
+    docs: /docs/api-reference/core/llm-service/
+
+  - name: magicaf-qdrant
+    layer: foundation
+    status: stable
+    summary: A VectorStore implementation over Qdrant's REST API.
+    features:
+      - { name: tls-rustls, default: true, enables: "TLS via rustls." }
+      - { name: fips, default: false, enables: "TLS via the system OpenSSL (see magicaf-core)." }
+    depends: [magicaf-core]
+    runtime: A Qdrant server.
+    docs: /docs/api-reference/core/vector-store/
+
+  - name: magicaf-nlp
+    layer: language
+    status: preview
+    summary: In-process NLP pipelines — extractive QA, NER, translation, summarization, sentiment, and more — with no external service.
+    features:
+      - { name: models, default: false, enables: "Model loading via rust-bert and libtorch. Without it the crate exports config types and DTOs only." }
+      - { name: onnx, default: false, enables: "models, using the ONNX Runtime backend instead of libtorch." }
+    depends: [magicaf-core]
+    runtime: libtorch or ONNX Runtime, plus model weights on local disk.
+    docs: /docs/api-reference/nlp/
+
+  - name: magicaf-ui
+    layer: interface
+    status: stable
+    summary: The artifact wire format — component types, artifact types, the envelope, prop schemas, and draft-07 JSON Schema generation. Types only; no rendering.
+    features: []
+    depends: []
+    runtime: None.
+    notes: Lumen UI is Lumen's Flutter implementation of this contract.
+
+  - name: magicaf-routing
+    layer: language
+    status: preview
+    summary: Deterministic, explainable model routing, escalation, and tool-risk decisions. The crate decides; the host executes.
+    features: []
+    depends: []
+    runtime: None — the host supplies request features, the model catalog, and observed latency.
+
+  - name: magicaf-research
+    layer: domain
+    status: preview
+    summary: An analysis-method registry for statistical research — typed parameter rendering to R, design review, interpretation guards, and an execution-provider contract. It never executes code itself.
+    features: []
+    depends: []
+    runtime: None for the crate. Running generated code needs R and the packages in the chosen install profile.
+
+  - name: magicaf-mobile
+    layer: device
+    status: stable
+    summary: Synchronous, model-free text and audio helpers for Flutter clients — keywords, titles, readability, jargon detection, and voice-activity detection.
+    features:
+      - { name: guard, default: true, enables: "Prompt-injection check via magicaf-core. Pulls in the full core dependency tree — disable for mobile builds." }
+      - { name: frb, default: false, enables: "flutter_rust_bridge sync annotations." }
+      - { name: asr, default: false, enables: "Streaming speech recognition via magicaf-asr-onnx (experimental; needs native sherpa-onnx libraries)." }
+    depends: [magicaf-core (optional), magicaf-asr-onnx (optional)]
+    runtime: None by default.
+
+  - name: magicaf-asr-onnx
+    layer: device
+    status: experimental
+    summary: On-device streaming speech recognition — implements the core StreamingAsrService over sherpa-onnx with a Zipformer transducer, with SHA-256 model-file checks before load.
+    features:
+      - { name: link-sherpa, default: false, enables: "The ONNX engine; links sherpa-onnx and onnxruntime from SHERPA_ONNX_LIB_DIR." }
+    depends: [magicaf-core]
+    runtime: sherpa-onnx v1.10.32 native libraries and a Zipformer model directory (16 kHz mono PCM).
+
+  - name: magicaf-reflex
+    layer: language
+    status: preview
+    summary: The Reflex v2 scorer on the device — calibration, gates, abstention, and the decision record — with no async runtime and no networking by default. Builds to WASM and to a Swift package.
+    features:
+      - { name: cloud-ureq, default: false, enables: "A blocking HTTPS transport for Rust hosts." }
+      - { name: bindgen, default: false, enables: "Host-only: builds the uniffi-bindgen binary." }
+    depends: []
+    runtime: None.
+    docs: /docs/reflex/on-device-scorer/
+
+  - name: magicaf-reflex-onnx
+    layer: language
+    status: preview
+    summary: The Reflex v2 runtime — Reflex Core and Reflex_01 ONNX artifacts served as a magicaf-core DecisionService, with fail-closed integrity checks, a flat C ABI, and the reflex-serve HTTP binary.
+    features:
+      - { name: link-ort, default: false, enables: "ONNX Runtime (ort 2.0 release candidate). Air-gapped builds set ORT_LIB_LOCATION." }
+      - { name: serve, default: false, enables: "The reflex-serve HTTP binary." }
+    depends: [magicaf-core]
+    runtime: ONNX Runtime (with link-ort) and a Reflex artifact directory.
+    docs: /docs/reflex/other-runtimes/
+
+  - name: magicaf-agent
+    layer: agents
+    status: preview
+    summary: An agent turn loop with no built-in model, tools, or storage — an append-only session event log, history derived from the log, crash recovery, and deterministic replay. You supply the model, tool executor, and persistence as traits.
+    features: []
+    depends: [magicaf-core, magicaf-local-llm]
+    runtime: None.
+
+  - name: magicaf-tools
+    layer: agents
+    status: stable
+    summary: The tool contract every MagicAF tool implements — the McpTool trait, a tier-aware ToolRegistry that exports OpenAI and MCP tool lists, ToolContext, and the SandboxPolicy vocabulary.
+    features:
+      - { name: tools-document, default: true, enables: "Reserved category; contains no tools yet." }
+      - { name: tools-system, default: true, enables: "Reserved category; contains no tools yet." }
+      - { name: tools-web, default: false, enables: "Reserved category; contains no tools yet." }
+      - { name: tools-clinical, default: false, enables: "Deprecated demo lookups against public NLM, NCBI, ClinicalTrials.gov and openFDA APIs. Not for new code." }
+    depends: [magicaf-core, magicaf-ui]
+    runtime: None.
+
+  - name: magicaf-tools-code
+    layer: agents
+    status: preview
+    summary: Filesystem, search, and shell tools for agents — read, write, edit, glob, ls, grep, bash — each behind its own opt-in feature. With default features it compiles no tools.
+    features:
+      - { name: fs, default: false, enables: "read, write, edit, ls, glob." }
+      - { name: search, default: false, enables: "grep, via the ripgrep binary named in config." }
+      - { name: shell, default: false, enables: "bash, under an operator-supplied wrapper." }
+      - { name: all, default: false, enables: "fs + search + shell." }
+    depends: [magicaf-core, magicaf-tools]
+    runtime: ripgrep for grep; /bin/bash for bash.
+
+  - name: magicaf-mcp
+    layer: agents
+    status: preview
+    summary: A Model Context Protocol client — connects to MCP servers over stdio or streamable HTTP and registers their tools on a ToolRegistry as mcp__<server>__<tool>. No transport is linked unless you enable one.
+    features:
+      - { name: stdio, default: false, enables: "Local MCP servers as child processes." }
+      - { name: http, default: false, enables: "Streamable-HTTP servers. Only loopback URLs unless allow_remote_http = true." }
+      - { name: all, default: false, enables: "stdio + http." }
+    depends: [magicaf-core, magicaf-tools]
+    runtime: The MCP servers you configure.
+
+  - name: magicaf-server
+    layer: service
+    status: reference
+    summary: An Axum HTTP server that assembles the crates — SSE chat with retrieval and tool calls, an MCP JSON-RPC endpoint, document, space, artifact and memory CRUD, and Prometheus metrics — with cloud, airgap, and defense build profiles.
+    features:
+      - { name: cloud, default: true, enables: "PostgreSQL, JWT auth, and the deprecated demo clinical tools." }
+      - { name: airgap, default: false, enables: "SQLite and local auth." }
+      - { name: defense, default: false, enables: "airgap plus the FIPS crypto backend (startup fails unless FIPS mode is detected), PKI client-certificate auth, and LDAP." }
+    depends: [magicaf-core, magicaf-ui, magicaf-auth, magicaf-db, magicaf-tools, magicaf-qdrant, magicaf-local-llm]
+    runtime: An embedding server, Qdrant, an LLM endpoint, and PostgreSQL or SQLite. Building it also requires the private helix-deid crate.
+
+  - name: magicaf-fetch
+    layer: ingest
+    status: preview
+    summary: Web fetching and extraction primitives — an SSRF guard, a robots.txt cache, per-domain rate limiting, URL canonicalization, HTML-to-markdown extraction, and a retrying scrape service.
+    features:
+      - { name: redis, default: false, enables: "A shared rate limiter and a scrape-result cache backed by Redis." }
+      - { name: headless, default: false, enables: "Falls back to headless Chrome (magicaf-browser) when a page yields under 50 words." }
+    depends: [magicaf-browser (optional)]
+    runtime: Outbound HTTPS. Redis with the redis feature; Chrome with headless.
+
+  - name: magicaf-document
+    layer: ingest
+    status: preview
+    summary: Document understanding — native PDF text extraction, clients for self-hosted layout (Marker) and OCR (Tesseract) sidecars, a pluggable image captioner, and a structure-aware chunker for retrieval.
+    features:
+      - { name: anthropic, default: false, enables: "An image captioner that sends images to Anthropic's API. Leave off when documents must not leave the network." }
+    depends: []
+    runtime: Optional vision (port 3009) and OCR (port 3007) sidecars, built from the repository's docker/ directory.
+
+  - name: magicaf-browser
+    layer: ingest
+    status: experimental
+    summary: Renders JavaScript-heavy pages in a shared headless Chrome, plus web and literature search helpers that query third-party engines.
+    features: []
+    depends: []
+    runtime: Chrome or Chromium. Search calls Serper, Brave, NCBI, Google, and DuckDuckGo.
+
+  - name: magicaf-db
+    layer: data
+    status: preview
+    summary: A repository-pattern data layer over PostgreSQL or SQLite for MagicAF server entities — users, chats, messages, documents, spaces, artifacts, memories, audit, sessions — with optional field-level encryption of chat content.
+    features:
+      - { name: db-postgres, default: true, enables: "The PostgreSQL backend." }
+      - { name: db-sqlite, default: false, enables: "The SQLite backend, with WAL and foreign keys on." }
+    depends: [magicaf-core]
+    runtime: PostgreSQL, or a SQLite file.
+
+  - name: magicaf-auth
+    layer: data
+    status: preview
+    summary: A pluggable AuthProvider trait with JWT, local-password, client-certificate, and LDAP providers that all produce the same claims, plus role-based permissions, token revocation, and TOTP helpers.
+    features:
+      - { name: auth-jwt, default: true, enables: "JWT validation with a configured secret or PEM key." }
+      - { name: auth-local, default: false, enables: "In-memory username and Argon2 password accounts with lockout." }
+      - { name: auth-mfa, default: false, enables: "TOTP secret generation and verification." }
+      - { name: auth-pki, default: false, enables: "Identity from client-certificate fields forwarded by an mTLS-terminating proxy, which must do the validation." }
+      - { name: auth-ldap, default: false, enables: "LDAP search-and-bind with escaped filters, StartTLS or LDAPS, and timeouts." }
+    depends: [magicaf-core]
+    runtime: Your token issuer's key; an LDAP server for auth-ldap; an mTLS-terminating proxy for auth-pki.
+
+  - name: magicaf-knowledge
+    layer: data
+    status: preview
+    summary: Pure primitives for a markdown knowledge vault — note parsing (frontmatter, wikilinks, embeds, tags), safe paths, link and entity resolution, typed relations, provenance rules, an AI-autonomy policy, and graph analytics.
+    features: []
+    depends: []
+    runtime: None — no I/O, no async.

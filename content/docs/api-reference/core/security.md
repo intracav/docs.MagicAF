@@ -57,19 +57,18 @@ pub fn new(config: PromptGuardConfig) -> Self
 pub fn check<'a>(&self, query: &'a str) -> Result<Cow<'a, str>>
 ```
 
-**OTel metric:** Increments `magicaf.prompt_guard.detections` counter on each match.
+**Metric:** increments `prompt_injection_detections_total{policy}` on each match.
 
 ### Built-in Detection Patterns
 
-The prompt guard ships with 13 regex patterns covering common injection vectors:
+The guard ships with 12 case-insensitive patterns:
 
-- "ignore previous instructions"
-- "ignore all prior instructions"
-- "DAN mode" / jailbreak prompts
-- System/instruction tag injection (`<system>`, `[INST]`, `<<SYS>>`)
-- Role override attempts ("you are now", "act as")
-- Prompt leaking requests ("repeat the system prompt")
-- Encoding bypass attempts (base64 instructions)
+- Instruction overrides — "ignore (all) previous instructions", "disregard previous instructions/context/prompts", "forget your previous instructions", "new instructions:"
+- Role overrides — "you are now a different/new/unrestricted…", "act as DAN/jailbreak/unrestricted…", "pretend to be…"
+- Jailbreak markers — "jailbreak", "DAN mode"
+- Chat-template injection — `<system>` / `</system>`, `[INST]` / `[/INST]`, `### System:`
+
+In `Sanitize` mode each match is replaced with `[REDACTED]` and the rest of the query passes through. Patterns catch common, literal attacks; paraphrased or encoded attacks will get past them, so treat the guard as one layer of defense.
 
 ### Example
 
@@ -133,10 +132,10 @@ pub fn redact<'a>(&self, text: &'a str) -> Cow<'a, str>
 
 | PII Type | Pattern | Replacement |
 |----------|---------|-------------|
-| Email | `\b[\w.+-]+@[\w-]+\.[\w.-]+\b` | `[EMAIL]` |
+| Email | `\b[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}\b` | `[EMAIL]` |
 | SSN | `\b\d{3}-\d{2}-\d{4}\b` | `[SSN]` |
-| Credit card | `\b\d{13,19}\b` | `[CREDIT_CARD]` |
-| IPv4 address | `\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b` | `[IP]` |
+| Card number | `\b(?:\d{4}[\s\-]?){3}\d{4}\b` | `[CARD]` |
+| IPv4 address | `\b(?:\d{1,3}\.){3}\d{1,3}\b` | `[IP]` |
 
 ### Tracing Integration
 
@@ -187,7 +186,7 @@ pub struct ResponseGuardConfig {
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `max_output_length` | `usize` | `32_768` | Maximum allowed response length in characters |
+| `max_output_length` | `usize` | `32_768` | Maximum allowed response length, in bytes |
 | `block_prompt_echo` | `bool` | `false` | Reject responses that echo back the system prompt |
 | `schema_validator` | `Option<Value>` | `None` | JSON Schema to validate structured responses against |
 
@@ -243,7 +242,7 @@ guard.check(response, Some("You are a helpful assistant."))?;
 
 ## FIPS Mode
 
-Assert that the runtime environment has FIPS 140-2 validated cryptography enabled. Used for deployments in regulated environments that mandate FIPS-validated cryptography.
+Check that the host's OpenSSL is running in FIPS mode. Use it where policy requires TLS through a FIPS-validated cryptographic module; MagicAF relies on the platform's module and is not itself validated.
 
 ### `assert_fips_mode`
 
@@ -265,7 +264,7 @@ use magicaf_core::security::fips::assert_fips_mode;
 
 // Call at application startup
 assert_fips_mode()?;
-// If this returns Ok, all crypto operations use FIPS-validated modules
+// Ok means the system OpenSSL reports FIPS mode; TLS from the clients listed below uses it
 ```
 
 ### Build Configuration
@@ -276,4 +275,4 @@ assert_fips_mode()?;
 magicaf-core = { version = "0.1", default-features = false, features = ["fips"] }
 ```
 
-When the `fips` feature is enabled, MagicAF uses the system's native TLS (OpenSSL) instead of rustls, and asserts that the kernel FIPS mode is active at startup. All service clients (`LocalLlmService`, `QdrantVectorStore`, etc.) call `assert_fips_mode()` during construction.
+When the `fips` feature is enabled, MagicAF uses the system's native TLS (OpenSSL) instead of rustls, and asserts that the kernel FIPS mode is active at startup. `LocalEmbeddingService`, `LocalLlmService`, and `QdrantVectorStore` call `assert_fips_mode()` during construction and fail if it is not active. `AnthropicLlmService`, `WhisperAsrService`, `KokoroTtsService`, `DeepgramTtsService`, and `CrossEncoderReranker` do not check; if your policy covers them, call `assert_fips_mode()` yourself at startup.

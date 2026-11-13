@@ -18,14 +18,14 @@ MagicAF NLP requires one of two native backends (only when the `models` feature 
 **Installation:**
 
 ```bash
-# macOS / Linux — via pip (recommended)
-pip3 install torch
+# macOS / Linux — via pip. tch 0.17 needs libtorch 2.4.0 exactly.
+pip3 install torch==2.4.0
 export LIBTORCH=$(python3 -c "import torch; print(torch.__path__[0])")
 export LD_LIBRARY_PATH=$LIBTORCH/lib:$LD_LIBRARY_PATH   # Linux
 export DYLD_LIBRARY_PATH=$LIBTORCH/lib:$DYLD_LIBRARY_PATH  # macOS
 
-# Or download from pytorch.org
-# Extract and set LIBTORCH=/path/to/libtorch
+# Or download libtorch 2.4.0 from pytorch.org, extract it, and set LIBTORCH to it.
+# If LIBTORCH is unset, the build downloads libtorch itself — set it for offline builds.
 ```
 
 **Build-time:**
@@ -40,11 +40,9 @@ Ensure `LIBTORCH` and library paths are set in your environment.
 
 ---
 
-### Option B: ONNX Runtime (Lighter, Recommended for Edge)
+### Option B: Adding ONNX Runtime
 
-**Installation:**
-
-No manual setup! The `ort` crate auto-downloads ONNX Runtime on first build.
+The `onnx` feature adds rust-bert's ONNX Runtime support **on top of** libtorch — it does not replace it, so complete Option A first. ONNX Runtime is not downloaded for you.
 
 **Build-time:**
 
@@ -54,10 +52,10 @@ cargo build --features onnx
 
 **Air-gapped:**
 
-Set `ORT_LIB_LOCATION` to point to a pre-downloaded ONNX Runtime library:
+Set `ORT_LIB_LOCATION` to the directory containing the ONNX Runtime library:
 
 ```bash
-export ORT_LIB_LOCATION=/opt/onnxruntime/lib/libonnxruntime.so
+export ORT_LIB_LOCATION=/opt/onnxruntime/lib
 cargo build --features onnx
 ```
 
@@ -80,7 +78,7 @@ let pipeline = SentimentPipeline::new(SentimentConfig {
 }).await?;
 ```
 
-Models are cached in `~/.cache/huggingface/` for future runs.
+Models are cached in `~/.cache/.rustbert/`, or in `RUSTBERT_CACHE` if set, for future runs.
 
 ---
 
@@ -147,6 +145,10 @@ let device = Device::Cuda(0);  // GPU index 0
 ---
 
 ## Air-Gapped Deployment
+
+{{< callout type="info" title="Which pipelines read local directories" >}}
+Only question answering honors `ModelSource::Local`. Every other pipeline loads its model from the rust-bert cache, so the reliable offline method is to **warm the cache**: on a connected machine, point `RUSTBERT_CACHE` at an empty directory, construct each pipeline you need once, then copy that directory to the same `RUSTBERT_CACHE` path on the isolated host. The manual downloads below are useful for the QA model.
+{{< /callout >}}
 
 Complete workflow for offline environments:
 
@@ -270,8 +272,8 @@ let pipeline = SummarizationPipeline::new(config).await?;
 | `LIBTORCH` | Path to libtorch installation | libtorch backend |
 | `LD_LIBRARY_PATH` | Library search path (Linux) | libtorch backend |
 | `DYLD_LIBRARY_PATH` | Library search path (macOS) | libtorch backend |
-| `ORT_LIB_LOCATION` | Path to ONNX Runtime library | ONNX backend (air-gapped) |
-| `HF_HOME` | HuggingFace cache directory | Model caching (optional) |
+| `ORT_LIB_LOCATION` | Directory containing the ONNX Runtime library | `onnx` feature |
+| `RUSTBERT_CACHE` | Model cache directory (default `~/.cache/.rustbert`) | Model caching and offline use |
 
 ---
 
@@ -311,7 +313,7 @@ python3 -c "import torch; print(torch.cuda.is_available())"
 
 **Check auto-download:**
 
-The `ort` crate downloads ONNX Runtime to `~/.cargo/registry/cache/`. If downloads fail, manually set `ORT_LIB_LOCATION`.
+ONNX Runtime is not downloaded automatically. Install it and set `ORT_LIB_LOCATION` to its library directory.
 
 **Verify ONNX model format:**
 

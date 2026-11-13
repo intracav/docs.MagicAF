@@ -4,45 +4,27 @@ description: "Deploy MagicAF in production — Docker, air-gapped, edge/mobile, 
 weight: 5
 ---
 
-Running a pipeline on your laptop and shipping one to production are different problems — production adds the network boundary, the hardware you actually have, and the pager. This section is for the shipping part. MagicAF is designed for secure, on-premises deployments where data must not leave the network boundary, and these pages cover every scenario that implies: from Docker Compose on a single host to fully disconnected environments and resource-constrained edge devices, plus the observability, scaling, and hardening work that comes with operating any of them. If you're still choosing between deployment options, start with the [Deployment Strategy](/docs/decision-guides/deployment-strategy/) decision guide — come here once the decision is made and it's time to ship.
+Running a pipeline on your laptop and shipping one are different problems: production adds a network boundary, the hardware you actually have, and someone on call. These pages cover each deployment shape — a single Docker host, a network with no internet, edge devices — and the operating work that comes with all of them. If you have not chosen a shape yet, start with the [deployment strategy guide](/docs/decision-guides/deployment-strategy/).
 
 ---
 
-<div class="card-grid">
-<div class="card">
-
-### [Docker Compose →](/docs/deployment/docker/)
+{{< card-grid >}}
+{{< card title="Docker Compose" href="/docs/deployment/docker/" >}}
 Reference Docker Compose configuration for all services.
-
-</div>
-<div class="card">
-
-### [Air-Gapped Setup →](/docs/deployment/air-gapped/)
+{{< /card >}}
+{{< card title="Air-Gapped Setup" href="/docs/deployment/air-gapped/" >}}
 Deploy in fully disconnected environments with no internet access.
-
-</div>
-<div class="card">
-
-### [Edge & Mobile →](/docs/deployment/edge-mobile/)
+{{< /card >}}
+{{< card title="Edge & Mobile" href="/docs/deployment/edge-mobile/" >}}
 Run on resource-constrained devices with InMemoryVectorStore.
-
-</div>
-<div class="card">
-
-### [Observability →](/docs/deployment/observability/)
+{{< /card >}}
+{{< card title="Observability" href="/docs/deployment/observability/" >}}
 Structured logging, health checks, and metrics.
-
-</div>
-<div class="card">
-
-### [Scaling →](/docs/deployment/scaling/)
+{{< /card >}}
+{{< card title="Scaling" href="/docs/deployment/scaling/" >}}
 Horizontal scaling strategies for each component.
-
-</div>
-<div class="card">
-
-### [Security →](/docs/deployment/security/)
+{{< /card >}}
+{{< card title="Security" href="/docs/deployment/security/" >}}
 Security checklist and hardening guidance.
-
-</div>
-</div>
+{{< /card >}}
+{{< /card-grid >}}

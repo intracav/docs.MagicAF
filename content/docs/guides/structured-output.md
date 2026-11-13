@@ -159,7 +159,11 @@ pub struct AnalysisMetadata {
 }
 ```
 
-As long as the struct derives `Deserialize` and the LLM produces matching JSON, `JsonResultParser` handles everything.
+As long as the struct derives `Deserialize` and the LLM produces matching JSON, `JsonResultParser` will parse it. It calls `serde_json::from_str` on the raw reply and nothing more — no stripping of Markdown code fences or surrounding prose. Models that wrap their JSON need a parser like the one above.
+
+## Constrained output outside the workflow
+
+When you call an `LlmService` directly, `ChatRequest.response_format` asks the server to constrain decoding: `ResponseFormat::JsonObject` for any valid JSON object, or `ResponseFormat::JsonSchema { name, schema, strict }` to enforce a schema. OpenAI-compatible servers that support structured outputs honor it natively; `AnthropicLlmService` emulates it with a forced tool call. `RAGWorkflow` does not set `response_format` today, so inside a workflow rely on the prompt and a tolerant parser.
 
 ## Tips for Reliable JSON Output
 

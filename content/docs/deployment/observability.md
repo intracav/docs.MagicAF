@@ -1,153 +1,104 @@
 ---
 title: "Observability"
-description: "Structured logging, health checks, and metrics for production MagicAF deployments."
+description: "Operate MagicAF in production: JSON logs, the built-in Prometheus metrics and what to alert on, startup health gating, and audit events."
 weight: 4
-tags: [deployment, logging, tracing, metrics, health-checks]
+tags: [deployment, observability, logging, metrics, health-checks, audit]
 categories: [deployment]
 difficulty: intermediate
-prerequisites: [/docs/getting-started/quickstart/]
 ---
 
-MagicAF provides built-in observability through structured logging, health checks, and tracing instrumentation.
+MagicAF emits three kinds of signal: **structured logs** through `tracing`, **metrics** through OpenTelemetry with a Prometheus exporter, and **audit events** through an `AuditLogger` you choose. This page is about running them in production; the type-level reference is in [Observability (API)](/docs/api-reference/core/observability/).
 
-## Structured Logging
-
-MagicAF uses the `tracing` ecosystem. All public methods are annotated with `#[instrument]` and emit structured spans with contextual fields.
-
-### Basic Setup
+## A production startup
 
 ```rust
-tracing_subscriber::fmt()
-    .json()
-    .with_env_filter("info,magicaf=debug")
-    .init();
-```
+use std::sync::Arc;
 
-This produces JSON-formatted log lines with fields like:
+use magicaf_core::embeddings::{EmbeddingService, LocalEmbeddingService};
+use magicaf_core::health::{HealthGate, Named, NamedHealthcheck};
+use magicaf_core::llm::LlmService;
+use magicaf_core::metrics::metrics_handler;
+use magicaf_core::prelude::*;
+use magicaf_core::telemetry::init_logging_with_metrics;
+use magicaf_local_llm::LocalLlmService;
+use magicaf_qdrant::QdrantVectorStore;
+use serde_json::json;
 
-```json
-{
-  "timestamp": "2025-01-15T10:30:00Z",
-  "level": "INFO",
-  "target": "magicaf_core::rag",
-  "message": "Searching vector store",
-  "span": { "collection": "my_docs" },
-  "fields": { "top_k": 10 }
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
+    // JSON logs filtered by RUST_LOG, plus a Prometheus registry for /metrics.
+    let registry = init_logging_with_metrics();
+
+    let embedder = Arc::new(LocalEmbeddingService::new(serde_json::from_value(json!({
+        "base_url": "http://localhost:8080", "model_name": "bge-large-en-v1.5"
+    }))?)?);
+    let store = Arc::new(QdrantVectorStore::new(serde_json::from_value(json!({
+        "base_url": "http://localhost:6333"
+    }))?).await?);
+    let llm = Arc::new(LocalLlmService::new(LlmConfig {
+        base_url: "http://localhost:8000/v1".into(),
+        model_name: "mistral-7b".into(),
+        ..Default::default()
+    })?);
+
+    // Refuse to start until every dependency answers (3 attempts, 1 s apart).
+    let (e, s, l) = (embedder.clone(), store.clone(), llm.clone());
+    let embedding = Named::new("embedding", move || { let e = e.clone(); async move { e.health_check().await } });
+    let qdrant = Named::new("qdrant", move || { let s = s.clone(); async move { s.health_check().await } });
+    let model = Named::new("llm", move || { let l = l.clone(); async move { l.health_check().await } });
+    let checks: [&dyn NamedHealthcheck; 3] = [&embedding, &qdrant, &model];
+    let report = HealthGate::verify_all(&checks).await?;
+    tracing::info!(?report.results, "dependencies ready");
+
+    // Serve `metrics_handler(&registry)` as text/plain at GET /metrics.
+    println!("{}", metrics_handler(&registry));
+    Ok(())
 }
 ```
 
-### Structured Fields
+## Logs
 
-| Span | Fields |
-|------|--------|
-| `RAGWorkflow::run` | `collection` |
-| `VectorStore::search` | `collection`, `limit` |
-| `VectorStore::index` | `collection`, `count` |
-| `EmbeddingService::embed` | `count` (number of inputs) |
-| `LlmService::chat` | `model`, `messages` (count) |
+The `telemetry` helpers install a JSON subscriber filtered by `RUST_LOG`:
 
-### Production Configuration
-
-For production, attach a subscriber that ships spans to your observability stack:
-
-```rust
-use tracing_subscriber::prelude::*;
-
-tracing_subscriber::registry()
-    .with(tracing_subscriber::fmt::layer().json())
-    .with(tracing_subscriber::EnvFilter::from_default_env())
-    // Add OpenTelemetry layer for distributed tracing
-    // .with(tracing_opentelemetry::layer().with_tracer(tracer))
-    .init();
+```bash
+RUST_LOG=info,magicaf=debug ./my-app
 ```
 
-## Health Checks
+Use `init_logging_with_pii_filter()` instead of `init_logging()` when logs may contain user text: it rewrites email addresses, US Social Security numbers, card numbers, and IPv4 addresses to placeholder tokens before writing. It is pattern-based — a safety net, not a guarantee — so still avoid logging raw content.
 
-All infrastructure services expose health check methods:
-
-```rust
-// Check all services
-embedder.health_check().await?;
-llm.health_check().await?;
-```
-
-Integrate these into your orchestrator's readiness probes:
-
-```rust
-async fn readiness_check(
-    embedder: &impl EmbeddingService,
-    llm: &impl LlmService,
-) -> bool {
-    let embed_ok = embedder.health_check().await.is_ok();
-    let llm_ok = llm.health_check().await.is_ok();
-    embed_ok && llm_ok
-}
-```
-
-Health check failures return `MagicError::HealthCheckFailed` with the service name and URL.
+Logs go to stderr. In containers, let the runtime collect them; elsewhere, use your init system or a `tracing-appender` layer for files and rotation. To export traces to an OpenTelemetry collector, build your own subscriber with a `tracing-opentelemetry` layer rather than calling the helpers.
 
 ## Metrics
 
-Instrument your application with `tracing` spans and export to Prometheus or OpenTelemetry:
+Mount `metrics_handler(&registry)` at `GET /metrics` and scrape it. The metrics that matter most in operation:
 
-```toml
-[dependencies]
-tracing-opentelemetry = "0.22"
-opentelemetry = "0.21"
-opentelemetry-prometheus = "0.14"
-```
+| Watch | Metric | Alert when |
+|---|---|---|
+| End-to-end latency | `rag_pipeline_duration_seconds` | p95 exceeds your latency budget |
+| Model latency | `llm_request_duration_seconds`, `llm_stream_ttft_seconds` | Time to first token climbs — the model server is saturated |
+| Retrieval latency | `vector_search_duration_seconds` | p95 above ~100 ms on Qdrant usually means memory pressure |
+| Embedding health | `embedding_requests_total{status!="ok"}` | Any sustained error rate |
+| Token spend | `llm_tokens_total` by `model` and `type` | Unexpected growth — a prompt or `top_k` change |
+| Circuit breakers | `circuit_breaker_state` | Any value of 1 (open) |
+| Retries | `retry_attempts_total` | Rising rate — a dependency is degrading before it fails |
+| Prompt injection | `prompt_injection_detections_total` | Any spike |
 
-Key metrics to track:
+The full list with labels is in the [API reference](/docs/api-reference/core/observability/#built-in-metrics).
 
-| Metric | Source | What It Tells You |
-|--------|--------|-------------------|
-| Embedding latency | `embed` / `embed_single` spans | Model server performance |
-| Search latency | `search` spans | Vector store performance |
-| LLM latency | `chat` spans | Inference server performance |
-| Token usage | `RAGResult.usage` | Cost and context window utilization |
-| Evidence count | `RAGResult.evidence_count` | Retrieval quality |
-| Error rate by code | `MagicError::error_code()` | Service reliability breakdown |
+## Health checks
 
-## Log Shipping
+Every service has an async `health_check()`. Gate startup on them with `HealthGate::verify_all`, as above, so a pod never reports ready while a dependency is down. For an orchestrator's readiness probe, run the same checks with a single attempt — `HealthGate::verify_all_with_attempts(&checks, 1, 0)` — so the probe answers quickly.
 
-Ship logs to your SIEM / ELK / Splunk stack via:
+A failed gate returns a `ConfigError` naming each unhealthy service; `HealthReport.results` holds the per-service outcome.
 
-- **stdout capture** — container orchestrators (Docker, Kubernetes) capture stdout
-- **File output** — write to a log file with rotation
-- **Direct export** — use `tracing-subscriber` layers for Jaeger, OTLP, etc.
+## Audit events
 
-### Example: File Output
+Set `.audit_logger(...)` on a `RAGWorkflow` and every run emits an `AuditEvent`: the outcome (success, failure, or blocked), duration, collection, evidence count, and a **SHA-256 hash of the query** instead of the query itself — enough to correlate and count without storing user text.
 
-```rust
-use tracing_subscriber::fmt;
-use std::fs::File;
+| Logger | Writes |
+|---|---|
+| `TracingAuditLogger` | A structured `tracing` event, which flows to your logs |
+| `JsonAuditLogger::new(path)` | One JSON object per line, appended to a file |
+| Your own `AuditLogger` | Anywhere — a database, a message queue, a SIEM |
 
-let log_file = File::create("/var/log/magicaf/app.log")?;
-
-tracing_subscriber::fmt()
-    .json()
-    .with_writer(log_file)
-    .with_env_filter("info,magicaf=debug")
-    .init();
-```
-
-## Audit Trail
-
-MagicAF's adapter traits provide natural injection points for audit logging:
-
-```rust
-#[async_trait]
-impl EvidenceFormatter for AuditedFormatter {
-    async fn format_evidence(&self, results: &[SearchResult]) -> Result<String> {
-        // Log what evidence was retrieved (for audit trail)
-        tracing::info!(
-            evidence_count = results.len(),
-            ids = ?results.iter().map(|r| &r.id).collect::<Vec<_>>(),
-            "Evidence retrieved for RAG query"
-        );
-
-        // Proceed with formatting
-        self.inner.format_evidence(results).await
-    }
-}
-```
+Prompt-injection blocks are audited as `Blocked`, so attempted misuse shows up alongside ordinary failures.

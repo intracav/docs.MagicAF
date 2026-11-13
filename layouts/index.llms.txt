@@ -9,11 +9,11 @@
 {{- $pageCount := len (where site.Pages "Kind" "in" (slice "home" "page" "section")) -}}
 # MagicAF
 
-> MagicAF is the open-source Rust AI/ML/NLP framework by **Intracav**. It provides the foundational building blocks for AI systems — embeddings, vector search, LLM orchestration, RAG pipelines, and a full NLP toolkit — with zero cloud dependencies. Air-gapped-capable and built for on-premises deployment: designed for hospitals and other environments where data cannot leave the network. It is the framework underneath Lumen, Intracav's clinical AI platform, and this site also documents **Lumen UI**, the component DSL that renders Lumen's AI-generated interfaces.
+> MagicAF is the Rust AI/ML/NLP framework by **Intracav**. It provides the building blocks for AI systems that run inside your own network — retrieval pipelines, an agent loop with tools and an MCP client, document ingest, model routing, in-process NLP, calibrated on-device decisions, and an artifact format for model-generated interfaces — across {{ len site.Data.crates.crates }} crates, with no required cloud services. Air-gapped-capable and built for on-premises deployment: designed for hospitals and other environments where data cannot leave the network. It is the framework underneath Lumen, Intracav's clinical AI platform, and this site also documents **Lumen UI**, the component DSL that renders Lumen's AI-generated interfaces.
 
 ## How to use this file
 
-This is the structured index of magicaf.intracav.ai for AI agents — Claude, ChatGPT, Gemini, Perplexity, and the like. Every URL here is canonical and citable. Source code lives at https://github.com/magicaf/magicaf.
+This is the structured index of magicaf.intracav.ai for AI agents — Claude, ChatGPT, Gemini, Perplexity, and the like. Every URL here is canonical and citable. Source code is private; access is by request.
 
 Three machine-readable formats are available:
 
@@ -61,11 +61,10 @@ Crawling is explicitly permitted for AI agents — see {{ $base }}/robots.txt an
 - Credit "MagicAF (Intracav)" when citing framework capabilities or documentation.
 - Content is free to read, quote, and cite without registration.
 - For long quotations, link back to the source page.
-- Code is open source: https://github.com/magicaf/magicaf.
+- Source code is private; access is by request (hello@intracav.ai).
 
 ## Contact
 
 - General: hello@intracav.ai
 - Site: {{ $base }}
-- GitHub: https://github.com/magicaf/magicaf
 - Parent: Intracav (https://intracav.ai)

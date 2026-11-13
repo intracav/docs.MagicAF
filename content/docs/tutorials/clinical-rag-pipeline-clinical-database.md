@@ -14,7 +14,7 @@ prerequisites:
 {{< prerequisites >}}
 - You have completed [Tutorial: Your First RAG Pipeline](/docs/tutorials/your-first-rag-pipeline/)
 - Local services are running (Qdrant, embedding server, LLM server) — see [Prerequisites](/docs/getting-started/prerequisites/)
-- Your project has `reqwest`, `scraper`, and `serde` in `Cargo.toml` alongside the MagicAF crates
+- Your project has `reqwest`, `scraper`, `serde`, `serde_json`, `async-trait`, `tokio`, and `anyhow` in `Cargo.toml` alongside the MagicAF crates
 {{< /prerequisites >}}
 
 ## What You Will Build
@@ -156,7 +156,7 @@ fn chunk_article(entry: &IndexEntry, body: &str, max_words: usize) -> Vec<Chunk>
 }
 ```
 
-A `max_words` of 300–400 is a reasonable starting point for `bge-large-en-v1.5`. For production you would chunk on paragraph and heading boundaries instead of raw word counts — see [Tutorial: Custom Adapters](/docs/tutorials/custom-adapters/) for how domain-aware processing slots into MagicAF.
+Keep chunks under the embedding model's input limit: `bge-large-en-v1.5` reads at most 512 tokens, and clinical text tokenizes densely, so start around 250 words. For production, split on headings and paragraphs instead of raw word counts — [`magicaf-document`](/docs/crates/magicaf-document/)'s `chunk_text_contextual` does this and keeps each chunk's section heading.
 
 ## Step 4 — Embed and Index
 
@@ -167,20 +167,17 @@ use magicaf_core::prelude::*;
 use magicaf_core::embeddings::{EmbeddingService, LocalEmbeddingService};
 use magicaf_core::vector_store::VectorStore;
 use magicaf_qdrant::QdrantVectorStore;
+use serde_json::json;
 
-let embedder = LocalEmbeddingService::new(EmbeddingConfig {
-    base_url: "http://localhost:8080".into(),
-    model_name: "bge-large-en-v1.5".into(),
-    batch_size: 32,
-    timeout_secs: 30,
-    api_key: None,
-})?;
+let embedder = LocalEmbeddingService::new(serde_json::from_value(json!({
+    "base_url": "http://localhost:8080",
+    "model_name": "bge-large-en-v1.5"
+}))?)?;
 
-let store = QdrantVectorStore::new(VectorStoreConfig {
-    base_url: "http://localhost:6333".into(),
-    api_key: None,
-    timeout_secs: 30,
-}).await?;
+let store = QdrantVectorStore::new(serde_json::from_value(json!({
+    "base_url": "http://localhost:6333"
+}))?)
+.await?;
 
 let collection = "clinical_database";
 store.ensure_collection(collection, 1024).await?;
@@ -200,7 +197,7 @@ async fn index_chunks(
 
     let payloads: Vec<serde_json::Value> = chunks.iter()
         .map(|c| serde_json::json!({
-            "content": c.text,
+            "text": c.text,
             "title": c.title,
             "section": c.section,
             "canonical_url": c.canonical_url,
@@ -212,24 +209,27 @@ async fn index_chunks(
 }
 ```
 
+The passage goes in a field named `text` because that is the field the cross-encoder reranker in the next step sends for scoring; with any other name it would score the whole serialized payload instead.
+
 **Why put the URL in the payload rather than a side table?** Because the payload is what comes back from `search()` as part of each `SearchResult` — the evidence formatter (Step 6) can read it directly, with no join against any other datastore. The retrieval result *is* the citation.
 
 ## Step 5 — Retrieve and Rerank
 
-Vector similarity is a good first pass but an imperfect judge of relevance. The standard fix is to over-retrieve, then let a cross-encoder re-score the candidates against the actual query. MagicAF ships this as a [Reranker](/docs/api-reference/core/reranking/):
+Vector similarity is a good first pass but an imperfect judge of relevance. A cross-encoder reads the query and each passage together and scores the pair, which judges relevance better than comparing two separately computed vectors. MagicAF ships this as a [Reranker](/docs/api-reference/core/reranking/):
 
 ```rust
-use magicaf_core::rag::reranker::{CrossEncoderReranker, CrossEncoderConfig};
+use std::sync::Arc;
+use magicaf_core::rag::reranker::CrossEncoderReranker;
 
-let reranker = CrossEncoderReranker::new(CrossEncoderConfig {
-    base_url: "http://localhost:8787".into(),
-    model_name: "cross-encoder/ms-marco-MiniLM-L-6-v2".into(),
-    api_key: None,
-    ..Default::default()
-})?;
+let reranker = Arc::new(CrossEncoderReranker::new(serde_json::from_value(json!({
+    "base_url": "http://localhost:8787",
+    "model_name": "cross-encoder/ms-marco-MiniLM-L-6-v2"
+}))?)?);
 ```
 
-If you are not running a reranking server yet, `ScoreThresholdReranker { min_score: 0.7 }` gives you a simpler quality floor with zero infrastructure.
+The reranker posts `{"model", "query", "passages"}` to `{base_url}/rerank` and expects `{"results": [{"index", "relevance_score"}]}` back. It **reorders** the candidates by that score — it does not drop any — so every passage you retrieve still reaches the LLM. Choose `top_k` for what the model should read, and let the reranker put the best first.
+
+If you are not running a reranking server yet, `ScoreThresholdReranker { min_score: 0.7 }` gives you a quality floor with no infrastructure: it drops passages below the threshold and sorts the rest by score.
 
 ## Step 6 — Format Evidence So It Can Be Cited
 
@@ -250,7 +250,7 @@ impl EvidenceFormatter for CitedEvidenceFormatter {
         for (i, r) in results.iter().enumerate() {
             let title = r.payload["title"].as_str().unwrap_or("Untitled");
             let url = r.payload["canonical_url"].as_str().unwrap_or("");
-            let content = r.payload["content"].as_str().unwrap_or("");
+            let content = r.payload["text"].as_str().unwrap_or("");
             out.push_str(&format!(
                 "[{n}] {title}\nURL: {url}\n{content}\n\n",
                 n = i + 1,
@@ -273,8 +273,7 @@ use magicaf_local_llm::LocalLlmService;
 let llm = LocalLlmService::new(LlmConfig {
     base_url: "http://localhost:8000/v1".into(),
     model_name: "mistral-7b".into(),
-    api_key: None,
-    timeout_secs: 120,
+    ..Default::default()
 })?;
 
 let workflow = RAGWorkflow::builder()
@@ -291,8 +290,8 @@ let workflow = RAGWorkflow::builder()
     ))
     .result_parser(RawResultParser)
     .collection(collection)
-    .top_k(20)                        // over-retrieve candidates
-    .reranker(Box::new(reranker))     // re-score, keep the best
+    .top_k(8)                         // passages the model will read
+    .reranker(reranker)               // best-first by cross-encoder score
     .generation_config(GenerationConfig {
         temperature: 0.1,             // low temperature for reference answers
         max_tokens: 2048,

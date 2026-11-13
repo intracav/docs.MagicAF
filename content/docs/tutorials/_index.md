@@ -12,32 +12,20 @@ The fastest way to learn a framework is to build something with it and understan
 
 ---
 
-<div class="card-grid">
-<div class="card">
-
-### [Your First RAG Pipeline →](/docs/tutorials/your-first-rag-pipeline/)
+{{< card-grid >}}
+{{< card title="Your First RAG Pipeline" href="/docs/tutorials/your-first-rag-pipeline/" >}}
 {{< difficulty "beginner" >}} Build a working pipeline from scratch and understand what each component does.
-
-</div>
-<div class="card">
-
-### [Custom Adapters →](/docs/tutorials/custom-adapters/)
+{{< /card >}}
+{{< card title="Custom Adapters" href="/docs/tutorials/custom-adapters/" >}}
 {{< difficulty "intermediate" >}} Decide when to customize, build a healthcare memo analyzer, and test it.
-
-</div>
-<div class="card">
-
-### [Air-Gapped Deployment →](/docs/tutorials/air-gapped-deployment/)
+{{< /card >}}
+{{< card title="Air-Gapped Deployment" href="/docs/tutorials/air-gapped-deployment/" >}}
 {{< difficulty "advanced" >}} Walk through a complete prepare-transfer-build-verify cycle for a disconnected lab.
-
-</div>
-<div class="card">
-
-### [Clinical RAG over The Clinical Database →](/docs/tutorials/clinical-rag-pipeline-clinical-database/)
+{{< /card >}}
+{{< card title="Clinical RAG over The Clinical Database" href="/docs/tutorials/clinical-rag-pipeline-clinical-database/" >}}
 {{< difficulty "intermediate" >}} Ground a clinical assistant in a citable, clinician-reviewed corpus, with citations back to canonical URLs.
-
-</div>
-</div>
+{{< /card >}}
+{{< /card-grid >}}
 
 ---
 

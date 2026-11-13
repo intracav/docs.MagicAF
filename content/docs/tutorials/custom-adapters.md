@@ -14,7 +14,7 @@ prerequisites:
 
 {{< prerequisites >}}
 - You have completed [Tutorial: Your First RAG Pipeline](/docs/tutorials/your-first-rag-pipeline/)
-- You understand that the RAG pipeline has six steps, each handled by a pluggable component
+- You understand the stages of [the RAG pipeline](/docs/core-concepts/rag-pipeline/), each handled by a pluggable component
 - You are familiar with Rust traits and `async_trait`
 {{< /prerequisites >}}
 
@@ -288,18 +288,25 @@ async fn parser_rejects_non_json() {
 
 ### Test the Full Workflow with Mocks
 
+This uses the `FakeEmbedder` and `CannedLlm` from the [Testing guide](/docs/guides/testing/#fakes-for-whole-workflow-tests) and `magicaf-core`'s in-memory vector store, so it needs no services:
+
 ```rust
-use magicaf_tests::mocks::*;
+mod support;
+use support::{CannedLlm, FakeEmbedder};
+use magicaf_core::prelude::*;
+use magicaf_core::vector_store::{InMemoryVectorStore, VectorStore};
 
 #[tokio::test]
 async fn workflow_produces_valid_clinical_assessment() {
-    let llm = MockLlmService::new(
-        r#"{"summary":"Patient stable","observations":["Normal vitals"],"risk_level":"LOW","confidence":0.9}"#,
+    let llm = CannedLlm(
+        r#"{"summary":"Patient stable","observations":["Normal vitals"],"risk_level":"LOW","confidence":0.9}"#.into(),
     );
+    let store = InMemoryVectorStore::new();
+    store.ensure_collection("clinical_memos", 64).await.unwrap();
 
     let workflow = RAGWorkflow::builder()
-        .embedding_service(MockEmbeddingService::new(1024))
-        .vector_store(MockVectorStore::with_results(vec![]))
+        .embedding_service(FakeEmbedder { dim: 64 })
+        .vector_store(store)
         .llm_service(llm)
         .evidence_formatter(ClinicalEvidenceFormatter)
         .prompt_builder(ClinicalPromptBuilder)

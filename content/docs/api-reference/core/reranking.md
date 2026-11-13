@@ -43,7 +43,7 @@ pub struct ScoreThresholdReranker {
 
 ### Behavior
 
-Keeps only results with `score >= min_score`. Order is preserved.
+Keeps only results with `score >= min_score`, sorted by score, highest first.
 
 ### Example
 
@@ -120,10 +120,11 @@ Results are sorted by `relevance_score` descending and scores are updated on the
 
 | Server | Notes |
 |--------|-------|
-| **Cohere Rerank** | API-compatible (cloud or on-prem) |
-| **Jina Reranker** | Self-hosted cross-encoder |
-| **TEI Reranker** | HuggingFace Text Embeddings Inference |
-| **Custom** | Any server implementing the `/rerank` endpoint above |
+| **Custom** | Any server implementing the `/rerank` contract above |
+
+The request body uses a `passages` field. Several hosted and self-hosted rerankers name it `documents` or `texts` instead (Cohere, Jina, and Hugging Face text-embeddings-inference among them), so put a thin adapter in front of those, or implement the `Reranker` trait directly against their API.
+
+The passage sent for each result is its payload's `text` field; if there is none, the whole payload is serialized. Store your passage under `text` when you plan to rerank.
 
 ---
 
@@ -134,21 +135,24 @@ Add a reranker to the RAG workflow using the builder:
 ```rust
 use magicaf_core::rag::reranker::{CrossEncoderReranker, CrossEncoderConfig};
 
-let reranker = CrossEncoderReranker::new(CrossEncoderConfig {
-    base_url: "http://localhost:8787".into(),
-    model_name: "cross-encoder/ms-marco-MiniLM-L-6-v2".into(),
-    api_key: None,
-    ..Default::default()
-})?;
+let reranker = std::sync::Arc::new(CrossEncoderReranker::new(serde_json::from_value::<CrossEncoderConfig>(
+    serde_json::json!({
+        "base_url": "http://localhost:8787",
+        "model_name": "cross-encoder/ms-marco-MiniLM-L-6-v2"
+    }),
+)?)?);
 
 let workflow = RAGWorkflow::builder()
     .embedding_service(embedder)
     .vector_store(store)
     .llm_service(llm)
+    .evidence_formatter(DefaultEvidenceFormatter)
+    .prompt_builder(DefaultPromptBuilder::new())
+    .result_parser(RawResultParser)
     .collection("documents")
-    .top_k(20)                      // Retrieve more candidates
-    .reranker(Box::new(reranker))   // Re-score and re-order
+    .top_k(8)               // passages the model will read
+    .reranker(reranker)     // best first
     .build()?;
 ```
 
-The pipeline flow becomes: embed → search (top_k=20) → **rerank** → format evidence → build prompt → LLM → parse.
+The pipeline flow becomes: embed → search → **rerank** → format evidence → build prompt → LLM → parse. `CrossEncoderReranker` reorders and rescores; it does not drop results, so every retrieved passage still reaches the model.

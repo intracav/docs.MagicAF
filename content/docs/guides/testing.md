@@ -1,28 +1,14 @@
 ---
 title: "Testing"
-description: "Unit test your adapters and workflows using mock services."
+description: "Unit-test adapters on their own, and test whole workflows with in-memory fakes — no embedding server, vector database, or LLM required."
 weight: 3
-tags: [testing, mocks, unit-tests, integration-tests]
+tags: [testing, fakes, unit-tests, integration-tests]
 categories: [guide]
 difficulty: intermediate
 prerequisites: [/docs/guides/building-adapters/]
 ---
 
-MagicAF's trait-based design makes testing straightforward. You can test each adapter in isolation and test complete workflows using mock services — no live infrastructure required.
-
-## Mock Services
-
-The test crate provides mock implementations of all infrastructure traits:
-
-```rust
-use magicaf_tests::mocks::*;
-```
-
-| Mock | Trait | Behavior |
-|------|-------|----------|
-| `MockEmbeddingService` | `EmbeddingService` | Returns fixed-dimension zero vectors |
-| `MockVectorStore` | `VectorStore` | Returns configurable search results |
-| `MockLlmService` | `LlmService` | Returns a configurable text response |
+Everything in a MagicAF pipeline is a trait, so tests can replace the network-bound pieces with small fakes and still exercise your real adapters end to end. This guide covers both levels: unit tests for each adapter, and workflow tests that run the full pipeline in memory.
 
 ## Testing a Custom ResultParser
 
@@ -46,37 +32,6 @@ async fn parser_rejects_invalid_json() {
     let parser = CustomResultParser;
     let result = parser.parse_result("not json").await;
     assert!(result.is_err());
-}
-```
-
-## Testing a Complete Workflow
-
-Use mock services to test the full pipeline without any live infrastructure:
-
-```rust
-use magicaf_core::rag::RAGWorkflow;
-
-#[tokio::test]
-async fn workflow_returns_valid_analysis() {
-    // Configure mock LLM to return valid JSON
-    let llm = MockLlmService::new(
-        r#"{"summary":"test analysis","key_findings":["finding 1"],"confidence":0.85}"#,
-    );
-
-    let workflow = RAGWorkflow::builder()
-        .embedding_service(MockEmbeddingService::new(1024))
-        .vector_store(MockVectorStore::with_results(vec![/* mock results */]))
-        .llm_service(llm)
-        .evidence_formatter(CustomEvidenceFormatter)
-        .prompt_builder(CustomPromptBuilder)
-        .result_parser(CustomResultParser)
-        .collection("test")
-        .build()
-        .unwrap();
-
-    let result = workflow.run("test query", None).await.unwrap();
-    assert_eq!(result.result.summary, "test analysis");
-    assert_eq!(result.evidence_count, 0);
 }
 ```
 
@@ -127,39 +82,140 @@ async fn prompt_contains_evidence_and_query() {
 }
 ```
 
-## Using `InMemoryVectorStore` for Integration Tests
+## Fakes for whole-workflow tests
 
-For integration tests that need a real vector store but no external services:
+MagicAF's own mock services live in a test-only module of the MagicAF repository and are not exported, so write the two you need in your crate. They are short. Put them in `tests/support/mod.rs`:
 
 ```rust
-use magicaf_core::vector_store::{InMemoryVectorStore, VectorStore};
+use async_trait::async_trait;
+use magicaf_core::embeddings::EmbeddingService;
+use magicaf_core::errors::Result;
+use magicaf_core::llm::{ChatChoice, ChatMessage, ChatRequest, ChatResponse, LlmService};
+use magicaf_core::prelude::GenerationConfig;
 
-#[tokio::test]
-async fn integration_test_with_in_memory_store() {
-    let store = InMemoryVectorStore::new();
-    store.ensure_collection("test", 3).await.unwrap();
+/// Deterministic embeddings: the same text always maps to the same vector,
+/// and texts sharing words land near each other. No model, no network.
+pub struct FakeEmbedder {
+    pub dim: usize,
+}
 
-    store.index(
-        "test",
-        vec![vec![1.0, 0.0, 0.0], vec![0.0, 1.0, 0.0]],
-        vec![
-            serde_json::json!({"content": "first doc"}),
-            serde_json::json!({"content": "second doc"}),
-        ],
-    ).await.unwrap();
+impl FakeEmbedder {
+    fn vector(&self, text: &str) -> Vec<f32> {
+        let mut v = vec![0.0; self.dim];
+        for word in text.to_lowercase().split_whitespace() {
+            let h = word.bytes().fold(7u64, |h, b| h.wrapping_mul(31).wrapping_add(b as u64));
+            v[(h as usize) % self.dim] += 1.0;
+        }
+        let norm = v.iter().map(|x| x * x).sum::<f32>().sqrt().max(1e-6);
+        v.iter().map(|x| x / norm).collect()
+    }
+}
 
-    let results = store.search("test", vec![0.9, 0.1, 0.0], 1, None).await.unwrap();
-    assert_eq!(results.len(), 1);
-    assert_eq!(results[0].payload["content"], "first doc");
+#[async_trait]
+impl EmbeddingService for FakeEmbedder {
+    async fn embed(&self, inputs: &[String]) -> Result<Vec<Vec<f32>>> {
+        Ok(inputs.iter().map(|t| self.vector(t)).collect())
+    }
+    async fn embed_single(&self, input: &str) -> Result<Vec<f32>> {
+        Ok(self.vector(input))
+    }
+    async fn health_check(&self) -> Result<()> {
+        Ok(())
+    }
+}
+
+/// Returns the same reply to every request.
+pub struct CannedLlm(pub String);
+
+#[async_trait]
+impl LlmService for CannedLlm {
+    async fn chat(&self, _request: ChatRequest) -> Result<ChatResponse> {
+        Ok(ChatResponse {
+            id: "test".into(),
+            object: "chat.completion".into(),
+            created: 0,
+            model: "canned".into(),
+            choices: vec![ChatChoice {
+                index: 0,
+                message: ChatMessage::assistant(self.0.clone()),
+                finish_reason: Some("stop".into()),
+            }],
+            usage: None,
+        })
+    }
+    async fn generate(&self, _prompt: &str, _config: GenerationConfig) -> Result<String> {
+        Ok(self.0.clone())
+    }
+    async fn health_check(&self) -> Result<()> {
+        Ok(())
+    }
 }
 ```
 
-## Running Tests
+`FakeEmbedder` is deterministic and gives texts that share words similar vectors, so retrieval in tests behaves sensibly. For the vector store you need no fake at all: `InMemoryVectorStore` from `magicaf-core` is a real implementation that keeps everything in process.
+
+## Testing a complete workflow
+
+```rust
+mod support;
+use support::{CannedLlm, FakeEmbedder};
+
+use magicaf_core::embeddings::EmbeddingService;
+use magicaf_core::prelude::*;
+use magicaf_core::vector_store::{InMemoryVectorStore, VectorStore};
+
+#[derive(serde::Deserialize, Debug)]
+struct Answer {
+    answer: String,
+    confidence: f32,
+}
+
+#[tokio::test]
+async fn workflow_parses_structured_answer() {
+    let embedder = FakeEmbedder { dim: 64 };
+    let store = InMemoryVectorStore::new();
+    store.ensure_collection("kb", 64).await.unwrap();
+
+    let docs = ["Qdrant listens on port 6333.", "The embedding server listens on port 8080."];
+    let texts: Vec<String> = docs.iter().map(|d| d.to_string()).collect();
+    let vectors = embedder.embed(&texts).await.unwrap();
+    let payloads = docs.iter().map(|d| serde_json::json!({ "content": d })).collect();
+    store.index("kb", vectors, payloads).await.unwrap();
+
+    let workflow = RAGWorkflow::builder()
+        .embedding_service(embedder)
+        .vector_store(store)
+        .llm_service(CannedLlm(r#"{"answer": "6333", "confidence": 0.9}"#.into()))
+        .evidence_formatter(DefaultEvidenceFormatter)
+        .prompt_builder(DefaultPromptBuilder::new())
+        .result_parser(JsonResultParser::<Answer>::new())
+        .collection("kb")
+        .top_k(1)
+        .build()
+        .unwrap();
+
+    let result = workflow.run("Which port does Qdrant use?", None).await.unwrap();
+    assert_eq!(result.result.answer, "6333");
+    assert!(result.result.confidence > 0.5);
+    assert_eq!(result.evidence_count, 1);
+}
+```
+
+This test runs every stage — embed, retrieve, format, prompt, generate, parse — with your real adapters and no services. Swap in your own formatter, prompt builder, and parser to test them together.
+
+## Testing against real services
+
+Keep tests that need live services separate so the default `cargo test` stays hermetic. A common pattern is an environment-gated test:
+
+```rust
+#[tokio::test]
+#[ignore = "needs the local services from Prerequisites"]
+async fn answers_from_live_stack() {
+    // build the workflow with LocalEmbeddingService, QdrantVectorStore, LocalLlmService
+}
+```
 
 ```bash
-# Unit + integration tests (no live services required)
-cargo test -p magicaf-tests
-
-# All workspace tests
-cargo test --workspace
+cargo test                        # hermetic tests only
+cargo test -- --ignored           # also run the live-service tests
 ```
