@@ -26,7 +26,7 @@ The [Quickstart](/docs/getting-started/quickstart/) is the same program written 
 ## Full source
 
 <details class="source-details">
-<summary><code>examples/minimal_rag/src/main.rs</code> — the file as it is in the MagicAF repository at <code>9d00780</code></summary>
+<summary><code>examples/minimal_rag/src/main.rs</code> — the file as it is in the MagicAF repository at <code>f190749</code></summary>
 
 ```rust
 //! # Minimal RAG Example

@@ -4,7 +4,7 @@ description: "Complete, runnable programs from the MagicAF repository, from a th
 weight: 6
 ---
 
-Each example is a crate in the MagicAF workspace's `examples/` directory, so it builds in the workspace's own CI. The pages here explain what each one demonstrates and include its full source as of commit `9d00780`. If you want to be taught step by step, start with the [Tutorials](/docs/tutorials/); if you need one task done, see the [Guides](/docs/guides/).
+Each example is a crate in the MagicAF workspace's `examples/` directory, so it builds in the workspace's own CI. The pages here explain what each one demonstrates and include its full source as of commit `f190749`. If you want to be taught step by step, start with the [Tutorials](/docs/tutorials/); if you need one task done, see the [Guides](/docs/guides/).
 
 | Example | Shows | Custom adapters | Result type |
 |---|---|---|---|

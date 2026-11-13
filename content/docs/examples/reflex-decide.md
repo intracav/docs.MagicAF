@@ -25,7 +25,7 @@ Read [MagicAF Reflex](/docs/reflex/) for what the answers mean and how Reflex ea
 ## Full source
 
 <details class="source-details">
-<summary><code>examples/reflex_decide/src/main.rs</code> — the file as it is in the MagicAF repository at <code>9d00780</code></summary>
+<summary><code>examples/reflex_decide/src/main.rs</code> — the file as it is in the MagicAF repository at <code>f190749</code></summary>
 
 ```rust
 //! `reflex_decide` — the smallest MagicAF Reflex v2 program.

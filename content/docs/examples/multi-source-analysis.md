@@ -27,7 +27,7 @@ The example indexes three short synthetic reports from different sources into on
 ## Full source
 
 <details class="source-details">
-<summary><code>examples/intelligence_analysis/src/main.rs</code> — the file as it is in the MagicAF repository at <code>9d00780</code></summary>
+<summary><code>examples/intelligence_analysis/src/main.rs</code> — the file as it is in the MagicAF repository at <code>f190749</code></summary>
 
 ```rust
 //! # Intelligence Analysis Example

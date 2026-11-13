@@ -25,7 +25,7 @@ The example first indexes four short documents into `doc_qa_example`, so it runs
 ## Full source
 
 <details class="source-details">
-<summary><code>examples/document_qa/src/main.rs</code> — the file as it is in the MagicAF repository at <code>9d00780</code></summary>
+<summary><code>examples/document_qa/src/main.rs</code> — the file as it is in the MagicAF repository at <code>f190749</code></summary>
 
 ```rust
 //! # Document Q&A Example

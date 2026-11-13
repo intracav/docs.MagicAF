@@ -1,8 +1,8 @@
 # The MagicAF crate catalog — single source of truth for every crate fact
 # shown on the site (catalog table, crate page headers, home page count).
 #
-# Facts were read from the magicaf workspace (intracav/MagicAF, main @ a421a75,
-# 2026-11-11) — Cargo.toml, src/, tests/ — and examples were compiled against
+# Facts were read from the magicaf workspace (intracav/MagicAF, main @ f190749,
+# 2026-11-13) — Cargo.toml, src/, tests/ — and examples were compiled against
 # it on toolchain 1.91.1. When the workspace changes, update THIS file.
 #
 # status:
